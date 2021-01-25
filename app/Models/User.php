@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->belongsTo(Rol::class);
     }
 
+    public function cliente()
+    {
+        return $this->hasMany(Cliente::class);
+    }
+
     public static function createPass($long = 8)
     {
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";

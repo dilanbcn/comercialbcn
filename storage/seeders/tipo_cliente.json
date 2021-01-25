@@ -1,0 +1,11 @@
+[{
+        "nombre": "Prospecto",
+        "descripcion": "Cliente sin proyecto",
+        "activo": true
+    },
+    {
+        "nombre": "Cliente",
+        "descripcion": "Cliente con uno o más proyectos",
+        "activo": true
+    }
+]
