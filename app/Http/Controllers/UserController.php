@@ -16,6 +16,21 @@ class UserController extends Controller
      */
     public function index(User $model)
     {
-        return view('users.index', ['users' => $model->paginate(15)]);
+        $user = auth()->user();
+        $comerciales = User::where('id', '<>', $user->id)->get();
+        return view('pages.usuario.index', compact('comerciales'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('user.index')->with(['title' => 'Exito', 'status' => 'Registro eliminado satisfactoriamente']);
     }
 }

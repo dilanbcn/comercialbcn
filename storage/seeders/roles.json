@@ -1,0 +1,16 @@
+[{
+        "nombre": "Usuario",
+        "descripcion": "Rol para usuario general",
+        "activo": true
+    },
+    {
+        "nombre": "Administrador",
+        "descripcion": "Rol para administrar el Sistema de Evaluación",
+        "activo": true
+    },
+    {
+        "nombre": "Reportes",
+        "descripcion": "Rol con opción a los reportes",
+        "activo": true
+    }
+]

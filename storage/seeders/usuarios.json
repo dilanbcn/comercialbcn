@@ -1,0 +1,631 @@
+[{
+        "rol_id": "2",
+        "username": "26872610",
+        "id_number": "26872610-1",
+        "name": "Dilan Rafael",
+        "last_name": "Gonzalez Pino",
+        "email": "dgonzalez@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "18439285",
+        "id_number": "18439285-2",
+        "name": "Maria De Los Angeles",
+        "last_name": "Ñancupil Tapia",
+        "email": "mnancupil@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "3",
+        "username": "14533316",
+        "id_number": "14533316-4",
+        "name": "Felipe Ignacio",
+        "last_name": "Oliva Lazzerini",
+        "email": "foliva@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "16574918",
+        "id_number": "16574918-9",
+        "name": "Luis Cristian",
+        "last_name": "Peña Torres",
+        "email": "lpena@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "2",
+        "username": "26723826",
+        "id_number": "26723826-K",
+        "name": "Moises",
+        "last_name": "Perez",
+        "email": "moisevicenteperez@gmail.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "13198212",
+        "id_number": "13198212-7",
+        "name": "Carlos Mauricio",
+        "last_name": "Pinto Santander",
+        "email": "cpinto@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "26576634",
+        "id_number": "26576634-k",
+        "name": "Javier Enrique",
+        "last_name": "Ponte Gonzalez",
+        "email": "jponte@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "25706826",
+        "id_number": "25706826-9",
+        "name": "Ana Cecilia",
+        "last_name": "Rincon Febres",
+        "email": "arincon@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "18718576",
+        "id_number": "18718576-9",
+        "name": "Felipe Andres",
+        "last_name": "Riveros Perez",
+        "email": "friveros@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "25326404",
+        "id_number": "25326404-7",
+        "name": "Tayli Ruth",
+        "last_name": "Sanchez Zuñiga",
+        "email": "tsanchez@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "13832065",
+        "id_number": "13832065-0",
+        "name": "Rodrigo Bernardo",
+        "last_name": "Sauvalle Escobar",
+        "email": "rsauvalle@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "16608726",
+        "id_number": "16608726-0",
+        "name": "Danny Andres",
+        "last_name": "Schuler Villalobos",
+        "email": "dschuler@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "15182020",
+        "id_number": "15182020-4",
+        "name": "Nicolas Javier",
+        "last_name": "Sepulveda Guzman",
+        "email": "nsepulveda@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "16638972",
+        "id_number": "16638972-0",
+        "name": "Jocelyn Tamara",
+        "last_name": "Silva Sanchez",
+        "email": "jsilva@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "26572150",
+        "id_number": "26572150-8",
+        "name": "Tokic Valencia",
+        "last_name": "Romy",
+        "email": "rtokic@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "14441656",
+        "id_number": "14441656-2",
+        "name": "Maria Jose",
+        "last_name": "Vergara Dieguez",
+        "email": "mvergara@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "2",
+        "username": "25917763",
+        "id_number": "25917763-4",
+        "name": "Nomar Roberto",
+        "last_name": "Medina Villegas",
+        "email": "nmedina@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "9910460",
+        "id_number": "9910460-0",
+        "name": "Tatiana Francisca",
+        "last_name": "Borquez Roman",
+        "email": "tborquez@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "13846670",
+        "id_number": "13846670-1",
+        "name": "Francisco Javier",
+        "last_name": "Antriao Gonzalez",
+        "email": "fantriao@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "18394561",
+        "id_number": "18394561-0",
+        "name": "Barraza",
+        "last_name": "Valentina",
+        "email": "vbarraza@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "16126473",
+        "id_number": "16126473",
+        "name": "Victor Marcelo",
+        "last_name": "Berrios Alvarez",
+        "email": "mberrios@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "13661920",
+        "id_number": "13661920-9",
+        "name": "Cesar Enrique",
+        "last_name": "Cancino Latorre",
+        "email": "ccancino@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "18569772",
+        "id_number": "18569772-K",
+        "name": "Mario Issac",
+        "last_name": "Cortes Bravo",
+        "email": "mcortes@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "16209789",
+        "id_number": "16209789-K",
+        "name": "Victoria Soledad",
+        "last_name": "Cortes Rodriguez",
+        "email": "vcortes@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "17375213",
+        "id_number": "17375213-K",
+        "name": "Cristian Andres",
+        "last_name": "Defosse Mora",
+        "email": "cdefosse@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "16473131",
+        "id_number": "16473131-6",
+        "name": "Constanza Javiera",
+        "last_name": "Donoso Rojas",
+        "email": "cdonoso@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "18124319",
+        "id_number": "18124319-8",
+        "name": "Francisca Andrea",
+        "last_name": "Duran Lemps",
+        "email": "fduran@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "1930274",
+        "id_number": "1930274-1",
+        "name": "González Vargas",
+        "last_name": "Evelyn Camila",
+        "email": "egonzalez@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "10696584",
+        "id_number": "10696584-6",
+        "name": "Nancy J.",
+        "last_name": "Navarro Molina",
+        "email": "nnavarro@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "23956645",
+        "id_number": "23956645-6",
+        "name": "Jhordy Enrique",
+        "last_name": "Ortiz Fernandez",
+        "email": "jortiz@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "13271085",
+        "id_number": "13271085-6",
+        "name": "Lorena De Lourde",
+        "last_name": "Pinto Leiva",
+        "email": "lpinto@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "8821433",
+        "id_number": "8821433-1",
+        "name": "Maria Soledad",
+        "last_name": "Rodriguez González",
+        "email": "mrodriguez@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "14650643",
+        "id_number": "14650643-7",
+        "name": "Margarita",
+        "last_name": "Sarasti Guerrero",
+        "email": "msarasti@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "18990152",
+        "id_number": "18990152-6",
+        "name": "Franco Matias",
+        "last_name": "Sarmiento Martinez",
+        "email": "fsarmiento@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "13904450",
+        "id_number": "13904450-9",
+        "name": "Maria José",
+        "last_name": "Sepúlveda Bari",
+        "email": "cotebari@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "17264504",
+        "id_number": "17264504-6",
+        "name": "Unger",
+        "last_name": "Camilo",
+        "email": "cunger@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "13262384",
+        "id_number": "13262384-8",
+        "name": "Silvia Andrea",
+        "last_name": "Valdes Aravena",
+        "email": "svaldes@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "26096945",
+        "id_number": "26096945-5",
+        "name": "Karla Daniela",
+        "last_name": "Virguez Lopez",
+        "email": "virguezkd@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "27214409",
+        "id_number": "27214409-5",
+        "name": "Victor Manuel",
+        "last_name": "Velásquez Hernandez",
+        "email": "asistencia@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "26272840",
+        "id_number": "26272840-4",
+        "name": "Mariangeles",
+        "last_name": "Guerra Peña",
+        "email": "mguerra@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "13989912",
+        "id_number": "13989912-1",
+        "name": "Marcela",
+        "last_name": "Peñafiel",
+        "email": "mpenafiel@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "16016069",
+        "id_number": "16016069-1",
+        "name": "Raul Ignacio",
+        "last_name": "Lillo Perez",
+        "email": "rlillo@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "11152940",
+        "id_number": "11152940-K",
+        "name": "Veronica Eugenia",
+        "last_name": "Martinez Parra",
+        "email": "veritho@hotmail.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "15367026",
+        "id_number": "15367026-9",
+        "name": "María Javiera",
+        "last_name": "Concha Muñoz",
+        "email": "jcmunoz@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "25394616",
+        "id_number": "25394616-4",
+        "name": "Stefanny Del Carmen",
+        "last_name": "Tachón Rondn",
+        "email": "stachon@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "18690906",
+        "id_number": "18690906-2",
+        "name": "Constanza Valentina",
+        "last_name": "Muñoz Muñoz",
+        "email": "cmunoz@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "15365759",
+        "id_number": "15365759-9",
+        "name": "Tatiana",
+        "last_name": "Cáceres Araya",
+        "email": "tcaceres@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "15844764",
+        "id_number": "15844764-9",
+        "name": "Mauricio",
+        "last_name": "Sanhueza",
+        "email": "msanhueza@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "2",
+        "username": "25917689",
+        "id_number": "25917689-1",
+        "name": "Erika Johana",
+        "last_name": "Galindo Atencio",
+        "email": "egalindo@sabantis.com",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "27115236",
+        "id_number": "27115236-1",
+        "name": "Carlos Alberto",
+        "last_name": "Pestana Perez",
+        "email": "cpestana@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "12628740",
+        "id_number": "12628740-2",
+        "name": "Barbara",
+        "last_name": "Chavez",
+        "email": "bchavez@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "17285310",
+        "id_number": "17285310-2",
+        "name": "Macarena",
+        "last_name": "Martnez",
+        "email": "mmartinez@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "26174051",
+        "id_number": "26174051-6",
+        "name": "Jesus",
+        "last_name": "Hidalgo",
+        "email": "jhidalgo@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "15405895",
+        "id_number": "15405895-8",
+        "name": "Francisco",
+        "last_name": "Arratia",
+        "email": "farratia@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "18115195",
+        "id_number": "18115195-1",
+        "name": "Valentina",
+        "last_name": "Cortés Reyes",
+        "email": "valentinac@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "16680756",
+        "id_number": "16680756-5",
+        "name": "Christopher",
+        "last_name": "Alarcon",
+        "email": "calarcon@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "20104722",
+        "id_number": "20104722-6",
+        "name": "Sergio Ignacio",
+        "last_name": "Soto Covarrubias",
+        "email": "ssoto@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "14142807",
+        "id_number": "14142807-1",
+        "name": "Guillermo",
+        "last_name": "Brisso",
+        "email": "gbrisso@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "17657567",
+        "id_number": "17657567-0",
+        "name": "Matías",
+        "last_name": "Ojeda Fernandez",
+        "email": "mojeda@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "15104660",
+        "id_number": "15104660-6",
+        "name": "Carla Andrea",
+        "last_name": "Maldonado Pereira",
+        "email": "cmaldonado@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "21424507",
+        "id_number": "21424507-8",
+        "name": "Nuno Miguel",
+        "last_name": "Gomez Da Silva",
+        "email": "nunog@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "17941499",
+        "id_number": "17941499-6",
+        "name": "Vania Daniela",
+        "last_name": "Morales Severino",
+        "email": "vmorales@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    },
+    {
+        "rol_id": "1",
+        "username": "10601331",
+        "id_number": "10601331-4",
+        "name": "Felipe",
+        "last_name": "Yurjevic",
+        "email": "fyurjevic@bcnschool.cl",
+        "activo": "1",
+        "remember_token": null
+    }
+]
