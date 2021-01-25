@@ -15,7 +15,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check();
+        return true;
     }
 
     /**
@@ -26,15 +26,34 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
-                'required', 'min:3'
-            ],
-            'email' => [
-                'required', 'email', Rule::unique((new User)->getTable())->ignore($this->route()->user->id ?? null)
-            ],
-            'password' => [
-                $this->route()->user ? 'nullable' : 'required', 'confirmed', 'min:6'
-            ]
+            'rol' => 'required|exists:roles,id',
+            'rut' => 'required|cl_rut',
+            'nombre' => 'required|string',
+            'apellido' => 'required|string',
+            'email' => 'required|confirmed|email',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'El campo :attribute es requerido',
+            'exists' => 'El :attribute es inválido.',
+            'cl_rut' => 'El :attribute es inválido.',
+            'string' => 'El campo :attribute es inválido',
+            'confirmed' => 'Los correos deben coincidir.',
+            'email' => 'El campo :attribute debe ser un email válido.',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'rol' => 'rol',
+            'rut' => 'rut',
+            'nombre' => 'nombre',
+            'apellido' => 'apellido',
+            'correo' => 'correo',
         ];
     }
 }

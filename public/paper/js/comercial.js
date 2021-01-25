@@ -75,6 +75,26 @@ $(function() {
             }
         });
     });
+
+    // USUARIO
+    $("#usr_create_rut, #inst_create_rut").on('keypress', function(e) {
+        var key = window.Event ? e.which : e.keyCode;
+        return (key >= 48 && key <= 57 || key == 75 || key == 107)
+    });
+
+    $("#usr_create_rut").on('blur', function(e) {
+        let valor = $(this).val();
+        if (valor) {
+            let rut = valor.substring(0, valor.length - 1) + '-' + valor.substring(valor.length - 1, valor.length);
+            $(this).val(rut);
+        }
+    }).on('focus', function() {
+        let valor = $(this).val();
+        if (valor) {
+            let datos = valor.replace('-', '');
+            $(this).val(datos)
+        }
+    });
 });
 
 
@@ -83,34 +103,7 @@ function showMessage() {
     let titulo = $("#msg-data").data('titulo');
     let estilo = $("#msg-data").data('estilo');
     if (msg) {
-
-
         toastr[estilo](msg, titulo);
-        // switch (estilo) {
-        //     case 'info':
-        //         toastr.info(msg, titulo);
-        //         break;
-        //     case 'warning':
-        //         toastr.warning(msg, titulo);
-        //         break;
-        //     case 'success':
-        //         toastr.success(msg, titulo);
-        //         break;
-        //     case 'error':
-        //         toastr.error(msg, titulo);
-        //         break;
-        // }
-
-
-        // $.toast({
-        //     heading: titulo,
-        //     text: msg,
-        //     icon: estilo,
-        //     position: 'top-right',
-        //     hideAfter: 6000,
-        //     afterShown: function() {
-        //         $("#msg-data").val("");
-        //     }
-        // })
+        $("#msg-data").val('');
     }
 }

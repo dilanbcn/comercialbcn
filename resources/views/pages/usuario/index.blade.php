@@ -14,7 +14,7 @@
                             <h5 class="card-title mb-1">Comerciales</h5>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="{{ route('user.create') }}" class="btn btn-secondary btn-round"><i class="fas fa-plus"></i> Agregar</a>
+                            <a href="{{ route('user.create') }}" class="btn btn-sm btn-secondary btn-round"><i class="fas fa-plus"></i> Agregar</a>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                                     <td>{{ ($usuario->activo) ? 'Activo' : 'Inactivo' }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">
-                                            <a href="" title="Editar" class="btn btn-xs btn-outline-secondary"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('user.edit', $usuario->id) }}" title="Editar" class="btn btn-xs btn-outline-secondary"><i class="fa fa-edit"></i></a>
                                             <a href="#" id="{{ $usuario->id }}" title="Eliminar Comercial" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="0" data-ruta="{{ route('user.destroy', $usuario->id) }}"><i class="fa fa-times"></i></a>
                                         </div>
                                     </td>
