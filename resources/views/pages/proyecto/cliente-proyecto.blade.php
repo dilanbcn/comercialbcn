@@ -4,7 +4,7 @@
 ])
 @section('content')
 @include('layouts.page_templates.messages')
-<div class="content" id="msg-modal" data-valor="{{ ($errors->any()) ? 1 : '' }}" data-nombre="add_proyecto_cliente">
+<div class="content" id="msg-modal" data-valor="{{ ($errors->any()) ? 1 : 0 }}" data-nombre="add_proyecto_cliente" data-update="update_proyecto_cliente">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -72,10 +72,10 @@
                                     <td class="text-left">{{ $proyecto->nombre }}</td>
                                     <td>{{ date('d/m/Y', strtotime($proyecto->fecha_cierre)) }}</td>
                                     <td>
-                                        <a href="{{ route('proyecto.proyecto-factura', $proyecto->id) }}" title="Facturación" class="btn btn-xs btn-outline-secondary"><i class="fas fa-file-invoice-dollar"></i></a>
+                                        <a href="{{ route('factura.proyecto-factura', $proyecto->id) }}" title="Facturación" class="btn btn-xs btn-outline-secondary"><i class="fas fa-file-invoice-dollar"></i></a>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">
-                                            <a href="#" title="Editar" class="btn btn-xs btn-outline-secondary"><i class="fa fa-edit"></i></a>
-                                            <a href="#" id="{{ $proyecto->id }}" title="Eliminar Proyecto" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="0" data-ruta="{{ route('proyecto.destroy', $proyecto->id) }}"><i class="fa fa-times"></i></a>
+                                            <a href="#" title="Editar" class="btn btn-xs btn-outline-secondary btnProyEdit" data-editar="{{ route('proyecto.edit', $proyecto->id) }}" data-actualizar="{{ route('proyecto.update', $proyecto->id) }}"><i class="fa fa-edit"></i></a>
+                                            <a href="#" id="{{ $proyecto->id }}" title="Eliminar Proyecto" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="1" data-textherencia="se eliminaran todas las facturas asociadas" data-ruta="{{ route('proyecto.destroy', $proyecto->id) }}"><i class="fa fa-times"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -90,4 +90,5 @@
 </div>
 @include('layouts.page_templates.form_delete')
 @include('pages.proyecto.modal_proyecto')
+@include('pages.proyecto.modal_proyecto_update')
 @endsection

@@ -23,19 +23,7 @@ class ProyectoController extends Controller
         return view('pages.proyecto.cliente-proyecto', compact('proyectos', 'cliente'));
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function proyectoFacrtura(Proyecto $proyecto)
-    {
-        $facturas = ProyectoFactura::where(['proyecto_id' => $proyecto->id])->get();
-        $cliente = Cliente::find($proyecto->cliente_id);
-        $estados = EstadoFactura::where(['activo' => 1])->get();
-
-        return view('pages.proyecto.proyecto-factura', compact('proyecto', 'facturas', 'cliente', 'estados'));
-    }
+    
 
     /**
      * Display a listing of the resource.
@@ -95,7 +83,9 @@ class ProyectoController extends Controller
      */
     public function edit(Proyecto $proyecto)
     {
-        //
+        $proyecto->success = 'ok';
+
+        return response()->json($proyecto, 200);
     }
 
     /**
@@ -105,9 +95,20 @@ class ProyectoController extends Controller
      * @param  \App\Models\Proyecto  $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proyecto $proyecto)
+    public function update(ProyectoRequest $request, Proyecto $proyecto)
     {
-        //
+        $cliente = $proyecto->cliente;
+
+        $proyecto->fill([
+            'nombre' => $request->get('nombre'),
+            'fecha_cierre' => $request->get('fechaCierre'),
+        ]);
+
+        if ($proyecto->isDirty()) {
+            $proyecto->save();
+        }
+
+        return redirect()->route('proyecto.cliente-proyecto', [$cliente])->with(['status' => 'Proyecto modificado satisfactoriamente', 'title' => 'Éxito']);
     }
 
     /**
@@ -118,6 +119,12 @@ class ProyectoController extends Controller
      */
     public function destroy(Proyecto $proyecto)
     {
-        //
+        $cliente = $proyecto->cliente;
+        ProyectoFactura::where(['proyecto_id' => $proyecto->id])->delete();
+        $proyecto->delete();
+
+        $this->makeProspect($cliente);
+
+        return redirect()->route('proyecto.cliente-proyecto', [$cliente])->with(['status' => 'Proyecto eliminado satisfactoriamente', 'title' => 'Éxito']);
     }
 }

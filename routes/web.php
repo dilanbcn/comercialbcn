@@ -32,11 +32,11 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	
 	Route::get('cliente-proyecto/{cliente}', 'App\Http\Controllers\ProyectoController@clienteProyecto')->name('proyecto.cliente-proyecto');
-	Route::resource('proyecto', 'App\Http\Controllers\ProyectoController', ['except' => ['show', 'store', 'create', 'edit']]);
+	Route::resource('proyecto', 'App\Http\Controllers\ProyectoController', ['except' => ['show', 'store', 'create']]);
 	Route::post('proyecto/{cliente}', 'App\Http\Controllers\ProyectoController@store')->name('proyecto.store');
-	Route::get('proyecto-factura/{proyecto}', 'App\Http\Controllers\ProyectoController@proyectoFacrtura')->name('proyecto.proyecto-factura');
 	
 	// Route::resource('factura', 'App\Http\Controllers\ProyectoFacturaController', ['except' => ['show', 'store', 'create', 'edit']]);
+	Route::get('proyecto-factura/{proyecto}', 'App\Http\Controllers\ProyectoFacturaController@proyectoFacrtura')->name('factura.proyecto-factura');
 	Route::post('factura/{proyecto}', 'App\Http\Controllers\ProyectoFacturaController@store')->name('factura.store');
 	Route::get('factura/{proyecto_factura}/edit', 'App\Http\Controllers\ProyectoFacturaController@edit')->name('factura.edit');
 	Route::put('factura/{proyecto_factura}', 'App\Http\Controllers\ProyectoFacturaController@update')->name('factura.update');

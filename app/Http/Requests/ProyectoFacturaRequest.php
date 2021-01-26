@@ -39,7 +39,7 @@ class ProyectoFacturaRequest extends FormRequest
             'date' => 'Fecha inválida',
             'date_format' => 'El formato de la fecha es inválido',
             'before' => 'Debe ser menor o igual que hoy',
-            'after' => 'Debe ser mayor a la fecha de facturación',
+            'after_or_equal' => 'Debe ser mayor a la fecha de facturación',
         ];
     }
 

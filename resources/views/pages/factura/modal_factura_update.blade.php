@@ -5,6 +5,7 @@
                 @csrf
                 @method('PUT')
                 <input type="hidden" class="inpt-metodo" name="inpt-metodo" value="{{ @old('inpt-metodo') }}">
+                <input type="hidden" class="inpt-ruta" name="inpt-ruta" value="{{ @old('inpt-ruta') }}">
                 <div class="modal-header">
                     <h5 class="card-title mb-1" style="color: #35D32F;">Editar facturación</h5>
                 </div>

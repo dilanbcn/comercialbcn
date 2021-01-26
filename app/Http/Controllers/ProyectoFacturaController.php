@@ -3,12 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProyectoFacturaRequest;
+use App\Models\Cliente;
+use App\Models\EstadoFactura;
 use App\Models\Proyecto;
 use App\Models\ProyectoFactura;
 use Illuminate\Http\Request;
 
 class ProyectoFacturaController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function proyectoFacrtura(Proyecto $proyecto)
+    {
+        $facturas = ProyectoFactura::where(['proyecto_id' => $proyecto->id])->get();
+        $cliente = Cliente::find($proyecto->cliente_id);
+        $estados = EstadoFactura::where(['activo' => 1])->get();
+
+        return view('pages.factura.proyecto-factura', compact('proyecto', 'facturas', 'cliente', 'estados'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +66,7 @@ class ProyectoFacturaController extends Controller
             'monto_venta' => $this->decimalFormatBD($request->get('montoVenta')),
         ]);
 
-        return redirect()->route('proyecto.proyecto-factura', [$proyecto])->with(['status' => 'Factura creada satisfactoriamente', 'title' => 'Éxito']);
+        return redirect()->route('factura.proyecto-factura', [$proyecto])->with(['status' => 'Factura creada satisfactoriamente', 'title' => 'Éxito']);
     }
 
     /**
@@ -106,7 +122,7 @@ class ProyectoFacturaController extends Controller
             $proyectoFactura->save();
         }
 
-        return redirect()->route('proyecto.proyecto-factura', [$proyecto])->with(['status' => 'Factura modificada satisfactoriamente', 'title' => 'Éxito']);
+        return redirect()->route('factura.proyecto-factura', [$proyecto])->with(['status' => 'Factura modificada satisfactoriamente', 'title' => 'Éxito']);
     }
 
     /**
@@ -121,6 +137,6 @@ class ProyectoFacturaController extends Controller
 
         $proyectoFactura->delete();
 
-        return redirect()->route('proyecto.proyecto-factura', [$proyecto])->with(['status' => 'Factura eliminada satisfactoriamente', 'title' => 'Éxito']);
+        return redirect()->route('factura.proyecto-factura', [$proyecto])->with(['status' => 'Factura eliminada satisfactoriamente', 'title' => 'Éxito']);
     }
 }

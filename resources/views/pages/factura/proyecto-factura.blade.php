@@ -4,6 +4,7 @@
 ])
 @section('content')
 @include('layouts.page_templates.messages')
+
 <div class="content" id="msg-modal" data-valor="{{ ($errors->any()) ? 1 : 0 }}" data-metodo="post" data-nombre="modal_factura_proyecto" data-update="modal_update_factura_proyecto">
     <div class="row">
         <div class="col-md-12">
@@ -100,6 +101,6 @@
     </div>
 </div>
 @include('layouts.page_templates.form_delete')
-@include('pages.proyecto.modal_factura')
-@include('pages.proyecto.modal_factura_update')
+@include('pages.factura.modal_factura')
+@include('pages.factura.modal_factura_update')
 @endsection

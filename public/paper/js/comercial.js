@@ -100,19 +100,61 @@ $(function() {
     // PROYECTO
     $("#btnModalProy").on('click', function() {
         $(".inpt-metodo").val('post');
-        limpiarModalFactura();
+        limpiarModalProyecto();
         $("#add_proyecto_cliente").modal('show');
+    });
+
+    $(".btnProyEdit").on('click', function() {
+
+        $(".inpt-metodo").val('put');
+        let rutaEdit = $(this).data('editar');
+        let rutaUpdate = $(this).data('actualizar');
+        $(".inpt-ruta").val(rutaUpdate);
+        limpiarModalProyecto(true);
+
+        $.ajax({
+            url: rutaEdit,
+            success: function(data) {
+                console.log('file: comercial.js -> line 118 -> $ -> data', data);
+                if (data.success == 'ok') {
+                    $('#frm_update_proyectos').attr('action', rutaUpdate);
+                    $("#nombre").val(data.nombre);
+                    $("#fechaCierre").val(data.fecha_cierre);
+                    $("#update_proyecto_cliente").modal('show');
+                } else {
+                    limpiarModalProyecto();
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                $("#update_proyecto_cliente").modal('hide');
+                $.confirm({
+                    title: 'Error',
+                    content: 'Error al intentar obtener los datos del proyecto, intente de nuevo mas tarde',
+                    type: 'red',
+                    theme: 'modern',
+                    animation: 'scala',
+                    icon: 'fa fa-exclamation-triangle',
+                    typeAnimated: true,
+                    buttons: {
+                        cancel: {
+                            text: 'Aceptar',
+                        },
+                    }
+                });
+            }
+        });
     });
 
     showModalWithErrors();
 
+
+    // FACTURAS
     $("#btnFactura").on('click', function() {
         $(".inpt-metodo").val('post');
         limpiarModalFactura();
         $("#modal_factura_proyecto").modal('show');
     });
 
-    // FACTURAS
     $(".inputNumber").on('keypress', function(e) {
         var key = window.Event ? e.which : e.keyCode;
         return (key >= 48 && key <= 57 || key == 44)
@@ -122,9 +164,10 @@ $(function() {
 
     $(".btnFactEdit").on('click', function() {
         $(".inpt-metodo").val('put');
-        limpiarModalFactura(true);
         let rutaEdit = $(this).data('editar');
         let rutaUpdate = $(this).data('actualizar');
+        $(".inpt-ruta").val(rutaUpdate);
+        limpiarModalFactura(true);
 
         $.ajax({
             url: rutaEdit,
@@ -142,7 +185,7 @@ $(function() {
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {
-                $("#eval_create_modalEvaluados").modal('hide');
+                $("#modal_update_factura_proyecto").modal('hide');
                 $.confirm({
                     title: 'Error',
                     content: 'Error al intentar obtener los datos de la factura, intente de nuevo mas tarde',
@@ -181,8 +224,15 @@ function showModalWithErrors() {
 
     let modal = (metodo == 'put') ? modalUpd : modalNew;
 
+
+
     if (error == 1) {
         $("#" + modal).modal('show');
+
+        if (metodo == 'put') {
+            $('#frm_update_proyectos').attr('action', $(".inpt-ruta").val());
+            $('#frm_update_facturas').attr('action', $(".inpt-ruta").val());
+        }
     }
 }
 
@@ -243,6 +293,18 @@ function limpiarModalFactura(upd = false) {
         $(".estado").val('').removeClass('is-invalid');
     }
 
+    $(".invalid-feedback").hide();
+}
+
+function limpiarModalProyecto(upd = false) {
+
+    if (upd) {
+        $(".nombre").removeClass('is-invalid');
+        $(".fechaCierre").removeClass('is-invalid');
+    } else {
+        $(".nombre").val('').removeClass('is-invalid');
+        $(".fechaCierre").val('').removeClass('is-invalid');
+    }
 
     $(".invalid-feedback").hide();
 }

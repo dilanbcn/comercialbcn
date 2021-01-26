@@ -28,6 +28,17 @@ class Controller extends BaseController
         }
     }
 
+    public function makeProspect($cliente)
+    {
+        $esCliente = Proyecto::where(['cliente_id' => $cliente->id])->first();
+
+        if (!$esCliente && $cliente->tipo_cliente_id == 2) {
+            $cliente->tipo_cliente_id = 1;
+            $cliente->inicio_ciclo = Carbon::now();
+            $cliente->save();
+        }
+    }
+
     public function decimalFormatBD($decimal)
     {
         $sinPuntos = str_replace('.', '', $decimal);
