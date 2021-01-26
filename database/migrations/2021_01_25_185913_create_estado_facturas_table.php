@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\TipoCliente;
+use App\Models\EstadoFactura;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTipoClientesTable extends Migration
+class CreateEstadoFacturasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,10 @@ class CreateTipoClientesTable extends Migration
      */
     public function up()
     {
-        Schema::create(TipoCliente::tabla, function (Blueprint $table) {
+        Schema::create(EstadoFactura::tabla, function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->string('descripcion')->nullable();
-            $table->string('badge')->nullable();
             $table->boolean('activo')->default(true);
 
             $table->timestamps();
@@ -33,6 +32,6 @@ class CreateTipoClientesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(TipoCliente::tabla);
+        Schema::dropIfExists(EstadoFactura::tabla);
     }
 }

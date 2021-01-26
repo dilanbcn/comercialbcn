@@ -25,9 +25,10 @@ class Cliente extends Model
         'telefono',
         'email',
         'activo',
+        'inicio_ciclo'
     ];
 
-    public function users()
+    public function user()
     {
     	return $this->belongsTo(User::class);
     }
@@ -41,4 +42,10 @@ class Cliente extends Model
     {
         return $this->belongsTo(Cliente::class, 'padre_id', 'id');
     }
+
+    public function proyectos()
+    {
+        return $this->hasMany(Proyecto::class);
+    }
+
 }

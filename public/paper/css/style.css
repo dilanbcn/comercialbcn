@@ -65,3 +65,8 @@
     background-color: #6c757d !important;
     border-color: #007bff;
 }
+
+.text-required {
+    font-weight: bold;
+    color: red;
+}

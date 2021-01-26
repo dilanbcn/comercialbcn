@@ -17,8 +17,17 @@
                 <li class="nav-item {{ $elementActive == 'comerciales' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('user.index') }}">Comerciales</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Clientes</a>
+                <li class="nav-item btn-rotate dropdown {{ $elementActive == 'clientes' ? 'active' : '' }}">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Clientes 
+                        <p>
+                            <span class="d-lg-none d-md-block">{{ __('Some Actions') }}</span>
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('cliente.index') }}">{{ __('Vista General') }}</a>
+                        <a class="dropdown-item" href="{{ route('cliente.prospectos') }}">{{ __('Prospectos Disponibles') }}</a>
+                    </div>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -31,7 +40,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#">{{ __('Perfil') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Cerrar Sesión') }}</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}">{{ __('Cerrar Sesión') }}</a>
                     </div>
                 </li>
             </ul>

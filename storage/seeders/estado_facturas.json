@@ -1,0 +1,21 @@
+[{
+        "nombre": "En Ejecución",
+        "descripcion": "Proyecto en ejecución",
+        "activo": true
+    },
+    {
+        "nombre": "Pagado",
+        "descripcion": "Proyecto pagado",
+        "activo": true
+    },
+    {
+        "nombre": "Facturado",
+        "descripcion": "Proyecto facturado",
+        "activo": true
+    },
+    {
+        "nombre": "Pronto a levantar",
+        "descripcion": "Proyecto Pronto a levantar",
+        "activo": true
+    }
+]

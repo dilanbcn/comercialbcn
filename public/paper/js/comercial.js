@@ -95,8 +95,73 @@ $(function() {
             $(this).val(datos)
         }
     });
-});
 
+
+    // PROYECTO
+    $("#btnModalProy").on('click', function() {
+        $(".inpt-metodo").val('post');
+        limpiarModalFactura();
+        $("#add_proyecto_cliente").modal('show');
+    });
+
+    showModalWithErrors();
+
+    $("#btnFactura").on('click', function() {
+        $(".inpt-metodo").val('post');
+        limpiarModalFactura();
+        $("#modal_factura_proyecto").modal('show');
+    });
+
+    // FACTURAS
+    $(".inputNumber").on('keypress', function(e) {
+        var key = window.Event ? e.which : e.keyCode;
+        return (key >= 48 && key <= 57 || key == 44)
+    }).on('keyup', function(e) {
+        $(this).val(format_moneda($(this).val()));
+    });
+
+    $(".btnFactEdit").on('click', function() {
+        $(".inpt-metodo").val('put');
+        limpiarModalFactura(true);
+        let rutaEdit = $(this).data('editar');
+        let rutaUpdate = $(this).data('actualizar');
+
+        $.ajax({
+            url: rutaEdit,
+            success: function(data) {
+                if (data.success == 'ok') {
+                    $('#frm_update_facturas').attr('action', rutaUpdate);
+                    $("#fechaFacturacion").val(data.fecha_factura);
+                    $("#fechaPago").val(data.fecha_pago);
+                    $("#inscripcionSence").val(data.inscripcion_sence);
+                    $("#montoVenta").val(data.monto_venta);
+                    $("#estado").val(data.estado_factura_id);
+                    $("#modal_update_factura_proyecto").modal('show');
+                } else {
+                    limpiarModalFactura();
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                $("#eval_create_modalEvaluados").modal('hide');
+                $.confirm({
+                    title: 'Error',
+                    content: 'Error al intentar obtener los datos de la factura, intente de nuevo mas tarde',
+                    type: 'red',
+                    theme: 'modern',
+                    animation: 'scala',
+                    icon: 'fa fa-exclamation-triangle',
+                    typeAnimated: true,
+                    buttons: {
+                        cancel: {
+                            text: 'Aceptar',
+                        },
+                    }
+                });
+            }
+        });
+    });
+
+});
 
 function showMessage() {
     let msg = $("#msg-data").val();
@@ -106,4 +171,78 @@ function showMessage() {
         toastr[estilo](msg, titulo);
         $("#msg-data").val('');
     }
+}
+
+function showModalWithErrors() {
+    let error = $("#msg-modal").data('valor');
+    let modalNew = $("#msg-modal").data('nombre');
+    let modalUpd = $("#msg-modal").data('update');
+    let metodo = $(".inpt-metodo").val();
+
+    let modal = (metodo == 'put') ? modalUpd : modalNew;
+
+    if (error == 1) {
+        $("#" + modal).modal('show');
+    }
+}
+
+var format_moneda = function(num, type = null) {
+    var str = num.toString().replace(",,", ""),
+        parts = false,
+        output = [],
+        i = 1,
+        formatted = null;
+    if (!$.isNumeric(str.substr(0, 1))) {
+        str = "";
+    }
+    if (str.substr(0, 2) == '00' && type == 'N') {
+        str = "";
+    }
+    if (str.substr(0, 1) == '0' && str.substr(1, 1) > 0) {
+        str = str.substr(1, str.length);
+    }
+    if (str.indexOf(",") > 0) {
+        parts = str.split(",");
+        str = parts[0];
+    }
+    str = str.split("").reverse();
+    for (var j = 0, len = str.length; j < len; j++) {
+        if (str[j] != ".") {
+            output.push(str[j]);
+            if (i % 3 == 0 && j < (len - 1)) {
+                output.push(".");
+            }
+            i++;
+        }
+    }
+    formatted = output.reverse().join("");
+
+    let decimal = 2;
+    let valorFormateado = formatted + ((parts) ? "," + parts[1].substr(0, decimal) : "");
+    if (type == 'N') {
+        decimal = 0;
+        valorFormateado = formatted + ((parts) ? parts[1].substr(0, decimal) : "");
+    }
+
+    return (valorFormateado);
+};
+
+function limpiarModalFactura(upd = false) {
+
+    if (upd) {
+        $(".fechaFacturacion").removeClass('is-invalid');
+        $(".fechaPago").removeClass('is-invalid');
+        $(".inscripcionSence").removeClass('is-invalid');
+        $(".montoVenta").removeClass('is-invalid');
+        $(".estado").removeClass('is-invalid');
+    } else {
+        $(".fechaFacturacion").val('').removeClass('is-invalid');
+        $(".fechaPago").val('').removeClass('is-invalid');
+        $(".inscripcionSence").val('').removeClass('is-invalid');
+        $(".montoVenta").val('').removeClass('is-invalid');
+        $(".estado").val('').removeClass('is-invalid');
+    }
+
+
+    $(".invalid-feedback").hide();
 }

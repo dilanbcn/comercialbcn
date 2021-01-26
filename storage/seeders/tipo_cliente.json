@@ -1,11 +1,13 @@
 [{
         "nombre": "Prospecto",
         "descripcion": "Cliente sin proyecto",
+        "badge": "badge-secondary",
         "activo": true
     },
     {
         "nombre": "Cliente",
         "descripcion": "Cliente con uno o más proyectos",
+        "badge": "badge-success",
         "activo": true
     }
 ]

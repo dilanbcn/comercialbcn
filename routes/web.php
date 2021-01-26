@@ -15,17 +15,33 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
-
-
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::get('logout', 'App\Http\Controllers\Auth\LoginController@getLogout')->name('logout');
+Route::get('login', 'App\Http\Controllers\Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
 
 Route::group(['middleware' => 'auth'], function () {
+	
+	Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
+	Route::resource('cliente', 'App\Http\Controllers\ClienteController', ['except' => ['show']]);
+	Route::get('clientes-disponibles', 'App\Http\Controllers\ClienteController@prospectos')->name('cliente.prospectos');
+	
+	
+	Route::get('cliente-proyecto/{cliente}', 'App\Http\Controllers\ProyectoController@clienteProyecto')->name('proyecto.cliente-proyecto');
+	Route::resource('proyecto', 'App\Http\Controllers\ProyectoController', ['except' => ['show', 'store', 'create', 'edit']]);
+	Route::post('proyecto/{cliente}', 'App\Http\Controllers\ProyectoController@store')->name('proyecto.store');
+	Route::get('proyecto-factura/{proyecto}', 'App\Http\Controllers\ProyectoController@proyectoFacrtura')->name('proyecto.proyecto-factura');
+	
+	// Route::resource('factura', 'App\Http\Controllers\ProyectoFacturaController', ['except' => ['show', 'store', 'create', 'edit']]);
+	Route::post('factura/{proyecto}', 'App\Http\Controllers\ProyectoFacturaController@store')->name('factura.store');
+	Route::get('factura/{proyecto_factura}/edit', 'App\Http\Controllers\ProyectoFacturaController@edit')->name('factura.edit');
+	Route::put('factura/{proyecto_factura}', 'App\Http\Controllers\ProyectoFacturaController@update')->name('factura.update');
+	Route::delete('factura/{proyecto_factura}', 'App\Http\Controllers\ProyectoFacturaController@destroy')->name('factura.destroy');
+
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);

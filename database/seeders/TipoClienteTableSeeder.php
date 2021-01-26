@@ -20,13 +20,14 @@ class TipoClienteTableSeeder extends Seeder
         TipoCliente::flushEventListeners();
 
         $archivo = File::get(storage_path('seeders/tipo_cliente.json'));
-        $roles = json_decode($archivo, true); 
+        $tipos = json_decode($archivo, true); 
 
-        foreach($roles as $rol) {
+        foreach($tipos as $tipo) {
             DB::table(TipoCliente::tabla)->insert([
-                'nombre' => $rol['nombre'],
-                'descripcion' => $rol['descripcion'],
-                'activo' => $rol['activo'],
+                'nombre' => $tipo['nombre'],
+                'descripcion' => $tipo['descripcion'],
+                'badge' => $tipo['badge'],
+                'activo' => $tipo['activo'],
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
