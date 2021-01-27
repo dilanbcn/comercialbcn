@@ -50,6 +50,8 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- Toast -->
     <!-- <link rel="stylesheet" type="text/css" href="{{ asset('paper/css/jquery.toast.min.css') }}"/> -->
     <link rel="stylesheet" type="text/css" href="{{ asset('paper/css/toastr.min.css') }}"/>
+    <!-- CharJs -->
+    <link href="{{ asset('paper/css/chartjs/Chart.min.css') }}" rel="stylesheet" />
 </head>
 
 <body class="{{ $class }}">
@@ -82,12 +84,14 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="{{ asset('paper/js/submit.js') }}"></script>
     <script src="{{ asset('paper/js/plugins/bootstrap-select.min.js') }}"></script>
     <script src="https://kit.fontawesome.com/00c104946b.js" crossorigin="anonymous"></script>
-
     <!-- Data Tables -->
     <script type="text/javascript" src="{{ asset('paper/js/datatables.min.js') }}"></script>
     <!-- Toast -->
     <!-- <script type="text/javascript" src="{{ asset('paper/js/jquery.toast.min.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('paper/js/toastr.min.js') }}"></script>
+
+    <!-- Chart Js -->
+    <script src="{{ asset('paper/js/plugins/chartjs/Chart.js') }}"></script>
     @stack('scripts')
 
 </body>

@@ -110,7 +110,7 @@ class ClienteController extends Controller
             'user_id' => ($user->rol_id == 2) ? $request->get('comercial') : $user->id,
             'tipo_cliente_id' => ($user->rol_id == 2) ? $request->get('tipo_cliente') : null,
             'padre_id' => $request->get('padre'),
-            'rut' => Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH),
+            'rut' => ($request->get('rut')) ? Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH) : null,
             'razon_social' => $request->get('razon_social'),
             'telefono' => $request->get('telefono'),
             'email' => $request->get('email'),

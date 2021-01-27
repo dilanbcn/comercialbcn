@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             RolesTableSeeder::class,
             UsersTableSeeder::class,
             TipoClienteTableSeeder::class,
-            EstadoFacturasTableSeeder::class
+            EstadoFacturasTableSeeder::class,
+            ClienteTableSeeder::class
         ]);
     }
 }
