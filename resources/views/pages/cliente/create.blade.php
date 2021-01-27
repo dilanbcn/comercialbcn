@@ -2,7 +2,6 @@
 'class' => '',
 'elementActive' => 'clientes'
 ])
-
 @section('content')
 <div class="content">
     <div class="row">
@@ -73,7 +72,7 @@
                             @endif
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label>{{ __('Rut (Sin puntos ni guión)') }}</label>
                                     <input autocomplete="off" type="text" name="rut" id="usr_create_rut" maxlength="9" class="form-control @error('rut') is-invalid @enderror" value="{{ @old('rut') }}">
@@ -84,7 +83,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>{{ __('Razón Social') }} <span class="text-required">*</span></label>
                                     <input autocomplete="off" type="text" name="razon_social" class="form-control @error('razon_social') is-invalid @enderror" value="{{ @old('razon_social') }}" required>
@@ -124,6 +123,17 @@
                                     @if ($errors->has('email'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>{{ __('Cantidad Empleados') }}</label>
+                                    <input autocomplete="off" type="number" name="cantidad_empleados" class="form-control @error('cantidad_empleados') is-invalid @enderror bloquear" value="{{ @old('cantidad_empleados') }}">
+                                    @if ($errors->has('cantidad_empleados'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('cantidad_empleados') }}</strong>
                                     </span>
                                     @endif
                                 </div>

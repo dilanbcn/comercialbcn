@@ -2,7 +2,6 @@
 'class' => '',
 'elementActive' => 'clientes'
 ])
-
 @section('content')
 <div class="content">
     <div class="row">
@@ -95,7 +94,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>{{ __('Razón Social') }} <span class="text-required">*</span></label>
                                         <input autocomplete="off" type="text" name="razon_social" class="form-control @error('razon_social') is-invalid @enderror" value="{{ (old('razon_social')) ? old('razon_social') : $cliente->razon_social }}" required>
@@ -106,7 +105,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label>{{ __('Teléfono') }}</label>
                                         <input autocomplete="off" type="text" name="telefono" class="form-control @error('telefono') is-invalid @enderror" value="{{ (old('telefono')) ? old('telefono') : $cliente->telefono }}">
@@ -140,6 +139,17 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>{{ __('Cantidad Empleados') }}</label>
+                                    <input autocomplete="off" type="number" name="cantidad_empleados" class="form-control @error('cantidad_empleados') is-invalid @enderror bloquear" value="{{ (old('cantidad_empleados')) ? old('cantidad_empleados') : $cliente->cantidad_empleados }}">
+                                    @if ($errors->has('cantidad_empleados'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('cantidad_empleados') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                                <div class="col-md-8">
                                     <div class="form-group">
                                         <label>{{ __('Dirección') }}</label>
                                         <input type="email" name="direccion" class="form-control @error('direccion') is-invalid @enderror" value="{{ (old('direccion')) ? old('direccion') : $cliente->direccion }}">

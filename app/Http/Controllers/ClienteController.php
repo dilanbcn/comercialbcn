@@ -22,7 +22,8 @@ class ClienteController extends Controller
         $hoy = Carbon::now();
         $limite = $hoy->subMonths(8);
 
-        $clientes = Cliente::where('inicio_ciclo', '>=', $limite->toDateTimeString())->with(['tipoCliente', 'padre', 'user'])->get();
+        // $clientes = Cliente::whereDate('inicio_ciclo', '>=', $limite->toDateTimeString())->with(['tipoCliente', 'padre', 'user'])->get();
+        $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->get();
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->meses($clientes);
         });
@@ -30,6 +31,7 @@ class ClienteController extends Controller
         $groupCliente = $clientes->groupBy('activo');
         $arrEstados = array(0 => 'Inactivos', 1 => 'Activos');
         $arrGrupo = array('Activos' => 0, 'Inactivos' => 0);
+        
         foreach ($groupCliente as $key => $cliente) {
             $arrGrupo[$arrEstados[$key]] = count($cliente);
         }
@@ -47,7 +49,8 @@ class ClienteController extends Controller
         $hoy = Carbon::now();
         $limite = $hoy->subMonths(8);
 
-        $clientes = Cliente::where('inicio_ciclo', '<=', $limite->toDateTimeString())->with(['tipoCliente', 'padre', 'user'])->get();
+        $clientes = Cliente::where(['tipo_cliente_id' => 1])->with(['tipoCliente', 'padre', 'user'])->get();
+        // $clientes = Cliente::whereDate('inicio_ciclo', '<=', $limite->toDateTimeString())->with(['tipoCliente', 'padre', 'user'])->get();
 
         return view('pages.cliente.prospecto', compact('clientes'));
     }
@@ -107,10 +110,11 @@ class ClienteController extends Controller
             'user_id' => ($user->rol_id == 2) ? $request->get('comercial') : $user->id,
             'tipo_cliente_id' => ($user->rol_id == 2) ? $request->get('tipo_cliente') : null,
             'padre_id' => $request->get('padre'),
-            'rut' => Rut::parse($request->get('rut'))->number(),
+            'rut' => Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH),
             'razon_social' => $request->get('razon_social'),
             'telefono' => $request->get('telefono'),
             'email' => $request->get('email'),
+            'cantidad_empleados' => $request->get('cantidad_empleados'),
             'direccion' => $request->get('direccion'),
             'inicio_ciclo' => $hoy,
         ]);
@@ -184,10 +188,11 @@ class ClienteController extends Controller
         $cliente->fill([
             'user_id' => ($user->rol_id == 2) ? $request->get('comercial') : $user->id,
             'padre_id' => $request->get('padre'),
-            'rut' => Rut::parse($request->get('rut'))->number(),
+            'rut' => Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH),
             'razon_social' => $request->get('razon_social'),
             'telefono' => $request->get('telefono'),
             'email' => $request->get('email'),
+            'cantidad_empleados' => $request->get('cantidad_empleados'),
             'direccion' => $request->get('direccion'),
             'activo' => ($request->activo) ? 1 : 0,
         ]);
