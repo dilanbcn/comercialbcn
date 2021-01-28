@@ -13,6 +13,7 @@ graficos = {
     initChartsPages: function() {
         // clienteChart();
         comercialCahrt();
+        boostrapChart();
     }
 };
 
@@ -56,33 +57,19 @@ function clienteChart() {
 }
 
 function comercialCahrt() {
-
+    let nombres = $("#comercialChart").data('nombres');
+    let clientes = $("#comercialChart").data('cliente');
+    let prospectos = $("#comercialChart").data('prospecto');
     var barChartData = {
-        labels: ['Dilan', 'Rafael', 'Gonzalez', 'Pino', 'Vega', 'Gonzalez', 'Pino', 'Vega'],
+        labels: nombres,
         datasets: [{
-            label: 'Clientes',
-            backgroundColor: 'rgb(75, 192, 192)',
-            data: [
-                15,
-                15,
-                15,
-                15,
-                15,
-                15,
-                15
-            ]
-        }, {
             label: 'Prospectos',
             backgroundColor: 'rgb(201, 203, 207)',
-            data: [
-                20,
-                20,
-                20,
-                20,
-                20,
-                20,
-                20
-            ]
+            data: prospectos
+        }, {
+            label: 'Clientes',
+            backgroundColor: 'rgb(75, 192, 192)',
+            data: clientes
         }]
 
     };
@@ -110,12 +97,42 @@ function comercialCahrt() {
         }
     }
 
-
     var ctx = document.getElementById('comercialChart').getContext('2d');
     window.myDoughnut = new Chart(ctx, config);
 
+}
 
 
+function boostrapChart() {
+    var colors = ['#28a745', '#dc3545'];
+    let activos = $("#chDonut1").data('activos');
+    let inactivos = $("#chDonut1").data('inactivos');
+
+    /* 3 donut charts */
+    var donutOptions = {
+        cutoutPercentage: 85,
+        legend: { position: 'bottom', padding: 5, labels: { pointStyle: 'circle', usePointStyle: true } }
+    };
+
+
+    // donut 1
+    var chDonutData1 = {
+        labels: ['Activos ' + activos, 'Inactivos ' + inactivos],
+        datasets: [{
+            backgroundColor: colors.slice(0, 3),
+            borderWidth: 0,
+            data: [activos, inactivos]
+        }]
+    };
+
+    var chDonut1 = document.getElementById("chDonut1");
+    if (chDonut1) {
+        new Chart(chDonut1, {
+            type: 'pie',
+            data: chDonutData1,
+            options: donutOptions
+        });
+    }
 }
 
 // red: 'rgb(255, 99, 132)',

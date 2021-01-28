@@ -52,6 +52,9 @@ The above copyright notice and this permission notice shall be included in all c
     <link rel="stylesheet" type="text/css" href="{{ asset('paper/css/toastr.min.css') }}"/>
     <!-- CharJs -->
     <link href="{{ asset('paper/css/chartjs/Chart.min.css') }}" rel="stylesheet" />
+    
+    <!-- Easy Pie Chart -->
+    
 </head>
 
 <body class="{{ $class }}">
@@ -92,6 +95,9 @@ The above copyright notice and this permission notice shall be included in all c
 
     <!-- Chart Js -->
     <script src="{{ asset('paper/js/plugins/chartjs/Chart.js') }}"></script>
+
+    <!-- Easy Pie Chart -->
+    <script src="{{ asset('paper/js/plugins/easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
     @stack('scripts')
 
 </body>
