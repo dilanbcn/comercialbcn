@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use App\Models\Proyecto;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -50,5 +51,20 @@ class Controller extends BaseController
     public function decimalFormat($numberDb)
     {
         return number_format($numberDb, 2, ',', '.');
+    }
+
+    public function getEstadoClientes($user)
+    {
+        $arrEstado = array(0 => 'inactivo', 1 => 'activo');
+        
+        $clientes = Cliente::where(['user_id' => $user->id, 'tipo_cliente_id' => 2])->get()->groupBy('activo');
+        $countProspectos = Cliente::where(['user_id' => $user->id, 'tipo_cliente_id' => 1])->count();
+        $countClientes = Cliente::where(['user_id' => $user->id, 'tipo_cliente_id' => 2])->count();
+
+        $arrEstadoCliente = array('inactivo' => 0, 'activo' => 0, 'clientes' => $countClientes, 'prospectos' => $countProspectos);
+        foreach ($clientes as $key => $cliente) {
+            $arrEstadoCliente[$arrEstado[$key]] = count($cliente);
+        }
+        return $arrEstadoCliente;
     }
 }

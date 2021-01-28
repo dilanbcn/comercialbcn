@@ -208,7 +208,10 @@ $(function() {
         easing: 'easeOutBounce',
         onStep: function(from, to, percent) {
             $(this.el).find('.percent').text(Math.round(percent));
-        }
+        },
+        size: 60,
+        barColor: '#20c997',
+        lineWidth: 5
     });
 
 });

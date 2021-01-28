@@ -42,7 +42,7 @@
                                 <tr class="text-center">
                                     <td>{{ ($cliente->padre != null) ? $cliente->padre->razon_social : '' }}</td>
                                     <td class="text-left">{{ $cliente->razon_social }}</td>
-                                    <td class="text-left">{{ $cliente->user->name }}</td>
+                                    <td class="text-left">{{ $cliente->user->name . ' ' . $cliente->user->last_name }}</td>
                                     <td><span class="badge p-2 {{ $cliente->tipoCliente->badge }}">{{ $cliente->tipoCliente->nombre }}</span></td>
                                     <td>{{ ($cliente->tipo_cliente_id == 1) ? date('d/m/Y', strtotime($cliente->inicio_ciclo)) : '' }}</td>
                                     <td>{{ ($cliente->tipo_cliente_id == 1) ? $cliente->ciclo : '' }}</td>

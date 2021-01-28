@@ -130,6 +130,32 @@ class UserController extends Controller
         return redirect()->route('user.index')->with(['title' => 'Exito', 'status' => 'Registro eliminado satisfactoriamente']);
     }
 
+    /**
+     * Show the users for a graphics.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function grafico()
+    {
+        $usuarios = User::where(['activo' => 1])->get();
+
+        $users = $usuarios->map(function ($item) {
+            $arrdata = $this->getEstadoClientes($item);
+            $item->activos = $arrdata['activo'];
+            $item->inactivos = $arrdata['inactivo'];
+            $item->prospectos = $arrdata['prospectos'];
+            $item->clientes = $arrdata['clientes'];
+            $item->pct_activos = ($arrdata['clientes'] > 0) ? round((($arrdata['activo']/$arrdata['clientes']) * 100),1) : 0;
+            $total = $arrdata['prospectos'] + $arrdata['clientes'];
+            $item->efectividad = ($total > 0) ? round((($arrdata['clientes']/$total) * 100),1) : 0;
+            $item->width_efectividad = 'width: '.$item->efectividad.'%';
+            $item->efect_color = ($item->efectividad < 33) ? 'bg-danger' : (($item->efectividad > 33 && $item->efectividad < 66) ? 'bg-warning' : 'bg-success');
+            return $item;
+        });
+
+        return view('pages.usuario.index-grafico', compact('users'));
+    }
+
 
     /**
      * Display the specified resource.

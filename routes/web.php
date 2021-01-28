@@ -27,6 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
+	Route::get('grafico', 'App\Http\Controllers\UserController@grafico')->name('user.grafico');
+	
 	Route::resource('cliente', 'App\Http\Controllers\ClienteController', ['except' => ['show']]);
 	Route::get('clientes-disponibles', 'App\Http\Controllers\ClienteController@prospectos')->name('cliente.prospectos');
 	

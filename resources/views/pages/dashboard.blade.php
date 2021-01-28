@@ -94,7 +94,7 @@
         </div>
 
     </div>
-    <div class="row ">
+    <div class="row" id="card-grafico">
         <div class="col-lg-3 col-md-12 col-sm-12">
             <div class="card card-chart">
                 <div class="card-header">
@@ -106,7 +106,7 @@
                 <div class="card-footer">
                     <hr />
                     <div class="card-stats text-right">
-                    <a class="dropdown-item" href="{{ route('cliente.index') }}">{{ __('Ver Todos') }}</a>
+                        <a class="dropdown-item" href="{{ route('cliente.index') }}">{{ __('Ver Todos') }}</a>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                 <div class="card-footer">
                     <hr />
                     <div class="card-stats text-right">
-                        Ver Todos
+                    <a class="dropdown-item" href="{{ route('user.grafico') }}">{{ __('Ver Todos') }}</a>
                     </div>
                 </div>
             </div>
