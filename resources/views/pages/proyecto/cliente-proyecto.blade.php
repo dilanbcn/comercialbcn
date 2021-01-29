@@ -64,6 +64,8 @@
                             <thead class="text-primary text-center">
                                 <th>Nombre</th>
                                 <th>Fecha Cierre</th>
+                                <th>Cant. Facturas</th>
+                                <th>Total Facturas</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
@@ -71,6 +73,8 @@
                                 <tr class="text-center">
                                     <td class="text-left">{{ $proyecto->nombre }}</td>
                                     <td>{{ date('d/m/Y', strtotime($proyecto->fecha_cierre)) }}</td>
+                                    <td>{{ count($proyecto->proyectoFacturas) }}</td>
+                                    <td>{{ number_format($proyecto->sum_facturas, 2, '.', '.') }}</td>
                                     <td>
                                         <a href="{{ route('factura.proyecto-factura', $proyecto->id) }}" title="Facturación" class="btn btn-xs btn-outline-secondary"><i class="fas fa-file-invoice-dollar"></i></a>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">

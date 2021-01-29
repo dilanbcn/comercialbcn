@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('/home');
-});
+})->name('principal');
 
 Auth::routes();
 Route::get('logout', 'App\Http\Controllers\Auth\LoginController@getLogout')->name('logout');

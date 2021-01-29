@@ -239,6 +239,13 @@
     {
         "user_id": 3,
         "tipo_cliente_id": 1,
+        "razon_social": "Airbus",
+        "activo": 1,
+        "inicio_ciclo": "2020-08-01 00:00:00"
+    },
+    {
+        "user_id": 3,
+        "tipo_cliente_id": 1,
         "razon_social": "Aiep",
         "activo": 1,
         "inicio_ciclo": "2020-08-01 00:00:00"
@@ -2225,6 +2232,13 @@
         "inicio_ciclo": "2020-08-01 00:00:00"
     },
     {
+        "user_id": 4,
+        "tipo_cliente_id": 2,
+        "razon_social": "Ey",
+        "activo": 1,
+        "inicio_ciclo": "2020-08-01 00:00:00"
+    },
+    {
         "user_id": 6,
         "tipo_cliente_id": 2,
         "razon_social": "Fabrimetal",
@@ -2671,6 +2685,13 @@
         "razon_social": "Hapag Lloyd",
         "activo": 1,
         "inicio_ciclo": "2020-08-01 00:00:00"
+    },
+    {
+        "user_id": 3,
+        "tipo_cliente_id": 2,
+        "razon_social": "Hdc",
+        "activo": 1,
+        "inicio_ciclo": "2020-12-01 00:00:00"
     },
     {
         "user_id": 5,
@@ -3445,6 +3466,20 @@
     {
         "user_id": 6,
         "tipo_cliente_id": 2,
+        "razon_social": "Maletas Chile",
+        "activo": 1,
+        "inicio_ciclo": "2020-10-20 00:00:00"
+    },
+    {
+        "user_id": 6,
+        "tipo_cliente_id": 2,
+        "razon_social": "Masc-Arauco",
+        "activo": 1,
+        "inicio_ciclo": "2021-02-01 00:00:00"
+    },
+    {
+        "user_id": 6,
+        "tipo_cliente_id": 2,
         "razon_social": "Maersk",
         "activo": 1,
         "inicio_ciclo": "2021-12-19 00:00:00"
@@ -4066,6 +4101,13 @@
         "inicio_ciclo": "2020-08-01 00:00:00"
     },
     {
+        "user_id": 4,
+        "tipo_cliente_id": 2,
+        "razon_social": "Pdr",
+        "activo": 1,
+        "inicio_ciclo": "2020-08-01 00:00:00"
+    },
+    {
         "user_id": 3,
         "tipo_cliente_id": 1,
         "razon_social": "Peixe",
@@ -4631,6 +4673,13 @@
         "razon_social": "Salazar Israel",
         "activo": 1,
         "inicio_ciclo": "2020-08-01 00:00:00"
+    },
+    {
+        "user_id": 5,
+        "tipo_cliente_id": 2,
+        "razon_social": "Salomon Sacks",
+        "activo": 1,
+        "inicio_ciclo": "2019-12-01 00:00:00"
     },
     {
         "user_id": 3,

@@ -21,11 +21,10 @@ class ClienteTableSeeder extends Seeder
 
         $archivo = File::get(storage_path('seeders/clientes.json'));
         $clientes = json_decode($archivo, true);
-        
-        // dd($clientes);
 
         foreach($clientes as $cliente) {
             DB::table(Cliente::tabla)->insert([
+                // 'user_id' => 1,
                 'user_id' => $cliente['user_id'],
                 'razon_social' => $cliente['razon_social'],
                 'tipo_cliente_id' => $cliente['tipo_cliente_id'],

@@ -23,10 +23,12 @@ class ClienteController extends Controller
         $limite = $hoy->subMonths(8);
 
         // $clientes = Cliente::whereDate('inicio_ciclo', '>=', $limite->toDateTimeString())->with(['tipoCliente', 'padre', 'user'])->get();
-        $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->get();
+        $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->meses($clientes);
         });
+
 
         $groupCliente = $clientes->groupBy('activo');
         $arrEstados = array(0 => 'Inactivos', 1 => 'Activos');

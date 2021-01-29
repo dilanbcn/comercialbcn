@@ -11,10 +11,10 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h5 class="card-title mb-1">Comerciales</h5>
+                            <h5 class="card-title mb-1">Detalle Comerciales</h5>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="{{ route('user.create') }}" class="btn btn-sm btn-secondary btn-round"><i class="fas fa-plus"></i> Agregar</a>
+                            <a href="{{ route('principal') }}" class="btn btn-sm btn-danger btn-round">Regresar</a>
                         </div>
                     </div>
                 </div>

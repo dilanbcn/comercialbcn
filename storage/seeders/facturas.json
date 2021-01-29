@@ -1,0 +1,929 @@
+[{
+        "proyecto_id": 1,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 25440000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 2,
+        "estado_factura_id": 4,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-12-20",
+        "monto_venta": 7000000.00,
+        "inscripcion_sence": "NO"
+    },
+    {
+        "proyecto_id": 3,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-04-20",
+        "fecha_pago": "2021-05-20",
+        "monto_venta": 10000000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 4,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 10809600.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 5,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-07-20",
+        "fecha_pago": "2021-08-20",
+        "monto_venta": 1360000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 6,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-01-21",
+        "fecha_pago": "2021-02-21",
+        "monto_venta": 7000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 8,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-03-20",
+        "fecha_pago": "2021-04-20",
+        "monto_venta": 2984000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 7,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 55308000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 7,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-01-21",
+        "fecha_pago": "2021-02-21",
+        "monto_venta": 126000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 7,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-01-21",
+        "fecha_pago": "2021-02-21",
+        "monto_venta": 126000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 9,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-10-20",
+        "fecha_pago": "2021-11-20",
+        "monto_venta": 1990000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 11,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-08-20",
+        "fecha_pago": "2021-09-20",
+        "monto_venta": 103175000.00,
+        "inscripcion_sence": "SI CON EXCEL"
+    },
+    {
+        "proyecto_id": 12,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2021-12-20",
+        "monto_venta": 31325000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 12,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-09-20",
+        "fecha_pago": "2021-10-20",
+        "monto_venta": 10152000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 10,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-01-21",
+        "fecha_pago": "2021-02-21",
+        "monto_venta": 21600000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 13,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-02-20",
+        "fecha_pago": "2021-03-20",
+        "monto_venta": 16660000.00,
+        "inscripcion_sence": "OK"
+    },
+    {
+        "proyecto_id": 14,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2021-12-20",
+        "monto_venta": 72000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 16,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2020-11-01",
+        "monto_venta": 158200000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 15,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-07-20",
+        "fecha_pago": "2021-08-20",
+        "monto_venta": 26918000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 17,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-08-20",
+        "fecha_pago": "2021-09-20",
+        "monto_venta": 9616000.00,
+        "inscripcion_sence": "CON PROCESO SENCE"
+    },
+    {
+        "proyecto_id": 18,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2020-11-01",
+        "monto_venta": 9800000.00,
+        "inscripcion_sence": "NO"
+    },
+    {
+        "proyecto_id": 19,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 10400000.00,
+        "inscripcion_sence": "SENCE ELEARNING"
+    },
+    {
+        "proyecto_id": 20,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 2930000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 21,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-04-20",
+        "fecha_pago": "2021-05-20",
+        "monto_venta": 2100000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 24,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-09-20",
+        "fecha_pago": "2021-10-20",
+        "monto_venta": 6051209.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 27,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-04-20",
+        "fecha_pago": "2021-05-20",
+        "monto_venta": 2471000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 22,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-05-20",
+        "fecha_pago": "2021-06-20",
+        "monto_venta": 3596880.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 29,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-08-20",
+        "fecha_pago": "2021-09-20",
+        "monto_venta": 683296.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 28,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-07-20",
+        "fecha_pago": "2021-08-20",
+        "monto_venta": 1610000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 25,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-08-20",
+        "fecha_pago": "2021-09-20",
+        "monto_venta": 3685280.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 30,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-08-20",
+        "fecha_pago": "2021-09-20",
+        "monto_venta": 5134978.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 26,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2021-12-20",
+        "monto_venta": 7555000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 23,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 16000000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 31,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-02-20",
+        "fecha_pago": "2021-03-20",
+        "monto_venta": 2480000.00,
+        "inscripcion_sence": "OK"
+    },
+    {
+        "proyecto_id": 32,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-01-21",
+        "fecha_pago": "2021-02-21",
+        "monto_venta": 13200000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 33,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-07-20",
+        "fecha_pago": "2021-08-20",
+        "monto_venta": 2000000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 33,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-01-20",
+        "fecha_pago": "2021-02-20",
+        "monto_venta": 4000000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 33,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-04-20",
+        "fecha_pago": "2021-05-20",
+        "monto_venta": 20000000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 33,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-05-20",
+        "fecha_pago": "2021-06-20",
+        "monto_venta": 2000000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 33,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-06-20",
+        "fecha_pago": "2021-07-20",
+        "monto_venta": 2000000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 33,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-08-20",
+        "fecha_pago": "2021-09-20",
+        "monto_venta": 2000000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 33,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-09-20",
+        "fecha_pago": "2021-10-20",
+        "monto_venta": 2000000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 33,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-10-20",
+        "fecha_pago": "2021-11-20",
+        "monto_venta": 2000000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 33,
+        "estado_factura_id": 4,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2021-12-20",
+        "monto_venta": 2000000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 34,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 7000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 36,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-08-01",
+        "fecha_pago": "2021-09-21",
+        "monto_venta": 6600000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 35,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-10-20",
+        "fecha_pago": "2021-10-20",
+        "monto_venta": 5400000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 37,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-07-20",
+        "fecha_pago": "2021-08-20",
+        "monto_venta": 12480000.00,
+        "inscripcion_sence": "SENCE ELEARNING"
+    },
+    {
+        "proyecto_id": 39,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-05-20",
+        "fecha_pago": "2021-06-20",
+        "monto_venta": 59000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 38,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 960000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 41,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-01-20",
+        "fecha_pago": "2021-02-20",
+        "monto_venta": 3600000.00,
+        "inscripcion_sence": "NO APLICA"
+    },
+    {
+        "proyecto_id": 40,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-05-20",
+        "fecha_pago": "2021-06-20",
+        "monto_venta": 295000000.00,
+        "inscripcion_sence": "OK"
+    },
+    {
+        "proyecto_id": 40,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-06-20",
+        "fecha_pago": "2021-07-20",
+        "monto_venta": 25000000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 40,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 127000000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 40,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-10-20",
+        "fecha_pago": "2021-11-20",
+        "monto_venta": 72000000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 42,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-09-20",
+        "fecha_pago": "2021-10-20",
+        "monto_venta": 67000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 43,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-05-20",
+        "fecha_pago": "2021-06-20",
+        "monto_venta": 4560000.00,
+        "inscripcion_sence": "CON PROCESO SENCE"
+    },
+    {
+        "proyecto_id": 44,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-05-20",
+        "fecha_pago": "2021-06-20",
+        "monto_venta": 12240000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 45,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2021-12-20",
+        "monto_venta": 6456000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 46,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 3000000.00,
+        "inscripcion_sence": "NO"
+    },
+    {
+        "proyecto_id": 47,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-05-20",
+        "fecha_pago": "2021-06-20",
+        "monto_venta": 7000000.00,
+        "inscripcion_sence": "SENCE ELEARNING"
+    },
+    {
+        "proyecto_id": 49,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-12-20",
+        "monto_venta": 15300000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 50,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2021-11-20",
+        "monto_venta": 6765000.00,
+        "inscripcion_sence": "NO"
+    },
+    {
+        "proyecto_id": 48,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2021-12-20",
+        "monto_venta": 2850000.00,
+        "inscripcion_sence": "NO"
+    },
+    {
+        "proyecto_id": 51,
+        "estado_factura_id": 4,
+        "fecha_factura": "2021-01-21",
+        "fecha_pago": "2021-02-21",
+        "monto_venta": 15000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 52,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2020-11-01",
+        "monto_venta": 12000000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 53,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-01-20",
+        "fecha_pago": "2021-02-20",
+        "monto_venta": 22050000.00,
+        "inscripcion_sence": "OK"
+    },
+    {
+        "proyecto_id": 53,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-04-20",
+        "fecha_pago": "2021-05-20",
+        "monto_venta": 13230000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 54,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 18720000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 55,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-06-20",
+        "fecha_pago": "2021-07-20",
+        "monto_venta": 30720000.00,
+        "inscripcion_sence": "SI CON MEJORA CONTINUA CODIGO 480"
+    },
+    {
+        "proyecto_id": 55,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-08-20",
+        "fecha_pago": "2021-09-20",
+        "monto_venta": 46000000.00,
+        "inscripcion_sence": "SI CON MEJORA CONTINUA CODIGO 480"
+    },
+    {
+        "proyecto_id": 56,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-08-20",
+        "fecha_pago": "2021-09-20",
+        "monto_venta": 34000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 57,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2020-11-01",
+        "monto_venta": 110000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 58,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-01-20",
+        "fecha_pago": "2021-02-20",
+        "monto_venta": 22080000.00,
+        "inscripcion_sence": "OK"
+    },
+    {
+        "proyecto_id": 59,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-04-20",
+        "fecha_pago": "2021-05-20",
+        "monto_venta": 3920000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 60,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-07-20",
+        "fecha_pago": "2021-08-20",
+        "monto_venta": 3120000.00,
+        "inscripcion_sence": "SENCE ELEARNING"
+    },
+    {
+        "proyecto_id": 61,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-09-20",
+        "fecha_pago": "2021-10-20",
+        "monto_venta": 3900000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 62,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-02-20",
+        "fecha_pago": "2021-03-20",
+        "monto_venta": 5472000.00,
+        "inscripcion_sence": "No , Directo CCC"
+    },
+    {
+        "proyecto_id": 63,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-08-20",
+        "fecha_pago": "2021-08-20",
+        "monto_venta": 1640000.00,
+        "inscripcion_sence": "No , Directo CCC"
+    },
+    {
+        "proyecto_id": 64,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-10-20",
+        "fecha_pago": "2021-11-20",
+        "monto_venta": 26400000.00,
+        "inscripcion_sence": "si, pero hay que descontar 13MM de proveed"
+    },
+    {
+        "proyecto_id": 66,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-08-20",
+        "fecha_pago": "2021-09-20",
+        "monto_venta": 312000.00,
+        "inscripcion_sence": "SENCE ELEARNING"
+    },
+    {
+        "proyecto_id": 67,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-09-20",
+        "fecha_pago": "2021-10-20",
+        "monto_venta": 14400000.00,
+        "inscripcion_sence": "SI CON CURSOS 480"
+    },
+    {
+        "proyecto_id": 65,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2021-12-20",
+        "monto_venta": 3192000.00,
+        "inscripcion_sence": "SI CON CURSOS 480"
+    },
+    {
+        "proyecto_id": 70,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 44325000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 68,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 20000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 69,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-03-20",
+        "fecha_pago": "2021-04-20",
+        "monto_venta": 7130000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 71,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-11-20",
+        "monto_venta": 10000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 73,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-04-20",
+        "fecha_pago": "2021-05-20",
+        "monto_venta": 5040000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 72,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-05-20",
+        "fecha_pago": "2021-06-20",
+        "monto_venta": 4690000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 74,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 16500000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 75,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2021-12-20",
+        "monto_venta": 15840000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 76,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-08-20",
+        "fecha_pago": "2021-09-20",
+        "monto_venta": 7832000.00,
+        "inscripcion_sence": "SI, CON CURSO PREV DELITO"
+    },
+    {
+        "proyecto_id": 77,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 5100000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 78,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 4035000.00,
+        "inscripcion_sence": "COSTO EMPRESA"
+    },
+    {
+        "proyecto_id": 79,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-01-20",
+        "fecha_pago": "2021-02-20",
+        "monto_venta": 1440000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 80,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-05-20",
+        "fecha_pago": "2021-06-20",
+        "monto_venta": 17000000.00,
+        "inscripcion_sence": "OK"
+    },
+    {
+        "proyecto_id": 81,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 15000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 82,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-05-20",
+        "fecha_pago": "2021-06-20",
+        "monto_venta": 18024000.00,
+        "inscripcion_sence": "CON PROCESO SENCE"
+    },
+    {
+        "proyecto_id": 83,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-10-20",
+        "fecha_pago": "2021-11-20",
+        "monto_venta": 49440000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 84,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-03-20",
+        "fecha_pago": "2021-04-20",
+        "monto_venta": 2653000.00,
+        "inscripcion_sence": ""
+    },
+    {
+        "proyecto_id": 85,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 46153000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 85,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-01-21",
+        "fecha_pago": "2021-02-21",
+        "monto_venta": 3471000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 85,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-01-21",
+        "fecha_pago": "2021-02-21",
+        "monto_venta": 18000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 86,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-06-20",
+        "fecha_pago": "2021-07-20",
+        "monto_venta": 13920000.00,
+        "inscripcion_sence": "SENCE ELEARNING"
+    },
+    {
+        "proyecto_id": 87,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 12000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 89,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-09-20",
+        "fecha_pago": "2021-10-20",
+        "monto_venta": 12960000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 88,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-01-21",
+        "fecha_pago": null,
+        "monto_venta": 12300000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 90,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-04-20",
+        "fecha_pago": "2021-05-20",
+        "monto_venta": 5280000.00,
+        "inscripcion_sence": "OK"
+    },
+    {
+        "proyecto_id": 90,
+        "estado_factura_id": 2,
+        "fecha_factura": "2021-06-20",
+        "fecha_pago": "2021-07-20",
+        "monto_venta": 5760000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 91,
+        "estado_factura_id": 4,
+        "fecha_factura": "2021-11-20",
+        "fecha_pago": "2021-11-20",
+        "monto_venta": 18000000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 92,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-01-21",
+        "monto_venta": 20750000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 92,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-01-21",
+        "fecha_pago": "2021-02-21",
+        "monto_venta": 88080000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 93,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-04-20",
+        "fecha_pago": "2021-05-20",
+        "monto_venta": 35000000.00,
+        "inscripcion_sence": "OK - CON CURSO 480"
+    },
+    {
+        "proyecto_id": 94,
+        "estado_factura_id": 1,
+        "fecha_factura": "2021-12-20",
+        "fecha_pago": "2021-12-20",
+        "monto_venta": 14400000.00,
+        "inscripcion_sence": "SI"
+    },
+    {
+        "proyecto_id": 95,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-07-20",
+        "fecha_pago": "2021-08-20",
+        "monto_venta": 7032000.00,
+        "inscripcion_sence": "SI CON CURSOS DE 480"
+    },
+    {
+        "proyecto_id": 96,
+        "estado_factura_id": 3,
+        "fecha_factura": "2021-09-20",
+        "fecha_pago": "2021-08-20",
+        "monto_venta": 7368000.00,
+        "inscripcion_sence": "SI"
+    }
+]

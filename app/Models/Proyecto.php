@@ -26,7 +26,7 @@ class Proyecto extends Model
     	return $this->belongsTo(Cliente::class);
     }
 
-    public function proyectoFactura()
+    public function proyectoFacturas()
     {
     	return $this->hasMany(ProyectoFactura::class);
     }

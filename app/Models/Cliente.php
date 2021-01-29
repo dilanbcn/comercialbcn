@@ -44,7 +44,7 @@ class Cliente extends Model
         return $this->belongsTo(Cliente::class, 'padre_id', 'id');
     }
 
-    public function proyectos()
+    public function proyecto()
     {
         return $this->hasMany(Proyecto::class);
     }

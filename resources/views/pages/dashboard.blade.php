@@ -106,7 +106,7 @@
                 <div class="card-footer">
                     <hr />
                     <div class="card-stats text-right">
-                        <a class="dropdown-item" href="{{ route('cliente.index') }}">{{ __('Ver Todos') }}</a>
+                        <a class="dropdown-item" href="{{ route('cliente.index') }}">{{ __('Ver Clientes') }}</a>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                 <div class="card-footer">
                     <hr />
                     <div class="card-stats text-right">
-                    <a class="dropdown-item" href="{{ route('user.grafico') }}">{{ __('Ver Todos') }}</a>
+                    <a class="dropdown-item" href="{{ route('user.grafico') }}">{{ __('Ver Detalle') }}</a>
                     </div>
                 </div>
             </div>

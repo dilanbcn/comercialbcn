@@ -18,7 +18,13 @@ class ProyectoController extends Controller
      */
     public function clienteProyecto(Cliente $cliente)
     {
-        $proyectos = Proyecto::where(['cliente_id' => $cliente->id])->get();
+        $proyectos = Proyecto::where(['cliente_id' => $cliente->id])->withCount(['proyectoFacturas'])->get();
+
+
+        $proyectos->map(function ($proyecto) {
+            $proyecto->sum_facturas = $proyecto->proyectoFacturas->sum('monto_venta');
+            
+        });
 
         return view('pages.proyecto.cliente-proyecto', compact('proyectos', 'cliente'));
     }

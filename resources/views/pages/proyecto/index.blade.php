@@ -27,6 +27,8 @@
                             <thead class="text-primary text-center">
                                 <th>Nombre</th>
                                 <th>Fecha Cierre</th>
+                                <th>Cant. Facturas</th>
+                                <th>Total Facturas</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
@@ -34,6 +36,8 @@
                                 <tr class="text-center">
                                     <td class="text-left">{{ $proyecto->nombre }}</td>
                                     <td>{{ date('d/m/Y', strtotime($proyecto->fecha_cierre)) }}</td>
+                                    <td></td>
+                                    <td>{{ number_format($proyecto->sum_facturas, 2, '.', '.') }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">
                                             <a href="{{ route('proyecto.edit', $proyecto->id) }}" title="Editar" class="btn btn-xs btn-outline-secondary"><i class="fa fa-edit"></i></a>

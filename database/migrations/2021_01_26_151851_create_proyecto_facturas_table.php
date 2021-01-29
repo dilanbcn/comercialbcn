@@ -24,7 +24,7 @@ class CreateProyectoFacturasTable extends Migration
             $table->date('fecha_factura')->nullable();
             $table->date('fecha_pago')->nullable();
             $table->decimal('monto_venta', 22, 2);
-            $table->string('inscripcion_sence');
+            $table->string('inscripcion_sence')->nullable();
             
             $table->timestamps();
             $table->softDeletes();
