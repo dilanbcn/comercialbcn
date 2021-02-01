@@ -26,7 +26,8 @@ class Cliente extends Model
         'email',
         'activo',
         'inicio_ciclo',
-        'cantidad_empleados'
+        'cantidad_empleados',
+        'rubro'
     ];
 
     public function user()

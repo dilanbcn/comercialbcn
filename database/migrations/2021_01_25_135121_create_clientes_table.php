@@ -29,6 +29,7 @@ class CreateClientesTable extends Migration
             $table->boolean('activo')->default(true);
             $table->dateTime('inicio_ciclo')->nullable();
             $table->integer('cantidad_empleados')->nullable();
+            $table->string('rubro')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

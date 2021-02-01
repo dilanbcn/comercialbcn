@@ -117,6 +117,7 @@ class ClienteController extends Controller
             'telefono' => $request->get('telefono'),
             'email' => $request->get('email'),
             'cantidad_empleados' => $request->get('cantidad_empleados'),
+            'rubro' => $request->get('rubro'),
             'direccion' => $request->get('direccion'),
             'inicio_ciclo' => $hoy,
         ]);
@@ -190,11 +191,12 @@ class ClienteController extends Controller
         $cliente->fill([
             'user_id' => ($user->rol_id == 2) ? $request->get('comercial') : $user->id,
             'padre_id' => $request->get('padre'),
-            'rut' => Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH),
+            'rut' => ($request->get('rut')) ? Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH) : null,
             'razon_social' => $request->get('razon_social'),
             'telefono' => $request->get('telefono'),
             'email' => $request->get('email'),
             'cantidad_empleados' => $request->get('cantidad_empleados'),
+            'rubro' => $request->get('rubro'),
             'direccion' => $request->get('direccion'),
             'activo' => ($request->activo) ? 1 : 0,
         ]);

@@ -97,7 +97,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>{{ __('Teléfono') }}</label>
-                                    <input autocomplete="off" type="text" name="telefono" class="form-control @error('telefono') is-invalid @enderror" value="{{ @old('telefono') }}">
+                                    <input autocomplete="off" type="number" name="telefono" class="form-control @error('telefono') is-invalid @enderror" value="{{ @old('telefono') }}">
                                     @if ($errors->has('telefono'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
                                         <strong>{{ $errors->first('telefono') }}</strong>
@@ -138,13 +138,24 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label>{{ __('Dirección') }}</label>
                                     <input autocomplete="off" type="text" name="direccion" class="form-control @error('direccion') is-invalid @enderror" value="{{ @old('direccion') }}">
                                     @if ($errors->has('direccion'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
                                         <strong>{{ $errors->first('direccion') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>{{ __('Rubro') }}</label>
+                                    <input autocomplete="off" type="text" name="rubro" class="form-control @error('rubro') is-invalid @enderror" value="{{ @old('rubro') }}">
+                                    @if ($errors->has('rubro'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('rubro') }}</strong>
                                     </span>
                                     @endif
                                 </div>

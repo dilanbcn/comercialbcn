@@ -16,7 +16,7 @@
                 </li>
                 <li class="nav-item btn-rotate dropdown {{ $elementActive == 'comerciales' ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Comerciales 
+                        Comerciales
                         <p>
                             <span class="d-lg-none d-md-block">{{ __('Comerciales') }}</span>
                         </p>
@@ -28,7 +28,7 @@
                 </li>
                 <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'clientes' || $elementActive == 'contacto') ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Clientes 
+                        Clientes
                         <p>
                             <span class="d-lg-none d-md-block">{{ __('Clientes') }}</span>
                         </p>
@@ -38,14 +38,15 @@
                         <a class="dropdown-item" href="{{ route('cliente.prospectos') }}">{{ __('Prospectos Disponibles') }}</a>
                     </div>
                 </li>
-                <li class="nav-item btn-rotate dropdown {{ $elementActive == 'comerciales' ? 'active' : '' }}">
+                <li class="nav-item btn-rotate dropdown {{ $elementActive == 'prospectos' ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Prospección 
+                        Prospección
                         <p>
                             <span class="d-lg-none d-md-block">{{ __('Prospección') }}</span>
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">{{ __('Contactos') }}</a>
                         <a class="dropdown-item" href="#">{{ __('Asignacion de Prospectores') }}</a>
                         <a class="dropdown-item" href="#">{{ __('Llamados y Reuniones') }}</a>
                     </div>

@@ -11,20 +11,26 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h5 class="card-title mb-1">Prospectos Disponibles</h5>
+                            <h5 class="card-title mb-1">Contactos</h5>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table">
-                        <table class="table table-striped" id="tablaComercialesIdex">
+                        <table class="table table-striped" id="tablaContactosIdex">
                             <thead class="text-primary text-center">
-                                <th>Razón Social</th>
                                 <th>Comercial</th>
+                                <th>Cliente</th>
+                                <th>N° Trabajadores</th>
+                                <th>Rubro</th>
+                                <th>Nombre Contacto</th>
+                                <th>Correo</th>
+                                <th>Fono Fijo</th>
+                                <th>Celular</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
-                                @foreach($clientes as $key => $cliente)
+                                <!-- @foreach($clientes as $key => $cliente)
                                 <tr class="text-center">
                                     <td class="text-left">{{ $cliente->razon_social }}</td>
                                     <td class="text-left">{{ $cliente->user->name }}</td>
@@ -38,7 +44,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                @endforeach
+                                @endforeach -->
                             </tbody>
                         </table>
                     </div>
