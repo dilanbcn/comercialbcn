@@ -26,7 +26,7 @@
                         <a class="dropdown-item" href="{{ route('user.grafico') }}">{{ __('Detalle Comerciales') }}</a>
                     </div>
                 </li>
-                <li class="nav-item btn-rotate dropdown {{ $elementActive == 'clientes' ? 'active' : '' }}">
+                <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'clientes' || $elementActive == 'contacto') ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Clientes 
                         <p>
@@ -36,6 +36,18 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{ route('cliente.index') }}">{{ __('Lista de Clientes') }}</a>
                         <a class="dropdown-item" href="{{ route('cliente.prospectos') }}">{{ __('Prospectos Disponibles') }}</a>
+                    </div>
+                </li>
+                <li class="nav-item btn-rotate dropdown {{ $elementActive == 'comerciales' ? 'active' : '' }}">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Prospección 
+                        <p>
+                            <span class="d-lg-none d-md-block">{{ __('Prospección') }}</span>
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">{{ __('Asignacion de Prospectores') }}</a>
+                        <a class="dropdown-item" href="#">{{ __('Llamados y Reuniones') }}</a>
                     </div>
                 </li>
             </ul>

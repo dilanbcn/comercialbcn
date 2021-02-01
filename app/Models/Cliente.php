@@ -49,4 +49,9 @@ class Cliente extends Model
         return $this->hasMany(Proyecto::class);
     }
 
+    public function clienteContactos()
+    {
+        return $this->hasMany(ClienteContacto::class);
+    }
+
 }

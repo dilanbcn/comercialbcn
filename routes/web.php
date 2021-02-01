@@ -32,6 +32,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('cliente', 'App\Http\Controllers\ClienteController', ['except' => ['show']]);
 	Route::get('clientes-disponibles', 'App\Http\Controllers\ClienteController@prospectos')->name('cliente.prospectos');
 	
+	Route::resource('cliente-contacto', 'App\Http\Controllers\ClienteContactoController', ['except' => ['index', 'show', 'store', 'create']]);
+	Route::get('cliente-contacto/{cliente}', 'App\Http\Controllers\ClienteContactoController@index')->name('cliente-contacto.index');
+	Route::get('cliente-contacto/{cliente}/create', 'App\Http\Controllers\ClienteContactoController@create')->name('cliente-contacto.create');
+	Route::post('cliente-contacto/{cliente}', 'App\Http\Controllers\ClienteContactoController@store')->name('cliente-contacto.store');
 	
 	Route::get('cliente-proyecto/{cliente}', 'App\Http\Controllers\ProyectoController@clienteProyecto')->name('proyecto.cliente-proyecto');
 	Route::resource('proyecto', 'App\Http\Controllers\ProyectoController', ['except' => ['show', 'store', 'create']]);

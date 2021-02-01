@@ -214,6 +214,59 @@ $(function() {
         lineWidth: 5
     });
 
+    // CLIENTE
+    $("#btnModalContacto").on('click', function() {
+        $(".inpt-metodo").val('post');
+        limpiarModalCliente();
+        $("#add_contacto_cliente").modal('show');
+    });
+
+    $(".btnContactoEdit").on('click', function() {
+        $(".inpt-metodo").val('put');
+        let rutaEdit = $(this).data('editar');
+        let rutaUpdate = $(this).data('actualizar');
+        $(".inpt-ruta").val(rutaUpdate);
+        limpiarModalCliente(true);
+
+        $.ajax({
+            url: rutaEdit,
+            success: function(data) {
+                console.log('file: comercial.js -> line 234 -> $ -> data', data);
+                if (data.success == 'ok') {
+                    $('#frm_update_cliente_contacto').attr('action', rutaUpdate);
+                    $("#nombre").val(data.nombre);
+                    $("#apellido").val(data.apellido);
+                    $("#cargo").val(data.cargo);
+                    $("#telefono").val(data.telefono);
+                    $("#celular").val(data.celular);
+                    $("#email").val(data.email);
+                    $("#email_confirmation").val(data.email);
+                    $('#activo').bootstrapToggle((data.activo == 1) ? 'on' : 'off');
+                    $("#modal_update_cliente_contacto").modal('show');
+                } else {
+                    limpiarModalCliente();
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                $("#modal_update_cliente_contacto").modal('hide');
+                $.confirm({
+                    title: 'Error',
+                    content: 'Error al intentar obtener los datos de contacto, intente de nuevo mas tarde',
+                    type: 'red',
+                    theme: 'modern',
+                    animation: 'scala',
+                    icon: 'fa fa-exclamation-triangle',
+                    typeAnimated: true,
+                    buttons: {
+                        cancel: {
+                            text: 'Aceptar',
+                        },
+                    }
+                });
+            }
+        });
+    });
+
 });
 
 function showMessage() {
@@ -233,15 +286,13 @@ function showModalWithErrors() {
     let metodo = $(".inpt-metodo").val();
 
     let modal = (metodo == 'put') ? modalUpd : modalNew;
-
-
-
     if (error == 1) {
         $("#" + modal).modal('show');
 
         if (metodo == 'put') {
             $('#frm_update_proyectos').attr('action', $(".inpt-ruta").val());
             $('#frm_update_facturas').attr('action', $(".inpt-ruta").val());
+            $('#frm_update_cliente_contacto').attr('action', $(".inpt-ruta").val());
         }
     }
 }
@@ -314,6 +365,17 @@ function limpiarModalProyecto(upd = false) {
     } else {
         $(".nombre").val('').removeClass('is-invalid');
         $(".fechaCierre").val('').removeClass('is-invalid');
+    }
+
+    $(".invalid-feedback").hide();
+}
+
+function limpiarModalCliente(upd = false) {
+
+    if (upd) {
+        $(".nombre, .apellido, .cargo, .telefono, .celular, .email").removeClass('is-invalid');
+    } else {
+        $(".nombre, .apellido, .cargo, .telefono, .celular, .email").val('').removeClass('is-invalid');
     }
 
     $(".invalid-feedback").hide();
