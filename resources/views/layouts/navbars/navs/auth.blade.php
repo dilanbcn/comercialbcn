@@ -38,7 +38,7 @@
                         <a class="dropdown-item" href="{{ route('cliente.prospectos') }}">{{ __('Prospectos Disponibles') }}</a>
                     </div>
                 </li>
-                <li class="nav-item btn-rotate dropdown {{ $elementActive == 'prospectos' ? 'active' : '' }}">
+                <li class="nav-item btn-rotate dropdown {{ $elementActive == 'prospeccion' ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Prospección
                         <p>
@@ -46,7 +46,7 @@
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">{{ __('Contactos') }}</a>
+                        <a class="dropdown-item" href="{{ route('prospeccion.contactos') }}">{{ __('Contactos') }}</a>
                         <a class="dropdown-item" href="#">{{ __('Asignacion de Prospectores') }}</a>
                         <a class="dropdown-item" href="#">{{ __('Llamados y Reuniones') }}</a>
                     </div>
