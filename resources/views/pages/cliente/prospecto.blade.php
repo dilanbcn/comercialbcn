@@ -17,7 +17,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table">
-                        <table class="table table-striped" id="tablaComercialesIdex">
+                        <table class="table table-striped tablaComercialesIndex">
                             <thead class="text-primary text-center">
                                 <th>Razón Social</th>
                                 <th>Comercial</th>
