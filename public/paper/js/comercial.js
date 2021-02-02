@@ -146,7 +146,6 @@ $(function() {
 
     showModalWithErrors();
 
-
     // FACTURAS
     $("#btnFactura").on('click', function() {
         $(".inpt-metodo").val('post');
@@ -319,7 +318,57 @@ $(function() {
         });
     });
 
+    $("#filtro").on("change", function() {
+        $("#frm_filtro_asignacion").submit();
+    });
+
+    $("#btnAsingProsp").on("click", function() {
+
+        let arrChk = getSeleccionados();
+        let trs = "";
+        if (arrChk.length > 0) {
+            $(".inpt-metodo").val('post');
+            $("#tableSelect > tbody").html("");
+            $.each(arrChk, function(key, check) {
+                $('#tableSelect > tbody:last-child').append('<tr class="text-center trTable" id="tr_' + $(check).attr('id') + '"><td>' + $(check).data('rut') + '<input type="hidden" name="usuario[]" value="' + $(check).attr('id') + '"></td><td>' + $(check).data('nom') + '</td><td>' + $(check).data('ape') + '</td><td><a href="#" id="' + $(check).attr('id') + '" title="Quitar Comercial" class="btn btn-xs btn-outline-danger quitComercial"><i class="fa fa-times"></i></a></td></tr>');
+            });
+            $("#asing_prospector").modal('show');
+            $(".quitComercial").on('click', function() {
+                let idTr = $(this).attr('id');
+                $('#tr_' + idTr).remove();
+                let totalTr = $('.trTable').get();
+                if (totalTr.length <= 0) {
+                    $("#asing_prospector").modal('hide');
+                }
+            });
+
+        } else {
+            $.confirm({
+                title: 'Atención',
+                content: 'Debe seleccionar al menos un comercial',
+                type: 'orange',
+                theme: 'modern',
+                animation: 'scala',
+                icon: 'fa fa-exclamation-triangle',
+                typeAnimated: true,
+                buttons: {
+                    cancel: {
+                        text: 'Aceptar',
+                    },
+                }
+            });
+        }
+
+    });
 });
+
+function getSeleccionados() {
+    let arrSel = new Array;
+
+    arrSel = $('[name="activo[]"]:checked').get();
+
+    return arrSel;
+}
 
 function showMessage() {
     let msg = $("#msg-data").val();

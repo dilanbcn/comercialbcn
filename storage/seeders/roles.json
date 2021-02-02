@@ -12,5 +12,10 @@
         "nombre": "Reportes",
         "descripcion": "Rol con opción a los reportes",
         "activo": true
+    },
+    {
+        "nombre": "Prospector",
+        "descripcion": "Rol para los usuarios prospectores",
+        "activo": true
     }
 ]

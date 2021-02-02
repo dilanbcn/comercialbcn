@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ClienteContactoRequest;
 use App\Models\Cliente;
 use App\Models\ClienteContacto;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProspeccionController extends Controller
@@ -173,5 +174,59 @@ class ProspeccionController extends Controller
         }
 
         return redirect()->route('prospeccion.contactos')->with(['status' => 'Contacto modificado satisfactoriamente', 'title' => 'Éxito']);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $filtro = ($request->filtro) ? strtolower($request->filtro) : null;
+
+        $usuarios = User::with('prospector')->get();
+
+        $prospectores = $usuarios->filter(function ($comercial) {
+            return $comercial->rol_id == 4;
+        });
+        
+        $comerciales = $usuarios->filter(function ($comercial) {
+            return $comercial->rol_id != 4;
+        })->when($filtro, function ($query) use ($filtro) {
+            return $query->filter(function ($user) use ($filtro) {
+                if ($filtro == 'sin_prospector') {
+                    return $user->id_prospector == '';
+                } else {
+                    return $user->id_prospector == $filtro;
+                }
+            });
+        });
+
+        return view('pages.prospeccion.index', compact('comerciales', 'prospectores', 'filtro'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+
+        if (!$request->get('prospectorId')) {
+            return redirect()->route('prospeccion.asignacion.index')->with(['status' => 'El prospector es requerido', 'title' => 'Error', 'estilo' => 'error']);
+        }
+
+        if (count($request->get('usuario')) <= 0) {
+            return redirect()->route('prospeccion.asignacion.index')->with(['status' => 'No hay usuarios que asignar', 'title' => 'Error', 'estilo' => 'error']);
+        }
+
+
+        User::whereIn("id", $request->get('usuario'))->update(['id_prospector' => $request->get('prospectorId')]);
+
+        return redirect()->route('prospeccion.asignacion.index')->with(['status' => 'Prospector asignado satiosfactoriamente', 'title' => 'success']);
+        
     }
 }

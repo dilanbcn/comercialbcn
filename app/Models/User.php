@@ -59,6 +59,11 @@ class User extends Authenticatable
         return $this->hasMany(Cliente::class);
     }
 
+    public function prospector()
+    {
+        return $this->belongsTo(User::class, 'id_prospector', 'id');
+    }
+
     public static function createPass($long = 8)
     {
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";

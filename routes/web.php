@@ -46,7 +46,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('prospeccion-contactos', 'App\Http\Controllers\ProspeccionController@contactoStore')->name('prospeccion.contactos.store');
 	Route::get('prospeccion-contactos/{cliente_contacto}/edit', 'App\Http\Controllers\ProspeccionController@contactoEdit')->name('prospeccion.contactos.edit');
 	Route::put('prospeccion-contactos/{cliente_contacto}', 'App\Http\Controllers\ProspeccionController@contactoUpdate')->name('prospeccion.contactos.update');
-
+	
+	Route::get('prospeccion-asignacion', 'App\Http\Controllers\ProspeccionController@index')->name('prospeccion.asignacion.index');
+	Route::post('prospeccion-asignacion', 'App\Http\Controllers\ProspeccionController@store')->name('prospeccion.asignacion.store');
 
 	// Route::resource('factura', 'App\Http\Controllers\ProyectoFacturaController', ['except' => ['show', 'store', 'create', 'edit']]);
 	Route::get('proyecto-factura/{proyecto}', 'App\Http\Controllers\ProyectoFacturaController@proyectoFacrtura')->name('factura.proyecto-factura');

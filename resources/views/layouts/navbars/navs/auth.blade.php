@@ -47,7 +47,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{ route('prospeccion.contactos') }}">{{ __('Contactos') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Asignacion de Prospectores') }}</a>
+                        <a class="dropdown-item" href="{{ route('prospeccion.asignacion.index') }}">{{ __('Asignacion de Prospectores') }}</a>
                         <a class="dropdown-item" href="#">{{ __('Llamados y Reuniones') }}</a>
                     </div>
                 </li>
