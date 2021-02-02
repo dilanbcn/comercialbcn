@@ -25,7 +25,6 @@ class ClienteContactoRequest extends FormRequest
     {
         return [
             'nombre' => 'required',
-            'telefono' => 'required|digits:9|numeric|starts_with:2',
         ];
     }
 
@@ -33,9 +32,6 @@ class ClienteContactoRequest extends FormRequest
     {
         return [
             'required' => 'El campo :attribute es requerido',
-            'digits' => 'El campo :attribute debe tener :digits digítos',
-            'numeric' => 'El campo :attribute es inválido',
-            'starts_with' => 'El campo :attribute debe comenzar con el número 2',
         ];
     }
 
@@ -43,7 +39,6 @@ class ClienteContactoRequest extends FormRequest
     {
         return [
             'nombre' => 'nombre',
-            'telefono' => 'teléfono',
         ];
     }
 }

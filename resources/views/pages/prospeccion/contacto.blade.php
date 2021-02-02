@@ -3,7 +3,7 @@
 'elementActive' => 'prospeccion'
 ])
 @section('content')
-<div class="content">
+<div class="content"  id="msg-modal" data-valor="{{ ($errors->any()) ? 1 : 0 }}" data-nombre="add_prospeccion_contacto" data-update="modal_update_prospeccion_contacto">
     <div class="row">
         <div class="col-md-12">
             @include('layouts.page_templates.messages')
@@ -14,9 +14,8 @@
                             <h5 class="card-title mb-1">Contactos</h5>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="#" class="btn btn-sm btn-secondary btn-round" id="btnModalContacto"><i class="fas fa-plus"></i> Agregar</a>
+                            <a href="#" class="btn btn-sm btn-secondary btn-round" id="btnModalContactoPros"><i class="fas fa-plus"></i> Agregar</a>
                         </div>
-
                     </div>
                 </div>
                 <div class="card-body">
@@ -45,6 +44,9 @@
                                     <td>{{ $contacto->telefono }}</td>
                                     <td>{{ $contacto->celular }}</td>
                                     <td>
+                                        <div class="btn-group" role="group" aria-label="Grupo Acciones">
+                                            <a href="#" title="Editar" class="btn btn-xs btn-outline-secondary btnProspContacto" data-editar="{{ route('prospeccion.contactos.edit', $contacto->id) }}" data-actualizar="{{ route('prospeccion.contactos.update', $contacto->id) }}"><i class="fa fa-edit"></i></a>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -56,4 +58,6 @@
         </div>
     </div>
 </div>
+@include('pages.prospeccion.modal_contacto')
+@include('pages.prospeccion.modal_contacto_update')
 @endsection

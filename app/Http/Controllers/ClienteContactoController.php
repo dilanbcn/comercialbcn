@@ -110,6 +110,15 @@ class ClienteContactoController extends Controller
             $this->validate($request, $rules, $customMessages);
         }
 
+        if ($request->get('telefono') != '') {
+            $rules = ['telefono' => 'digits:9|numeric|starts_with:2'];
+            $customMessages = [
+                'starts_with' => 'El campo :attribute debe comenzar con el número 9', 
+                'digits' => 'El campo :attribute debe tener :digits digítos', 
+                'numeric' => 'El campo :attribute es inválido'];
+            $this->validate($request, $rules, $customMessages);
+        }
+
         if ($request->get('email') != '') {
             $rules = ['email' => 'email|confirmed'];
             $customMessages = ['email' => 'El campo :attribute es inválido', 'confirmed' => 'El correo no coincide'];

@@ -21,7 +21,7 @@ class CreateClienteContactosTable extends Migration
             $table->string('apellido')->nullable();
             $table->string('cargo')->nullable();;
             $table->string('correo')->nullable();
-            $table->string('telefono');
+            $table->string('telefono')->nullable();
             $table->string('celular')->nullable();
             $table->boolean('activo')->default(true);
 
