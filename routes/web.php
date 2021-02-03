@@ -49,6 +49,13 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::get('prospeccion-asignacion', 'App\Http\Controllers\ProspeccionController@index')->name('prospeccion.asignacion.index');
 	Route::post('prospeccion-asignacion', 'App\Http\Controllers\ProspeccionController@store')->name('prospeccion.asignacion.store');
+	
+	Route::resource('comunicacion', 'App\Http\Controllers\ClienteComunicacionController', ['except' => ['show']]);
+	Route::get('conversación/{cliente}', 'App\Http\Controllers\ClienteComunicacionController@conversacion')->name('comunicacion.conversacion');
+	Route::post('valida-reunion/{cliente_comunicacion}', 'App\Http\Controllers\ClienteComunicacionController@validar')->name('comunicacion.validar');
+	// Route::resource('reuniones', 'App\Http\Controllers\ClienteReunionController', ['except' => ['show']]);
+	// Route::get('cliente-reuniones', 'App\Http\Controllers\ClienteReunionController@index')->name('prospeccion.meeting.index');
+	// Route::post('prospeccion-reuniones', 'App\Http\Controllers\ClienteReunionController@meetingStore')->name('prospeccion.meeting.store');
 
 	// Route::resource('factura', 'App\Http\Controllers\ProyectoFacturaController', ['except' => ['show', 'store', 'create', 'edit']]);
 	Route::get('proyecto-factura/{proyecto}', 'App\Http\Controllers\ProyectoFacturaController@proyectoFacrtura')->name('factura.proyecto-factura');

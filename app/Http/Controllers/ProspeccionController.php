@@ -229,4 +229,6 @@ class ProspeccionController extends Controller
         return redirect()->route('prospeccion.asignacion.index')->with(['status' => 'Prospector asignado satiosfactoriamente', 'title' => 'success']);
         
     }
+
+    
 }

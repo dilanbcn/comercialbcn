@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cliente;
 use App\Models\ClienteContacto;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,7 +17,7 @@ class CreateClienteContactosTable extends Migration
     {
         Schema::create(ClienteContacto::tabla, function (Blueprint $table) {
             $table->id();
-            $table->integer('cliente_id')->unsigned();
+            $table->foreignId('cliente_id')->constrained(Cliente::tabla);
             $table->string('nombre');
             $table->string('apellido')->nullable();
             $table->string('cargo')->nullable();;

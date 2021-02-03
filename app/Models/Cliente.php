@@ -55,4 +55,9 @@ class Cliente extends Model
         return $this->hasMany(ClienteContacto::class);
     }
 
+    public function clienteComunicacion()
+    {
+        return $this->hasMany(ClienteComunicacion::class);
+    }
+
 }

@@ -14,6 +14,11 @@
         "activo": true
     },
     {
+        "nombre": "Prospector Administrador",
+        "descripcion": "Rol para los usuarios prospectores administradores",
+        "activo": true
+    },
+    {
         "nombre": "Prospector",
         "descripcion": "Rol para los usuarios prospectores",
         "activo": true

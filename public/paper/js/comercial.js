@@ -23,7 +23,7 @@ $(function() {
         let recursivo = $(this).data('recurs');
         let ruta = $(this).data('ruta');
         let textherencia = $(this).data('textherencia');
-        let textMsg = (textherencia != undefined) ? 'Al eliminar este registro, ' + textherencia + ', desea continuar?' : 'Al eliminar este registro, se eliminarán todos los que dependen de el, desea continuar?';
+        let textMsg = (textherencia != undefined) ? 'Al eliminar este registro, ' + textherencia + ', ¿desea continuar?' : 'Al eliminar este registro, se eliminarán todos los que dependen de el, ¿desea continuar?';
 
         $.confirm({
             title: nameTitle,
@@ -284,7 +284,6 @@ $(function() {
                 if (data.success == 'ok') {
                     $('#frm_update_prospeccion_contacto').attr('action', rutaUpdate);
                     $("#cliente option[value='" + data.cliente_id + "']").attr("selected", true);
-                    console.log('file: comercial.js -> line 288 -> $ -> data.cliente_id', data.cliente_id);
                     $("#nombre").val(data.nombre);
                     $("#apellido").val(data.apellido);
                     $("#cargo").val(data.cargo);
@@ -360,6 +359,53 @@ $(function() {
         }
 
     });
+
+    // COMUNICACION
+    $(".btnAddMeeting").on('click', function() {
+        $(".inpt-metodo").val('post');
+        let idCliente = $(this).data('cliente');
+
+        limpiarModalMeeting();
+        $("#add_cliente_comunicacion").modal('show');
+        if (idCliente) {
+            $("#cliente option[value='" + idCliente + "']").prop("selected", true);
+        } else {
+            $("#cliente option:eq(0)").prop("selected", true);
+        }
+    });
+
+    $("#btnAddComunicacion").on('click', function() {
+        $(".inpt-metodo").val('post');
+        limpiarModalMeeting();
+        $("#add_comunicacion_conversacion").modal('show');
+    });
+
+    $(".validarReunion").on('click', function() {
+        let ruta = $(this).data('ruta');
+        $.confirm({
+            title: 'Validar Reunión',
+            content: '¿Está seguro que desea validar esta reunión?',
+            type: 'green',
+            theme: 'modern',
+            animation: 'scala',
+            icon: 'fa fa-question-circle',
+            typeAnimated: true,
+            buttons: {
+                confirm: {
+                    text: 'Validar',
+                    btnClass: 'btn-success',
+                    action: function() {
+                        $('#frm_validar_reunion').attr('action', ruta);
+                        $("#frm_validar_reunion").submit();
+                    },
+                },
+                cancel: {
+                    text: 'Cancelar',
+                },
+            }
+        });
+    });
+
 });
 
 function getSeleccionados() {
@@ -392,7 +438,7 @@ function showModalWithErrors() {
         $("#" + modal).modal('show');
 
         if (metodo == 'put') {
-            $('#frm_update_proyectos, #frm_update_facturas, #frm_update_cliente_contacto, #frm_update_prospeccion_contacto').attr('action', $(".inpt-ruta").val());
+            $('#frm_update_proyectos, #frm_update_facturas, #frm_update_cliente_contacto, #frm_update_prospeccion_contacto, #frm_update_cliente_comunicacion').attr('action', $(".inpt-ruta").val());
         }
     }
 }
@@ -478,5 +524,9 @@ function limpiarModalCliente(upd = false) {
         $(".nombre, .apellido, .cargo, .telefono, .celular, .email, .cliente").val('').removeClass('is-invalid');
     }
 
+    $(".invalid-feedback").hide();
+}
+
+function limpiarModalMeeting(upd = false) {
     $(".invalid-feedback").hide();
 }
