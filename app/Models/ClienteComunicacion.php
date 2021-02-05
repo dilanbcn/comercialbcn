@@ -28,9 +28,13 @@ class ClienteComunicacion extends Model
         'linkedin',
         'envia_correo',
         'respuesta',
+        'observaciones',
         'fecha_reunion',
         'reunion_valida',
-        'observaciones',
+        'fecha_validacion',
+        'usuario_validacion',
+        'usuario_validacion_nombre'
+
     ];
 
     public function cliente()

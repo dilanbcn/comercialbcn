@@ -1,13 +1,13 @@
 <div class="modal fade" id="add_comunicacion_conversacion" tabindex="-1" role="dialog" aria-labelledby="updateComunicacionModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form class="form-prevent-multiple-submits" action="{{ route('comunicacion.store') }}" id="frm_add_comunicacion_conversacion" method="POST" enctype="multipart/form-data">
+            <form class="form-prevent-multiple-submits" action="{{ route('cliente-comunicacion.store') }}" id="frm_add_comunicacion_conversacion" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" class="inpt-metodo" name="inpt-metodo" value="{{ @old('inpt-metodo') }}">
-                <input type="hidden" class="inpt-ruta" name="inpt-ruta" value="1">
+                <input type="hidden" class="inpt-ruta" name="inpt-ruta" value="{{ @old('inpt-ruta') }}">
                 <input type="hidden" name="cliente" value="{{ $cliente->id }}">
                 <div class="modal-header">
-                    <h5 class="card-title mb-1" style="color: #35D32F;">Editar Reunion / Llamada</h5>
+                    <h5 class="card-title mb-1" style="color: #35D32F;">Agregar comunicación con el cliente</h5>
                 </div>
                 <div class="modal-body">
                     <div class="card">

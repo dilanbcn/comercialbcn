@@ -380,6 +380,54 @@ $(function() {
         $("#add_comunicacion_conversacion").modal('show');
     });
 
+    $(".btnEditComunicacion").on('click', function() {
+        $(".inpt-metodo").val('put');
+        let rutaEdit = $(this).data('editar');
+        let rutaUpdate = $(this).data('actualizar');
+        $(".inpt-ruta").val(rutaUpdate);
+        limpiarModalMeeting(true);
+        $.ajax({
+            url: rutaEdit,
+            success: function(data) {
+                if (data.success == 'ok') {
+                    if (data.fecha_reunion) {
+                        let fecha = data.fecha_reunion.split(' ');
+                        $("#fechaReunion").val(fecha[0]);
+                        $("#horaReunion").val(fecha[1].substring(0, 5));
+                    }
+                    $('#frm_upd_comunicacion_conversacion').attr('action', rutaUpdate);
+                    $("#fechaContacto").val(data.fecha_contacto);
+                    $("#observaciones").val(data.observaciones);
+                    $('#tipoComunicacion').bootstrapToggle((data.tipo_comunicacion == 1) ? 'off' : 'on');
+                    $('#linkedin').bootstrapToggle((data.linkedin == 1) ? 'on' : 'off');
+                    $('#envioCorreo').bootstrapToggle((data.envia_correo == 1) ? 'on' : 'off');
+                    $('#respuesta').bootstrapToggle((data.respuesta == 1) ? 'on' : 'off');
+
+                    $("#upd_comunicacion_conversacion").modal('show');
+                } else {
+                    limpiarModalMeeting();
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                $("#upd_comunicacion_conversacion").modal('hide');
+                $.confirm({
+                    title: 'Error',
+                    content: 'Error al intentar obtener los datos de comunicación, intente de nuevo mas tarde',
+                    type: 'red',
+                    theme: 'modern',
+                    animation: 'scala',
+                    icon: 'fa fa-exclamation-triangle',
+                    typeAnimated: true,
+                    buttons: {
+                        cancel: {
+                            text: 'Aceptar',
+                        },
+                    }
+                });
+            }
+        });
+    });
+
     $(".validarReunion").on('click', function() {
         let ruta = $(this).data('ruta');
         $.confirm({
@@ -433,12 +481,11 @@ function showModalWithErrors() {
     let metodo = $(".inpt-metodo").val();
 
     let modal = (metodo == 'put') ? modalUpd : modalNew;
-
     if (error == 1) {
         $("#" + modal).modal('show');
 
         if (metodo == 'put') {
-            $('#frm_update_proyectos, #frm_update_facturas, #frm_update_cliente_contacto, #frm_update_prospeccion_contacto, #frm_update_cliente_comunicacion').attr('action', $(".inpt-ruta").val());
+            $('.frm_modal_update').attr('action', $(".inpt-ruta").val());
         }
     }
 }
@@ -528,5 +575,10 @@ function limpiarModalCliente(upd = false) {
 }
 
 function limpiarModalMeeting(upd = false) {
+    if (upd) {
+        $(".nombre, .apellido, .cargo, .telefono, .celular, .email, .cliente").removeClass('is-invalid');
+    } else {
+        $(".nombre, .apellido, .cargo, .telefono, .celular, .email, .cliente").val('').removeClass('is-invalid');
+    }
     $(".invalid-feedback").hide();
 }

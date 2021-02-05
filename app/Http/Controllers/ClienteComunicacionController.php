@@ -45,8 +45,9 @@ class ClienteComunicacionController extends Controller
             $rules = ['fechaReunion' => 'date|after_or_equal:fechaContacto', 'horaReunion' => 'required|date_format:H:i'];
             $customMessages = [
                 'required' => 'El campo :attribute es requerido',
-                'date' => 'El campo :attribute es una fecha inválida', 
-                'before_or_equal' => 'El campo :attribute debe ser mayor al campo Fecha Contacto'];
+                'date' => 'El campo :attribute es una fecha inválida',
+                'before_or_equal' => 'El campo :attribute debe ser mayor al campo Fecha Contacto'
+            ];
             $this->validate($request, $rules, $customMessages);
         }
 
@@ -67,10 +68,9 @@ class ClienteComunicacionController extends Controller
             'observaciones' => $request->get('observaciones'),
         ]);
 
-        $ruta = (!$request->get('inpt-ruta')) ? 'comunicacion.index' : 'comunicacion.conversacion';
+        $ruta = (!$request->get('inpt-ruta')) ? 'cliente-comunicacion.index' : 'cliente-comunicacion.conversacion';
 
         return redirect()->route($ruta, ($request->get('inpt-ruta')) ? $request->get('cliente') : null)->with(['status' => 'Registro creado satisfactoriamente', 'title' => 'Éxito']);
-        
     }
 
     /**
@@ -92,7 +92,9 @@ class ClienteComunicacionController extends Controller
      */
     public function edit(ClienteComunicacion $clienteComunicacion)
     {
-        //
+        $clienteComunicacion->success = 'ok';
+
+        return response()->json($clienteComunicacion, 200);
     }
 
     /**
@@ -102,9 +104,46 @@ class ClienteComunicacionController extends Controller
      * @param  \App\Models\ClienteComunicacion  $clienteComunicacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ClienteComunicacion $clienteComunicacion)
+    public function update(ClienteComunicacionRequest $request, ClienteComunicacion $clienteComunicacion)
     {
-        //
+        if ($request->get('fechaReunion') != '') {
+            $rules = ['fechaReunion' => 'date|after_or_equal:fechaContacto', 'horaReunion' => 'required|date_format:H:i'];
+            $customMessages = [
+                'required' => 'El campo :attribute es requerido',
+                'date' => 'El campo :attribute es una fecha inválida',
+                'before_or_equal' => 'El campo :attribute debe ser mayor al campo Fecha Contacto',
+                'date_format' => 'El campo :attribute es invádlido'
+            ];
+            $this->validate($request, $rules, $customMessages);
+        }
+        $user = auth()->user();
+
+        $stringFecha = $request->get('fechaReunion') . ' ' . $request->get('horaReunion');
+        $fechaReunion = new Carbon($stringFecha);
+
+        $clienteComunicacion->fill([
+            'tipo_comunicacion' => ($request->get('tipoComunicacion')) ? ClienteComunicacion::LLAMADA : ClienteComunicacion::CORREO,
+            'comercial_nombre' => $user->name . ' ' . $user->last_name,
+            'fecha_contacto' => $request->get('fechaContacto'),
+            'fecha_reunion' => ($request->get('fechaReunion')) ? $fechaReunion->format('Y-m-d H:i:00') : null,
+            'linkedin' => ($request->get('linkedin')) ? $request->get('linkedin') : 0,
+            'envia_correo' => ($request->get('envioCorreo')) ? $request->get('envioCorreo') : 0,
+            'respuesta' => ($request->get('respuesta')) ? $request->get('respuesta') : 0,
+            'observaciones' => $request->get('observaciones'),
+        ]);
+
+        if ($clienteComunicacion->isDirty()) {
+            $clienteComunicacion->save();
+        }
+
+        if ($request->calendario == 'calendario') {
+            return redirect()->route('cliente-comunicacion.calendario')->with(['status' => 'Reunion modificada satisfactoriamente', 'title' => 'Éxito']);
+        } else {
+            return redirect()->route('cliente-comunicacion.conversacion', $clienteComunicacion->cliente_id)->with(['status' => 'Registro modificado satisfactoriamente', 'title' => 'Éxito']);
+
+        }
+
+
     }
 
     /**
@@ -144,7 +183,73 @@ class ClienteComunicacionController extends Controller
 
         $clienteComunicacion->save();
 
-        return redirect()->route('comunicacion.conversacion', $clienteComunicacion->cliente_id)->with(['status' => 'Reunión validada satisfactoriamente', 'title' => 'Éxito']);
+        return redirect()->route('cliente-comunicacion.conversacion', $clienteComunicacion->cliente_id)->with(['status' => 'Reunión validada satisfactoriamente', 'title' => 'Éxito']);
+    }
+
+    public function calendario()
+    {
+
+        $hoy = Carbon::today();
+        $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion'])->get();
+
+        return view('pages.cliente_calendario.index', compact('clientes', 'hoy'));
+    }
+
+    public function reuniones(Request $request)
+    {
+        $fechaDesde = Carbon::parse($request->start);
+        $desde = $fechaDesde->format('Y-m-d');
+
+        $fechaHasta = Carbon::parse($request->end);
+        $hasta = $fechaHasta->format('Y-m-d');
+
+        $reuniones = ClienteComunicacion::whereNotNull('fecha_reunion')->whereBetween('fecha_reunion', [$desde, $hasta])->with(['cliente'])->get();
+        $arrReuniones = array();
+        foreach($reuniones as $reunion){
+            $arrReunion = [
+                'title' => $reunion->cliente->razon_social,
+                'start'=> $reunion->fecha_reunion,
+                'id'=> $reunion->id,
+                'color' => ($reunion->reunion_valida == 1) ? 'blue' : 'grey',
+            ];
+            array_push($arrReuniones, $arrReunion);
+        }
+
+        return response()->json($arrReuniones, 200);
 
     }
+
+    public function calendarioStore(ClienteComunicacionRequest $request)
+    {
+        if ($request->get('fechaReunion') != '') {
+            $rules = ['fechaReunion' => 'date|after_or_equal:fechaContacto', 'horaReunion' => 'required|date_format:H:i'];
+            $customMessages = [
+                'required' => 'El campo :attribute es requerido',
+                'date' => 'El campo :attribute es una fecha inválida',
+                'before_or_equal' => 'El campo :attribute debe ser mayor al campo Fecha Contacto'
+            ];
+            $this->validate($request, $rules, $customMessages);
+        }
+
+        $user = auth()->user();
+
+        $stringFecha = $request->get('fechaReunion') . ' ' . $request->get('horaReunion');
+        $fechaReunion = new Carbon($stringFecha);
+
+        ClienteComunicacion::create([
+            'cliente_id' => $request->get('cliente'),
+            'tipo_comunicacion' => ($request->get('tipoComunicacion')) ? ClienteComunicacion::LLAMADA : ClienteComunicacion::CORREO,
+            'comercial_nombre' => $user->name . ' ' . $user->last_name,
+            'fecha_contacto' => $request->get('fechaContacto'),
+            'fecha_reunion' => ($request->get('fechaReunion')) ? $fechaReunion->format('Y-m-d H:i:00') : null,
+            'linkedin' => ($request->get('linkedin')) ? $request->get('linkedin') : 0,
+            'envia_correo' => ($request->get('envioCorreo')) ? $request->get('envioCorreo') : 0,
+            'respuesta' => ($request->get('respuesta')) ? $request->get('respuesta') : 0,
+            'observaciones' => $request->get('observaciones'),
+        ]);
+
+        return redirect()->route('cliente-comunicacion.calendario')->with(['status' => 'Reunion creada satisfactoriamente', 'title' => 'Éxito']);
+    }
+
+   
 }

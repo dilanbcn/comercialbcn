@@ -26,13 +26,12 @@ The above copyright notice and this permission notice shall be included in all c
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <!-- Extra details for Live View on GitHub Pages -->
-    
+
     <title>
         {{ __('Comercial') }}
     </title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-        name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -46,25 +45,26 @@ The above copyright notice and this permission notice shall be included in all c
     <link href="{{ asset('paper/css/bootstrap-select.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('paper/css/submit.css') }}" rel="stylesheet" />
     <!-- Data Tables -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('paper/css/datatables.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('paper/css/datatables.min.css') }}" />
     <!-- Toast -->
     <!-- <link rel="stylesheet" type="text/css" href="{{ asset('paper/css/jquery.toast.min.css') }}"/> -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('paper/css/toastr.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('paper/css/toastr.min.css') }}" />
     <!-- CharJs -->
     <link href="{{ asset('paper/css/chartjs/Chart.min.css') }}" rel="stylesheet" />
-    
+
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet' />
     <!-- Easy Pie Chart -->
-    
+
 </head>
 
 <body class="{{ $class }}">
-    
+
     @auth()
-        @include('layouts.page_templates.auth')
+    @include('layouts.page_templates.auth')
     @endauth
-    
+
     @guest
-        @include('layouts.page_templates.guest')
+    @include('layouts.page_templates.guest')
     @endguest
 
     <!--   Core JS Files   -->
@@ -87,6 +87,7 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="{{ asset('paper/js/submit.js') }}"></script>
     <script src="{{ asset('paper/js/plugins/bootstrap-select.min.js') }}"></script>
     <script src="https://kit.fontawesome.com/00c104946b.js" crossorigin="anonymous"></script>
+
     <!-- Data Tables -->
     <script type="text/javascript" src="{{ asset('paper/js/datatables.min.js') }}"></script>
     <!-- Toast -->
@@ -98,6 +99,10 @@ The above copyright notice and this permission notice shall be included in all c
 
     <!-- Easy Pie Chart -->
     <script src="{{ asset('paper/js/plugins/easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
+
+    
+
+
     @stack('scripts')
 
 </body>

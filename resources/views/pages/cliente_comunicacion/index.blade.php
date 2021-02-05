@@ -39,7 +39,7 @@
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">
                                             <a href="#" title="Agregar" data-cliente="{{ $cliente->id }}" class="btn btn-xs btn-outline-secondary btnAddMeeting"><i class="fas fa-comment-medical"></i></a>
                                             @if ($cliente->clienteComunicacion->count() > 0)
-                                            <a href="{{ route('comunicacion.conversacion', [$cliente->id]) }}" title="Ver Conversación" class="btn btn-xs btn-outline-secondary"><i class="far fa-comments"></i></a>
+                                            <a href="{{ route('cliente-comunicacion.conversacion', [$cliente->id]) }}" title="Ver Conversación" class="btn btn-xs btn-outline-secondary"><i class="far fa-comments"></i></a>
                                             @endif
                                         </div>
                                     </td>

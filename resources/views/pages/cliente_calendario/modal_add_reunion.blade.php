@@ -1,11 +1,11 @@
-<div class="modal fade" id="add_cliente_comunicacion" tabindex="-1" role="dialog" aria-labelledby="reunionModalLabel" aria-hidden="true">
+<div class="modal fade" id="add_reunion" tabindex="-1" role="dialog" aria-labelledby="addReunionModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form class="form-prevent-multiple-submits" action="{{ route('cliente-comunicacion.store') }}" id="frm_add_cliente_comunicacion" method="POST" enctype="multipart/form-data">
+            <form class="form-prevent-multiple-submits" action="{{ route('cliente-calendario.store') }}" id="frm_add_reunion" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" class="inpt-metodo" name="inpt-metodo" value="{{ @old('inpt-metodo') }}">
                 <div class="modal-header">
-                    <h5 class="card-title mb-1" style="color: #35D32F;">Agregar comunicación con el cliente</h5>
+                    <h5 class="card-title mb-1" style="color: #35D32F;">Agregar Reunión</h5>
                 </div>
                 <div class="modal-body">
                     <div class="card">
@@ -54,7 +54,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>{{ __('Agenda Reunión') }}</label>
-                                        <input autocomplete="off" type="date" name="fechaReunion" class="form-control @error('fechaReunion') is-invalid @enderror" value="{{ @old('fechaReunion') }}" min="{{ date('Y-m-d', strtotime($hoy)) }}">
+                                        <input autocomplete="off" type="date" id="fechaReunion" name="fechaReunion" class="form-control @error('fechaReunion') is-invalid @enderror" value="{{ @old('fechaReunion') }}" min="{{ date('Y-m-d', strtotime($hoy)) }}">
                                         @if ($errors->has('fechaReunion'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('fechaReunion') }}</strong>

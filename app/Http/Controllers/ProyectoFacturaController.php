@@ -16,7 +16,7 @@ class ProyectoFacturaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function proyectoFacrtura(Proyecto $proyecto)
+    public function proyectoFactura(Proyecto $proyecto)
     {
         $facturas = ProyectoFactura::where(['proyecto_id' => $proyecto->id])->get();
         $cliente = Cliente::find($proyecto->cliente_id);

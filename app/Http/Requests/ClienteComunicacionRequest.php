@@ -23,11 +23,19 @@ class ClienteComunicacionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'cliente' => 'required|exists:clientes,id',
-            'fechaContacto' => 'required|date|before_or_equal:today',
-            'observaciones' => 'required'
-        ];
+        if ($this->route()->action['as'] == 'cliente-comunicacion.update'){
+            return [
+                'fechaContacto' => 'required|date|before_or_equal:today',
+                'observaciones' => 'required'
+            ];
+            
+        } else {
+            return [
+                'cliente' => 'required|exists:clientes,id',
+                'fechaContacto' => 'required|date|before_or_equal:today',
+                'observaciones' => 'required'
+            ];
+        }
     }
 
     public function messages()

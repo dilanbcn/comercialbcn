@@ -50,15 +50,15 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('prospeccion-asignacion', 'App\Http\Controllers\ProspeccionController@index')->name('prospeccion.asignacion.index');
 	Route::post('prospeccion-asignacion', 'App\Http\Controllers\ProspeccionController@store')->name('prospeccion.asignacion.store');
 	
-	Route::resource('comunicacion', 'App\Http\Controllers\ClienteComunicacionController', ['except' => ['show']]);
-	Route::get('conversación/{cliente}', 'App\Http\Controllers\ClienteComunicacionController@conversacion')->name('comunicacion.conversacion');
-	Route::post('valida-reunion/{cliente_comunicacion}', 'App\Http\Controllers\ClienteComunicacionController@validar')->name('comunicacion.validar');
-	// Route::resource('reuniones', 'App\Http\Controllers\ClienteReunionController', ['except' => ['show']]);
-	// Route::get('cliente-reuniones', 'App\Http\Controllers\ClienteReunionController@index')->name('prospeccion.meeting.index');
-	// Route::post('prospeccion-reuniones', 'App\Http\Controllers\ClienteReunionController@meetingStore')->name('prospeccion.meeting.store');
-
-	// Route::resource('factura', 'App\Http\Controllers\ProyectoFacturaController', ['except' => ['show', 'store', 'create', 'edit']]);
-	Route::get('proyecto-factura/{proyecto}', 'App\Http\Controllers\ProyectoFacturaController@proyectoFacrtura')->name('factura.proyecto-factura');
+	Route::resource('cliente-comunicacion', 'App\Http\Controllers\ClienteComunicacionController', ['except' => ['show']]);
+	Route::get('cliente-comunicacion/reuniones', 'App\Http\Controllers\ClienteComunicacionController@reuniones')->name('cliente-comunicacion.reuniones');
+	Route::get('conversación/{cliente}', 'App\Http\Controllers\ClienteComunicacionController@conversacion')->name('cliente-comunicacion.conversacion');
+	Route::post('valida-reunion/{cliente_comunicacion}', 'App\Http\Controllers\ClienteComunicacionController@validar')->name('cliente-comunicacion.validar');
+	Route::get('calendario', 'App\Http\Controllers\ClienteComunicacionController@calendario')->name('cliente-comunicacion.calendario');
+	Route::post('calendario', 'App\Http\Controllers\ClienteComunicacionController@calendarioStore')->name('cliente-calendario.store');
+	Route::put('calendario-update/{cliente-comunicacion}', 'App\Http\Controllers\ClienteComunicacionController@calendarioUpdate')->name('cliente-calendario.update');
+	
+	Route::get('proyecto-factura/{proyecto}', 'App\Http\Controllers\ProyectoFacturaController@proyectoFactura')->name('factura.proyecto-factura');
 	Route::post('factura/{proyecto}', 'App\Http\Controllers\ProyectoFacturaController@store')->name('factura.store');
 	Route::get('factura/{proyecto_factura}/edit', 'App\Http\Controllers\ProyectoFacturaController@edit')->name('factura.edit');
 	Route::put('factura/{proyecto_factura}', 'App\Http\Controllers\ProyectoFacturaController@update')->name('factura.update');

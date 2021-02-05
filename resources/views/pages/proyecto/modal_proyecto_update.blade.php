@@ -1,7 +1,7 @@
 <div class="modal fade" id="update_proyecto_cliente" tabindex="-1" role="dialog" aria-labelledby="proyectosModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form class="form-prevent-multiple-submits" action="{{ route('proyecto.store', $cliente->id) }}" id="frm_update_proyectos" method="POST" enctype="multipart/form-data">
+            <form class="form-prevent-multiple-submits frm_modal_update" action="{{ route('proyecto.store', $cliente->id) }}" id="frm_update_proyectos" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <input type="hidden" class="inpt-metodo" name="inpt-metodo" value="{{ @old('inpt-metodo') }}">
