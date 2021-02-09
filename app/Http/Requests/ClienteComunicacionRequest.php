@@ -26,14 +26,16 @@ class ClienteComunicacionRequest extends FormRequest
         if ($this->route()->action['as'] == 'cliente-comunicacion.update'){
             return [
                 'fechaContacto' => 'required|date|before_or_equal:today',
-                'observaciones' => 'required'
+                'observaciones' => 'required',
+                'tipoComunicacion' => 'required|exists:tipo_comunicaciones,id'
             ];
             
         } else {
             return [
                 'cliente' => 'required|exists:clientes,id',
                 'fechaContacto' => 'required|date|before_or_equal:today',
-                'observaciones' => 'required'
+                'observaciones' => 'required',
+                'tipoComunicacion' => 'required|exists:tipo_comunicaciones,id'
             ];
         }
     }
@@ -54,6 +56,7 @@ class ClienteComunicacionRequest extends FormRequest
             'cliente' => 'cliente',
             'fechaContacto' => 'fecha contacto',
             'observaciones' => 'observaciones',
+            'tipoComunicacion' => 'tipo comunicación',
         ];
     }
 }

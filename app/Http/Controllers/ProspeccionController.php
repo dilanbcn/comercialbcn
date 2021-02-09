@@ -55,7 +55,7 @@ class ProspeccionController extends Controller
         if ($request->get('telefono') != '') {
             $rules = ['telefono' => 'digits:9|numeric|starts_with:2'];
             $customMessages = [
-                'starts_with' => 'El campo :attribute debe comenzar con el número 9', 
+                'starts_with' => 'El campo :attribute debe comenzar con el número 2', 
                 'digits' => 'El campo :attribute debe tener :digits digítos', 
                 'numeric' => 'El campo :attribute es inválido'];
             $this->validate($request, $rules, $customMessages);
@@ -129,7 +129,7 @@ class ProspeccionController extends Controller
         if ($request->get('telefono') != '') {
             $rules = ['telefono' => 'digits:9|numeric|starts_with:2'];
             $customMessages = [
-                'starts_with' => 'El campo :attribute debe comenzar con el número 9', 
+                'starts_with' => 'El campo :attribute debe comenzar con el número 2', 
                 'digits' => 'El campo :attribute debe tener :digits digítos', 
                 'numeric' => 'El campo :attribute es inválido'];
             $this->validate($request, $rules, $customMessages);
@@ -188,11 +188,11 @@ class ProspeccionController extends Controller
         $usuarios = User::with('prospector')->get();
 
         $prospectores = $usuarios->filter(function ($comercial) {
-            return $comercial->rol_id == 4;
+            return $comercial->rol_id == 5;
         });
         
         $comerciales = $usuarios->filter(function ($comercial) {
-            return $comercial->rol_id != 4;
+            return $comercial->rol_id != 5;
         })->when($filtro, function ($query) use ($filtro) {
             return $query->filter(function ($user) use ($filtro) {
                 if ($filtro == 'sin_prospector') {

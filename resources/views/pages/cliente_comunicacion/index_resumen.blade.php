@@ -11,11 +11,9 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h5 class="card-title mb-1">Clientes</h5>
+                            <h5 class="card-title mb-1">Comuncacion Resumen</h5>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="#" class="btn btn-sm btn-secondary btn-round btnAddMeeting"><i class="fas fa-plus"></i> Agregar</a>
-                            <a href="{{ route('cliente-comunicacion.resumen') }}" class="btn btn-sm btn-success btn-round"><i class="fas fa-list"></i> Vista Resumen</a>
                         </div>
                     </div>
                 </div>
@@ -24,24 +22,28 @@
                         <table class="table table-striped tablaComercialesIndex">
                             <thead class="text-primary text-center">
                                 <th>Razón Social</th>
-                                <th>Teléfono</th>
+                                <th>N° Trabajadores</th>
+                                <th>Rubro</th>
+                                <th>Nombre Contacto</th>
+                                <th>Fono Fijo</th>
                                 <th>Correo</th>
-                                <th>Estado</th>
+                                <th>Celular</th>
+                                <th>Fecha Contacto</th>
+                                <th>Acepta LinkedIn</th>
+                                <th>Envía Correo</th>
+                                <th>Fecha Reunión</th>
+                                <th>Observaciones</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
-                                @foreach($clientes as $key => $cliente)
+                                @foreach($comunicaciones as $key => $comunicacion)
                                 <tr class="text-center">
-                                    <td class="text-left">{{ $cliente->razon_social }}</td>
-                                    <td>{{ $cliente->telefono }}</td>
-                                    <td>{{ $cliente->email }}</td>
-                                    <td>{{ ($cliente->activo == 1 ) ? 'Activo' : 'Inactivo' }}</td>
+                                    <td class="text-left">{{ $comunicacion->cliente->razon_social }}</td>
+                                    <td>{{ $comunicacion->cliente->cantidad_empleados }}</td>
+                                    <td>{{ $comunicacion->cliente->rubro }}</td>
+                                    <td></td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">
-                                            <a href="#" title="Agregar" data-cliente="{{ $cliente->id }}" class="btn btn-xs btn-outline-secondary btnAddMeeting"><i class="fas fa-comment-medical"></i></a>
-                                            @if ($cliente->clienteComunicacion->count() > 0)
-                                            <a href="{{ route('cliente-comunicacion.conversacion', [$cliente->id]) }}" title="Ver Conversación" class="btn btn-xs btn-outline-secondary"><i class="far fa-comments"></i></a>
-                                            @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -54,5 +56,4 @@
         </div>
     </div>
 </div>
-@include('pages.cliente_comunicacion.modal_comunicacion')
 @endsection

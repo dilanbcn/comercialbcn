@@ -1,0 +1,19 @@
+[{
+        "nombre": "Correo",
+        "descripcion": "Comunicacion a través de correo electrónico",
+        "icono": "far fa-envelope",
+        "activo": true
+    },
+    {
+        "nombre": "Llamadas",
+        "descripcion": "Comunicacion a través de llamadas teléfonicas",
+        "icono": "fas fa-phone-alt",
+        "activo": true
+    },
+    {
+        "nombre": "LinkedIn",
+        "descripcion": "Comunicacion a través de LinkedIn",
+        "icono": "fab fa-linkedin-in",
+        "activo": true
+    }
+]

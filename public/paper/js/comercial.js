@@ -396,12 +396,13 @@ $(function() {
                         $("#horaReunion").val(fecha[1].substring(0, 5));
                     }
                     $('#frm_upd_comunicacion_conversacion').attr('action', rutaUpdate);
-                    $("#fechaContacto").val(data.fecha_contacto);
-                    $("#observaciones").val(data.observaciones);
-                    $('#tipoComunicacion').bootstrapToggle((data.tipo_comunicacion == 1) ? 'off' : 'on');
-                    $('#linkedin').bootstrapToggle((data.linkedin == 1) ? 'on' : 'off');
-                    $('#envioCorreo').bootstrapToggle((data.envia_correo == 1) ? 'on' : 'off');
-                    $('#respuesta').bootstrapToggle((data.respuesta == 1) ? 'on' : 'off');
+                    $("#updt_contactoId").val(data.cliente_contacto_id);
+                    $("#updt_fechaContacto").val(data.fecha_contacto);
+                    $("#updt_observaciones").val(data.observaciones);
+                    $('#updt_tipoComunicacion').val(data.tipo_comunicacion_id);
+                    $('#updt_linkedin').bootstrapToggle((data.linkedin == 1) ? 'on' : 'off');
+                    $('#updt_envioCorreo').bootstrapToggle((data.envia_correo == 1) ? 'on' : 'off');
+                    $('#updt_respuesta').bootstrapToggle((data.respuesta == 1) ? 'on' : 'off');
 
                     $("#upd_comunicacion_conversacion").modal('show');
                 } else {
@@ -454,7 +455,49 @@ $(function() {
         });
     });
 
+    $("#nuevoContacto, #updt_nuevoContacto").on('change', function() {
+        let data = $(this).prop('checked');
+
+        if (data) {
+            $("#rowContacto, #updt_rowContacto").removeClass('d-none');
+            $("#contactoId, #updt_contactoId").val('');
+        } else {
+            $("#rowContacto, #updt_rowContacto").addClass('d-none');
+        }
+
+        limpiarDatosContacto();
+    });
+
+    $("#contactoId").on('change', function() {
+        $('#nuevoContacto, #updt_nuevoContacto').bootstrapToggle('off');
+    });
+
+    $(".optCliente").on('change', function() {
+        let cliente = $(this).val();
+
+        if (cliente != "") {
+
+            $("#nuevoContacto, #updt_nuevoContacto").prop('checked', false).change();
+            limpiarDatosContacto(true);
+            buscarContactos(cliente);
+        } else {
+            $("#contactoId, #updt_contactoId").html('').append('<option value="" selected>[Seleccione]</option>');
+            limpiarDatosContacto($(this).prop('checked'));
+        }
+
+
+    });
+
 });
+
+function limpiarDatosContacto() {
+    $("#nombreContacto, #updt_nombreContacto").val('').removeClass('is-invalid');
+    $("#apellidoContacto, #updt_apellidoContacto").val('').removeClass('is-invalid');
+    $("#cargoContacto, #updt_cargoContacto").val('').removeClass('is-invalid');
+    $("#fonoContacto, #updt_fonoContacto").val('').removeClass('is-invalid');
+    $("#celularContacto, #updt_celularContacto").val('').removeClass('is-invalid');
+    $("#correoContacto, #updt_correoContacto").val('').removeClass('is-invalid');
+}
 
 function getSeleccionados() {
     let arrSel = new Array;
@@ -488,6 +531,8 @@ function showModalWithErrors() {
             $('.frm_modal_update').attr('action', $(".inpt-ruta").val());
         }
     }
+
+    showContactos(error);
 }
 
 var format_moneda = function(num, type = null) {
@@ -581,4 +626,49 @@ function limpiarModalMeeting(upd = false) {
         $(".nombre, .apellido, .cargo, .telefono, .celular, .email, .cliente").val('').removeClass('is-invalid');
     }
     $(".invalid-feedback").hide();
+}
+
+function showContactos(error) {
+    if (error == 1) {
+        let cliente = $("#updt_cliente").val();
+        if (cliente) {
+            buscarContactos(cliente);
+        } else {
+            $("#updt_tipoComunicacion option[value='']").prop('selected', true);
+        }
+    }
+}
+
+function buscarContactos(cliente) {
+    let oldContacto = $("#updt_reunion").data('contacto');
+    alert(oldContacto);
+    $.ajax({
+        url: './cliente-contacto-json/' + cliente,
+        success: function(data) {
+            let optSel = '<option value="" selected>[Seleccione]</option>';
+            if (data.length > 0) {
+                $.each(data, function(key, contacto) {
+                    seleccionado = (contacto.id == oldContacto) ? 'selected' : '';
+                    optSel += '<option value="' + contacto.id + '" ' + seleccionado + '>' + contacto.nombre + ' ' + contacto.apellido + '</option>';
+                });
+            }
+            $("#contactoId, #updt_contactoId").html('').append(optSel);
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            $.confirm({
+                title: 'Error',
+                content: 'Error al intentar obtener los datos de los contactos, intente de nuevo mas tarde',
+                type: 'red',
+                theme: 'modern',
+                animation: 'scala',
+                icon: 'fa fa-exclamation-triangle',
+                typeAnimated: true,
+                buttons: {
+                    cancel: {
+                        text: 'Aceptar',
+                    },
+                }
+            });
+        }
+    });
 }

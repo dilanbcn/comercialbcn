@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::resource('cliente-contacto', 'App\Http\Controllers\ClienteContactoController', ['except' => ['index', 'show', 'store', 'create']]);
 	Route::get('cliente-contacto/{cliente}', 'App\Http\Controllers\ClienteContactoController@index')->name('cliente-contacto.index');
+	Route::get('cliente-contacto-json/{cliente}', 'App\Http\Controllers\ClienteContactoController@json')->name('cliente-contacto.json');
 	Route::get('cliente-contacto/{cliente}/create', 'App\Http\Controllers\ClienteContactoController@create')->name('cliente-contacto.create');
 	Route::post('cliente-contacto/{cliente}', 'App\Http\Controllers\ClienteContactoController@store')->name('cliente-contacto.store');
 	
@@ -52,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::resource('cliente-comunicacion', 'App\Http\Controllers\ClienteComunicacionController', ['except' => ['show']]);
 	Route::get('cliente-comunicacion/reuniones', 'App\Http\Controllers\ClienteComunicacionController@reuniones')->name('cliente-comunicacion.reuniones');
+	Route::get('cliente-comunicacion/resumen', 'App\Http\Controllers\ClienteComunicacionController@resumen')->name('cliente-comunicacion.resumen');
 	Route::get('conversación/{cliente}', 'App\Http\Controllers\ClienteComunicacionController@conversacion')->name('cliente-comunicacion.conversacion');
 	Route::post('valida-reunion/{cliente_comunicacion}', 'App\Http\Controllers\ClienteComunicacionController@validar')->name('cliente-comunicacion.validar');
 	Route::get('calendario', 'App\Http\Controllers\ClienteComunicacionController@calendario')->name('cliente-comunicacion.calendario');

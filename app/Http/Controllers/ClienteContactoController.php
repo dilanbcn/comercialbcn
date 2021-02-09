@@ -21,6 +21,13 @@ class ClienteContactoController extends Controller
         return view('pages.cliente_contacto.index', compact('contactos', 'cliente'));
     }
 
+    public function json(Cliente $cliente)
+    {
+        $contactos = ClienteContacto::with(['cliente'])->where(['cliente_id' => $cliente->id])->get();
+
+        return response()->json($contactos, 200);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -113,7 +120,7 @@ class ClienteContactoController extends Controller
         if ($request->get('telefono') != '') {
             $rules = ['telefono' => 'digits:9|numeric|starts_with:2'];
             $customMessages = [
-                'starts_with' => 'El campo :attribute debe comenzar con el número 9', 
+                'starts_with' => 'El campo :attribute debe comenzar con el número 2', 
                 'digits' => 'El campo :attribute debe tener :digits digítos', 
                 'numeric' => 'El campo :attribute es inválido'];
             $this->validate($request, $rules, $customMessages);

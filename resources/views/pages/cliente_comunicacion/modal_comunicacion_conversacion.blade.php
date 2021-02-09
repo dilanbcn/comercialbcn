@@ -7,26 +7,115 @@
                 <input type="hidden" class="inpt-ruta" name="inpt-ruta" value="{{ @old('inpt-ruta') }}">
                 <input type="hidden" name="cliente" value="{{ $cliente->id }}">
                 <div class="modal-header">
-                    <h5 class="card-title mb-1" style="color: #35D32F;">Agregar comunicación con el cliente</h5>
+                    <h5 class="card-title mb-1" style="color: #35D32F;">Agregar comunicación con el cliente...</h5>
                 </div>
                 <div class="modal-body">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-8">
                                     <div class="form-group">
                                         <label class="mb-0">{{ __('Cliente') }}</label>
                                         <h4 class="mt-0">{{ $cliente->razon_social }}</h4>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>{{ __('Tipo') }} </label>
+                                        <select class="form-control @error('tipoComunicacion') is-invalid @enderror" id="tipoComunicacion" name="tipoComunicacion" required>
+                                            @foreach ($tipoComunicaciones as $tipo)
+                                            <option {{ ( $tipo->id == @old('tipoComunicacion')) ? 'selected' : '' }} value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label>{{ __('Contacto') }} </label>
+                                        <select class="form-control @error('contactoId') is-invalid @enderror contactoId" id="contactoId" name="contactoId">
+                                            <option value="" selected>[Seleccione]</option>
+                                            @foreach ($contactos as $contacto)
+                                            <option {{ ( $contacto->id == @old('contactoId')) ? 'selected' : '' }} value="{{ $contacto->id }}">{{ $contacto->nombre . ' ' .  $contacto->apellido }}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('contactoId'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('contactoId') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>{{ __('Nuevo Contacto') }} </label>
                                         <div class="form-check">
-                                            <input type="checkbox" {{ (@old('tipoComunicacion')) ? 'checked' : '' }} name="tipoComunicacion" value="1" data-toggle="toggle" data-off="Correo" data-on="Llamada" data-offstyle="outline-info" data-onstyle="outline-warning" data-width="100">
-                                            @if ($errors->has('tipoComunicacion'))
+                                            <input type="checkbox" {{ (@old('nuevoContacto')) ? 'checked' : '' }} name="nuevoContacto" id="nuevoContacto" value="1" data-toggle="toggle" data-off="No" data-on="Si" data-onstyle="outline-success" data-offstyle="outline-dark" data-width="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row pl-3 pr-3 {{ (@old('nuevoContacto')) ? '' : 'd-none' }}" id="rowContacto">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>{{ __('Nombre') }} <span class="text-required">*</span></label>
+                                            <input autocomplete="off" type="text" id="nombreContacto" name="nombreContacto" class="form-control @error('nombreContacto') is-invalid @enderror nombreContacto" value="{{ (@old('nombreContacto')) }}">
+                                            @if ($errors->has('nombreContacto'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('tipoComunicacion') }}</strong>
+                                                <strong>{{ $errors->first('nombreContacto') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>{{ __('Apellido') }} </label>
+                                            <input autocomplete="off" type="text" id="apellidoContacto" name="apellidoContacto" class="form-control @error('apellidoContacto') is-invalid @enderror apellidoContacto" value="{{ (@old('apellidoContacto')) }}">
+                                            @if ($errors->has('apellidoContacto'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('apellidoContacto') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>{{ __('Cargo') }}</label>
+                                            <input autocomplete="off" type="text" id="cargoContacto" name="cargoContacto" class="form-control @error('cargoContacto') is-invalid @enderror cargoContacto" value="{{ (@old('cargoContacto')) }}">
+                                            @if ($errors->has('cargoContacto'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('cargoContacto') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>{{ __('Fono Fijo') }} </label>
+                                            <input autocomplete="off" type="text" id="fonoContacto" name="fonoContacto" class="form-control @error('fonoContacto') is-invalid @enderror fonoContacto" value="{{ (@old('fonoContacto')) }}">
+                                            @if ($errors->has('fonoContacto'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('fonoContacto') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>{{ __('Celular') }} </label>
+                                            <input autocomplete="off" type="text" id="celularContacto" name="celularContacto" class="form-control @error('celularContacto') is-invalid @enderror celularContacto" value="{{ (@old('celularContacto')) }}">
+                                            @if ($errors->has('celularContacto'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('celularContacto') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>{{ __('Correo') }} </label>
+                                            <input autocomplete="off" type="text" id="correoContacto" name="correoContacto" class="form-control @error('correoContacto') is-invalid @enderror correoContacto" value="{{ (@old('correoContacto')) }}">
+                                            @if ($errors->has('correoContacto'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('correoContacto') }}</strong>
                                             </span>
                                             @endif
                                         </div>

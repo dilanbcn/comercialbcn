@@ -33,21 +33,38 @@ document.addEventListener('DOMContentLoaded', function() {
             $.ajax({
                 url: rutaEdit,
                 success: function(data) {
+                    $(".is-invalid").removeClass('is-invalid');
+                    $(".invalid-feedback").hide();
                     if (data.fecha_reunion) {
                         let fecha = data.fecha_reunion.split(' ');
-                        $("#upd_fechaReunion").val(fecha[0]);
-                        $("#upd_horaReunion").val(fecha[1].substring(0, 5));
+                        $("#updt_fechaReunion").val(fecha[0]);
+                        $("#updt_horaReunion").val(fecha[1].substring(0, 5));
                     }
                     $('#frm_updt_reunion').attr('action', './cliente-comunicacion/' + info.event.id);
                     $("#upd-input-ruta").val('./cliente-comunicacion/' + info.event.id);
-                    $("#upd_cliente").val(data.cliente_id);
-                    $("#upd_fechaContacto").val(data.fecha_contacto);
-                    $("#upd_observaciones").val(data.observaciones);
-                    $('#upd_tipoComunicacion').bootstrapToggle((data.tipo_comunicacion == 1) ? 'off' : 'on');
-                    $('#upd_linkedin').bootstrapToggle((data.linkedin == 1) ? 'on' : 'off');
-                    $('#upd_envioCorreo').bootstrapToggle((data.envia_correo == 1) ? 'on' : 'off');
-                    $('#upd_respuesta').bootstrapToggle((data.respuesta == 1) ? 'on' : 'off');
+                    $("#updt_cliente option[value='" + data.cliente_id + "']").prop('selected', true);
+                    $("#updt_tipoComunicacion option[value='" + data.tipo_comunicacion_id + "']").prop('selected', true);
+                    $("#updt_cliente").val(data.cliente_id);
+                    $("#updt_fechaContacto").val(data.fecha_contacto);
+                    $("#updt_observaciones").val(data.observaciones);
+                    $('#updt_linkedin').bootstrapToggle((data.linkedin == 1) ? 'on' : 'off');
+                    $('#updt_envioCorreo').bootstrapToggle((data.envia_correo == 1) ? 'on' : 'off');
+                    $('#updt_respuesta').bootstrapToggle((data.respuesta == 1) ? 'on' : 'off');
                     $("#updt_reunion").modal('show');
+
+                    $.ajax({
+                        url: './cliente-contacto-json/' + data.cliente_id,
+                        success: function(contactos) {
+                            let optSel = '<option value="" selected>[Seleccione]</option>';
+                            if (contactos.length > 0) {
+                                $.each(contactos, function(key, contacto) {
+                                    seleccionado = (contacto.id == data.cliente_contacto_id) ? 'selected' : '';
+                                    optSel += '<option value="' + contacto.id + '" ' + seleccionado + ' >' + contacto.nombre + ' ' + contacto.apellido + '</option>';
+                                });
+                            }
+                            $("#updt_contactoId").html('').append(optSel);
+                        }
+                    });
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     $("#updt_reunion").modal('hide');
@@ -82,7 +99,24 @@ document.addEventListener('DOMContentLoaded', function() {
             if (valido) {
                 let fecha = formatFecha(date);
                 $("#fechaReunion").val(fecha);
+                $(".is-invalid").removeClass('is-invalid');
+                $(".invalid-feedback").hide();
                 $("#add_reunion").modal('show');
+            } else {
+                $.confirm({
+                    title: 'Atención',
+                    content: 'No se pueden crear reuniones con fecha menor a la del día de hoy',
+                    type: 'orange',
+                    theme: 'modern',
+                    animation: 'scala',
+                    icon: 'fa fa-exclamation-triangle',
+                    typeAnimated: true,
+                    buttons: {
+                        cancel: {
+                            text: 'Aceptar',
+                        },
+                    }
+                });
             }
         }
 

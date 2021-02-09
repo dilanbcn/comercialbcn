@@ -6,34 +6,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ClienteContacto extends Model
+class TipoComunicacion extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const tabla = 'cliente_contacto';
-    protected $table = ClienteContacto::tabla;
+    const tabla = 'tipo_comunicaciones';
+    protected $table = TipoComunicacion::tabla;
 
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'cliente_id',
         'nombre',
-        'apellido',
-        'cargo',
-        'correo',
-        'telefono',
-        'celular',
+        'descripcion',
         'activo',
     ];
-
-    public function cliente()
-    {
-    	return $this->belongsTo(Cliente::class);
-    }
 
     public function clienteComunicacion()
     {
     	return $this->hasMany(ClienteComunicacion::class);
     }
-
 }

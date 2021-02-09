@@ -21,43 +21,43 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h4><i class="far fa-envelope"></i> Correos</h4>
                                             <ul class="timeline">
-                                                @if (isset($comunicaciones[1]))
-                                                @foreach($comunicaciones[1] as $correo)
+                                                @if (isset($comunicaciones))
+                                                @foreach($comunicaciones as $comunicacion)
                                                 <li>
                                                     <div class="row bg-light mr-2 pt-2 pb-2">
                                                         <div class="col-8">
-                                                            <p class="mb-1"><a target="_blank" href="#">{{ $correo->comercial_nombre }}</a></p>
-                                                            <p class="mb-1">{{ ($correo->fecha_contacto) ? 'Fecha Contacto: '.date('d/m/Y', strtotime($correo->fecha_contacto)) : '' }}
+                                                            <h4 class="mt-0 mb-1"><i class="{{ $comunicacion->tipoComunicacion->icono }}"></i> {{ $comunicacion->tipoComunicacion->nombre }}</h4>
+                                                            <p class="mb-1"><a target="_blank" href="#">{{ $comunicacion->comercial_nombre }}</a></p>
+                                                            <p class="mb-1">{{ ($comunicacion->fecha_contacto) ? 'Fecha Contacto: '.date('d/m/Y', strtotime($comunicacion->fecha_contacto)) : '' }}
                                                             <p>
                                                             <p class="mb-1">
-                                                                <span class="badge badge-info p-2 mr-1" {{ ($correo->linkedin == 1) ? '' : 'hidden' }}>LinkedIn <i class="fas fa-check"></i></span>
-                                                                <span class="badge badge-warning p-2 mr-1" {{ ($correo->envia_correo == 1) ? '' : 'hidden' }}>Envía Correo <i class="fas fa-check"></i></span>
-                                                                <span class="badge badge-success p-2 mr-1" {{ ($correo->respuesta == 1) ? '' : 'hidden' }}>Respuesta <i class="fas fa-check"></i></span>
+                                                                <span class="badge badge-info p-2 mr-1" {{ ($comunicacion->linkedin == 1) ? '' : 'hidden' }}>LinkedIn <i class="fas fa-check"></i></span>
+                                                                <span class="badge badge-warning p-2 mr-1" {{ ($comunicacion->envia_correo == 1) ? '' : 'hidden' }}>Envía Correo <i class="fas fa-check"></i></span>
+                                                                <span class="badge badge-success p-2 mr-1" {{ ($comunicacion->respuesta == 1) ? '' : 'hidden' }}>Respuesta <i class="fas fa-check"></i></span>
                                                             </p>
                                                         </div>
                                                         <div class="col-4 text-right">
-                                                            <p class="mb-1"><a href="#" title="Editar" class="btn btn-xs btn-outline-secondary btnEditComunicacion" data-editar="{{ route('cliente-comunicacion.edit', $correo->id) }}" data-actualizar="{{ route('cliente-comunicacion.update', $correo->id) }}"><i class="fa fa-edit"></i></a></p>
-                                                            <p class="mb-1"><a href="#">{{ date('d/m/Y H:i:s', strtotime($correo->created_at)) }}</a></p>
-                                                            @if ($correo->fecha_reunion)
+                                                            <p class="mb-1"><a href="#" title="Editar" class="btn btn-xs btn-outline-secondary btnEditComunicacion" data-editar="{{ route('cliente-comunicacion.edit', $comunicacion->id) }}" data-actualizar="{{ route('cliente-comunicacion.update', $comunicacion->id) }}"><i class="fa fa-edit"></i></a></p>
+                                                            <p class="mb-1"><a href="#">{{ date('d/m/Y H:i:s', strtotime($comunicacion->created_at)) }}</a></p>
+                                                            @if ($comunicacion->fecha_reunion)
                                                             <p class="mb-1">
-                                                                @if($correo->reunion_valida == 1)
+                                                                @if($comunicacion->reunion_valida == 1)
                                                                 <button type="button" class="btn btn-primary btn-xs"><i class="fas fa-calendar-check"></i></button>
                                                                 @else
-                                                                <button type="button" class="btn btn-secondary btn-xs validarReunion" data-ruta="{{ route('cliente-comunicacion.validar', $correo->id) }}"><i class="far fa-calendar-alt"></i></button>
+                                                                <button type="button" class="btn btn-secondary btn-xs validarReunion" data-ruta="{{ route('cliente-comunicacion.validar', $comunicacion->id) }}"><i class="far fa-calendar-alt"></i></button>
                                                                 @endif
-                                                                {{ ($correo->fecha_reunion) ? 'Reunión: ' . date('d/m/Y H:i', strtotime($correo->fecha_reunion)) : ''}}
+                                                                {{ ($comunicacion->fecha_reunion) ? 'Reunión: ' . date('d/m/Y H:i', strtotime($comunicacion->fecha_reunion)) : ''}}
                                                             </p>
                                                             @endif
                                                         </div>
                                                         <div class="col-12 text-justify">
-                                                            <p class="mt-3">{{ $correo->observaciones}}</p>
+                                                            <p class="mt-3">{{ $comunicacion->observaciones}}</p>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -73,59 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h4><i class="fas fa-phone"></i> Llamadas</h4>
-                                            <ul class="timeline">
-                                                @if (isset($comunicaciones[2]))
-                                                @foreach($comunicaciones[2] as $llamada)
-                                                <li>
-                                                    <div class="row bg-light mr-2 pt-2 pb-2">
-                                                        <div class="col-8">
-                                                            <p class="mb-1"><a target="_blank" href="#">{{ $llamada->comercial_nombre }}</a></p>
-                                                            <p class="mb-1">{{ ($llamada->fecha_contacto) ? 'Fecha Contacto: '.date('d/m/Y', strtotime($llamada->fecha_contacto)) : '' }}
-                                                            <p>
-                                                            <p class="mb-1">
-                                                                <span class="badge badge-info p-2 mr-1" {{ ($llamada->linkedin == 1) ? '' : 'hidden' }}>LinkedIn <i class="fas fa-check"></i></span>
-                                                                <span class="badge badge-warning p-2 mr-1" {{ ($llamada->envia_correo == 1) ? '' : 'hidden' }}>Envía Correo <i class="fas fa-check"></i></span>
-                                                                <span class="badge badge-success p-2 mr-1" {{ ($llamada->respuesta == 1) ? '' : 'hidden' }}>Respuesta <i class="fas fa-check"></i></span>
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-4 text-right">
-                                                        <p class="mb-1"><a href="#" title="Editar" class="btn btn-xs btn-outline-secondary btnEditComunicacion" data-editar="{{ route('cliente-comunicacion.edit', $llamada->id) }}" data-actualizar="{{ route('cliente-comunicacion.update', $llamada->id) }}"><i class="fa fa-edit"></i></a></p>
-                                                            <p class="mb-1"><a href="#">{{ date('d/m/Y H:i:s', strtotime($llamada->created_at)) }}</a></p>
-
-                                                            @if ($llamada->fecha_reunion)
-                                                            <p class="mb-1">
-                                                                @if($llamada->reunion_valida == 1)
-                                                                <button type="button" class="btn btn-success btn-xs"><i class="fas fa-calendar-check"></i></button>
-                                                                @else
-                                                                <button type="button" class="btn btn-secondary btn-xs validarReunion" data-ruta="{{ route('cliente-comunicacion.validar', $llamada->id) }}"><i class="far fa-calendar-alt"></i></button>
-                                                                @endif
-                                                                {{ ($llamada->fecha_reunion) ? 'Reunión: ' . date('d/m/Y H:i', strtotime($llamada->fecha_reunion)) : ''}}
-                                                            </p>
-                                                            @endif
-                                                        </div>
-                                                        <div class="col-12 text-justify">
-                                                            <p class="mt-3">{{ $llamada->observaciones}}</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                @endforeach
-                                                @else
-                                                <li>
-                                                    <p class="text-center">no hay registros</p>
-                                                </li>
-                                                @endif
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

@@ -22,7 +22,14 @@ class ClienteComunicacion extends Model
 
     protected $fillable = [
         'cliente_id',
-        'tipo_comunicacion',
+        'cliente_contacto_id',
+        'tipo_comunicacion_id',
+        'nombre_contacto',
+        'apellido_contacto',
+        'cargo_contacto',
+        'correo_contacto',
+        'telefono_contacto',
+        'celular_contacto',
         'comercial_nombre',
         'fecha_contacto',
         'linkedin',
@@ -40,5 +47,15 @@ class ClienteComunicacion extends Model
     public function cliente()
     {
     	return $this->belongsTo(Cliente::class);
+    }
+
+    public function clienteContacto()
+    {
+    	return $this->belongsTo(ClienteContacto::class);
+    }
+
+    public function tipoComunicacion()
+    {
+    	return $this->belongsTo(TipoComunicacion::class);
     }
 }
