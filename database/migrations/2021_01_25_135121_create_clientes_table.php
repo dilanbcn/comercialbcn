@@ -27,9 +27,10 @@ class CreateClientesTable extends Migration
             $table->string('telefono')->nullable();
             $table->string('email')->nullable();
             $table->boolean('activo')->default(true);
-            $table->dateTime('inicio_ciclo')->nullable();
             $table->integer('cantidad_empleados')->nullable();
             $table->string('rubro')->nullable();
+            $table->date('inicio_relacion')->nullable();
+            $table->dateTime('inicio_ciclo')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

@@ -34,8 +34,9 @@
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ route('cliente.index') }}">{{ __('Lista de Clientes') }}</a>
+                        <a class="dropdown-item" href="{{ route('cliente.index') }}">{{ __('Clientes General') }}</a>
                         <a class="dropdown-item" href="{{ route('cliente.prospectos') }}">{{ __('Prospectos Disponibles') }}</a>
+                        <a class="dropdown-item" href="{{ route('cliente.vigencia') }}">{{ __('Vigencia Clientes') }}</a>
                     </div>
                 </li>
                 <li class="nav-item btn-rotate dropdown {{ $elementActive == 'prospeccion' ? 'active' : '' }}">

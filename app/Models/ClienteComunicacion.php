@@ -31,6 +31,7 @@ class ClienteComunicacion extends Model
         'telefono_contacto',
         'celular_contacto',
         'comercial_nombre',
+        'prospector_nombre',
         'fecha_contacto',
         'linkedin',
         'envia_correo',

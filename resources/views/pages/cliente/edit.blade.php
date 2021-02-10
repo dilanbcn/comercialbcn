@@ -22,7 +22,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label>{{ __('Holding') }}</label>
                                         <select class="form-control @error('padre') is-invalid @enderror" id="padre" name="padre">
@@ -69,6 +69,18 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>{{ __('Inicio Relación') }}</label>
+                                        <input autocomplete="off" type="date" name="inicio_relacion" class="form-control @error('inicio_relacion') is-invalid @enderror inicio_relacion" value="{{ (@old('inicio_relacion')) ? @old('inicio_relacion') : date('d/m/Y', strtotime($cliente->inicio_relacion)) }}" max="{{ date('Y-m-d', strtotime($hoy)) }}">
+
+                                        @if ($errors->has('inicio_relacion'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('inicio_relacion') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
                                 @endif
                                 <div class="form-group col-md-2">
                                     <label>{{ __('Estado') }}</label>
@@ -96,7 +108,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>{{ __('Razón Social') }} <span class="text-required">*</span></label>
+                                        <label>{{ __('Cliente') }} <span class="text-required">*</span></label>
                                         <input autocomplete="off" type="text" name="razon_social" class="form-control @error('razon_social') is-invalid @enderror" value="{{ (old('razon_social')) ? old('razon_social') : $cliente->razon_social }}" required>
                                         @if ($errors->has('razon_social'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">

@@ -25,9 +25,10 @@ class Cliente extends Model
         'telefono',
         'email',
         'activo',
-        'inicio_ciclo',
         'cantidad_empleados',
-        'rubro'
+        'rubro',
+        'inicio_ciclo',
+        'inicio_relacion',
     ];
 
     public function user()

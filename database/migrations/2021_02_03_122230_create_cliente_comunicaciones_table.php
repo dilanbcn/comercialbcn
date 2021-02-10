@@ -29,6 +29,7 @@ class CreateClienteComunicacionesTable extends Migration
             $table->string('telefono_contacto')->nullable();
             $table->string('celular_contacto')->nullable();
             $table->string('comercial_nombre');
+            $table->string('prospector_nombre');
             $table->date('fecha_contacto');
             $table->boolean('linkedin')->nullable();
             $table->boolean('envia_correo')->nullable();

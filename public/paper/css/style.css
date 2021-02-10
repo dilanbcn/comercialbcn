@@ -143,3 +143,14 @@ ul.timeline>li:before {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+thead input {
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    color: #66615b;
+    line-height: normal;
+    height: 30px;
+    margin-top: 0px;
+}

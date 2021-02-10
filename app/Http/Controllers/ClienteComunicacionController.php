@@ -141,9 +141,12 @@ class ClienteComunicacionController extends Controller
         $stringFecha = $request->get('fechaReunion') . ' ' . $request->get('horaReunion');
         $fechaReunion = new Carbon($stringFecha);
 
+        $cliente = Cliente::with(['user'])->find($request->get('cliente'));
+
         ClienteComunicacion::create([
             'cliente_id' => $request->get('cliente'),
             'tipo_comunicacion_id' => $request->get('tipoComunicacion'),
+            'prospector_nombre' => $cliente->user->name . ' ' . $cliente->user->last_name,
             'comercial_nombre' => $user->name . ' ' . $user->last_name,
             'fecha_contacto' => $request->get('fechaContacto'),
             'fecha_reunion' => ($request->get('fechaReunion')) ? $fechaReunion->format('Y-m-d H:i:00') : null,
@@ -295,8 +298,13 @@ class ClienteComunicacionController extends Controller
             );
         }
 
+        $ClienteCom = ClienteComunicacion::with(['cliente' => function($sql){
+            return $sql->with(['user']);
+        }])->find($clienteComunicacion->id);
+    
         $clienteComunicacion->fill([
             'tipo_comunicacion_id' => $request->get('tipoComunicacion'),
+            'prospector_nombre' => $ClienteCom->cliente->user->name . ' ' . $ClienteCom->cliente->user->last_name,
             'comercial_nombre' => $user->name . ' ' . $user->last_name,
             'fecha_contacto' => $request->get('fechaContacto'),
             'linkedin' => ($request->get('linkedin')) ? $request->get('linkedin') : 0,
@@ -489,9 +497,12 @@ class ClienteComunicacionController extends Controller
         $stringFecha = $request->get('fechaReunion') . ' ' . $request->get('horaReunion');
         $fechaReunion = new Carbon($stringFecha);
 
+        $cliente = Cliente::with(['user'])->find($request->get('cliente'));
+
         ClienteComunicacion::create([
             'cliente_id' => $request->get('cliente'),
             'tipo_comunicacion_id' => $request->get('tipoComunicacion'),
+            'prospector_nombre' => $cliente->user->name . ' ' . $cliente->user->last_name,
             'comercial_nombre' => $user->name . ' ' . $user->last_name,
             'fecha_contacto' => $request->get('fechaContacto'),
             'fecha_reunion' => ($request->get('fechaReunion')) ? $fechaReunion->format('Y-m-d H:i:00') : null,

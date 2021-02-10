@@ -33,12 +33,36 @@ class ClienteController extends Controller
         $groupCliente = $clientes->groupBy('activo');
         $arrEstados = array(0 => 'Inactivos', 1 => 'Activos');
         $arrGrupo = array('Activos' => 0, 'Inactivos' => 0);
-        
+
         foreach ($groupCliente as $key => $cliente) {
             $arrGrupo[$arrEstados[$key]] = count($cliente);
         }
 
         return view('pages.cliente.index', compact('clientes', 'arrGrupo'));
+    }
+
+    public function allClientes()
+    {
+        $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+        $arrClientes = array();
+        foreach ($clientes as $cliente) {
+            $arrClientes[] = array(
+                ($cliente->padre != null) ? $cliente->padre->razon_social : '',
+                $cliente->razon_social,
+                $cliente->user->name . ' ' . $cliente->user->last_name,
+                $cliente->tipoCliente->nombre,
+                ($cliente->tipo_cliente_id == 1) ? date('d/m/Y', strtotime($cliente->inicio_ciclo)) : '',
+                ($cliente->tipo_cliente_id == 1) ? $cliente->ciclo : '',
+                ($cliente->activo) ? 'Activo' : 'Inactivo',
+                $cliente->proyecto_count,
+                ''
+            );
+        }
+
+        $response = array('draw' => 1, 'recordsTotal' => count($arrClientes), 'recordsFiltered' => count($arrClientes), 'data' => $arrClientes);
+
+
+        return response()->json($response, 200);
     }
 
     /**
@@ -57,6 +81,27 @@ class ClienteController extends Controller
         return view('pages.cliente.prospecto', compact('clientes'));
     }
 
+    public function vigencia()
+    {
+        $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'padre', 'user'])->get();
+
+        $groupCliente = $clientes->groupBy('activo');
+        $arrEstados = array(0 => 'Inactivos', 1 => 'Activos');
+        $arrGrupo = array('Activos' => 0, 'Inactivos' => 0);
+
+        foreach ($groupCliente as $key => $cliente) {
+            $arrGrupo[$arrEstados[$key]] = count($cliente);
+        }
+
+        $clientes->map(function ($clientes) {
+            $clientes->antiguedad = $this->antiguedad($clientes);
+            $clientes->vigenciaMeses = $this->antiguedad($clientes, 'meses');
+        });
+
+
+        return view('pages.cliente.vigencia', compact('clientes', 'arrGrupo'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -67,8 +112,9 @@ class ClienteController extends Controller
         $holdings = Cliente::orderBy('razon_social', 'asc')->get();
         $usuarios = User::where(['activo' => 1])->orderBy('name', 'asc')->get();
         $tipoClientes = TipoCliente::where(['activo' => 1])->get();
+        $hoy = Carbon::now();
 
-        return view('pages.cliente.create', compact('holdings', 'usuarios', 'tipoClientes'));
+        return view('pages.cliente.create', compact('holdings', 'usuarios', 'tipoClientes', 'hoy'));
     }
 
     /**
@@ -100,6 +146,12 @@ class ClienteController extends Controller
             $this->validate($request, $rules, $customMessages);
         }
 
+        if ($request->get('tipo_cliente') == 2) {
+            $rules = ['inicio_relacion' => 'required|date|before_or_equal:today'];
+            $customMessages = ['required' => 'El campo :attribute es requerido.', 'date' => 'El campo :attribute es una fecha inválida.', 'before_or_equal' => 'El campo :attribute debe ser menor a la fecha de hoy.'];
+            $this->validate($request, $rules, $customMessages);
+        }
+
         $user = auth()->user();
 
         if ($user->rol_id == 2) {
@@ -120,6 +172,7 @@ class ClienteController extends Controller
             'rubro' => $request->get('rubro'),
             'direccion' => $request->get('direccion'),
             'inicio_ciclo' => $hoy,
+            'inicio_relacion' => ($request->get('inicio_relacion')) ? $request->get('inicio_relacion') : null,
         ]);
 
         return redirect()->route('cliente.index')->with(['status' => 'Cliente creado satisfactoriamente', 'title' => 'Éxito']);
@@ -147,10 +200,11 @@ class ClienteController extends Controller
         $usuarios = User::where(['activo' => 1])->orderBy('name', 'asc')->get();
         $holdings = Cliente::where('id', '!=', $cliente->id)->get();
         $tipoClientes = TipoCliente::where(['activo' => 1])->get();
+        $hoy = Carbon::now();
 
         $cliente->rut_format = ($cliente->rut) ? Rut::parse($cliente->rut)->format(Rut::FORMAT_WITH_DASH) : '';
 
-        return view('pages.cliente.edit', compact('usuarios', 'holdings', 'cliente', 'tipoClientes'));
+        return view('pages.cliente.edit', compact('usuarios', 'holdings', 'cliente', 'tipoClientes', 'hoy'));
     }
 
     /**
@@ -180,6 +234,13 @@ class ClienteController extends Controller
             $this->validate($request, $rules, $customMessages);
         }
 
+        if ($request->get('tipo_cliente') == '2') {
+            $rules = ['inicio_relacion' => 'required|date|before_or_equal:today'];
+            $customMessages = ['required' => 'El campo :attribute es requerido.', 'date' => 'El campo :attribute es una fecha inválida.', 'before_or_equal' => 'El campo :attribute debe ser menor a la fecha de hoy.'];
+            $this->validate($request, $rules, $customMessages);
+        }
+
+
         $user = auth()->user();
 
         if ($user->rol_id == 2) {
@@ -199,6 +260,7 @@ class ClienteController extends Controller
             'rubro' => $request->get('rubro'),
             'direccion' => $request->get('direccion'),
             'activo' => ($request->activo) ? 1 : 0,
+            'inicio_relacion' => ($request->get('inicio_relacion')) ? $request->get('inicio_relacion') : null,
         ]);
 
         if ($user->rol_id == 2) {

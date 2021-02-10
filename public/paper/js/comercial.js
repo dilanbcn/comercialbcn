@@ -1,9 +1,35 @@
 $(function() {
-    $('.tablaComercialesIndex').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json"
+
+    $('.tablaComercialesIndex thead tr').clone(true).appendTo('.tablaComercialesIndex thead');
+    $('.tablaComercialesIndex thead tr:eq(1) th').each(function(i) {
+        var title = $(this).text();
+        if (title != 'Acciones') {
+            $(this).html('<input type="text" placeholder="Filtrar ' + title + '" />');
+            $('input', this).on('keyup change', function() {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        } else {
+            $(this).html('');
         }
     });
+
+    var table = $('.tablaComercialesIndex').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json"
+        },
+        "orderCellsTop": true,
+        "fixedHeader": true,
+    });
+
+
+    // $('.tablaComercialesIndex').DataTable({
+
+    // });
 
     $.ajaxSetup({
         headers: {
@@ -641,7 +667,6 @@ function showContactos(error) {
 
 function buscarContactos(cliente) {
     let oldContacto = $("#updt_reunion").data('contacto');
-    alert(oldContacto);
     $.ajax({
         url: './cliente-contacto-json/' + cliente,
         success: function(data) {

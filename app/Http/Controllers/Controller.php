@@ -14,9 +14,27 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function meses($clientes)
+    public function meses($cliente)
     {
-        return Carbon::now()->diffInMonths($clientes->inicio_ciclo);
+        return Carbon::now()->diffInMonths($cliente->inicio_ciclo);
+    }
+
+    public function antiguedad($cliente, $tipo = 'antiguo')
+    {
+
+        switch ($tipo) {
+            case 'meses':
+                $dM = ($cliente->inicio_relacion) ? Carbon::today()->diffInMonths($cliente->inicio_relacion) : 0;
+                $return = $dM;
+                break;
+            default:
+                $dY = ($cliente->inicio_relacion) ? Carbon::today()->diffInYears($cliente->inicio_relacion) : 0;
+                $return = ($dY >= 1) ? 'Antiguo' : 'Nuevo';
+                break;
+        }
+
+
+        return $return;
     }
 
     public function makeClient($cliente)
@@ -56,7 +74,7 @@ class Controller extends BaseController
     public function getEstadoClientes($user)
     {
         $arrEstado = array(0 => 'inactivo', 1 => 'activo');
-        
+
         $clientes = Cliente::where(['user_id' => $user->id, 'tipo_cliente_id' => 2])->get()->groupBy('activo');
         $countProspectos = Cliente::where(['user_id' => $user->id, 'tipo_cliente_id' => 1])->count();
         $countClientes = Cliente::where(['user_id' => $user->id, 'tipo_cliente_id' => 2])->count();

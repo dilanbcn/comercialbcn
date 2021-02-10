@@ -46,7 +46,7 @@ class ClienteComunicacionRequest extends FormRequest
             'required' => 'El campo :attribute es requerido',
             'exists' => 'El campo :attribute es inválido',
             'date' => 'El campo :attribute es una fecha inválida',
-            'after_or_equal' => 'El campo :attribute debe ser mayor a la fecha de hoy',
+            'before_or_equal' => 'El campo :attribute debe ser menor a la fecha de hoy',
         ];
     }
 

@@ -29,7 +29,7 @@
                         <table class="table table-striped tablaComercialesIndex">
                             <thead class="text-primary text-center">
                                 <th>Holding</th>
-                                <th>Razón Social</th>
+                                <th>Cliente</th>
                                 <th>Comercial</th>
                                 <th>Tipo</th>
                                 <th>Inicio Ciclo</th>
@@ -50,9 +50,9 @@
                                     <td>{{ ($cliente->activo) ? 'Activo' : 'Inactivo' }}</td>
                                     <td>{{ $cliente->proyecto_count }}</td>
                                     <td>
-                                        <a href="{{ route('proyecto.cliente-proyecto', $cliente->id) }}" title="Proyectos" class="btn btn-xs btn-outline-secondary"><i class="far fa-handshake"></i></a>
-                                        <a href="{{ route('cliente-contacto.index', $cliente->id) }}" title="Contactos" class="btn btn-xs btn-outline-secondary"><i class="fas fa-user-friends"></i></a>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">
+                                            <a href="{{ route('proyecto.cliente-proyecto', $cliente->id) }}" title="Proyectos" class="btn btn-xs btn-outline-secondary"><i class="far fa-handshake"></i></a>
+                                            <a href="{{ route('cliente-contacto.index', $cliente->id) }}" title="Contactos" class="btn btn-xs btn-outline-secondary"><i class="fas fa-user-friends"></i></a>
                                             <a href="{{ route('cliente.edit', $cliente->id) }}" title="Editar" class="btn btn-xs btn-outline-secondary"><i class="fa fa-edit"></i></a>
                                             <a href="#" id="{{ $cliente->id }}" title="Eliminar Cliente" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="0" data-ruta="{{ route('cliente.destroy', $cliente->id) }}"><i class="fa fa-times"></i></a>
                                         </div>

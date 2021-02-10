@@ -55,7 +55,7 @@
                                     <div class="form-group">
                                         <label>{{ __('Estado') }} <span class="text-required">*</span></label>
                                         <div class="form-check">
-                                            <input type="checkbox" {{ (@old('activo')) ? 'checked' : '' }} id="activo" name="activo" value="1" data-toggle="toggle" data-on="Activo" data-off="Inactivo" data-onstyle="outline-success" data-size="sm">
+                                            <input type="checkbox" {{ (@old('activo')) ? 'checked' : '' }} id="activo" name="activo" value="1" data-toggle="toggle" data-on="Activo" data-off="Inactivo" data-onstyle="outline-success" data-size="sm"  data-width="100">
                                             @if ($errors->has('activo'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
                                                 <strong>{{ $errors->first('activo') }}</strong>
