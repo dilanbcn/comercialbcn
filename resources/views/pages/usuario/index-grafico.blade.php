@@ -1,6 +1,6 @@
 @extends('layouts.app', [
 'class' => '',
-'elementActive' => 'comerciales'
+'elementActive' => 'detalle'
 ])
 @section('content')
 <div class="content">
@@ -12,9 +12,6 @@
                     <div class="row align-items-center">
                         <div class="col-8">
                             <h5 class="card-title mb-1">Detalle Comerciales</h5>
-                        </div>
-                        <div class="col-4 text-right">
-                            <a href="{{ route('principal') }}" class="btn btn-sm btn-danger btn-round">Regresar</a>
                         </div>
                     </div>
                 </div>

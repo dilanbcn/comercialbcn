@@ -154,3 +154,8 @@ thead input {
     height: 30px;
     margin-top: 0px;
 }
+
+.menu-activo {
+    background-color: #66615B;
+    color: white !important;
+}

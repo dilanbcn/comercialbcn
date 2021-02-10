@@ -1,6 +1,6 @@
 @extends('layouts.app', [
 'class' => '',
-'elementActive' => 'prospeccion'
+'elementActive' => 'contactos'
 ])
 @section('content')
 <div class="content"  id="msg-modal" data-valor="{{ ($errors->any()) ? 1 : 0 }}" data-nombre="add_prospeccion_contacto" data-update="modal_update_prospeccion_contacto">

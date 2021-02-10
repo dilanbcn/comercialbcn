@@ -1,6 +1,6 @@
 @extends('layouts.app', [
 'class' => '',
-'elementActive' => 'clientes'
+'elementActive' => 'prospectos'
 ])
 @section('content')
 <div class="content">

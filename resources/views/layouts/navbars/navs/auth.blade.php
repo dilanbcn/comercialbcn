@@ -14,7 +14,7 @@
                 <li class="nav-item {{ $elementActive == 'dashboard' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ (auth()->user()->rol_id == 2) ? route('home') : route('user.perfil') }}">Inicio <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item btn-rotate dropdown {{ $elementActive == 'comerciales' ? 'active' : '' }}">
+                <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'comerciales' || $elementActive == 'detalle') ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Comerciales
                         <p>
@@ -22,11 +22,11 @@
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ route('user.index') }}">{{ __('Lista de Comerciales') }}</a>
-                        <a class="dropdown-item" href="{{ route('user.grafico') }}">{{ __('Detalle Comerciales') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'comerciales') ? 'menu-activo' : '' }}" href="{{ route('user.index') }}">{{ __('Lista de Comerciales') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'detalle') ? 'menu-activo' : '' }}" href="{{ route('user.grafico') }}">{{ __('Detalle Comerciales') }}</a>
                     </div>
                 </li>
-                <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'clientes' || $elementActive == 'contacto') ? 'active' : '' }}">
+                <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'clientes' || $elementActive == 'prospectos' || $elementActive == 'vigencia' || $elementActive == 'cerrados') ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Clientes
                         <p>
@@ -34,12 +34,13 @@
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ route('cliente.index') }}">{{ __('Clientes General') }}</a>
-                        <a class="dropdown-item" href="{{ route('cliente.prospectos') }}">{{ __('Prospectos Disponibles') }}</a>
-                        <a class="dropdown-item" href="{{ route('cliente.vigencia') }}">{{ __('Vigencia Clientes') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'clientes') ? 'menu-activo' : '' }}" href="{{ route('cliente.index') }}">{{ __('Clientes General') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'prospectos') ? 'menu-activo' : '' }}" href="{{ route('cliente.prospectos') }}">{{ __('Prospectos Disponibles') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'vigencia') ? 'menu-activo' : '' }}" href="{{ route('cliente.vigencia') }}">{{ __('Vigencia Clientes') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'cerrados') ? 'menu-activo' : '' }}" href="{{ route('cliente.cerrados') }}">{{ __('Cerrados') }}</a>
                     </div>
                 </li>
-                <li class="nav-item btn-rotate dropdown {{ $elementActive == 'prospeccion' ? 'active' : '' }}">
+                <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'contactos' || $elementActive == 'asignacion' || $elementActive == 'reuniones' || $elementActive == 'calendario') ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Prospección
                         <p>
@@ -47,10 +48,10 @@
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ route('prospeccion.contactos') }}">{{ __('Contactos') }}</a>
-                        <a class="dropdown-item" href="{{ route('prospeccion.asignacion.index') }}">{{ __('Asignacion de Prospectores') }}</a>
-                        <a class="dropdown-item" href="{{ route('cliente-comunicacion.index') }}">{{ __('Llamados y Reuniones') }}</a>
-                        <a class="dropdown-item" href="{{ route('cliente-comunicacion.calendario') }}">{{ __('Calendario Reuniones') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'contactos') ? 'menu-activo' : '' }}" href="{{ route('prospeccion.contactos') }}">{{ __('Contactos') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'asignacion') ? 'menu-activo' : '' }}" href="{{ route('prospeccion.asignacion.index') }}">{{ __('Asignacion de Prospectores') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'reuniones') ? 'menu-activo' : '' }}" href="{{ route('cliente-comunicacion.index') }}">{{ __('Llamados y Reuniones') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'calendario') ? 'menu-activo' : '' }}" href="{{ route('cliente-comunicacion.calendario') }}">{{ __('Calendario Reuniones') }}</a>
 
                     </div>
                 </li>
@@ -72,3 +73,5 @@
         </div>
     </div>
 </nav>
+@include('layouts.page_templates.breadcrumbs')
+

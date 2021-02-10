@@ -18,6 +18,9 @@ class ClienteContactoController extends Controller
     {
         $contactos = ClienteContacto::with(['cliente'])->where(['cliente_id' => $cliente->id])->get();
 
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Clientes General', 'ruta' => route('cliente.index')], ['nombre' => 'Contactos', 'ruta' => null]]);
+
+
         return view('pages.cliente_contacto.index', compact('contactos', 'cliente'));
     }
 

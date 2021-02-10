@@ -21,6 +21,9 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $comerciales = User::where('id', '<>', $user->id)->get();
+
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => null], ['nombre' => 'Lista Comerciales', 'ruta' => null]]);
+
         return view('pages.usuario.index', compact('comerciales'));
     }
 
@@ -31,8 +34,10 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-
         $roles = Rol::where(['activo' => 1])->get();
+
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => route('user.index')], ['nombre' => 'Nuevo Comercial', 'ruta' => null]]);
+
         return view('pages.usuario.create', compact('roles'));
     }
 
@@ -75,6 +80,9 @@ class UserController extends Controller
         $roles = Rol::where(['activo' => 1])->orderBy('nombre', 'asc')->get();
         $usuario = $user;
         $usuario->rut_format = Rut::parse($usuario->id_number)->format(Rut::FORMAT_WITH_DASH);
+
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => route('user.index')], ['nombre' => 'Editar Comercial', 'ruta' => null]]);
+
 
         return view('pages.usuario.edit', compact('usuario', 'roles'));
     }
@@ -152,6 +160,9 @@ class UserController extends Controller
             $item->efect_color = ($item->efectividad < 33) ? 'bg-danger' : (($item->efectividad > 33 && $item->efectividad < 66) ? 'bg-warning' : 'bg-success');
             return $item;
         });
+
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => null], ['nombre' => 'Detalle Comerciales', 'ruta' => null]]);
+
 
         return view('pages.usuario.index-grafico', compact('users'));
     }

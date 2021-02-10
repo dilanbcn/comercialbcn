@@ -24,6 +24,9 @@ class ClienteComunicacionController extends Controller
 
         $tipoComunicaciones = TipoComunicacion::where(['activo' => 1])->get();
 
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Llamados y Reuniones', 'ruta' => null]]);
+
+
         return view('pages.cliente_comunicacion.index', compact('clientes', 'hoy', 'tipoComunicaciones'));
     }
 
@@ -35,6 +38,8 @@ class ClienteComunicacionController extends Controller
     public function resumen()
     {
         $comunicaciones = ClienteComunicacion::with(['cliente'])->get();
+
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Llamados y Reuniones', 'ruta' => route('cliente-comunicacion.index')], ['nombre' => 'Vista Resumen', 'ruta' => null]]);
 
         return view('pages.cliente_comunicacion.index_resumen', compact('comunicaciones'));
     }
@@ -360,6 +365,9 @@ class ClienteComunicacionController extends Controller
 
         $contactos = $cliente->clienteContactos;
 
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Llamados y Reuniones', 'ruta' => route('cliente-comunicacion.index')], ['nombre' => 'Comunicaciones', 'ruta' => null]]);
+
+
         return view('pages.cliente_comunicacion.conversacion', compact('comunicaciones', 'cliente', 'hoy', 'tipoComunicaciones', 'contactos'));
     }
 
@@ -385,6 +393,9 @@ class ClienteComunicacionController extends Controller
         $hoy = Carbon::today();
         $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion'])->get();
         $tipoComunicaciones = TipoComunicacion::where(['activo' => 1])->get();
+
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Calendario Reuniones', 'ruta' => null]]);
+
 
         return view('pages.cliente_calendario.index', compact('clientes', 'hoy', 'tipoComunicaciones'));
     }

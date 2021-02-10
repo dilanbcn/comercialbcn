@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ClienteRequest;
 use App\Models\Cliente;
+use App\Models\Proyecto;
+use App\Models\ProyectoFactura;
 use App\Models\TipoCliente;
 use App\Models\User;
 use Carbon\Carbon;
@@ -22,7 +24,6 @@ class ClienteController extends Controller
         $hoy = Carbon::now();
         $limite = $hoy->subMonths(8);
 
-        // $clientes = Cliente::whereDate('inicio_ciclo', '>=', $limite->toDateTimeString())->with(['tipoCliente', 'padre', 'user'])->get();
         $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
 
         $clientes->map(function ($clientes) {
@@ -37,6 +38,8 @@ class ClienteController extends Controller
         foreach ($groupCliente as $key => $cliente) {
             $arrGrupo[$arrEstados[$key]] = count($cliente);
         }
+
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Clientes General', 'ruta' => null]]);
 
         return view('pages.cliente.index', compact('clientes', 'arrGrupo'));
     }
@@ -76,7 +79,9 @@ class ClienteController extends Controller
         $limite = $hoy->subMonths(8);
 
         $clientes = Cliente::where(['tipo_cliente_id' => 1])->with(['tipoCliente', 'padre', 'user'])->get();
-        // $clientes = Cliente::whereDate('inicio_ciclo', '<=', $limite->toDateTimeString())->with(['tipoCliente', 'padre', 'user'])->get();
+
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Prospectos Disponibles', 'ruta' => null]]);
+
 
         return view('pages.cliente.prospecto', compact('clientes'));
     }
@@ -94,12 +99,38 @@ class ClienteController extends Controller
         }
 
         $clientes->map(function ($clientes) {
-            $clientes->antiguedad = $this->antiguedad($clientes);
-            $clientes->vigenciaMeses = $this->antiguedad($clientes, 'meses');
+            $clientes->antiguedad = $this->antiguedad($clientes->inicio_relacion);
+            $clientes->vigenciaMeses = $this->antiguedad($clientes->inicio_relacion, 'meses');
         });
 
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Vigencia Clientes', 'ruta' => null]]);
 
         return view('pages.cliente.vigencia', compact('clientes', 'arrGrupo'));
+    }
+
+    public function cerrados()
+    {
+        $facturas = ProyectoFactura::with(['proyecto' => function($sql){
+            return $sql->with(['cliente' => function($sql){
+                return $sql->with(['user']);
+            }]);
+        }, 'estadoFactura'])->get();
+
+        $facturas->map(function ($factura) {
+            $fC = Carbon::parse($factura->proyecto->fecha_cierre);
+            $fF = Carbon::parse($factura->fecha_factura);
+            $fP = Carbon::parse($factura->fecha_pago);
+
+            $factura->proyecto->cliente->antiguedad = $this->antiguedad($factura->proyecto->cliente->inicio_relacion);
+            $factura->mes_cierre = $fC->locale('es')->shortMonthName . '-' . $fC->format('y');
+            $factura->mes_facturacion = $fF->locale('es')->shortMonthName . '-' . $fF->format('y');
+            $factura->mes_pago = $fP->locale('es')->shortMonthName . '-' . $fP->format('y');
+        });
+
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Cerrados', 'ruta' => null]]);
+
+
+        return view('pages.cliente.cerrados', compact('facturas'));
     }
 
     /**
@@ -113,6 +144,9 @@ class ClienteController extends Controller
         $usuarios = User::where(['activo' => 1])->orderBy('name', 'asc')->get();
         $tipoClientes = TipoCliente::where(['activo' => 1])->get();
         $hoy = Carbon::now();
+
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => route('cliente.index')], ['nombre' => 'Nuevo Cliente', 'ruta' => null]]);
+
 
         return view('pages.cliente.create', compact('holdings', 'usuarios', 'tipoClientes', 'hoy'));
     }
@@ -203,6 +237,9 @@ class ClienteController extends Controller
         $hoy = Carbon::now();
 
         $cliente->rut_format = ($cliente->rut) ? Rut::parse($cliente->rut)->format(Rut::FORMAT_WITH_DASH) : '';
+
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Clientes General', 'ruta' => route('cliente.index')], ['nombre' => 'Editar Cliente', 'ruta' => null]]);
+
 
         return view('pages.cliente.edit', compact('usuarios', 'holdings', 'cliente', 'tipoClientes', 'hoy'));
     }

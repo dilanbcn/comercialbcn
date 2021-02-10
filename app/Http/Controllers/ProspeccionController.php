@@ -25,6 +25,8 @@ class ProspeccionController extends Controller
 
         $clientes = Cliente::where(['activo' => 1])->get();
 
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Contactos', 'ruta' => null]]);
+
         return view('pages.prospeccion.contacto', compact('contactos', 'clientes'));
     }
 
@@ -202,6 +204,9 @@ class ProspeccionController extends Controller
                 }
             });
         });
+
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Asignación Prospectores', 'ruta' => null]]);
+
 
         return view('pages.prospeccion.index', compact('comerciales', 'prospectores', 'filtro'));
     }

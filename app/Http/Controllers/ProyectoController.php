@@ -26,6 +26,9 @@ class ProyectoController extends Controller
             
         });
 
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Clientes General', 'ruta' => route('cliente.index')], ['nombre' => 'Proyectos', 'ruta' => null]]);
+
+
         return view('pages.proyecto.cliente-proyecto', compact('proyectos', 'cliente'));
     }
 

@@ -19,16 +19,16 @@ class Controller extends BaseController
         return Carbon::now()->diffInMonths($cliente->inicio_ciclo);
     }
 
-    public function antiguedad($cliente, $tipo = 'antiguo')
+    public function antiguedad($fecha, $tipo = 'antiguo')
     {
 
         switch ($tipo) {
             case 'meses':
-                $dM = ($cliente->inicio_relacion) ? Carbon::today()->diffInMonths($cliente->inicio_relacion) : 0;
+                $dM = ($fecha) ? Carbon::today()->diffInMonths($fecha) : 0;
                 $return = $dM;
                 break;
             default:
-                $dY = ($cliente->inicio_relacion) ? Carbon::today()->diffInYears($cliente->inicio_relacion) : 0;
+                $dY = ($fecha) ? Carbon::today()->diffInYears($fecha) : 0;
                 $return = ($dY >= 1) ? 'Antiguo' : 'Nuevo';
                 break;
         }

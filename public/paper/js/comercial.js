@@ -3,7 +3,7 @@ $(function() {
     $('.tablaComercialesIndex thead tr').clone(true).appendTo('.tablaComercialesIndex thead');
     $('.tablaComercialesIndex thead tr:eq(1) th').each(function(i) {
         var title = $(this).text();
-        if (title != 'Acciones') {
+        if (title != 'Acciones' && title != 'Seleccionar') {
             $(this).html('<input type="text" placeholder="Filtrar ' + title + '" />');
             $('input', this).on('keyup change', function() {
                 if (table.column(i).search() !== this.value) {
