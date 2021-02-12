@@ -1,5 +1,5 @@
 [{
-        "rol_id": "2",
+        "rol_id": "1",
         "username": "26872610",
         "id_number": "26872610-1",
         "name": "Dilan Rafael",
@@ -14,6 +14,15 @@
         "name": "Felipe Ignacio",
         "last_name": "Oliva Lazzerini",
         "email": "foliva@bcnschool.cl",
+        "remember_token": null
+    },
+    {
+        "rol_id": "4",
+        "username": "25917763",
+        "id_number": "25917763-4",
+        "name": "Nomar Roberto",
+        "last_name": "Medina Villegas",
+        "email": "nmedina@bcnschool.cl",
         "remember_token": null
     },
     {
@@ -44,7 +53,7 @@
         "remember_token": null
     },
     {
-        "rol_id": "1",
+        "rol_id": "5",
         "username": "13832065",
         "id_number": "13832065-0",
         "name": "Rodrigo Bernardo",
@@ -53,7 +62,7 @@
         "remember_token": null
     },
     {
-        "rol_id": "1",
+        "rol_id": "5",
         "username": "16429644",
         "id_number": "16429644-K",
         "name": "Felipe",
@@ -62,7 +71,7 @@
         "remember_token": null
     },
     {
-        "rol_id": "1",
+        "rol_id": "5",
         "username": "13198212",
         "id_number": "13198212-7",
         "name": "Carlos Mauricio",

@@ -46,7 +46,7 @@
                     </div>
                 </li>
                 @endif
-                @if(auth()->user()->rol_id != 1 && auth()->user()->rol_id != 3)
+                @if(auth()->user()->rol_id == 4 || auth()->user()->rol_id == 5 )
                 <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'contactos' || $elementActive == 'asignacion' || $elementActive == 'reuniones' || $elementActive == 'calendario' || $elementActive == 'indicadores') ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Prospección

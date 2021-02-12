@@ -20,15 +20,22 @@ class ProspeccionController extends Controller
      */
     public function contactos()
     {
+        $user = auth()->user();
         $contactos = ClienteContacto::with(['cliente' => function ($sql) {
             return $sql->with(['tipoCliente', 'padre', 'user']);
         }])->whereHas('cliente', function ($sql) {
             $sql->where(['activo' => true]);
         })->get();
 
-        $clientes = Cliente::where(['activo' => 1])->get();
+        if ($user->rol_id == 4) {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->get();
+        } else {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->whereHas('user', function($sql) use($user){
+                return $sql->where('id_prospector', $user->id);
+            })->get();
+        }
 
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Contactos', 'ruta' => null]]);
+        $user->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Contactos', 'ruta' => null]]);
 
         return view('pages.prospeccion.contacto', compact('contactos', 'clientes'));
     }

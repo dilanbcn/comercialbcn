@@ -4,8 +4,8 @@
         "activo": true
     },
     {
-        "nombre": "Administrador",
-        "descripcion": "Rol para administrar el Sistema de Evaluación",
+        "nombre": "Comercial dministrador",
+        "descripcion": "Rol para los usuarios comerciales administradores",
         "activo": true
     },
     {
