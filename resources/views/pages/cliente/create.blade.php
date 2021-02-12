@@ -72,7 +72,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>{{ __('Inicio Relación') }} <span class="text-required">*</span></label>
-                                    <input autocomplete="off" type="date" name="inicio_relacion" class="form-control @error('inicio_relacion') is-invalid @enderror inicio_relacion" value="{{ @old('inicio_relacion') }}" max="{{ date('Y-m-d', strtotime($hoy)) }}" required>
+                                    <input autocomplete="off" type="date" name="inicio_relacion" class="form-control @error('inicio_relacion') is-invalid @enderror inicio_relacion" value="{{ @old('inicio_relacion') }}" max="{{ date('Y-m-d', strtotime($hoy)) }}">
                                     
                                     @if ($errors->has('inicio_relacion'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">

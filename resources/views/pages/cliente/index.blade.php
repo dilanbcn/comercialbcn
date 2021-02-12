@@ -18,10 +18,11 @@
                             <span>{{ $key . ': ' . $estado}}</span>
                         </div>
                         @endforeach
+                        @if(auth()->user()->rol_id == 2)
                         <div class="col-4 text-right">
                             <a href="{{ route('cliente.create') }}" class="btn btn-sm btn-secondary btn-round"><i class="fas fa-plus"></i> Agregar</a>
                         </div>
-
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">
@@ -51,10 +52,14 @@
                                     <td>{{ $cliente->proyecto_count }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">
+                                        @if(auth()->user()->rol_id == 2 || auth()->user()->id == $cliente->user_id)
                                             <a href="{{ route('proyecto.cliente-proyecto', $cliente->id) }}" title="Proyectos" class="btn btn-xs btn-outline-secondary"><i class="far fa-handshake"></i></a>
+                                        @endif
+                                        @if(auth()->user()->rol_id == 2)
                                             <a href="{{ route('cliente-contacto.index', $cliente->id) }}" title="Contactos" class="btn btn-xs btn-outline-secondary"><i class="fas fa-user-friends"></i></a>
                                             <a href="{{ route('cliente.edit', $cliente->id) }}" title="Editar" class="btn btn-xs btn-outline-secondary"><i class="fa fa-edit"></i></a>
                                             <a href="#" id="{{ $cliente->id }}" title="Eliminar Cliente" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="0" data-ruta="{{ route('cliente.destroy', $cliente->id) }}"><i class="fa fa-times"></i></a>
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>

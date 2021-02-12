@@ -27,7 +27,9 @@
                                 <th>Apellido</th>
                                 <th>Correo</th>
                                 <th>Estado</th>
+                                @if(auth()->user()->rol_id == 2)
                                 <th>Acciones</th>
+                                @endif
                             </thead>
                             <tbody>
                                 @foreach($comerciales as $key => $usuario)
@@ -37,12 +39,14 @@
                                     <td class="text-left">{{ $usuario->last_name }}</td>
                                     <td>{{ $usuario->email }}</td>
                                     <td>{{ ($usuario->activo) ? 'Activo' : 'Inactivo' }}</td>
+                                    @if(auth()->user()->rol_id == 2)
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">
                                             <a href="{{ route('user.edit', $usuario->id) }}" title="Editar" class="btn btn-xs btn-outline-secondary"><i class="fa fa-edit"></i></a>
                                             <a href="#" id="{{ $usuario->id }}" title="Eliminar Comercial" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="0" data-ruta="{{ route('user.destroy', $usuario->id) }}"><i class="fa fa-times"></i></a>
                                         </div>
                                     </td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -26,7 +26,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>{{ __('Fecha Cierre') }}</label>
-                                        <input autocomplete="off" type="date" name="fechaCierre" class="form-control @error('fechaCierre') is-invalid @enderror fechaCierre" value="{{ @old('fechaCierre') }}" required>
+                                        <input autocomplete="off" type="date" name="fechaCierre" class="form-control @error('fechaCierre') is-invalid @enderror fechaCierre" value="{{ @old('fechaCierre') }}" max="{{ date('Y-m-d') }}" required>
                                         @if ($errors->has('fechaCierre'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('fechaCierre') }}</strong>

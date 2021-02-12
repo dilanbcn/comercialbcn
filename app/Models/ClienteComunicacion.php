@@ -30,7 +30,9 @@ class ClienteComunicacion extends Model
         'correo_contacto',
         'telefono_contacto',
         'celular_contacto',
+        'comercial_id',
         'comercial_nombre',
+        'prospector_id',
         'prospector_nombre',
         'fecha_contacto',
         'linkedin',
@@ -58,5 +60,15 @@ class ClienteComunicacion extends Model
     public function tipoComunicacion()
     {
     	return $this->belongsTo(TipoComunicacion::class);
+    }
+
+    public function prospector()
+    {
+        return $this->belongsTo(User::class, 'prospector_id', 'id');
+    }
+
+    public function comercial()
+    {
+        return $this->belongsTo(User::class, 'comercial_id', 'id');
     }
 }

@@ -20,11 +20,16 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
-        $comerciales = User::where('id', '<>', $user->id)->get();
 
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => null], ['nombre' => 'Lista Comerciales', 'ruta' => null]]);
+        if ($user->rol_id == 2) {
+            $comerciales = User::where('id', '<>', $user->id)->get();
 
-        return view('pages.usuario.index', compact('comerciales'));
+            $user->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => null], ['nombre' => 'Lista Comerciales', 'ruta' => null]]);
+
+            return view('pages.usuario.index', compact('comerciales'));
+        } else {
+            return redirect()->route('cliente.index')->with(['status' => 'No tiene acceso a esa vista', 'title' => 'Error', 'estilo' => 'error']);
+        }
     }
 
     /**
@@ -107,7 +112,7 @@ class UserController extends Controller
             $customMessages = ['unique' => 'El :attribute ya se encuentra registrado.'];
             $this->validate($request, $rules, $customMessages);
         }
-        
+
         $user->fill([
             'rol_id' => $request->get('rol'),
             'username' => Rut::parse($request->get('rut'))->number(),
@@ -146,25 +151,29 @@ class UserController extends Controller
     public function grafico()
     {
         $usuarios = User::where(['activo' => 1])->get();
+        $user = auth()->user();
 
-        $users = $usuarios->map(function ($item) {
-            $arrdata = $this->getEstadoClientes($item);
-            $item->activos = $arrdata['activo'];
-            $item->inactivos = $arrdata['inactivo'];
-            $item->prospectos = $arrdata['prospectos'];
-            $item->clientes = $arrdata['clientes'];
-            $item->pct_activos = ($arrdata['clientes'] > 0) ? round((($arrdata['activo']/$arrdata['clientes']) * 100),1) : 0;
-            $total = $arrdata['prospectos'] + $arrdata['clientes'];
-            $item->efectividad = ($total > 0) ? round((($arrdata['clientes']/$total) * 100),1) : 0;
-            $item->width_efectividad = 'width: '.$item->efectividad.'%';
-            $item->efect_color = ($item->efectividad < 33) ? 'bg-danger' : (($item->efectividad > 33 && $item->efectividad < 66) ? 'bg-warning' : 'bg-success');
-            return $item;
-        });
+        if ($user->rol_id == 2) {
+            $users = $usuarios->map(function ($item) {
+                $arrdata = $this->getEstadoClientes($item);
+                $item->activos = $arrdata['activo'];
+                $item->inactivos = $arrdata['inactivo'];
+                $item->prospectos = $arrdata['prospectos'];
+                $item->clientes = $arrdata['clientes'];
+                $item->pct_activos = ($arrdata['clientes'] > 0) ? round((($arrdata['activo'] / $arrdata['clientes']) * 100), 1) : 0;
+                $total = $arrdata['prospectos'] + $arrdata['clientes'];
+                $item->efectividad = ($total > 0) ? round((($arrdata['clientes'] / $total) * 100), 1) : 0;
+                $item->width_efectividad = 'width: ' . $item->efectividad . '%';
+                $item->efect_color = ($item->efectividad < 33) ? 'bg-danger' : (($item->efectividad > 33 && $item->efectividad < 66) ? 'bg-warning' : 'bg-success');
+                return $item;
+            });
 
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => null], ['nombre' => 'Detalle Comerciales', 'ruta' => null]]);
+            $user->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => null], ['nombre' => 'Detalle Comerciales', 'ruta' => null]]);
 
-
-        return view('pages.usuario.index-grafico', compact('users'));
+            return view('pages.usuario.index-grafico', compact('users'));
+        } else {
+            return redirect()->route('cliente.index')->with(['status' => 'No tiene acceso a esa vista', 'title' => 'Error', 'estilo' => 'error']);
+        }
     }
 
 

@@ -14,12 +14,13 @@
                             <h5 class="card-title mb-1">Comuncacion Resumen</h5>
                         </div>
                         <div class="col-4 text-right">
+                            <a href="{{ route('cliente-comunicacion.index') }}" class="btn btn-sm btn-success btn-round"><i class="fas fa-list"></i> Vista Clientes</a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="table">
-                        <table class="table table-striped tablaComercialesIndex">
+                    <div class="table table-responsive">
+                        <table class="table table-striped tablaComercialesIndex" >
                             <thead class="text-primary text-center">
                                 <th>Prospector</th>
                                 <th>Comercial</th>
@@ -48,7 +49,7 @@
                                     <td>{{ $comunicacion->telefono_contacto }}</td>
                                     <td>{{ $comunicacion->correo_contacto }}</td>
                                     <td>{{ $comunicacion->celular_contacto }}</td>
-                                    <td>{{ date('d/m/Y', strtotime($comunicacion->fecha_contacto)) }}</td>
+                                    <td>{{ ($comunicacion->fecha_contacto) ? date('d/m/Y', strtotime($comunicacion->fecha_contacto)) : '' }}</td>
                                     <td>{{ ($comunicacion->linkedin) ? 'Si' : '' }}</td>
                                     <td>{{ ($comunicacion->envia_correo) ? 'Si' : '' }}</td>
                                     <td>{{ ($comunicacion->fecha_reunion) ? date('d/m/Y H:i', strtotime($comunicacion->fecha_reunion)) : '' }}</td>

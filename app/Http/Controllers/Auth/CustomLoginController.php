@@ -33,7 +33,9 @@ class CustomLoginController extends Controller
     {
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             Auth::user();
-            return redirect()->route('home');
+            $user = auth()->user();
+            $ruta = ($user->rol_id == 4 || $user->rol_id == 5) ? 'cliente-comunicacion.calendario' : 'home.comercial';
+            return redirect()->route($ruta);
         }
 
         return redirect()->route('login')->withInput($request->input())->withError('Credenciales inválidas');

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ClienteComunicacionRequest;
+use App\Mail\ReunionModificadaMail;
 use App\Models\Cliente;
 use App\Models\ClienteComunicacion;
 use App\Models\ClienteContacto;
 use App\Models\TipoComunicacion;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ClienteComunicacionController extends Controller
 {
@@ -20,11 +22,19 @@ class ClienteComunicacionController extends Controller
     public function index()
     {
         $hoy = Carbon::today();
-        $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion', 'clienteContactos'])->get();
+        $user = auth()->user();
+
+        if ($user->rol_id == 4) {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion', 'clienteContactos'])->get();
+        }else {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->whereHas('user', function($sql) use ($user){
+                return $sql->where(['id_prospector' => $user->id]);
+            })->with(['clienteComunicacion', 'clienteContactos'])->get();
+        }
 
         $tipoComunicaciones = TipoComunicacion::where(['activo' => 1])->get();
 
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Llamados y Reuniones', 'ruta' => null]]);
+        $user->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Llamados y Reuniones', 'ruta' => null]]);
 
 
         return view('pages.cliente_comunicacion.index', compact('clientes', 'hoy', 'tipoComunicaciones'));
@@ -151,7 +161,9 @@ class ClienteComunicacionController extends Controller
         ClienteComunicacion::create([
             'cliente_id' => $request->get('cliente'),
             'tipo_comunicacion_id' => $request->get('tipoComunicacion'),
+            'prospector_id' => $cliente->user->id,
             'prospector_nombre' => $cliente->user->name . ' ' . $cliente->user->last_name,
+            'comercial_id' => $user->id,
             'comercial_nombre' => $user->name . ' ' . $user->last_name,
             'fecha_contacto' => $request->get('fechaContacto'),
             'fecha_reunion' => ($request->get('fechaReunion')) ? $fechaReunion->format('Y-m-d H:i:00') : null,
@@ -216,7 +228,7 @@ class ClienteComunicacionController extends Controller
             ];
             $this->validate($request, $rules, $customMessages);
         }
-        
+
         if ($request->get('nuevoContacto') == 1) {
 
             if ($request->get('celularContacto') != '') {
@@ -290,26 +302,29 @@ class ClienteComunicacionController extends Controller
 
         $stringFecha = $request->get('fechaReunion') . ' ' . $request->get('horaReunion');
         $fechaReunion = new Carbon($stringFecha);
-        
+
         $fechaRegistrada = new Carbon($clienteComunicacion->fecha_reunion);
         $fechaFormulario = new Carbon($request->get('fechaReunion'));
 
 
-        if ($clienteComunicacion->reunion_valida == 1 && ( !$request->get('fechaReunion') || $fechaRegistrada->ne($fechaFormulario) ) ) {
+        if ($clienteComunicacion->reunion_valida == 1 && (!$request->get('fechaReunion') || $fechaRegistrada->ne($fechaFormulario))) {
             $rutaError = ($request->calendario == 'calendario') ? 'cliente-comunicacion.calendario' : 'cliente-comunicacion.conversacion';
-            
+
             return redirect()->route($rutaError)->withInput()->withErrors(
                 ['fechaReunion' => 'No puede cambiar la fecha de la reunión porque ha sido validada']
             );
         }
 
-        $ClienteCom = ClienteComunicacion::with(['cliente' => function($sql){
+        $clienteCom = ClienteComunicacion::with(['cliente' => function ($sql) {
             return $sql->with(['user']);
         }])->find($clienteComunicacion->id);
-    
+
+
         $clienteComunicacion->fill([
             'tipo_comunicacion_id' => $request->get('tipoComunicacion'),
-            'prospector_nombre' => $ClienteCom->cliente->user->name . ' ' . $ClienteCom->cliente->user->last_name,
+            'prospector_id' => $clienteCom->cliente->user->id,
+            'prospector_nombre' => $clienteCom->cliente->user->name . ' ' . $clienteCom->cliente->user->last_name,
+            'comercial_id' => $user->id,
             'comercial_nombre' => $user->name . ' ' . $user->last_name,
             'fecha_contacto' => $request->get('fechaContacto'),
             'linkedin' => ($request->get('linkedin')) ? $request->get('linkedin') : 0,
@@ -331,6 +346,13 @@ class ClienteComunicacionController extends Controller
 
         if ($clienteComunicacion->isDirty()) {
             $clienteComunicacion->save();
+        }
+
+        if ($fechaRegistrada->ne($fechaFormulario)) {
+            $clienteComunicacion->fecha_anterior = $fechaRegistrada->format('Y-m-d H:i:s');
+            retry(5, function () use ($clienteComunicacion) {
+                Mail::to(auth()->user()->email)->send(new ReunionModificadaMail($clienteComunicacion));
+            }, 100);
         }
 
         if ($request->calendario == 'calendario') {
@@ -404,11 +426,18 @@ class ClienteComunicacionController extends Controller
     {
         $fechaDesde = Carbon::parse($request->start);
         $desde = $fechaDesde->format('Y-m-d');
+        $user = auth()->user();
 
         $fechaHasta = Carbon::parse($request->end);
         $hasta = $fechaHasta->format('Y-m-d');
 
-        $reuniones = ClienteComunicacion::whereNotNull('fecha_reunion')->whereBetween('fecha_reunion', [$desde, $hasta])->with(['cliente'])->get();
+        if ($user->rol_id == 5){
+            $reuniones = ClienteComunicacion::where(['prospector_id' => $user->id])->whereNotNull('fecha_reunion')->whereBetween('fecha_reunion', [$desde, $hasta])->with(['cliente'])->get();
+        }else {
+            $reuniones = ClienteComunicacion::whereNotNull('fecha_reunion')->whereBetween('fecha_reunion', [$desde, $hasta])->with(['cliente'])->get();
+        }
+
+
         $arrReuniones = array();
         foreach ($reuniones as $reunion) {
             $arrReunion = [
@@ -513,8 +542,10 @@ class ClienteComunicacionController extends Controller
         ClienteComunicacion::create([
             'cliente_id' => $request->get('cliente'),
             'tipo_comunicacion_id' => $request->get('tipoComunicacion'),
-            'prospector_nombre' => $cliente->user->name . ' ' . $cliente->user->last_name,
-            'comercial_nombre' => $user->name . ' ' . $user->last_name,
+            'comercial_id' => $cliente->user->id,
+            'comercial_nombre' => $cliente->user->name . ' ' . $cliente->user->last_name,
+            'prospector_id' => $user->id,
+            'prospector_nombre' => $user->name . ' ' . $user->last_name,
             'fecha_contacto' => $request->get('fechaContacto'),
             'fecha_reunion' => ($request->get('fechaReunion')) ? $fechaReunion->format('Y-m-d H:i:00') : null,
             'linkedin' => ($request->get('linkedin')) ? $request->get('linkedin') : 0,

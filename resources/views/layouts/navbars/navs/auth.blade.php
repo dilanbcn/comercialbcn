@@ -7,13 +7,14 @@
             <span class="navbar-toggler-bar bar3"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <a href="{{ (auth()->user()->rol_id == 2) ? route('home') : route('user.perfil') }}">
+            <a href="{{ (auth()->user()->rol_id == 4 || auth()->user()->rol_id == 5) ? route('cliente-comunicacion.calendario') : route('home.comercial') }}">
                 <img src="{{ asset('paper/img/logo_bcn_horizon.png') }}" height="50" class="d-inline-block align-top" alt="">
             </a>
             <ul class="navbar-nav mr-auto ml-5">
                 <li class="nav-item {{ $elementActive == 'dashboard' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ (auth()->user()->rol_id == 2) ? route('home') : route('user.perfil') }}">Inicio <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ (auth()->user()->rol_id == 4 || auth()->user()->rol_id == 5) ? route('cliente-comunicacion.calendario') : route('home.comercial') }}">Inicio <span class="sr-only">(current)</span></a>
                 </li>
+                @if(auth()->user()->rol_id == 2)
                 <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'comerciales' || $elementActive == 'detalle') ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Comerciales
@@ -26,6 +27,8 @@
                         <a class="dropdown-item {{ ($elementActive == 'detalle') ? 'menu-activo' : '' }}" href="{{ route('user.grafico') }}">{{ __('Detalle Comerciales') }}</a>
                     </div>
                 </li>
+                @endif
+                @if(auth()->user()->rol_id == 1 || auth()->user()->rol_id == 2)
                 <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'clientes' || $elementActive == 'prospectos' || $elementActive == 'vigencia' || $elementActive == 'cerrados') ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Clientes
@@ -37,10 +40,14 @@
                         <a class="dropdown-item {{ ($elementActive == 'clientes') ? 'menu-activo' : '' }}" href="{{ route('cliente.index') }}">{{ __('Clientes General') }}</a>
                         <a class="dropdown-item {{ ($elementActive == 'prospectos') ? 'menu-activo' : '' }}" href="{{ route('cliente.prospectos') }}">{{ __('Prospectos Disponibles') }}</a>
                         <a class="dropdown-item {{ ($elementActive == 'vigencia') ? 'menu-activo' : '' }}" href="{{ route('cliente.vigencia') }}">{{ __('Vigencia Clientes') }}</a>
+                        @if(auth()->user()->rol_id == 2)
                         <a class="dropdown-item {{ ($elementActive == 'cerrados') ? 'menu-activo' : '' }}" href="{{ route('cliente.cerrados') }}">{{ __('Cerrados') }}</a>
+                        @endif
                     </div>
                 </li>
-                <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'contactos' || $elementActive == 'asignacion' || $elementActive == 'reuniones' || $elementActive == 'calendario') ? 'active' : '' }}">
+                @endif
+                @if(auth()->user()->rol_id != 1 && auth()->user()->rol_id != 3)
+                <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'contactos' || $elementActive == 'asignacion' || $elementActive == 'reuniones' || $elementActive == 'calendario' || $elementActive == 'indicadores') ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Prospección
                         <p>
@@ -49,12 +56,17 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item {{ ($elementActive == 'contactos') ? 'menu-activo' : '' }}" href="{{ route('prospeccion.contactos') }}">{{ __('Contactos') }}</a>
+                        @if(auth()->user()->rol_id == 4)
                         <a class="dropdown-item {{ ($elementActive == 'asignacion') ? 'menu-activo' : '' }}" href="{{ route('prospeccion.asignacion.index') }}">{{ __('Asignacion de Prospectores') }}</a>
+                        @endif
                         <a class="dropdown-item {{ ($elementActive == 'reuniones') ? 'menu-activo' : '' }}" href="{{ route('cliente-comunicacion.index') }}">{{ __('Llamados y Reuniones') }}</a>
                         <a class="dropdown-item {{ ($elementActive == 'calendario') ? 'menu-activo' : '' }}" href="{{ route('cliente-comunicacion.calendario') }}">{{ __('Calendario Reuniones') }}</a>
-
+                        @if(auth()->user()->rol_id == 4)
+                        <a class="dropdown-item {{ ($elementActive == 'indicadores') ? 'menu-activo' : '' }}" href="{{ route('prospeccion.indicadores') }}">{{ __('Indicadores') }}</a>
+                        @endif
                     </div>
                 </li>
+                @endif
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item btn-rotate dropdown">
@@ -65,7 +77,6 @@
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">{{ __('Perfil') }}</a>
                         <a class="dropdown-item" href="{{ route('logout') }}">{{ __('Cerrar Sesión') }}</a>
                     </div>
                 </li>

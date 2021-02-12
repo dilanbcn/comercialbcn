@@ -50,7 +50,7 @@
         </div>
         <div class="row">
             <div class="col-md-6 ml-auto mr-auto">
-                <a href="{{ route('password.request') }}" class="btn btn-link">
+                <a href="#" class="btn btn-link">
                     {{ __('Olvidó su contraseña') }}
                 </a>
             </div>

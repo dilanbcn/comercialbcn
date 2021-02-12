@@ -21,22 +21,25 @@
                             <thead class="text-primary text-center">
                                 <th>Cuenta</th>
                                 <th>Comercial</th>
+                                @if(auth()->user()->rol_id == 2)
                                 <th>Acciones</th>
+                                @endif
+
                             </thead>
                             <tbody>
                                 @foreach($clientes as $key => $cliente)
                                 <tr class="text-center">
                                     <td class="text-left">{{ $cliente->razon_social }}</td>
                                     <td class="text-left">{{ $cliente->user->name }}</td>
+                                    @if(auth()->user()->rol_id == 2)
+
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">
-
-
-                                        
                                             <a href="{{ route('cliente.edit', $cliente->id) }}" title="Editar" class="btn btn-xs btn-outline-secondary"><i class="fa fa-edit"></i></a>
                                             <a href="#" id="{{ $cliente->id }}" title="Eliminar Cliente" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="0" data-ruta="{{ route('cliente.destroy', $cliente->id) }}"><i class="fa fa-times"></i></a>
                                         </div>
                                     </td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>

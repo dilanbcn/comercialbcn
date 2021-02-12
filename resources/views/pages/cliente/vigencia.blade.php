@@ -39,7 +39,7 @@
                                     <td>{{ $cliente->antiguedad }}</td>
                                     <td><span class="badge p-2 badge-{{ ($cliente->activo) ? 'info' : 'danger' }}">{{ ($cliente->activo) ? 'Activo' : 'Inactivo' }}</span></td>
                                     <td class="text-left">{{ $cliente->user->name . '' . $cliente->user->last_name }}</td>
-                                    <td>{{ date('d/m/Y', strtotime($cliente->inicio_relacion)) }}</td>
+                                    <td>{{ ($cliente->inicio_relacion) ? date('d/m/Y', strtotime($cliente->inicio_relacion)) : '' }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

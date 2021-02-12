@@ -14,7 +14,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>{{ __('Fecha Facturación') }} <span class="text-required">*</span></label>
-                                        <input autocomplete="off" type="date" name="fechaFacturacion" class="form-control @error('fechaFacturacion') is-invalid @enderror fechaFacturacion" value="{{ @old('fechaFacturacion') }}" required>
+                                        <input autocomplete="off" type="date" name="fechaFacturacion" class="form-control @error('fechaFacturacion') is-invalid @enderror fechaFacturacion" value="{{ @old('fechaFacturacion') }}" max="{{ date('Y-m-d') }}" required>
                                         @if ($errors->has('fechaFacturacion'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('fechaFacturacion') }}</strong>
@@ -25,7 +25,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>{{ __('Fecha Pago') }} <span class="text-required">*</span></label>
-                                        <input autocomplete="off" type="date" name="fechaPago" class="form-control @error('fechaPago') is-invalid @enderror fechaPago" value="{{ @old('fechaPago') }}" required>
+                                        <input autocomplete="off" type="date" name="fechaPago" class="form-control @error('fechaPago') is-invalid @enderror fechaPago" value="{{ @old('fechaPago') }}" max="{{ date('Y-m-d') }}" required>
                                         @if ($errors->has('fechaPago'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('fechaPago') }}</strong>

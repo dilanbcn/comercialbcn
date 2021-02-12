@@ -28,6 +28,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'activo',
+        'id_prospector'
     ];
 
     /**
@@ -62,6 +63,16 @@ class User extends Authenticatable
     public function prospector()
     {
         return $this->belongsTo(User::class, 'id_prospector', 'id');
+    }
+
+    public function comunicacionProspector()
+    {
+        return $this->hasMany(ClienteComunicacion::class, 'prospector_id', 'id');
+    }
+
+    public function comunicacionComercial()
+    {
+        return $this->hasMany(ClienteComunicacion::class, 'comercial_id', 'id');
     }
 
     public static function createPass($long = 8)

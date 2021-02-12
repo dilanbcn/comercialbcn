@@ -107,6 +107,13 @@ class ProyectoController extends Controller
     public function update(ProyectoRequest $request, Proyecto $proyecto)
     {
         $cliente = $proyecto->cliente;
+        $user = auth()->user();
+
+        if ($user->id != $cliente->user_id && $user->rol_id == 1) {
+            return redirect()->route('proyecto.cliente-proyecto', $cliente)->withInput()->withErrors([
+                'razon_social' => 'Imposible modificar datos de un cliente que no le pertenece',
+            ]);
+        }
 
         $proyecto->fill([
             'nombre' => $request->get('nombre'),

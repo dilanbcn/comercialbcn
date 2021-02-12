@@ -23,13 +23,17 @@ class ClienteController extends Controller
     {
         $hoy = Carbon::now();
         $limite = $hoy->subMonths(8);
+        $user = auth()->user();
 
-        $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+        if ($user->rol_id == 1) {
+            $clientes = Cliente::where(['user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+        } else {
+            $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+        }
 
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->meses($clientes);
         });
-
 
         $groupCliente = $clientes->groupBy('activo');
         $arrEstados = array(0 => 'Inactivos', 1 => 'Activos');
@@ -39,7 +43,8 @@ class ClienteController extends Controller
             $arrGrupo[$arrEstados[$key]] = count($cliente);
         }
 
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Clientes General', 'ruta' => null]]);
+
+        $user->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Clientes General', 'ruta' => null]]);
 
         return view('pages.cliente.index', compact('clientes', 'arrGrupo'));
     }
@@ -77,19 +82,28 @@ class ClienteController extends Controller
     {
         $hoy = Carbon::now();
         $limite = $hoy->subMonths(8);
+        $user = auth()->user();
 
+        // if ($user->rol_id == 1) {
+        //     $clientes = Cliente::where(['tipo_cliente_id' => 1, 'user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->get();
+        // } else {
         $clientes = Cliente::where(['tipo_cliente_id' => 1])->with(['tipoCliente', 'padre', 'user'])->get();
+        // }
 
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Prospectos Disponibles', 'ruta' => null]]);
-
+        $user->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Prospectos Disponibles', 'ruta' => null]]);
 
         return view('pages.cliente.prospecto', compact('clientes'));
     }
 
     public function vigencia()
     {
-        $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'padre', 'user'])->get();
+        $user = auth()->user();
 
+        if ($user->rol_id == 1) {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->get();
+        } else {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'padre', 'user'])->get();
+        }
         $groupCliente = $clientes->groupBy('activo');
         $arrEstados = array(0 => 'Inactivos', 1 => 'Activos');
         $arrGrupo = array('Activos' => 0, 'Inactivos' => 0);
@@ -103,34 +117,40 @@ class ClienteController extends Controller
             $clientes->vigenciaMeses = $this->antiguedad($clientes->inicio_relacion, 'meses');
         });
 
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Vigencia Clientes', 'ruta' => null]]);
+        $user->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Vigencia Clientes', 'ruta' => null]]);
 
         return view('pages.cliente.vigencia', compact('clientes', 'arrGrupo'));
     }
 
     public function cerrados()
     {
-        $facturas = ProyectoFactura::with(['proyecto' => function($sql){
-            return $sql->with(['cliente' => function($sql){
-                return $sql->with(['user']);
-            }]);
-        }, 'estadoFactura'])->get();
+        $user = auth()->user();
 
-        $facturas->map(function ($factura) {
-            $fC = Carbon::parse($factura->proyecto->fecha_cierre);
-            $fF = Carbon::parse($factura->fecha_factura);
-            $fP = Carbon::parse($factura->fecha_pago);
-
-            $factura->proyecto->cliente->antiguedad = $this->antiguedad($factura->proyecto->cliente->inicio_relacion);
-            $factura->mes_cierre = $fC->locale('es')->shortMonthName . '-' . $fC->format('y');
-            $factura->mes_facturacion = $fF->locale('es')->shortMonthName . '-' . $fF->format('y');
-            $factura->mes_pago = $fP->locale('es')->shortMonthName . '-' . $fP->format('y');
-        });
-
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Cerrados', 'ruta' => null]]);
-
-
-        return view('pages.cliente.cerrados', compact('facturas'));
+        if ($user->rol_id == 2) {
+            $facturas = ProyectoFactura::with(['proyecto' => function ($sql) {
+                return $sql->with(['cliente' => function ($sql) {
+                    return $sql->with(['user']);
+                }]);
+            }, 'estadoFactura'])->get();
+    
+            $facturas->map(function ($factura) {
+                $fC = Carbon::parse($factura->proyecto->fecha_cierre);
+                $fF = Carbon::parse($factura->fecha_factura);
+                $fP = Carbon::parse($factura->fecha_pago);
+    
+                $factura->proyecto->cliente->antiguedad = $this->antiguedad($factura->proyecto->cliente->inicio_relacion);
+                $factura->mes_cierre = $fC->locale('es')->shortMonthName . '-' . $fC->format('y');
+                $factura->mes_facturacion = $fF->locale('es')->shortMonthName . '-' . $fF->format('y');
+                $factura->mes_pago = $fP->locale('es')->shortMonthName . '-' . $fP->format('y');
+            });
+    
+            $user->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Cerrados', 'ruta' => null]]);
+    
+            return view('pages.cliente.cerrados', compact('facturas'));
+        } else {
+            return redirect()->route('cliente.index')->with(['status' => 'No tiene acceso a esa vista', 'title' => 'Error', 'estilo' => 'error']);
+        }
+        
     }
 
     /**
@@ -196,7 +216,7 @@ class ClienteController extends Controller
 
         Cliente::create([
             'user_id' => ($user->rol_id == 2) ? $request->get('comercial') : $user->id,
-            'tipo_cliente_id' => ($user->rol_id == 2) ? $request->get('tipo_cliente') : null,
+            'tipo_cliente_id' => ($user->rol_id == 2) ? $request->get('tipo_cliente') : 1,
             'padre_id' => $request->get('padre'),
             'rut' => ($request->get('rut')) ? Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH) : null,
             'razon_social' => $request->get('razon_social'),
@@ -253,6 +273,8 @@ class ClienteController extends Controller
      */
     public function update(ClienteRequest $request, Cliente $cliente)
     {
+        $user = auth()->user();
+
         if ($request->get('rut') != '') {
             $rules = ['rut' => 'cl_rut'];
             $customMessages = ['cl_rut' => 'El :attribute es inválido.'];
@@ -277,8 +299,11 @@ class ClienteController extends Controller
             $this->validate($request, $rules, $customMessages);
         }
 
-
-        $user = auth()->user();
+        if ($user->id != $cliente->user_id && $user->rol_id == 1) {
+            return redirect()->route('cliente.edit', $cliente)->withInput()->withErrors([
+                'razon_social' => 'Imposible modificar un cliente de otro comercial',
+            ]);
+        }
 
         if ($user->rol_id == 2) {
             $rules = ['comercial' => 'required|exists:users,id', 'tipo_cliente' => 'required|exists:tipo_clientes,id'];
