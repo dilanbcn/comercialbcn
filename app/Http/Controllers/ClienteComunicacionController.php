@@ -8,6 +8,7 @@ use App\Models\Cliente;
 use App\Models\ClienteComunicacion;
 use App\Models\ClienteContacto;
 use App\Models\TipoComunicacion;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -26,8 +27,8 @@ class ClienteComunicacionController extends Controller
 
         if ($user->rol_id == 4) {
             $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion', 'clienteContactos'])->get();
-        }else {
-            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->whereHas('user', function($sql) use ($user){
+        } else {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->whereHas('user', function ($sql) use ($user) {
                 return $sql->where(['id_prospector' => $user->id]);
             })->with(['clienteComunicacion', 'clienteContactos'])->get();
         }
@@ -161,9 +162,9 @@ class ClienteComunicacionController extends Controller
         ClienteComunicacion::create([
             'cliente_id' => $request->get('cliente'),
             'tipo_comunicacion_id' => $request->get('tipoComunicacion'),
-            'prospector_id' => $cliente->user->id,
+            'prospector_id' => $user->id,
             'prospector_nombre' => $cliente->user->name . ' ' . $cliente->user->last_name,
-            'comercial_id' => $user->id,
+            'comercial_id' => $cliente->user->id,
             'comercial_nombre' => $user->name . ' ' . $user->last_name,
             'fecha_contacto' => $request->get('fechaContacto'),
             'fecha_reunion' => ($request->get('fechaReunion')) ? $fechaReunion->format('Y-m-d H:i:00') : null,
@@ -322,9 +323,9 @@ class ClienteComunicacionController extends Controller
 
         $clienteComunicacion->fill([
             'tipo_comunicacion_id' => $request->get('tipoComunicacion'),
-            'prospector_id' => $clienteCom->cliente->user->id,
+            'prospector_id' => $user->id,
             'prospector_nombre' => $clienteCom->cliente->user->name . ' ' . $clienteCom->cliente->user->last_name,
-            'comercial_id' => $user->id,
+            'comercial_id' => $clienteCom->cliente->user->id,
             'comercial_nombre' => $user->name . ' ' . $user->last_name,
             'fecha_contacto' => $request->get('fechaContacto'),
             'linkedin' => ($request->get('linkedin')) ? $request->get('linkedin') : 0,
@@ -350,9 +351,19 @@ class ClienteComunicacionController extends Controller
 
         if ($fechaRegistrada->ne($fechaFormulario)) {
             $clienteComunicacion->fecha_anterior = $fechaRegistrada->format('Y-m-d H:i:s');
-            retry(5, function () use ($clienteComunicacion) {
-                Mail::to(auth()->user()->email)->send(new ReunionModificadaMail($clienteComunicacion));
-            }, 100);
+            $adminPros = User::where(['rol_id' => 4])->orWhere(['id' => auth()->user()->id])->get();
+            $mails = array();
+            if ($adminPros) {
+                foreach ($adminPros as $user) {
+                    $mails[] = $user->email;
+                }
+            }
+
+            if (count($mails) > 0) {
+                retry(5, function () use ($clienteComunicacion, $mails) {
+                    Mail::to($mails)->send(new ReunionModificadaMail($clienteComunicacion));
+                }, 100);
+            }
         }
 
         if ($request->calendario == 'calendario') {
@@ -411,12 +422,19 @@ class ClienteComunicacionController extends Controller
 
     public function calendario()
     {
-
+        $user = auth()->user();
         $hoy = Carbon::today();
-        $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion'])->get();
+        if ($user->rol_id == 4) {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion', 'clienteContactos'])->get();
+        } else {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->whereHas('user', function ($sql) use ($user) {
+                return $sql->where(['id_prospector' => $user->id]);
+            })->with(['clienteComunicacion', 'clienteContactos'])->get();
+        }
+        // $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion'])->get();
         $tipoComunicaciones = TipoComunicacion::where(['activo' => 1])->get();
 
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Calendario Reuniones', 'ruta' => null]]);
+        $user->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Calendario Reuniones', 'ruta' => null]]);
 
 
         return view('pages.cliente_calendario.index', compact('clientes', 'hoy', 'tipoComunicaciones'));
@@ -431,9 +449,9 @@ class ClienteComunicacionController extends Controller
         $fechaHasta = Carbon::parse($request->end);
         $hasta = $fechaHasta->format('Y-m-d');
 
-        if ($user->rol_id == 5){
+        if ($user->rol_id == 5) {
             $reuniones = ClienteComunicacion::where(['prospector_id' => $user->id])->whereNotNull('fecha_reunion')->whereBetween('fecha_reunion', [$desde, $hasta])->with(['cliente'])->get();
-        }else {
+        } else {
             $reuniones = ClienteComunicacion::whereNotNull('fecha_reunion')->whereBetween('fecha_reunion', [$desde, $hasta])->with(['cliente'])->get();
         }
 

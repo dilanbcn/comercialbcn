@@ -29,10 +29,20 @@ class AppServiceProvider extends ServiceProvider
     {
         ClienteComunicacion::created(function ($comunicacion) {
             if ($comunicacion->fecha_reunion != null) {
-                retry(5, function () use ($comunicacion) {
-                    $prospector = User::find($comunicacion->prospector_id);
-                    Mail::to($prospector->email)->send(new NuevaReunionMail($comunicacion));
-                }, 100);
+                $adminPros = User::where(['rol_id' => 4])->orWhere(['id' => $comunicacion->prospector_id])->get();
+                $mails = array();
+                if ($adminPros) {
+                    foreach ($adminPros as $user){
+                        $mails[] = $user->email;
+                    }
+                }
+
+                if (count($mails) > 0){
+                    retry(5, function () use ($comunicacion, $mails) {
+                        Mail::to($mails)->send(new NuevaReunionMail($comunicacion));
+                    }, 100);
+                }
+                
             }
         });
     }
