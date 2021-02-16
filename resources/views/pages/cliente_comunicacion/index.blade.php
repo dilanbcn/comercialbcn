@@ -32,7 +32,7 @@
                             <tbody>
                                 @foreach($clientes as $key => $cliente)
                                 <tr class="text-center">
-                                    <td class="text-left">{{ $cliente->razon_social }}</td>
+                                    <td class="text-left"><a href="#" id="{{ $cliente->id }}" class="cliente_modal">{{ $cliente->razon_social }}</a></td>
                                     <td>{{ $cliente->telefono }}</td>
                                     <td>{{ $cliente->email }}</td>
                                     <td>{{ ($cliente->activo == 1 ) ? 'Activo' : 'Inactivo' }}</td>
@@ -55,4 +55,5 @@
     </div>
 </div>
 @include('pages.cliente_comunicacion.modal_comunicacion')
+@include('pages.cliente_comunicacion.modal_cliente')
 @endsection

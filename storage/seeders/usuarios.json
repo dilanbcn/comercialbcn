@@ -1,5 +1,6 @@
 [{
         "rol_id": "1",
+        "id_prospector": "9",
         "username": "26872610",
         "id_number": "26872610-1",
         "name": "Dilan Rafael",
@@ -9,6 +10,7 @@
     },
     {
         "rol_id": "2",
+        "id_prospector": "7",
         "username": "14533316",
         "id_number": "14533316-4",
         "name": "Felipe Ignacio",
@@ -18,6 +20,7 @@
     },
     {
         "rol_id": "4",
+        "id_prospector": "8",
         "username": "25917763",
         "id_number": "25917763-4",
         "name": "Nomar Roberto",
@@ -27,6 +30,7 @@
     },
     {
         "rol_id": "1",
+        "id_prospector": "9",
         "username": "10601331",
         "id_number": "10601331-4",
         "name": "Felipe",
@@ -36,6 +40,7 @@
     },
     {
         "rol_id": "1",
+        "id_prospector": "8",
         "username": "13904450",
         "id_number": "13904450-9",
         "name": "Maria José",
@@ -45,6 +50,7 @@
     },
     {
         "rol_id": "1",
+        "id_prospector": "8",
         "username": "16209789",
         "id_number": "16209789-K",
         "name": "Victoria Soledad",
@@ -54,6 +60,7 @@
     },
     {
         "rol_id": "5",
+        "id_prospector": null,
         "username": "13832065",
         "id_number": "13832065-0",
         "name": "Rodrigo Bernardo",
@@ -63,6 +70,7 @@
     },
     {
         "rol_id": "5",
+        "id_prospector": null,
         "username": "16429644",
         "id_number": "16429644-K",
         "name": "Felipe",
@@ -72,6 +80,7 @@
     },
     {
         "rol_id": "5",
+        "id_prospector": null,
         "username": "13198212",
         "id_number": "13198212-7",
         "name": "Carlos Mauricio",

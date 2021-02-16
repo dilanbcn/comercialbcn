@@ -1,10 +1,10 @@
 [{
-        "nombre": "Usuario",
-        "descripcion": "Rol para usuario general",
+        "nombre": "Comercial",
+        "descripcion": "Rol para comerciales",
         "activo": true
     },
     {
-        "nombre": "Comercial dministrador",
+        "nombre": "Comercial Administrador",
         "descripcion": "Rol para los usuarios comerciales administradores",
         "activo": true
     },

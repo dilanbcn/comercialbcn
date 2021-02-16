@@ -25,11 +25,12 @@ class ClienteController extends Controller
         $limite = $hoy->subMonths(8);
         $user = auth()->user();
 
-        if ($user->rol_id == 1) {
-            $clientes = Cliente::where(['user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
-        } else {
+        // if ($user->rol_id == 1) {
+        //     $clientes = Cliente::whereNotNull('user_id')->with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+        //     // $clientes = Cliente::where(['user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+        // } else {
             $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
-        }
+        // }
 
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->meses($clientes);
@@ -240,7 +241,11 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        //
+        $datos = Cliente::with(['tipoCliente', 'padre', 'user'])->find($cliente->id);
+        $datos->rut_cliente = ($datos->rut) ? Rut::parse($datos->rut)->format(Rut::FORMAT_WITH_DASH) : '';
+        $datos['success'] = 'ok';
+
+        return response()->json($datos, 200);
     }
 
     /**

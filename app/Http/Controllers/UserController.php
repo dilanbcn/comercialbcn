@@ -22,13 +22,19 @@ class UserController extends Controller
         $user = auth()->user();
 
         if ($user->rol_id == 2) {
-            $comerciales = User::where('id', '<>', $user->id)->get();
+            $comerciales = User::whereIn('rol_id', [1, 2])->get();
 
             $user->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => null], ['nombre' => 'Lista Comerciales', 'ruta' => null]]);
 
             return view('pages.usuario.index', compact('comerciales'));
         } else {
-            return redirect()->route('cliente.index')->with(['status' => 'No tiene acceso a esa vista', 'title' => 'Error', 'estilo' => 'error']);
+
+            $comerciales = User::whereIn('rol_id', [4, 5])->get();
+
+            $user->breadcrumbs = collect([['nombre' => 'Prospectores', 'ruta' => null]]);
+
+            return view('pages.usuario.index', compact('comerciales'));
+            // return redirect()->route('cliente.index')->with(['status' => 'No tiene acceso a esa vista', 'title' => 'Error', 'estilo' => 'error']);
         }
     }
 
@@ -39,10 +45,14 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        $roles = Rol::where(['activo' => 1])->get();
-
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => route('user.index')], ['nombre' => 'Nuevo Comercial', 'ruta' => null]]);
-
+        $user = auth()->user();
+        if ($user->rol_id == 2) {
+            $roles = Rol::where(['activo' => 1])->whereIn('id', [1, 2])->get();
+            $user->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => route('user.index')], ['nombre' => 'Nuevo Comercial', 'ruta' => null]]);
+        } else {
+            $roles = Rol::where(['activo' => 1])->whereIn('id', [4, 5])->get();
+            $user->breadcrumbs = collect([['nombre' => 'Prospectores', 'ruta' => route('user.index')], ['nombre' => 'Nuevo Prospector', 'ruta' => null]]);
+        }
         return view('pages.usuario.create', compact('roles'));
     }
 
@@ -82,12 +92,17 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Rol::where(['activo' => 1])->orderBy('nombre', 'asc')->get();
         $usuario = $user;
         $usuario->rut_format = Rut::parse($usuario->id_number)->format(Rut::FORMAT_WITH_DASH);
 
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => route('user.index')], ['nombre' => 'Editar Comercial', 'ruta' => null]]);
-
+        $user = auth()->user();
+        if ($user->rol_id == 2) {
+            $roles = Rol::where(['activo' => 1])->whereIn('id', [1, 2])->get();
+            $user->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => route('user.index')], ['nombre' => 'Editar Comercial', 'ruta' => null]]);
+        } else {
+            $roles = Rol::where(['activo' => 1])->whereIn('id', [4, 5])->get();
+            $user->breadcrumbs = collect([['nombre' => 'Prospectores', 'ruta' => route('user.index')], ['nombre' => 'Editar Prospector', 'ruta' => null]]);
+        }
 
         return view('pages.usuario.edit', compact('usuario', 'roles'));
     }
@@ -150,7 +165,7 @@ class UserController extends Controller
      */
     public function grafico()
     {
-        $usuarios = User::where(['activo' => 1])->get();
+        $usuarios = User::where(['activo' => 1])->whereIn('rol_id', [1, 2])->get();
         $user = auth()->user();
 
         if ($user->rol_id == 2) {

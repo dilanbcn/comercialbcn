@@ -14,7 +14,7 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-md-8">
-                                <h5 class="card-title mb-1">Editar comercial</h5>
+                                <h5 class="card-title mb-1">{{  (auth()->user()->rol_id == 2) ? 'Editar comercial' : 'Editar prospector' }}</h5>
                             </div>
                             <div class="col-md-4 text-right">
                                 <button type="submit" class="btn btn-sm btn-secondary btn-round button-prevent-submit"><i class="spinner fa fa-spinner fa-spin"></i>{{ __('Modificar') }}</button>

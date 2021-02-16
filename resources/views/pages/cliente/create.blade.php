@@ -12,7 +12,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-8">
-                                <h5 class="card-title mb-1">Agregar nuevo comercial</h5>
+                                <h5 class="card-title mb-1">Agregar nuevo cliente</h5>
                             </div>
                             <div class="col-md-4 text-right">
                                 <button type="submit" class="btn btn-sm btn-secondary btn-round button-prevent-submit"><i class="spinner fa fa-spinner fa-spin"></i>{{ __('Guardar') }}</button>

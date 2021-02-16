@@ -159,3 +159,36 @@ thead input {
     background-color: #66615B;
     color: white !important;
 }
+
+.dropdown-navbar .dropdown-item:first-child {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.dropdown-navbar .dropdown-item:last-child {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.dropdown-navbar {
+    border-radius: 12px;
+}
+
+.dropdown-navbar .dropdown-item:hover,
+.dropdown-navbar .dropdown-item:focus {
+    background-color: #66615B;
+}
+
+.dropdown-navbar .dropdown-item {
+    color: #66615b;
+    font-size: 14px;
+    padding: 10px 45px 10px 15px;
+    clear: both;
+    white-space: nowrap;
+    width: 100%;
+    display: block;
+}
+
+.bootstrap-select .dropdown-menu.inner {
+    width: 500px !important;
+}

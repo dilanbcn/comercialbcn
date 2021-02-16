@@ -131,12 +131,6 @@
     </div>
 
 </div>
-
-
-
-<script>
-
-</script>
 @endsection
 
 @push('scripts')

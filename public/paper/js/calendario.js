@@ -30,60 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         eventClick: function(info) {
             let rutaEdit = '/cliente-comunicacion/' + info.event.id + '/edit';
-            $.ajax({
-                url: rutaEdit,
-                success: function(data) {
-                    $(".is-invalid").removeClass('is-invalid');
-                    $(".invalid-feedback").hide();
-                    if (data.fecha_reunion) {
-                        let fecha = data.fecha_reunion.split(' ');
-                        $("#updt_fechaReunion").val(fecha[0]);
-                        $("#updt_horaReunion").val(fecha[1].substring(0, 5));
-                    }
-                    $('#frm_updt_reunion').attr('action', './cliente-comunicacion/' + info.event.id);
-                    $("#upd-input-ruta").val('./cliente-comunicacion/' + info.event.id);
-                    $("#updt_cliente option[value='" + data.cliente_id + "']").prop('selected', true);
-                    $("#updt_tipoComunicacion option[value='" + data.tipo_comunicacion_id + "']").prop('selected', true);
-                    $("#updt_cliente").val(data.cliente_id);
-                    $("#updt_fechaContacto").val(data.fecha_contacto);
-                    $("#updt_observaciones").val(data.observaciones);
-                    $('#updt_linkedin').bootstrapToggle((data.linkedin == 1) ? 'on' : 'off');
-                    $('#updt_envioCorreo').bootstrapToggle((data.envia_correo == 1) ? 'on' : 'off');
-                    $('#updt_respuesta').bootstrapToggle((data.respuesta == 1) ? 'on' : 'off');
-                    $("#updt_reunion").modal('show');
-
-                    $.ajax({
-                        url: './cliente-contacto-json/' + data.cliente_id,
-                        success: function(contactos) {
-                            let optSel = '<option value="" selected>[Seleccione]</option>';
-                            if (contactos.length > 0) {
-                                $.each(contactos, function(key, contacto) {
-                                    seleccionado = (contacto.id == data.cliente_contacto_id) ? 'selected' : '';
-                                    optSel += '<option value="' + contacto.id + '" ' + seleccionado + ' >' + contacto.nombre + ' ' + contacto.apellido + '</option>';
-                                });
-                            }
-                            $("#updt_contactoId").html('').append(optSel);
-                        }
-                    });
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    $("#updt_reunion").modal('hide');
-                    $.confirm({
-                        title: 'Error',
-                        content: 'Error al intentar obtener los datos de comunicación, intente de nuevo mas tarde',
-                        type: 'red',
-                        theme: 'modern',
-                        animation: 'scala',
-                        icon: 'fa fa-exclamation-triangle',
-                        typeAnimated: true,
-                        buttons: {
-                            cancel: {
-                                text: 'Aceptar',
-                            },
-                        }
-                    });
-                }
-            });
+            editarComunicacion(rutaEdit, info.event.id);
         },
         eventSources: [{
             url: '/cliente-comunicacion/reuniones',
@@ -150,4 +97,62 @@ function validaFecha(date) {
     valido = ((!valido && f1.getTime() == f2.getTime()) || valido) ? true : false;
 
     return valido;
+}
+
+function editarComunicacion(rutaEdit, id) {
+    $.ajax({
+        url: rutaEdit,
+        success: function(data) {
+            $(".is-invalid").removeClass('is-invalid');
+            $(".invalid-feedback").hide();
+            if (data.fecha_reunion) {
+                let fecha = data.fecha_reunion.split(' ');
+                $("#updt_fechaReunion").val(fecha[0]);
+                $("#updt_horaReunion").val(fecha[1].substring(0, 5));
+            }
+            $('#frm_updt_reunion').attr('action', './cliente-comunicacion/' + id);
+            $("#upd-input-ruta").val('./cliente-comunicacion/' + id);
+            $("#updt_cliente option[value='" + data.cliente_id + "']").prop('selected', true);
+            $("#updt_tipoComunicacion option[value='" + data.tipo_comunicacion_id + "']").prop('selected', true);
+            $("#updt_cliente").val(data.cliente_id);
+            $("#updt_fechaContacto").val(data.fecha_contacto);
+            $("#updt_observaciones").val(data.observaciones);
+            $('#updt_linkedin').bootstrapToggle((data.linkedin == 1) ? 'on' : 'off');
+            $('#updt_envioCorreo').bootstrapToggle((data.envia_correo == 1) ? 'on' : 'off');
+            $('#updt_respuesta').bootstrapToggle((data.respuesta == 1) ? 'on' : 'off');
+            $("#updt_reunion").modal('show');
+            $('.selectpicker').selectpicker('refresh');
+
+            $.ajax({
+                url: './cliente-contacto-json/' + data.cliente_id,
+                success: function(contactos) {
+                    let optSel = '<option value="" selected>[Seleccione]</option>';
+                    if (contactos.length > 0) {
+                        $.each(contactos, function(key, contacto) {
+                            seleccionado = (contacto.id == data.cliente_contacto_id) ? 'selected' : '';
+                            optSel += '<option value="' + contacto.id + '" ' + seleccionado + ' >' + contacto.nombre + ' ' + contacto.apellido + '</option>';
+                        });
+                    }
+                    $("#updt_contactoId").html('').append(optSel);
+                }
+            });
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            $("#updt_reunion").modal('hide');
+            $.confirm({
+                title: 'Error',
+                content: 'Error al intentar obtener los datos de comunicación, intente de nuevo mas tarde',
+                type: 'red',
+                theme: 'modern',
+                animation: 'scala',
+                icon: 'fa fa-exclamation-triangle',
+                typeAnimated: true,
+                buttons: {
+                    cancel: {
+                        text: 'Aceptar',
+                    },
+                }
+            });
+        }
+    });
 }

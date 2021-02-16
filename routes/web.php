@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('grafico', 'App\Http\Controllers\UserController@grafico')->name('user.grafico');
 
-	Route::resource('cliente', 'App\Http\Controllers\ClienteController', ['except' => ['show']]);
+	Route::resource('cliente', 'App\Http\Controllers\ClienteController');
 	Route::get('clientes-disponibles', 'App\Http\Controllers\ClienteController@prospectos')->name('cliente.prospectos');
 	Route::get('clientes-vigencia', 'App\Http\Controllers\ClienteController@vigencia')->name('cliente.vigencia');
 	Route::get('clientes-cerrados', 'App\Http\Controllers\ClienteController@cerrados')->name('cliente.cerrados');

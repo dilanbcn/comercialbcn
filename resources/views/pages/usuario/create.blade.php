@@ -13,7 +13,7 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-md-8">
-                                <h5 class="card-title mb-1">Agregar nuevo comercial</h5>
+                                <h5 class="card-title mb-1">{{  (auth()->user()->rol_id == 2) ? 'Agregar nuevo comercial' : 'Agregar nuevo prospector' }}</h5>
                             </div>
                             <div class="col-md-4 text-right">
                                 <button type="submit" class="btn btn-sm btn-secondary btn-round button-prevent-submit"><i class="spinner fa fa-spinner fa-spin"></i>{{ __('Guardar') }}</button>

@@ -44,6 +44,8 @@ $(function() {
         }
     });
 
+    $('.selectpicker').selectpicker();
+
     showMessage();
 
 
@@ -304,6 +306,54 @@ $(function() {
         $("#add_prospeccion_contacto").modal('show');
     });
 
+    $(".cliente_modal").on('click', function() {
+        let ruta = './cliente/' + $(this).attr("id");
+        $.ajax({
+            url: ruta,
+            success: function(data) {
+                if (data.success == 'ok') {
+                    let strFechaInicio = '';
+                    if (data.inicio_relacion) {
+                        let fechaIni = new Date(data.inicio_relacion.split('-'));
+                        strFechaInicio = fechaIni.getDay() + '/' + fechaIni.getMonth() + '/' + fechaIni.getFullYear();
+                    }
+
+                    $("#holding").html((data.padre) ? data.padre.razon_social : '&nbsp;');
+                    $("#comercial").html((data.user) ? data.user.name : '&nbsp;');
+                    $("#tipo_cliente").html((data.tipo_cliente) ? data.tipo_cliente.nombre : '&nbsp;');
+                    $("#inicio_relacion").html(strFechaInicio);
+                    $("#estado").html((data.activo == 1) ? 'Activo' : 'Inactivo');
+                    $('#nombre_cliente').html(data.razon_social);
+                    $('#rut').html((data.rut_cliente) ? data.rut_cliente : '&nbsp;');
+                    $('#rubro').html(data.rubro);
+                    $("#telefono").html(data.telefono);
+                    $('#correo').html(data.email);
+                    $('#cantidad_empleados').html(data.cantidad_empleados);
+                    $('#direccion').html(data.direccion);
+                    $("#modal_cliente").modal('show');
+
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                $("#modal_cliente").modal('hide');
+                $.confirm({
+                    title: 'Error',
+                    content: 'Error al intentar obtener los datos del cliente, intente de nuevo mas tarde',
+                    type: 'red',
+                    theme: 'modern',
+                    animation: 'scala',
+                    icon: 'fa fa-exclamation-triangle',
+                    typeAnimated: true,
+                    buttons: {
+                        cancel: {
+                            text: 'Aceptar',
+                        },
+                    }
+                });
+            }
+        });
+    });
+
     $(".btnProspContacto").on('click', function() {
         $(".inpt-metodo").val('put');
         let rutaEdit = $(this).data('editar');
@@ -519,6 +569,12 @@ $(function() {
         }
 
 
+    });
+
+    $(".comunicacionEdit").on('click', function() {
+        let id = $(this).attr('id');
+        let rutaEdit = '/cliente-comunicacion/' + id + '/edit';
+        editarComunicacion(rutaEdit, id);
     });
 
 });

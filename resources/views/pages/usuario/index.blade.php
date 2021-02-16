@@ -11,7 +11,7 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h5 class="card-title mb-1">Comerciales</h5>
+                            <h5 class="card-title mb-1">{{  (auth()->user()->rol_id == 2) ? 'Comerciales' : 'Prospectores' }}</h5>
                         </div>
                         <div class="col-4 text-right">
                             <a href="{{ route('user.create') }}" class="btn btn-sm btn-secondary btn-round"><i class="fas fa-plus"></i> Agregar</a>
@@ -27,7 +27,7 @@
                                 <th>Apellido</th>
                                 <th>Correo</th>
                                 <th>Estado</th>
-                                @if(auth()->user()->rol_id == 2)
+                                @if(auth()->user()->rol_id == 2 || auth()->user()->rol_id == 4)
                                 <th>Acciones</th>
                                 @endif
                             </thead>
@@ -39,7 +39,7 @@
                                     <td class="text-left">{{ $usuario->last_name }}</td>
                                     <td>{{ $usuario->email }}</td>
                                     <td>{{ ($usuario->activo) ? 'Activo' : 'Inactivo' }}</td>
-                                    @if(auth()->user()->rol_id == 2)
+                                    @if(auth()->user()->rol_id == 2 || auth()->user()->rol_id == 4)
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">
                                             <a href="{{ route('user.edit', $usuario->id) }}" title="Editar" class="btn btn-xs btn-outline-secondary"><i class="fa fa-edit"></i></a>

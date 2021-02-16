@@ -259,7 +259,8 @@ class ClienteComunicacionController extends Controller
             }
 
             if ($request->get('fonoContacto') == null && $request->get('correoContacto') == null && $request->get('celularContacto') == null) {
-                return redirect()->route('cliente-comunicacion.index')->withInput()->withErrors([
+                $rutaError = ($request->calendario == 'calendario') ? 'cliente-comunicacion.calendario' : 'cliente-comunicacion.conversacion';
+                return redirect()->route($rutaError)->withInput()->withErrors([
                     'fonoContacto' => 'Debe seleccionar al menos una forma de contacto',
                     'celularContacto' => 'Debe seleccionar al menos una forma de contacto',
                     'correoContacto' => 'Debe seleccionar al menos una forma de contacto'
@@ -434,10 +435,12 @@ class ClienteComunicacionController extends Controller
         // $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion'])->get();
         $tipoComunicaciones = TipoComunicacion::where(['activo' => 1])->get();
 
+        $comunicaciones = ClienteComunicacion::with(['cliente'])->orderBy('fecha_contacto', 'DESC')->take(8)->get();
+
         $user->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Calendario Reuniones', 'ruta' => null]]);
 
 
-        return view('pages.cliente_calendario.index', compact('clientes', 'hoy', 'tipoComunicaciones'));
+        return view('pages.cliente_calendario.index', compact('clientes', 'hoy', 'tipoComunicaciones', 'comunicaciones'));
     }
 
     public function reuniones(Request $request)

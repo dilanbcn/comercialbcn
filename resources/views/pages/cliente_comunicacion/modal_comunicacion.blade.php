@@ -14,7 +14,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label>{{ __('Cliente') }} <span class="text-required">*</span></label>
-                                        <select class="form-control @error('cliente') is-invalid @enderror cliente optCliente" id="cliente" name="cliente" required>
+                                        <select class="form-control @error('cliente') is-invalid @enderror cliente optCliente selectpicker" data-style="btn-light"  data-live-search="true" id="cliente" name="cliente" required>
                                             <option value="" selected>[Seleccione]</option>
                                             @foreach ($clientes as $cliente)
                                             <option {{ ( $cliente->id == @old('cliente')) ? 'selected' : '' }} value="{{ $cliente->id }}">{{ $cliente->razon_social }}</option>
