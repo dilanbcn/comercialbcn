@@ -577,6 +577,14 @@ $(function() {
         editarComunicacion(rutaEdit, id);
     });
 
+    // PRODUCTOS
+    $("#btnModalProd").on('click', function() {
+        $(".inpt-metodo").val('post');
+        // limpiarModalProducto();
+        $("#add_producto").modal('show');
+    });
+
+
 });
 
 function limpiarDatosContacto() {

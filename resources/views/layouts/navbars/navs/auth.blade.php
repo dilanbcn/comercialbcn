@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-success">
     <div class="container-fluid">
-
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar bar1"></span>
             <span class="navbar-toggler-bar bar2"></span>
@@ -43,10 +42,7 @@
                     <a class="nav-link" href="{{ route('cliente.cerrados') }}">{{ __('Cerrados') }}</a>
                 </li>
                 @endif
-                <li class="nav-item">
-                <a class="nav-link" href="" target="_blank" title="Productos">Productos <i class="fas fa-file-download"></i></a>
-
-                </li>
+                
                 <!-- <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'clientes' || $elementActive == 'prospectos' || $elementActive == 'vigencia' || $elementActive == 'cerrados') ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Clientes
@@ -73,14 +69,14 @@
                 <li class="nav-item {{ $elementActive == 'contactos' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('prospeccion.contactos') }}">{{ __('Contactos') }}</a>
                 </li>
-                
+
                 <li class="nav-item {{ $elementActive == 'reuniones' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('cliente-comunicacion.index') }}">{{ __('Llamados y Reuniones') }}</a>
                 </li>
                 <li class="nav-item {{ $elementActive == 'calendario' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('cliente-comunicacion.calendario') }}">{{ __('Calendario Reuniones') }}</a>
+                    <a class="nav-link" href="{{ route('cliente-comunicacion.calendario') }}">{{ __('Calendario') }}</a>
                 </li>
-                
+
                 @if(auth()->user()->rol_id == 4)
                 <li class="nav-item {{ $elementActive == 'asignacion' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('prospeccion.asignacion.index') }}">{{ __('Asignacion de Prospectores') }}</a>
@@ -89,6 +85,9 @@
                     <a class="nav-link" href="{{ route('prospeccion.indicadores') }}">{{ __('Indicadores') }}</a>
                 </li>
                 @endif
+                <li class="nav-item {{ $elementActive == 'productos' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('producto.index') }}">Productos</a>
+                </li>
                 <!-- <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'contactos' || $elementActive == 'asignacion' || $elementActive == 'reuniones' || $elementActive == 'calendario' || $elementActive == 'indicadores') ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Prospección

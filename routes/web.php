@@ -78,6 +78,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('factura/{proyecto_factura}', 'App\Http\Controllers\ProyectoFacturaController@update')->name('factura.update');
 	Route::delete('factura/{proyecto_factura}', 'App\Http\Controllers\ProyectoFacturaController@destroy')->name('factura.destroy');
 
+	Route::resource('producto', 'App\Http\Controllers\ProductoController', ['except' => ['show', 'edit', 'create', 'update']]);
+
+
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);

@@ -103,8 +103,8 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- Easy Pie Chart -->
     <script src="{{ asset('paper/js/plugins/easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
 
-    
-
+    <!-- InputFile -->
+    <script src="{{ asset('paper/js/plugins/bootstrap-filestyle.min.js') }}" defer></script>
 
     @stack('scripts')
 

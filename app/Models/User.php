@@ -75,6 +75,11 @@ class User extends Authenticatable
         return $this->hasMany(ClienteComunicacion::class, 'comercial_id', 'id');
     }
 
+    public function producto()
+    {
+        return $this->hasMany(Producto::class);
+    }
+
     public static function createPass($long = 8)
     {
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
