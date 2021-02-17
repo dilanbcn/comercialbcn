@@ -89,7 +89,7 @@ class HomeController extends Controller
         $user = auth()->user();
 
         if ($user->rol_id == 1) {
-            $clientes = Cliente::where(['user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+            $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
         } else {
             $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
         }

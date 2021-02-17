@@ -112,4 +112,5 @@ class ProductoController extends Controller
 
         return redirect()->route('producto.index')->with(['title' => 'Exito', 'status' => 'Producto eliminado satisfactoriamente']);
     }
+    
 }

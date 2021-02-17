@@ -40,7 +40,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-8">
                                     <div class="form-group">
                                         <label>{{ __('Contacto') }} </label>
                                         <select class="form-control @error('contactoId') is-invalid @enderror contactoId" id="updt_contactoId" name="contactoId">
@@ -53,7 +53,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>{{ __('Nuevo Contacto') }} </label>
                                         <div class="form-check">
