@@ -14,7 +14,7 @@
                             <h5 class="card-title mb-1">Productos</h5>
                         </div>
                         <div class="col-4 text-right">
-                        @if(auth()->user()->rol_id == 4)
+                        @if(auth()->user()->rol_id == 2)
                         <a href="#" class="btn btn-sm btn-secondary btn-round" id="btnModalProd"><i class="fas fa-plus"></i> Agregar</a>
                         @endif
                         </div>

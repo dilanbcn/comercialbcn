@@ -192,3 +192,8 @@ thead input {
 .bootstrap-select .dropdown-menu.inner {
     width: 500px !important;
 }
+
+.card-scroll {
+    max-height: 900px;
+    overflow-y: auto;
+}

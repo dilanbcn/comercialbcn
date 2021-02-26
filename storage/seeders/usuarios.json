@@ -19,7 +19,7 @@
         "remember_token": null
     },
     {
-        "rol_id": "4",
+        "rol_id": "1",
         "id_prospector": "8",
         "username": "25917763",
         "id_number": "25917763-4",
@@ -86,6 +86,16 @@
         "name": "Carlos Mauricio",
         "last_name": "Pinto Santander",
         "email": "cpinto@bcnschool.cl",
+        "remember_token": null
+    },
+    {
+        "rol_id": "4",
+        "id_prospector": null,
+        "username": "7790418",
+        "id_number": "7790418-2",
+        "name": "Gloria Giovanna",
+        "last_name": "Lazzerini Bravo",
+        "email": "consultoria@bcnschool.cl",
         "remember_token": null
     }
 ]

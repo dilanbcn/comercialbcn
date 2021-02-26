@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="list-group">
+                    <div class="list-group card-scroll">
                         @if(count($comunicaciones) > 0)
 
                         @foreach($comunicaciones as $comunicacion)
@@ -48,7 +48,7 @@
                             <p class="mb-1">No hay comunicaciones</p>
                         </a>
                         @endif
-
+                        
                     </div>
 
 
