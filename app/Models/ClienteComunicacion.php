@@ -15,7 +15,7 @@ class ClienteComunicacion extends Model
     const CORREO = 1;
     const LLAMADA = 2;
 
-    const tabla = 'com_cliente_comunicaciones';
+    const tabla = 'cliente_comunicaciones';
     protected $table = ClienteComunicacion::tabla;
 
     protected $dates = ['deleted_at'];

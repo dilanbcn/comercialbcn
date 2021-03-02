@@ -10,7 +10,7 @@ class Producto extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const tabla = 'com_productos';
+    const tabla = 'productos';
     protected $table = Producto::tabla;
 
     protected $dates = ['deleted_at'];

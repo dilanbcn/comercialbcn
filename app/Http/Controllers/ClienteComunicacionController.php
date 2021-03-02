@@ -142,7 +142,7 @@ class ClienteComunicacionController extends Controller
             ]);
         } else {
 
-            $rules = ['contactoId' => 'required|exists:com_cliente_contacto,id'];
+            $rules = ['contactoId' => 'required|exists:cliente_contacto,id'];
             $customMessages = [
                 'required' => 'Debe seleccionar un contacto o crear uno nuevo',
                 'exists' => 'El campo :attribute es inválido'
@@ -290,7 +290,7 @@ class ClienteComunicacionController extends Controller
             ]);
         } else {
 
-            $rules = ['contactoId' => 'required|exists:com_cliente_contacto,id'];
+            $rules = ['contactoId' => 'required|exists:cliente_contacto,id'];
             $customMessages = [
                 'required' => 'Debe seleccionar un contacto o crear uno nuevo',
                 'exists' => 'El campo :attribute es inválido'
@@ -543,7 +543,7 @@ class ClienteComunicacionController extends Controller
             ]);
         } else {
 
-            $rules = ['contactoId' => 'required|exists:com_cliente_contacto,id'];
+            $rules = ['contactoId' => 'required|exists:cliente_contacto,id'];
             $customMessages = [
                 'required' => 'Debe seleccionar un contacto o crear uno nuevo',
                 'exists' => 'El campo :attribute es inválido'

@@ -10,7 +10,7 @@ class Rol extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const tabla = 'com_roles';
+    const tabla = 'roles';
     protected $table = Rol::tabla;
 
     protected $dates = ['deleted_at'];

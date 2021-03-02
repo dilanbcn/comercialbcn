@@ -10,7 +10,7 @@ class ProyectoFactura extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const tabla = 'com_proyecto_facturas';
+    const tabla = 'proyecto_facturas';
     protected $table = ProyectoFactura::tabla;
 
     protected $dates = ['deleted_at'];

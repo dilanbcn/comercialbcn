@@ -10,7 +10,7 @@ class Cliente extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const tabla = 'com_clientes';
+    const tabla = 'clientes';
     protected $table = Cliente::tabla;
 
     protected $dates = ['deleted_at'];

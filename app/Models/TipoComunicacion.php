@@ -10,7 +10,7 @@ class TipoComunicacion extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const tabla = 'com_tipo_comunicaciones';
+    const tabla = 'tipo_comunicaciones';
     protected $table = TipoComunicacion::tabla;
 
     protected $dates = ['deleted_at'];

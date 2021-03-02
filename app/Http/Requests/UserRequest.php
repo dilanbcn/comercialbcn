@@ -26,7 +26,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'rol' => 'required|exists:com_roles,id',
+            'rol' => 'required|exists:roles,id',
             'rut' => 'required|cl_rut',
             'nombre' => 'required|string',
             'apellido' => 'required|string',

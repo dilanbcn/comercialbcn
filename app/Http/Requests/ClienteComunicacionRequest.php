@@ -27,15 +27,15 @@ class ClienteComunicacionRequest extends FormRequest
             return [
                 'fechaContacto' => 'required|date|before_or_equal:today',
                 'observaciones' => 'required',
-                'tipoComunicacion' => 'required|exists:com_tipo_comunicaciones,id'
+                'tipoComunicacion' => 'required|exists:tipo_comunicaciones,id'
             ];
             
         } else {
             return [
-                'cliente' => 'required|exists:com_clientes,id',
+                'cliente' => 'required|exists:clientes,id',
                 'fechaContacto' => 'required|date|before_or_equal:today',
                 'observaciones' => 'required',
-                'tipoComunicacion' => 'required|exists:com_tipo_comunicaciones,id'
+                'tipoComunicacion' => 'required|exists:tipo_comunicaciones,id'
             ];
         }
     }
