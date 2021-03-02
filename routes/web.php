@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/home-comercial', 'App\Http\Controllers\HomeController@indexComercial')->name('home.comercial');
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 	Route::get('grafico', 'App\Http\Controllers\UserController@grafico')->name('user.grafico');
+	
+	Route::get('comercial-indicadores', 'App\Http\Controllers\ComercialController@index')->name('comercial.indicadores');
 
 	Route::resource('cliente', 'App\Http\Controllers\ClienteController');
 	Route::get('clientes-disponibles', 'App\Http\Controllers\ClienteController@prospectos')->name('cliente.prospectos');

@@ -210,7 +210,7 @@ class ClienteController extends Controller
         $user = auth()->user();
 
         if ($user->rol_id == 2) {
-            $rules = ['comercial' => 'required|exists:users,id', 'tipo_cliente' => 'required|exists:tipo_clientes,id'];
+            $rules = ['comercial' => 'required|exists:users,id', 'tipo_cliente' => 'required|exists:com_tipo_clientes,id'];
             $customMessages = ['required' => 'El campo :attribute es requerido.', 'exists' => 'El campo :attribute es inválido.'];
             $this->validate($request, $rules, $customMessages);
         }
@@ -311,7 +311,7 @@ class ClienteController extends Controller
         }
 
         if ($user->rol_id == 2) {
-            $rules = ['comercial' => 'required|exists:users,id', 'tipo_cliente' => 'required|exists:tipo_clientes,id'];
+            $rules = ['comercial' => 'required|exists:users,id', 'tipo_cliente' => 'required|exists:com_tipo_clientes,id'];
             $customMessages = ['required' => 'El campo :attribute es requerido.', 'exists' => 'El campo :attribute es inválido.'];
             $this->validate($request, $rules, $customMessages);
         }

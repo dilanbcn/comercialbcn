@@ -10,7 +10,7 @@ class Proyecto extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const tabla = 'proyectos';
+    const tabla = 'com_proyectos';
     protected $table = Proyecto::tabla;
 
     protected $dates = ['deleted_at'];

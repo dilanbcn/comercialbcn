@@ -10,7 +10,7 @@ class EstadoFactura extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const tabla = 'estado_facturas';
+    const tabla = 'com_estado_facturas';
     protected $table = EstadoFactura::tabla;
 
     protected $dates = ['deleted_at'];

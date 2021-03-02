@@ -45,6 +45,9 @@
                 <li class="nav-item {{ $elementActive == 'productos' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('producto.index') }}">Productos</a>
                 </li>
+                <li class="nav-item {{ $elementActive == 'indica_comercial' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('comercial.indicadores') }}">Indicadores</a>
+                </li>
                 <!-- <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'clientes' || $elementActive == 'prospectos' || $elementActive == 'vigencia' || $elementActive == 'cerrados') ? 'active' : '' }}">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Clientes

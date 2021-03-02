@@ -48,7 +48,7 @@ class ProspeccionController extends Controller
      */
     public function contactoStore(ClienteContactoRequest $request)
     {
-        $rules = ['cliente' => 'required|exists:clientes,id'];
+        $rules = ['cliente' => 'required|exists:com_clientes,id'];
         $customMessages = [
             'required' => 'El campo :attribute es requerido',
             'exists' => 'El campo :attribute es inválido'
@@ -126,7 +126,7 @@ class ProspeccionController extends Controller
 
     public function contactoUpdate(ClienteContactoRequest $request, ClienteContacto $clienteContacto)
     {
-        $rules = ['cliente' => 'required|exists:clientes,id'];
+        $rules = ['cliente' => 'required|exists:com_clientes,id'];
         $customMessages = [
             'required' => 'El campo :attribute es requerido',
             'exists' => 'El campo :attribute es inválido'
