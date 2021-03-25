@@ -19,11 +19,13 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $comercial = null)
     {
+
         $hoy = Carbon::now();
         $limite = $hoy->subMonths(8);
         $user = auth()->user();
+        $comercial = ($comercial) ? User::find($comercial) : null;
 
         // if ($user->rol_id == 1) {
         //     $clientes = Cliente::whereNotNull('user_id')->with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
@@ -47,7 +49,7 @@ class ClienteController extends Controller
 
         $user->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Clientes General', 'ruta' => null]]);
 
-        return view('pages.cliente.index', compact('clientes', 'arrGrupo'));
+        return view('pages.cliente.index', compact('clientes', 'arrGrupo', 'comercial'));
     }
 
     public function allClientes()
@@ -127,7 +129,7 @@ class ClienteController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->rol_id == 2) {
+        // if ($user->rol_id == 2) {
             $facturas = ProyectoFactura::with(['proyecto' => function ($sql) {
                 return $sql->with(['cliente' => function ($sql) {
                     return $sql->with(['user']);
@@ -144,13 +146,28 @@ class ClienteController extends Controller
                 $factura->mes_facturacion = $fF->locale('es')->shortMonthName . '-' . $fF->format('y');
                 $factura->mes_pago = $fP->locale('es')->shortMonthName . '-' . $fP->format('y');
             });
+
+            $cerrados = Cliente::whereHas('proyecto')->with('proyecto', function ($sql) {
+                return $sql->with('proyectoFacturas', function($sql){
+                    return $sql->whereMonth('fecha_factura', '=', date('m'))->whereYear('fecha_factura', '=', date('Y'));
+                });
+            })->get();
+    
+            $cerrados->map(function ($cerrados) {
+                $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
+    
+                    $cerrados->sum_facturas = $proyectos->proyectoFacturas->sum('monto_venta');
+                });
+            });
+    
+            $totFact = $cerrados->sum('sum_facturas');
     
             $user->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Cerrados', 'ruta' => null]]);
     
-            return view('pages.cliente.cerrados', compact('facturas'));
-        } else {
-            return redirect()->route('cliente.index')->with(['status' => 'No tiene acceso a esa vista', 'title' => 'Error', 'estilo' => 'error']);
-        }
+            return view('pages.cliente.cerrados', compact('facturas', 'totFact'));
+        // } else {
+        //     return redirect()->route('cliente.index')->with(['status' => 'No tiene acceso a esa vista', 'title' => 'Error', 'estilo' => 'error']);
+        // }
         
     }
 

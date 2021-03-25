@@ -1,6 +1,6 @@
 @extends('layouts.app', [
 'class' => '',
-'elementActive' => 'comerciales'
+'elementActive' => 'comerciales_new'
 ])
 
 @section('content')

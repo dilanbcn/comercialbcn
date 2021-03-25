@@ -27,6 +27,7 @@
                                 <th>Apellido</th>
                                 <th>Correo</th>
                                 <th>Estado</th>
+                                <th>Cantidad de Clientes</th>
                                 @if(auth()->user()->rol_id == 2 || auth()->user()->rol_id == 4)
                                 <th>Acciones</th>
                                 @endif
@@ -39,6 +40,7 @@
                                     <td class="text-left">{{ $usuario->last_name }}</td>
                                     <td>{{ $usuario->email }}</td>
                                     <td>{{ ($usuario->activo) ? 'Activo' : 'Inactivo' }}</td>
+                                    <td><a href="{{ route('cliente.comercial', [$usuario->id]) }}">{{ $usuario->total_general }}</a></td>
                                     @if(auth()->user()->rol_id == 2 || auth()->user()->rol_id == 4)
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">

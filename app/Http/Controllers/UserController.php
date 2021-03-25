@@ -24,6 +24,12 @@ class UserController extends Controller
         if ($user->rol_id == 2) {
             $comerciales = User::whereIn('rol_id', [1, 2])->get();
 
+            $comerciales = $comerciales->map(function ($item) {
+                $arrdata = $this->getEstadoClientes($item);
+                $item->total_general = $arrdata['totalGral'];
+                return $item;
+            });
+
             $user->breadcrumbs = collect([['nombre' => 'Comerciales', 'ruta' => null], ['nombre' => 'Lista Comerciales', 'ruta' => null]]);
 
             return view('pages.usuario.index', compact('comerciales'));

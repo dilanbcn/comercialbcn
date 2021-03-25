@@ -91,8 +91,10 @@ class HomeController extends Controller
             $item->activos = $arrdata['activo'];
             $item->inactivos = $arrdata['inactivo'];
             $item->prospectos = $arrdata['prospectos'];
+            $item->total_general = $arrdata['totalGral'];
             $item->clientes = $arrdata['clientes'];
-            $pctActivos = ($arrdata['clientes'] > 0) ? round((($arrdata['activo'] / $arrdata['clientes']) * 100), 1) : 0;
+            $pctActivos = ($arrdata['clientes'] > 0 && $arrdata['totalGral'] > 0) ? round((($arrdata['clientes'] / $arrdata['totalGral']) * 100), 1) : 0;
+            // $pctActivos = ($arrdata['clientes'] > 0) ? round((($arrdata['activo'] / $arrdata['clientes']) * 100), 1) : 0;
             $item->pct_activos = $pctActivos;
             $total = $arrdata['prospectos'] + $arrdata['clientes'];
             $item->efectividad = ($total > 0) ? round((($arrdata['clientes'] / $total) * 100), 1) : 0;

@@ -27,7 +27,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table">
-                        <table class="table table-striped tablaComercialesIndex">
+                        <table class="table table-striped tablaComercialesIndex" id="tableCliente" data-comercial="{{ ($comercial) ? $comercial->name : '' }}">
                             <thead class="text-primary text-center">
                                 <th>Holding</th>
                                 <th>Cliente</th>

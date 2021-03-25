@@ -108,25 +108,16 @@
                     <div class="table">
                         <table class="table table-striped tablaComercialesIndex">
                             <thead class="text-primary text-center">
+                                <th>Clientes</th>
                                 <th>Comercial</th>
-                                <th>Total Prospectos</th>
-                                <th>Efctividad</th>
-                                <th>Total Clientes</th>
-                                <th>% Clientes Activos</th>
+                                <th>% Activos</th>
                                 <th>Meses</th>
                             </thead>
                             <tbody>
                                 @foreach($users as $key => $usuario)
                                 <tr class="text-center">
+                                    <td>{{ $usuario->total_general }}</td>
                                     <td class="text-left">{{ $usuario->name . ' ' . $usuario->last_name }}</td>
-                                    <td>{{ $usuario->prospectos }}</td>
-                                    <td>
-                                        <div class="progress" style="height: 5px;width: 100%;">
-                                            <div class="progress-bar {{ $usuario->efect_color }}" role="progressbar" style="{{ $usuario->width_efectividad }}" aria-valuenow="{{ $usuario->efectividad }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                        <div style="padding-left: 1rm;">{{ $usuario->efectividad . '%' }}</div>
-                                    </td>
-                                    <td>{{ $usuario->clientes }}</td>
                                     <td>
                                         <div class="chart" data-percent="{{ $usuario->pct_activos }}">
                                             <span class="percent">{{ $usuario->pct_activos . '%' }}</span>

@@ -3,8 +3,14 @@ $(function() {
     $('.tablaComercialesIndex thead tr').clone(true).appendTo('.tablaComercialesIndex thead');
     $('.tablaComercialesIndex thead tr:eq(1) th').each(function(i) {
         var title = $(this).text();
+
         if (title != 'Acciones' && title != 'Seleccionar') {
-            $(this).html('<input type="text" placeholder="Filtrar ' + title + '" />');
+            if (title == 'Comercial') {
+                $(this).html('<input type="text" placeholder="Filtrar ' + title + '" value="' + $("#tableCliente").data('comercial') + '" />');
+            } else {
+                $(this).html('<input type="text" placeholder="Filtrar ' + title + '" />');
+            }
+
             $('input', this).on('keyup change', function() {
                 if (table.column(i).search() !== this.value) {
                     table
@@ -19,12 +25,29 @@ $(function() {
     });
 
     var table = $('.tablaComercialesIndex').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json"
+        language: {
+            url: "//cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json"
         },
-        "orderCellsTop": true,
-        "fixedHeader": true,
+        orderCellsTop: true,
+        fixedHeader: true,
+        pageLength: 100,
+        lengthMenu: [
+            [100, 200, -1],
+            [100, 200, "Todos"]
+        ],
+        dom: '<lif<t>p>',
+        initComplete: function(settings, json) {
+            table.column(2)
+                .search($("#tableCliente").data('comercial'))
+                .draw()
+        }
+
     });
+
+    // $('#tableCliente').on('load', function() {
+    //     // table.columns(2).search( this.value ).draw();
+    //     alert("acaa");
+    // });
 
     $('.tablaIndicadores').DataTable({
         language: {

@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('comercial-indicadores', 'App\Http\Controllers\ComercialController@index')->name('comercial.indicadores');
 
 	Route::resource('cliente', 'App\Http\Controllers\ClienteController');
+	Route::get('cliente-comercial/{comercial_id?}', 'App\Http\Controllers\ClienteController@index')->name('cliente.comercial');
 	Route::get('clientes-disponibles', 'App\Http\Controllers\ClienteController@prospectos')->name('cliente.prospectos');
 	Route::get('clientes-vigencia', 'App\Http\Controllers\ClienteController@vigencia')->name('cliente.vigencia');
 	Route::get('clientes-cerrados', 'App\Http\Controllers\ClienteController@cerrados')->name('cliente.cerrados');

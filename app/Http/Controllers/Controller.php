@@ -78,11 +78,15 @@ class Controller extends BaseController
         $clientes = Cliente::where(['user_id' => $user->id, 'tipo_cliente_id' => 2])->get()->groupBy('activo');
         $countProspectos = Cliente::where(['user_id' => $user->id, 'tipo_cliente_id' => 1])->count();
         $countClientes = Cliente::where(['user_id' => $user->id, 'tipo_cliente_id' => 2])->count();
+        $countTotal = Cliente::where(['user_id' => $user->id])->count();
 
         $arrEstadoCliente = array('inactivo' => 0, 'activo' => 0, 'clientes' => $countClientes, 'prospectos' => $countProspectos);
         foreach ($clientes as $key => $cliente) {
             $arrEstadoCliente[$arrEstado[$key]] = count($cliente);
         }
+
+        $arrEstadoCliente['totalGral'] = $countTotal;
+
         return $arrEstadoCliente;
     }
 }
