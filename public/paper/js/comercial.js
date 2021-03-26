@@ -6,7 +6,8 @@ $(function() {
 
         if (title != 'Acciones' && title != 'Seleccionar') {
             if (title == 'Comercial') {
-                $(this).html('<input type="text" placeholder="Filtrar ' + title + '" value="' + $("#tableCliente").data('comercial') + '" />');
+                let valor = ($("#tableCliente").data('comercial')) ? $("#tableCliente").data('comercial') : '';
+                $(this).html('<input type="text" placeholder="Filtrar ' + title + '" value="' + valor + '" />');
             } else {
                 $(this).html('<input type="text" placeholder="Filtrar ' + title + '" />');
             }
@@ -37,9 +38,12 @@ $(function() {
         ],
         dom: '<lif<t>p>',
         initComplete: function(settings, json) {
-            table.column(2)
-                .search($("#tableCliente").data('comercial'))
-                .draw()
+            if ($("#tableCliente").data('comercial') != undefined) {
+                table.column(2)
+                    .search($("#tableCliente").data('comercial'))
+                    .draw()
+            }
+
         }
 
     });
