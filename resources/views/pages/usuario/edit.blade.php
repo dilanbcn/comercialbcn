@@ -64,7 +64,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-5">
                                     <div class="form-group">
                                         <label>{{ __('Nombres') }}</label>
                                         <input autocomplete="off" type="text" name="nombre" class="form-control @error('nombre') is-invalid @enderror" value="{{ (old('nombre')) ? old('nombre') : $usuario->name }}" required>
@@ -75,7 +75,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-5">
                                     <div class="form-group">
                                         <label>{{ __('Apellidos') }}</label>
                                         <input autocomplete="off" type="text" name="apellido" class="form-control @error('apellido') is-invalid @enderror" value="{{ (old('apellido')) ? old('apellido') : $usuario->last_name }}" required>
@@ -86,7 +86,18 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>{{ __('Fecha Ingreso') }}</label>
+                                        <input autocomplete="off" type="date" name="fechaIngreso" class="form-control @error('fechaIngreso') is-invalid @enderror fechaIngreso" value="{{ (old('fechaIgreso')) ? old('fechaIgreso') : $usuario->last_name }}" max="{{ date('Y-m-d') }}">
+                                        @if ($errors->has('fechaIgreso'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('fechaIgreso') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>{{ __('Correo') }}</label>
                                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ (old('email')) ? old('email') : $usuario->email }}" required>
@@ -97,7 +108,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>{{ __('Confirmación Correo') }}</label>
                                         <input type="email" name="email_confirmation" class="form-control @error('email') is-invalid @enderror" value="{{ (old('email_confirmation')) ? old('email_confirmation') : $usuario->email }}" required>

@@ -11,7 +11,7 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-4">
-                            <h5 class="card-title mb-1">Clientes</h5>
+                            <h5 class="card-title mb-1">Clientes General</h5>
                         </div>
                         @foreach($arrGrupo as $key => $estado)
                         <div class="col-2 text-center font-weight-bold text-white p-2 {{ $key == 'Activos' ? 'bg-info' : 'bg-danger' }}">

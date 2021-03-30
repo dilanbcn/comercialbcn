@@ -6,6 +6,7 @@
         "name": "Dilan Rafael",
         "last_name": "Gonzalez Pino",
         "email": "dgonzalez@bcnschool.cl",
+        "fecha_ingreso": "2021-03-01",
         "remember_token": null
     },
     {
@@ -16,6 +17,7 @@
         "name": "Felipe Ignacio",
         "last_name": "Oliva Lazzerini",
         "email": "foliva@bcnschool.cl",
+        "fecha_ingreso": "2021-03-01",
         "remember_token": null
     },
     {
@@ -26,6 +28,7 @@
         "name": "Nomar Roberto",
         "last_name": "Medina Villegas",
         "email": "nmedina@bcnschool.cl",
+        "fecha_ingreso": "2021-03-01",
         "remember_token": null
     },
     {
@@ -36,6 +39,7 @@
         "name": "Felipe",
         "last_name": "Yurjevic",
         "email": "fyurjevic@bcnschool.cl",
+        "fecha_ingreso": "2020-03-01",
         "remember_token": null
     },
     {
@@ -46,6 +50,7 @@
         "name": "Maria José",
         "last_name": "Sepúlveda Bari",
         "email": "cotebari@bcnschool.cl",
+        "fecha_ingreso": "2020-02-01",
         "remember_token": null
     },
     {
@@ -56,6 +61,7 @@
         "name": "Victoria Soledad",
         "last_name": "Cortes Rodriguez",
         "email": "vcortes@sabantis.com",
+        "fecha_ingreso": "2021-03-01",
         "remember_token": null
     },
     {
@@ -66,6 +72,7 @@
         "name": "Rodrigo Bernardo",
         "last_name": "Sauvalle Escobar",
         "email": "rsauvalle@bcnschool.cl",
+        "fecha_ingreso": "2018-08-01",
         "remember_token": null
     },
     {
@@ -76,6 +83,7 @@
         "name": "Felipe",
         "last_name": "Alvarado Castro",
         "email": "falvarado@bcnschool.cl",
+        "fecha_ingreso": "2021-03-01",
         "remember_token": null
     },
     {
@@ -86,6 +94,7 @@
         "name": "Carlos Mauricio",
         "last_name": "Pinto Santander",
         "email": "cpinto@bcnschool.cl",
+        "fecha_ingreso": "2021-03-01",
         "remember_token": null
     },
     {
@@ -96,6 +105,7 @@
         "name": "Gloria Giovanna",
         "last_name": "Lazzerini Bravo",
         "email": "consultoria@bcnschool.cl",
+        "fecha_ingreso": "2021-03-01",
         "remember_token": null
     }
 ]

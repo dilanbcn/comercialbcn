@@ -4,19 +4,7 @@
 ])
 @section('content')
 <div class="content">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row align-items-center">
-                        <div class="col-md-4">
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div class="row">
         <div class="col-md-12">
             @include('layouts.page_templates.messages')

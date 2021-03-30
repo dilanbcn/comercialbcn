@@ -102,6 +102,15 @@ class HomeController extends Controller
             $item->efectividad = ($total > 0) ? round((($arrdata['clientes'] / $total) * 100), 1) : 0;
             $item->width_efectividad = 'width: ' . $item->efectividad . '%';
             $item->efect_color = ($item->efectividad < 33) ? 'bg-danger' : (($item->efectividad > 33 && $item->efectividad < 66) ? 'bg-warning' : 'bg-success');
+
+            if ($item->fecha_ingreso) {
+                $inicio = Carbon::createFromDate($item->fecha_ingreso);
+                $now = Carbon::now();
+                $item->meses = $inicio->diffInMonths($now);
+            }else {
+                $item->meses = '';
+            }
+
             return $item;
         });
 

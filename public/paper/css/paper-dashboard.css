@@ -3135,6 +3135,10 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
     margin-right: 3px;
 }
 
+.navbar .navbar-nav .nav-link {
+    text-transform: initial !important;
+}
+
 .navbar .navbar-nav .nav-link i.fa+p,
 .navbar .navbar-nav .nav-link i.nc-icon+p {
     margin-left: 3px;

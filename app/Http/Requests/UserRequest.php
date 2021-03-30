@@ -31,6 +31,7 @@ class UserRequest extends FormRequest
             'nombre' => 'required|string',
             'apellido' => 'required|string',
             'email' => 'required|confirmed|email',
+            'fechaIngreso' => 'nullable|date|before_or_equal:now',
         ];
     }
 
@@ -43,6 +44,8 @@ class UserRequest extends FormRequest
             'string' => 'El campo :attribute es inválido',
             'confirmed' => 'Los correos deben coincidir.',
             'email' => 'El campo :attribute debe ser un email válido.',
+            'date' => 'El campo :attribute debe ser una fecha válida.',
+            'before_or_equal' => 'El campo :attribute debe ser menor o igua a la fecha actual.',
         ];
     }
 
@@ -54,6 +57,7 @@ class UserRequest extends FormRequest
             'nombre' => 'nombre',
             'apellido' => 'apellido',
             'correo' => 'correo',
+            'fechaIngreso' => 'fecha de ingreso',
         ];
     }
 }

@@ -124,7 +124,7 @@
                                         </div>
                                         
                                     </td>
-                                    <td>
+                                    <td>{{ $usuario->meses }}
                                     </td>
                                 </tr>
                                 @endforeach

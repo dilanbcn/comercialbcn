@@ -85,6 +85,7 @@ class UserController extends Controller
             'name' => $request->get('nombre'),
             'last_name' => $request->get('apellido'),
             'email' => $request->get('email'),
+            'fecha_ingreso' => $request->get('fechaIngreso'),
         ]);
 
         return redirect()->route('user.index')->with(['status' => 'Comercial creado satisfactoriamente', 'title' => 'Éxito']);
@@ -141,6 +142,7 @@ class UserController extends Controller
             'name' => $request->get('nombre'),
             'last_name' => $request->get('apellido'),
             'email' => $request->get('email'),
+            'fecha_ingreso' => $request->get('fechaIngreso'),
             'activo' => ($request->activo) ? 1 : 0,
         ]);
 

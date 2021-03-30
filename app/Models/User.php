@@ -28,7 +28,8 @@ class User extends Authenticatable
         'last_name',
         'email',
         'activo',
-        'id_prospector'
+        'id_prospector',
+        'fecha_ingreso'
     ];
 
     /**
