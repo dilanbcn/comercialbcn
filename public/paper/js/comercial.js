@@ -264,6 +264,36 @@ $(function() {
         });
     });
 
+
+
+    let nuevo = document.querySelectorAll('.pieChart');
+    nuevo.forEach(element => {
+        let ctxP = element.getContext('2d');
+        var myPieChart = new Chart(ctxP, {
+            type: 'doughnut',
+            data: {
+                labels: ["Activos", "Inactivos"],
+                datasets: [{
+                    data: [element.dataset.act, element.dataset.inact],
+                    backgroundColor: ["#00FF7F", "#0000FF"],
+                    hoverBackgroundColor: ["#FF5A5E", "#5AD3D1"]
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    display: false,
+                }
+            }
+        });
+    });
+
+
+
+
+
+
+
     $('.chart').easyPieChart({
         easing: 'easeOutBounce',
         onStep: function(from, to, percent) {

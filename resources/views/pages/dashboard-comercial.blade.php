@@ -6,15 +6,15 @@
 <div class="content">
     <div class="row">
         <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
+            <div class="card card-stats" style="height:100px; background-color: #D2E9FF;">
                 <div class="card-body ">
                     <div class="row">
-                        <div class="col-5 col-md-4">
+                        <div class="col-2 col-md-2">
                             <div class="icon-big text-center icon-warning">
                                 <i class="fas fa-user-clock" style="color:gray"></i>
                             </div>
                         </div>
-                        <div class="col-7 col-md-8">
+                        <div class="col-10 col-md-10">
                             <div class="numbers">
                                 <p class="card-category">Prospectos Disponibles</p>
                                 <p class="card-title">{{ $arrData['tipo']['Prospecto'] }}
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
+            <div class="card card-stats" style="height:100px; background-color: #D2E9FF;">
                 <div class="card-body ">
                     <div class="row">
                         <div class="col-5 col-md-4">
@@ -46,8 +46,8 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-                <div class="card-body ">
+            <div class="card card-stats" style="height:100px; background-color: #D2E9FF;">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-5 pr-0">
                             <div class="numbers text-center">
@@ -73,7 +73,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
+            <div class="card card-stats" style="height:100px; background-color: #D2E9FF;">
                 <div class="card-body ">
                     <div class="row">
                         <div class="col-5 col-md-4">
@@ -119,9 +119,10 @@
                                     <td>{{ $usuario->total_general }}</td>
                                     <td class="text-left">{{ $usuario->name . ' ' . $usuario->last_name }}</td>
                                     <td>
-                                        <div class="chart" data-percent="{{ $usuario->pct_activos }}">
-                                            <span class="percent">{{ $usuario->pct_activos . '%' }}</span>
+                                        <div >
+                                        <canvas class="pieChart" data-act="{{ $usuario->activos }}" data-inact="{{ ($usuario->total_general - $usuario->activos) }}" style="max-width: 150px;"></canvas>
                                         </div>
+                                        
                                     </td>
                                     <td>
                                     </td>
