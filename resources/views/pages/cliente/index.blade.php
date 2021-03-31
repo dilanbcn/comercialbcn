@@ -10,14 +10,9 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row align-items-center">
-                        <div class="col-4">
+                        <div class="col-8">
                             <h5 class="card-title mb-1">Clientes General</h5>
                         </div>
-                        @foreach($arrGrupo as $key => $estado)
-                        <div class="col-2 text-center font-weight-bold text-white p-2 {{ $key == 'Activos' ? 'bg-info' : 'bg-danger' }}">
-                            <span>{{ $key . ': ' . $estado}}</span>
-                        </div>
-                        @endforeach
                         @if(auth()->user()->rol_id == 2)
                         <div class="col-4 text-right">
                             <a href="{{ route('cliente.create') }}" class="btn btn-sm btn-secondary btn-round"><i class="fas fa-plus"></i> Agregar</a>
@@ -35,8 +30,6 @@
                                 <th>Tipo</th>
                                 <th>Inicio Ciclo</th>
                                 <th>Ciclo 8 Meses</th>
-                                <th>Estado</th>
-                                <th>Cant Proyectos</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
@@ -48,18 +41,19 @@
                                     <td><span class="badge p-2 {{ $cliente->tipoCliente->badge }}">{{ $cliente->tipoCliente->nombre }}</span></td>
                                     <td>{{ ($cliente->tipo_cliente_id == 1) ? date('d/m/Y', strtotime($cliente->inicio_ciclo)) : '' }}</td>
                                     <td>{{ ($cliente->tipo_cliente_id == 1) ? $cliente->ciclo : '' }}</td>
-                                    <td>{{ ($cliente->activo) ? 'Activo' : 'Inactivo' }}</td>
-                                    <td>{{ $cliente->proyecto_count }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">
-                                        @if(auth()->user()->rol_id == 2 || auth()->user()->id == $cliente->user_id)
+                                            @if(auth()->user()->id == $cliente->destino_user_id && auth()->user()->rol_id != 2)
                                             <a href="{{ route('proyecto.cliente-proyecto', $cliente->id) }}" title="Proyectos" class="btn btn-xs btn-outline-secondary"><i class="far fa-handshake"></i></a>
-                                        @endif
-                                        @if(auth()->user()->rol_id == 2)
+                                            <a href="#" title="Desechar Cliente" class="btn btn-xs btn-outline-warning disRegistro" data-ruta="{{ route('cliente.discard', $cliente->id) }}"><i class="fa fa-recycle"></i></a>
+                                            @endif
+                                            @if(auth()->user()->rol_id == 2)
+                                            <a href="{{ route('proyecto.cliente-proyecto', $cliente->id) }}" title="Proyectos" class="btn btn-xs btn-outline-secondary"><i class="far fa-handshake"></i></a>
                                             <a href="{{ route('cliente-contacto.index', $cliente->id) }}" title="Contactos" class="btn btn-xs btn-outline-secondary"><i class="fas fa-user-friends"></i></a>
                                             <a href="{{ route('cliente.edit', $cliente->id) }}" title="Editar" class="btn btn-xs btn-outline-secondary"><i class="fa fa-edit"></i></a>
+                                            <a href="#" title="Desechar Cliente" class="btn btn-xs btn-outline-warning disRegistro" data-ruta="{{ route('cliente.discard', $cliente->id) }}"><i class="fa fa-recycle"></i></a>
                                             <a href="#" id="{{ $cliente->id }}" title="Eliminar Cliente" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="0" data-ruta="{{ route('cliente.destroy', $cliente->id) }}"><i class="fa fa-times"></i></a>
-                                        @endif
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -73,4 +67,5 @@
     </div>
 </div>
 @include('layouts.page_templates.form_delete')
+@include('layouts.page_templates.form_validar')
 @endsection

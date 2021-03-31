@@ -90,7 +90,7 @@ class ClienteController extends Controller
         // if ($user->rol_id == 1) {
         //     $clientes = Cliente::where(['tipo_cliente_id' => 1, 'user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->get();
         // } else {
-        $clientes = Cliente::where(['tipo_cliente_id' => 1])->with(['tipoCliente', 'padre', 'user'])->get();
+        $clientes = Cliente::where(['tipo_cliente_id' => 1])->with(['tipoCliente', 'padre', 'user', 'destino'])->get();
         // }
 
         $user->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Prospectos Disponibles', 'ruta' => null]]);
@@ -233,8 +233,9 @@ class ClienteController extends Controller
         }
 
         Cliente::create([
-            'user_id' => ($user->rol_id == 2) ? $request->get('comercial') : $user->id,
-            'tipo_cliente_id' => ($user->rol_id == 2) ? $request->get('tipo_cliente') : 1,
+            'user_id' => $request->get('comercial'),
+            'destino_user_id' => $request->get('comercial'),
+            'tipo_cliente_id' => $request->get('tipo_cliente'),
             'padre_id' => $request->get('padre'),
             'rut' => ($request->get('rut')) ? Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH) : null,
             'razon_social' => $request->get('razon_social'),
@@ -334,7 +335,8 @@ class ClienteController extends Controller
         }
 
         $cliente->fill([
-            'user_id' => ($user->rol_id == 2) ? $request->get('comercial') : $user->id,
+            'user_id' => $request->get('comercial'),
+            'destino_user_id' => ($request->get('comercialDestino')) ? $request->get('comercialDestino') : null,
             'padre_id' => $request->get('padre'),
             'rut' => ($request->get('rut')) ? Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH) : null,
             'razon_social' => $request->get('razon_social'),
@@ -365,6 +367,17 @@ class ClienteController extends Controller
     {
         $cliente->delete();
 
-        return redirect()->route('cliente.index')->with(['title' => 'Exito', 'status' => 'Cliente eliminado satisfactoriamente']);
+        return redirect()->route('cliente.index')->with(['title' => 'Éxito', 'status' => 'Cliente eliminado satisfactoriamente']);
+    }
+
+    public function discard(Cliente $cliente)
+    {
+
+        $cliente->tipo_cliente_id = 1;
+        $cliente->destino_user_id = null;
+        // $cliente->inicio_ciclo = Carbon::now();
+        $cliente->save();
+
+        return redirect()->route('cliente.index')->with(['title' => 'Éxito', 'status' => 'Cliente desechado satisfactoriamente']);
     }
 }

@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('clientes-vigencia', 'App\Http\Controllers\ClienteController@vigencia')->name('cliente.vigencia');
 	Route::get('clientes-cerrados', 'App\Http\Controllers\ClienteController@cerrados')->name('cliente.cerrados');
 	Route::get('clientes-all', 'App\Http\Controllers\ClienteController@allClientes')->name('cliente.all');
+	Route::post('clientes-discard/{cliente}', 'App\Http\Controllers\ClienteController@discard')->name('cliente.discard');
 
 	Route::resource('cliente-contacto', 'App\Http\Controllers\ClienteContactoController', ['except' => ['index', 'show', 'store', 'create']]);
 	Route::get('cliente-contacto/{cliente}', 'App\Http\Controllers\ClienteContactoController@index')->name('cliente-contacto.index');

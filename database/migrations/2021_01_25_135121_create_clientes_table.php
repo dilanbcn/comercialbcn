@@ -19,6 +19,7 @@ class CreateClientesTable extends Migration
         Schema::create(Cliente::tabla, function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained(User::tabla);
+            $table->integer('destino_user_id')->unsigned()->nullable();
             $table->foreignId('tipo_cliente_id')->default(1)->constrained(TipoCliente::tabla);
             $table->integer('padre_id')->unsigned()->nullable();
             $table->string('rut')->nullable();

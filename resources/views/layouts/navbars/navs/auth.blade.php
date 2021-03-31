@@ -13,21 +13,6 @@
                 <li class="nav-item {{ $elementActive == 'dashboard' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ (auth()->user()->rol_id == 4 || auth()->user()->rol_id == 5) ? route('cliente-comunicacion.calendario') : route('home.comercial') }}">Inicio <span class="sr-only">(current)</span></a>
                 </li>
-                @if(auth()->user()->rol_id == 2)
-                <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'comerciales' || $elementActive == 'detalle' || $elementActive == 'comerciales_new') ? 'active' : '' }}">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Comerciales
-                        <p>
-                            <span class="d-lg-none d-md-block">{{ __('Comerciales') }}</span>
-                        </p>
-                    </a>
-                    <div class="dropdown-menu dropdown-navbar dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item {{ ($elementActive == 'comerciales_new') ? 'menu-activo' : '' }}" href="{{ route('user.create') }}">{{ __('Nuevo Comercial') }}</a>
-                        <a class="dropdown-item {{ ($elementActive == 'comerciales') ? 'menu-activo' : '' }}" href="{{ route('user.index') }}">{{ __('Lista de Comerciales') }}</a>
-                        <a class="dropdown-item {{ ($elementActive == 'detalle') ? 'menu-activo' : '' }}" href="{{ route('user.grafico') }}">{{ __('Detalle Comerciales') }}</a>
-                    </div>
-                </li>
-                @endif
                 @if(auth()->user()->rol_id == 1 || auth()->user()->rol_id == 2)
                 @if (auth()->user()->rol_id == 2)
                 <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'cliente_nuevo' || $elementActive == 'clientes') ? 'active' : '' }}">
@@ -40,6 +25,19 @@
                     <div class="dropdown-menu dropdown-navbar dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item {{ ($elementActive == 'cliente_nuevo') ? 'menu-activo' : '' }}" href="{{ route('cliente.create') }}">{{ __('Nuevo Cliente') }}</a>
                         <a class="dropdown-item {{ ($elementActive == 'clientes') ? 'menu-activo' : '' }}" href="{{ route('cliente.index') }}">{{ __('Lista de Clientes') }}</a>
+                    </div>
+                </li>
+                <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'comerciales' || $elementActive == 'detalle' || $elementActive == 'comerciales_new') ? 'active' : '' }}">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Comerciales
+                        <p>
+                            <span class="d-lg-none d-md-block">{{ __('Comerciales') }}</span>
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-navbar dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item {{ ($elementActive == 'comerciales_new') ? 'menu-activo' : '' }}" href="{{ route('user.create') }}">{{ __('Nuevo Comercial') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'comerciales') ? 'menu-activo' : '' }}" href="{{ route('user.index') }}">{{ __('Lista de Comerciales') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'detalle') ? 'menu-activo' : '' }}" href="{{ route('user.grafico') }}">{{ __('Detalle Comerciales') }}</a>
                     </div>
                 </li>
                 @else

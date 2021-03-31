@@ -24,8 +24,8 @@ class ClienteTableSeeder extends Seeder
 
         foreach($clientes as $cliente) {
             DB::table(Cliente::tabla)->insert([
-                // 'user_id' => 1,
                 'user_id' => $cliente['user_id'],
+                'destino_user_id' => $cliente['user_id'],
                 'razon_social' => $cliente['razon_social'],
                 'tipo_cliente_id' => $cliente['tipo_cliente_id'],
                 'padre_id' => $cliente['padre_id'],

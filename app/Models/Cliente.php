@@ -17,6 +17,7 @@ class Cliente extends Model
 
     protected $fillable = [
         'user_id',
+        'destino_user_id',
         'padre_id',
         'tipo_cliente_id',
         'rut',
@@ -34,6 +35,11 @@ class Cliente extends Model
     public function user()
     {
     	return $this->belongsTo(User::class);
+    }
+
+    public function destino()
+    {
+    	return $this->belongsTo(User::class, 'destino_user_id', 'id');
     }
 
     public function tipoCliente()

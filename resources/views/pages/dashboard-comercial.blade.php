@@ -119,10 +119,7 @@
                                     <td>{{ $usuario->total_general }}</td>
                                     <td class="text-left">{{ $usuario->name . ' ' . $usuario->last_name }}</td>
                                     <td>
-                                        <div >
                                         <canvas class="pieChart" data-act="{{ $usuario->activos }}" data-inact="{{ ($usuario->total_general - $usuario->activos) }}" style="max-width: 150px;"></canvas>
-                                        </div>
-                                        
                                     </td>
                                     <td>{{ $usuario->meses }}
                                     </td>

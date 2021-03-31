@@ -20,7 +20,8 @@
                         <table class="table table-striped tablaComercialesIndex">
                             <thead class="text-primary text-center">
                                 <th>Cuenta</th>
-                                <th>Comercial</th>
+                                <th>Origen</th>
+                                <th>Nuevo Comercial</th>
                                 @if(auth()->user()->rol_id == 2)
                                 <th>Acciones</th>
                                 @endif
@@ -31,6 +32,7 @@
                                 <tr class="text-center">
                                     <td class="text-left">{{ $cliente->razon_social }}</td>
                                     <td class="text-left">{{ $cliente->user->name }}</td>
+                                    <td class="text-left">{{ ($cliente->destino) ? $cliente->destino->name : '' }}</td>
                                     @if(auth()->user()->rol_id == 2)
 
                                     <td>

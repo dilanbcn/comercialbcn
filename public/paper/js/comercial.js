@@ -264,8 +264,6 @@ $(function() {
         });
     });
 
-
-
     let nuevo = document.querySelectorAll('.pieChart');
     nuevo.forEach(element => {
         let ctxP = element.getContext('2d');
@@ -276,7 +274,7 @@ $(function() {
                 datasets: [{
                     data: [element.dataset.act, element.dataset.inact],
                     backgroundColor: ["#00FF7F", "#0000FF"],
-                    hoverBackgroundColor: ["#FF5A5E", "#5AD3D1"]
+                    hoverBackgroundColor: ["#FF5A5E", "#FF5A5E"]
                 }]
             },
             options: {
@@ -287,12 +285,6 @@ $(function() {
             }
         });
     });
-
-
-
-
-
-
 
     $('.chart').easyPieChart({
         easing: 'easeOutBounce',
@@ -355,6 +347,36 @@ $(function() {
             }
         });
     });
+
+    $(".disRegistro").on("click", function(e) {
+        e.preventDefault();
+        let nameTitle = $(this).attr('title');
+        let ruta = $(this).data('ruta');
+
+        $.confirm({
+            title: nameTitle,
+            content: '¿Esta seguro que desea desechar este cliente?',
+            type: 'orange',
+            theme: 'modern',
+            animation: 'scala',
+            icon: 'fa fa-question-circle',
+            typeAnimated: true,
+            buttons: {
+                confirm: {
+                    text: 'Desechar',
+                    btnClass: 'btn-warning',
+                    action: function() {
+                        $('#frm_validar_reunion').attr('action', ruta);
+                        $("#frm_validar_reunion").submit();
+                    },
+                },
+                cancel: {
+                    text: 'No',
+                },
+            }
+        });
+    });
+
 
     //PROSPECCION
     $("#btnModalContactoPros").on('click', function() {
