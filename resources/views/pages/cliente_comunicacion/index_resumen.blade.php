@@ -11,7 +11,7 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h5 class="card-title mb-1">Comuncacion Resumen</h5>
+                        <h5 class="card-title mb-1">Llamados y Reuniones - Resumen</h5>
                         </div>
                         <div class="col-4 text-right">
                             <a href="{{ route('cliente-comunicacion.index') }}" class="btn btn-sm btn-success btn-round"><i class="fas fa-list"></i> Vista Clientes</a>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table table-responsive">
-                        <table class="table table-striped tablaComercialesIndex" >
+                        <table class="table table-striped tablaLlamados" >
                             <thead class="text-primary text-center">
                                 <th>Prospector</th>
                                 <th>Comercial</th>

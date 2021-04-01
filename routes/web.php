@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 	$user = auth()->user();
 	if ($user){
-		$ruta = ($user->rol_id == 4 || $user->rol_id == 5) ? 'cliente-comunicacion.calendario' : 'home.comercial';;
+		$ruta = ($user->rol_id == 4 || $user->rol_id == 5) ? '/home-prospector' : '/home-comercial';
 	} else {
 		$ruta = '/login';
 	}
@@ -88,6 +88,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+
+	Route::get('reportes/{tipo}', 'App\Http\Controllers\ClienteController@reportes')->name('cliente.reportes');
 });
 
 Route::post('custom-login', 'App\Http\Controllers\Auth\CustomLoginController@login')->name('custom-login')->middleware('guest');

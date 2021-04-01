@@ -18,20 +18,32 @@
                         <h4 class="card-title mb-1">{{ 'Total '. number_format($totFact, 0, ',', '.') }}
                             </h4>
                         </div>
+                        <div class="col-4 text-right">
+                        <div class="dropdown">
+                                <button class="btn btn-sm btn-secondary btn-round dropdown-toggle" type="button" id="dropdownMenuExport" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Exportar
+                                </button>
+                                <div class="dropdown-menu dropdown-navbar dropdown-menu-right" aria-labelledby="dropdownMenuExport">
+                                    <a class="dropdown-item" href="{{ route('cliente.reportes', [1]) }}"><i class="fas fa-file-pdf"></i> Pdf</a>
+                                    <a class="dropdown-item" href="{{ route('cliente.reportes', [2]) }}"><i class="fas fa-file-excel"></i> Excel</a>
+                                </div>
+                            </div>
+                
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table">
                         <table class="table table-striped tablaComercialesIndex">
                             <thead class="text-primary text-center">
-                                <th>Estatus</th>
+                                <th>Status</th>
                                 <th>Mes Cierre</th>
                                 <th>Mes Facturación</th>
                                 <th>Mes Pago</th>
                                 <th>Cliente</th>
                                 <th>Venta</th>
                                 <th>Inscripción SENCE</th>
-                                <th>Estatus</th>
+                                <th>Status</th>
                                 <th>Comercial</th>
                                 <th>Proyecto</th>
                             </thead>

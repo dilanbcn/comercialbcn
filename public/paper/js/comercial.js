@@ -29,9 +29,10 @@ $(function() {
         language: {
             url: "//cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json"
         },
+        scrollCollapse: true,
         orderCellsTop: true,
         fixedHeader: true,
-        pageLength: 100,
+        pageLength: -1,
         lengthMenu: [
             [100, 200, -1],
             [100, 200, "Todos"]
@@ -46,6 +47,33 @@ $(function() {
 
         }
 
+    });
+
+    $('.tablaLlamados').DataTable({
+        scrollX: true,
+        responsive: true,
+        pageLength: -1,
+        lengthMenu: [
+            [100, 200, -1],
+            [100, 200, "Todos"]
+        ],
+        dom: '<lif<t>p>',
+        columns: [
+            { "width": "60px" },
+            { "width": "60px" },
+            { "width": "60px" },
+            { "width": "60px" },
+            { "width": "60px" },
+            { "width": "60px" },
+            { "width": "60px" },
+            { "width": "60px" },
+            { "width": "60px" },
+            { "width": "60px" },
+            { "width": "60px" },
+            { "width": "60px" },
+            { "width": "60px" },
+            { "width": "60px" },
+        ]
     });
 
     // $('#tableCliente').on('load', function() {

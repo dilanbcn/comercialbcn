@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Clientes Cerrados</title>
+</head>
+<style>
+    html {
+        font-family: sans-serif;
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .table .table {
+        background-color: #fff;
+    }
+    
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+    }
+    
+    table {
+        border-collapse: collapse;
+    }
+    
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, .05);
+    }
+    
+    .table td,
+    .table th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+    
+    th {
+        text-align: inherit;
+    }
+    
+    .table>thead>tr>th,
+    .table>tbody>tr>th,
+    .table>tfoot>tr>th,
+    .table>thead>tr>td,
+    .table>tbody>tr>td,
+    .table>tfoot>tr>td {
+        padding: 12px 7px;
+        vertical-align: middle;
+    }
+    
+    .pl-5,
+    .px-5 {
+        padding-left: 3rem !important;
+    }
+    
+    .text-center {
+        text-align: center !important;
+    }
+    
+    .card .card-header .card-title {
+        margin-top: 10px;
+    }
+    
+    .mb-1,
+    .my-1 {
+        margin-bottom: .25rem !important;
+    }
+    
+    h5,
+    .h5 {
+        font-size: 1.57em;
+        line-height: 1.4em;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: 400;
+        font-family: inherit;
+    }
+    
+    .card-category {
+        font-size: 1em;
+    }
+    
+    .category,
+    .card-category {
+        font-weight: 400;
+        color: #75777B;
+    }
+    
+    p {
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<body>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <table class="table">
+                    <tr>
+                        <td class="text-left" style="border-top: none !important;">
+                            <h5 class="card-title mb-1">Cerrados</h5>
+                        </td>
+                        <td class="text-center" style="border-top: none !important;">
+                            <h3 class="card-title mb-1">Total 94.570.000</h3>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card-body">
+                <div class="table">
+                    <table>
+                        <tr>
+                            <th>Status</th>
+                            <th>Mes Cierre</th>
+                            <th>Mes Facturación</th>
+                            <th>Mes Pago</th>
+                            <th>Cliente</th>
+                            <th>Venta</th>
+                            <th>Inscripción SENCE</th>
+                            <th>Status</th>
+                            <th>Comercial</th>
+                            <th>Proyecto</th>
+                        </tr>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Aconcagua Foods</td>
+                                <td class="text-right">25.440.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Bolsa De Fondos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-left">Afp Habitat</td>
+                                <td class="text-right">7.000.000</td>
+                                <td class="text-center">NO</td>
+                                <td class="text-left">Pronto a levantar</td>
+                                <td class="text-left">Nomar Roberto Medina Villegas</td>
+                                <td class="text-left">Curso Específico</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-left">Agrosuper</td>
+                                <td class="text-right">10.000.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Felipe Yurjevic</td>
+                                <td class="text-left">Cursos Generales</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Agunsa</td>
+                                <td class="text-right">10.809.600</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Excedentes Para Hacer Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-left">Airbus</td>
+                                <td class="text-right">1.360.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Nomar Roberto Medina Villegas</td>
+                                <td class="text-left">Curso Bcn Live</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Aliservice</td>
+                                <td class="text-right">7.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Deuda Pendiente</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-left">Asmar</td>
+                                <td class="text-right">2.984.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Plataforma,Cursos,Ra,Etc (Este Fue Solo Un Pequeño Levantamiento)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Asmar</td>
+                                <td class="text-right">55.308.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Excedentes</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Asmar</td>
+                                <td class="text-right">126.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Excedentes</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Asmar</td>
+                                <td class="text-right">126.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Excedentes</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-left">Aura</td>
+                                <td class="text-right">1.990.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Desarrollo De Herramienta De Actualización De Documentos Pdf Web Y Celular.</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-left">Banco Falabella</td>
+                                <td class="text-right">103.175.000</td>
+                                <td class="text-center">SI CON EXCEL</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Levantamiento De Bolsa Para Cubrir Desarrollos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-left">Banco Falabella</td>
+                                <td class="text-right">31.325.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Para Su Bolsa De Fondos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-left">Banco Falabella</td>
+                                <td class="text-right">10.152.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Para Su Bolsa De Fondos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Banco Falabella</td>
+                                <td class="text-right">21.600.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Excedentes 2019</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-left">Carteras Sei</td>
+                                <td class="text-right">16.660.000</td>
+                                <td class="text-center">OK</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Felipe Yurjevic</td>
+                                <td class="text-left">Campus</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-left">Casa Ideas</td>
+                                <td class="text-right">72.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Campus + Desarrollos Propios</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">nov-20</td>
+                                <td class="text-left">Cementos Bio Bio</td>
+                                <td class="text-right">158.200.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Levantamiento Excedentes ( 158,8Mm) Y Descuento De 1.000 Tablets</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-left">Cementos Bio Bio</td>
+                                <td class="text-right">26.918.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Campus + 7 Cursos Inducción Pago 2</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-left">Cementos Bsa</td>
+                                <td class="text-right">9.616.000</td>
+                                <td class="text-center">CON PROCESO SENCE</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Campus , Video Bienvenida, Customizacion Curso Prev. Delito.</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">nov-20</td>
+                                <td class="text-left">Cermaq</td>
+                                <td class="text-right">9.800.000</td>
+                                <td class="text-center">NO</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Cursos Induccion + 1 Especifico Tecnico (En Formato Scorm Para Successfactor)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Cintac</td>
+                                <td class="text-right">10.400.000</td>
+                                <td class="text-center">SENCE ELEARNING</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Campus Virtual Y Posible Integracion Payroll U Otros</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Cintac</td>
+                                <td class="text-right">2.930.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Portal Selección Y Buzón De Sugerencias</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-left">Cmp</td>
+                                <td class="text-right">2.100.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Curso General En Scorm</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-left">Cmpc</td>
+                                <td class="text-right">6.051.209</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Diversidad Generacional Y 70% Restante De Finanzas Personales</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-left">Cmpc</td>
+                                <td class="text-right">2.471.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Facturados Ya 2,4 Mm En Abril 2020 , Costo Empresa</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-left">Cmpc</td>
+                                <td class="text-right">3.596.880</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">70% Restante Libre Competencia</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-left">Cmpc</td>
+                                <td class="text-right">683.296</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Politicas Subtit, Trad, Locu, Y Camb Gráf (Ingles Y Portugues)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-left">Cmpc</td>
+                                <td class="text-right">1.610.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Libre Competencia Ppto Por Locuciones Cambios Y Adaptaciones</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-left">Cmpc</td>
+                                <td class="text-right">3.685.280</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Diversidad Sexual 7 Minutos De Video, Subtit, Trad, Locu, Y Camb Gráf (Ingles Y Portugues)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-left">Cmpc</td>
+                                <td class="text-right">5.134.978</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Sesgos Inconscientes 10 Minutos De Video, Subtit, Trad, Locu, Y Camb Gráf (Ingles Y Portugues)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-left">Cmpc</td>
+                                <td class="text-right">7.555.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Equidad De Genero Y Discapacidad</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Cmpc</td>
+                                <td class="text-right">16.000.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Cursos Especificos Esperando La Facturas</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-left">Colegio Medico</td>
+                                <td class="text-right">2.480.000</td>
+                                <td class="text-center">OK</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Cursos E-Learning Generales</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Comdes</td>
+                                <td class="text-right">13.200.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Excedentes 2019</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-left">Consorcio</td>
+                                <td class="text-right">2.000.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Felipe Ignacio Oliva Lazzerini</td>
+                                <td class="text-left">Campus Y Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Consorcio</td>
+                                <td class="text-right">4.000.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Felipe Ignacio Oliva Lazzerini</td>
+                                <td class="text-left">Campus Y Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-left">Consorcio</td>
+                                <td class="text-right">20.000.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Felipe Ignacio Oliva Lazzerini</td>
+                                <td class="text-left">Campus Y Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-left">Consorcio</td>
+                                <td class="text-right">2.000.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Felipe Ignacio Oliva Lazzerini</td>
+                                <td class="text-left">Campus Y Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-left">Consorcio</td>
+                                <td class="text-right">2.000.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Felipe Ignacio Oliva Lazzerini</td>
+                                <td class="text-left">Campus Y Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-left">Consorcio</td>
+                                <td class="text-right">2.000.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Felipe Ignacio Oliva Lazzerini</td>
+                                <td class="text-left">Campus Y Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-left">Consorcio</td>
+                                <td class="text-right">2.000.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Felipe Ignacio Oliva Lazzerini</td>
+                                <td class="text-left">Campus Y Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-left">Consorcio</td>
+                                <td class="text-right">2.000.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Felipe Ignacio Oliva Lazzerini</td>
+                                <td class="text-left">Campus Y Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-left">Consorcio</td>
+                                <td class="text-right">2.000.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Pronto a levantar</td>
+                                <td class="text-left">Felipe Ignacio Oliva Lazzerini</td>
+                                <td class="text-left">Campus Y Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Covisa</td>
+                                <td class="text-right">7.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Curso Especifico</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-left">Dartel</td>
+                                <td class="text-right">6.600.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Mantencion + Desarrollo</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">nov-20</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-left">Dartel</td>
+                                <td class="text-right">5.400.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Desarrollo Cursos Especificos. Bajo De 8,6 Mm A 5,4 Mm Debido A Desvinculaciones.</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-left">Dimacofi</td>
+                                <td class="text-right">12.480.000</td>
+                                <td class="text-center">SENCE ELEARNING</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Renovacion Y Curso Especificos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-left">Enex</td>
+                                <td class="text-right">59.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Plataforma, Cursos Especificos (En Proceso Levantamiento Termina En Mayo)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Enex</td>
+                                <td class="text-right">960.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Excedentes De Una Sociedad, Puede Que Sumemos Más De Otras</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Entel</td>
+                                <td class="text-right">3.600.000</td>
+                                <td class="text-center">NO APLICA</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Rodrigo Bernardo Sauvalle Escobar</td>
+                                <td class="text-left">Curso E-Learning</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-left">Entel</td>
+                                <td class="text-right">295.000.000</td>
+                                <td class="text-center">OK</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Rodrigo Bernardo Sauvalle Escobar</td>
+                                <td class="text-left">Avanza Digital, Elearning, Presencial</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-left">Entel</td>
+                                <td class="text-right">25.000.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Rodrigo Bernardo Sauvalle Escobar</td>
+                                <td class="text-left">Avanza Digital, Elearning, Presencial</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Entel</td>
+                                <td class="text-right">127.000.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Rodrigo Bernardo Sauvalle Escobar</td>
+                                <td class="text-left">Avanza Digital, Elearning, Presencial</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-left">Entel</td>
+                                <td class="text-right">72.000.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Rodrigo Bernardo Sauvalle Escobar</td>
+                                <td class="text-left">Avanza Digital, Elearning, Presencial</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-left">Ey</td>
+                                <td class="text-right">67.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Felipe Yurjevic</td>
+                                <td class="text-left">Diplomados Ey</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-left">Falp</td>
+                                <td class="text-right">4.560.000</td>
+                                <td class="text-center">CON PROCESO SENCE</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Curso General En Scorm</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-left">Fedex</td>
+                                <td class="text-right">12.240.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Demo De Induccion Para Venderlo Internamente</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">nov-20</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-left">Fedex</td>
+                                <td class="text-right">6.456.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Para Curso Especifico Grande</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Ferrostaal</td>
+                                <td class="text-right">3.000.000</td>
+                                <td class="text-center">NO</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Nomar Roberto Medina Villegas</td>
+                                <td class="text-left">Curso Especifico Costo Empresa</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-left">First Security</td>
+                                <td class="text-right">7.000.000</td>
+                                <td class="text-center">SENCE ELEARNING</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Cursos Generales Con Sence</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-left">Gasco</td>
+                                <td class="text-right">15.300.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Cursos Especificos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-left">Gasco</td>
+                                <td class="text-right">6.765.000</td>
+                                <td class="text-center">NO</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Desarrollo 2 Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-left">Gasco</td>
+                                <td class="text-right">2.850.000</td>
+                                <td class="text-center">NO</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Curso Especifico</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Hdc</td>
+                                <td class="text-right">15.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">Pronto a levantar</td>
+                                <td class="text-left">Nomar Roberto Medina Villegas</td>
+                                <td class="text-left">Se Levanta Con Curso Liderazgo Y Se Canjea Por Campus Bcn Y 1 Curso Específico</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">nov-20</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">nov-20</td>
+                                <td class="text-left">Hdi Seguros</td>
+                                <td class="text-right">12.000.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Campus X 16 Meses + Cursos Generales / Costo Empresa</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Hortifrut</td>
+                                <td class="text-right">22.050.000</td>
+                                <td class="text-center">OK</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Felipe Yurjevic</td>
+                                <td class="text-left">Diplomados</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-left">Hortifrut</td>
+                                <td class="text-right">13.230.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Felipe Yurjevic</td>
+                                <td class="text-left">Diplomados</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Hoteles Plaza El Bosque</td>
+                                <td class="text-right">18.720.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Excedentes Para Luego Hacer Plataforma Y Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-left">Iansa</td>
+                                <td class="text-right">30.720.000</td>
+                                <td class="text-center">SI CON MEJORA CONTINUA CODIGO 480</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Nomar Roberto Medina Villegas</td>
+                                <td class="text-left">Campus,Diplomados, Curso Problem Solving, Curso Lean Bcn, 200 Tablets</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-left">Iansa</td>
+                                <td class="text-right">46.000.000</td>
+                                <td class="text-center">SI CON MEJORA CONTINUA CODIGO 480</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Nomar Roberto Medina Villegas</td>
+                                <td class="text-left">Campus,Diplomados, Curso Problem Solving, Curso Lean Bcn, 200 Tablets</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-left">Idiem</td>
+                                <td class="text-right">34.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Felipe Yurjevic</td>
+                                <td class="text-left">Campus+Bcnlive+Teletrabajo+Diseño Instruccional</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">nov-20</td>
+                                <td class="text-left">Imperial</td>
+                                <td class="text-right">110.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Campus + Generales+Especificos + Bolsa Trabajo</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Indumotora</td>
+                                <td class="text-right">22.080.000</td>
+                                <td class="text-center">OK</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Nomar Roberto Medina Villegas</td>
+                                <td class="text-left">Diplomados</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-left">Iss</td>
+                                <td class="text-right">3.920.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Realidad Aumentada Y Holograma</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-left">K+S</td>
+                                <td class="text-right">3.120.000</td>
+                                <td class="text-center">SENCE ELEARNING</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Curso De Induccion Corporativa</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-left">K+S</td>
+                                <td class="text-right">3.900.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Curso Especifico</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-left">Kdm</td>
+                                <td class="text-right">5.472.000</td>
+                                <td class="text-center">No , Directo CCC</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Lectivos De Cursos Grales Adaptados Y Tb Especificos Y Videos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-left">Kdm</td>
+                                <td class="text-right">1.640.000</td>
+                                <td class="text-center">No , Directo CCC</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Realidad Aumentada</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-left">Komax</td>
+                                <td class="text-right">26.400.000</td>
+                                <td class="text-center">si, pero hay que descontar 13MM de proveed</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Bolsa De Fondos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-left">Lucchetti</td>
+                                <td class="text-right">312.000</td>
+                                <td class="text-center">SENCE ELEARNING</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Prueba De 2 Personas Para Luego Inscibir 17,9 Mm</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-left">Lucchetti</td>
+                                <td class="text-right">14.400.000</td>
+                                <td class="text-center">SI CON CURSOS 480</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Renovacion Y Otros</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-left">Lucchetti</td>
+                                <td class="text-right">3.192.000</td>
+                                <td class="text-center">SI CON CURSOS 480</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Para Cubrir La Meta Faltante Del Levantamiento Anterior</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Maersk</td>
+                                <td class="text-right">44.325.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Excedentes Bolsa De Fondos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Maletas Chile</td>
+                                <td class="text-right">20.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Excedentes , Campus Y Curso Esp</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-left">Masc-Arauco</td>
+                                <td class="text-right">7.130.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Matención Campus E-Learning Integracion Masc</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-left">Minera El Abra</td>
+                                <td class="text-right">10.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Felipe Yurjevic</td>
+                                <td class="text-left">Campus</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-left">Pdr</td>
+                                <td class="text-right">5.040.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Felipe Yurjevic</td>
+                                <td class="text-left">Campus + Cursos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-left">Pdr</td>
+                                <td class="text-right">4.690.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Felipe Yurjevic</td>
+                                <td class="text-left">Bcn Live</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Red Christus</td>
+                                <td class="text-right">16.500.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Para Bolsa De Fondos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-left">Red Christus</td>
+                                <td class="text-right">15.840.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Plataforma Y Cursos Especificos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-left">Rhona</td>
+                                <td class="text-right">7.832.000</td>
+                                <td class="text-center">SI, CON CURSO PREV DELITO</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Cursos Especificos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Ripley</td>
+                                <td class="text-right">5.100.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Curso Seguridad De La Información</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Saesa</td>
+                                <td class="text-right">4.035.000</td>
+                                <td class="text-center">COSTO EMPRESA</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Curso Modelo De Desempeño</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Salomon Sacks</td>
+                                <td class="text-right">1.440.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Diplomados</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-left">Sercomed</td>
+                                <td class="text-right">17.000.000</td>
+                                <td class="text-center">OK</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Felipe Ignacio Oliva Lazzerini</td>
+                                <td class="text-left">Campus E Inducción</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Siel</td>
+                                <td class="text-right">15.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Excedentes , Campus Y Curso Esp</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-left">Skc</td>
+                                <td class="text-right">18.024.000</td>
+                                <td class="text-center">CON PROCESO SENCE</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Levantamiento Fondos Pago Deuda Y Customizacion Cursos Y Otros</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-left">Skc</td>
+                                <td class="text-right">49.440.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Levantamiento Fondos Pago Deuda Y Customizacion Cursos Y Pago Plataforma</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-left">Smu</td>
+                                <td class="text-right">2.653.000</td>
+                                <td class="text-center"></td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">2 Cursos E-Learning Propios</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Socovesa</td>
+                                <td class="text-right">46.153.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Bolsa De Fondos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Socovesa</td>
+                                <td class="text-right">3.471.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Bolsa De Fondos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Socovesa</td>
+                                <td class="text-right">18.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Bolsa De Fondos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-left">Sodexo</td>
+                                <td class="text-right">13.920.000</td>
+                                <td class="text-center">SENCE ELEARNING</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Levantamiento Para Nuevos Desarrollos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Sparta</td>
+                                <td class="text-right">12.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Bolsa De Fondos Nuevos Desarrollos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">oct-21</td>
+                                <td class="text-left">Tarragona</td>
+                                <td class="text-right">12.960.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Mantención Campus</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">dic-20</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">ene-70</td>
+                                <td class="text-left">Tarragona</td>
+                                <td class="text-right">12.300.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Exedentes - Se Levantarán Con E-Learning De 480</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-left">Tecnasic</td>
+                                <td class="text-right">5.280.000</td>
+                                <td class="text-center">OK</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Felipe Yurjevic</td>
+                                <td class="text-left">Diplomados</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-left">Tecnasic</td>
+                                <td class="text-right">5.760.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">Pagado</td>
+                                <td class="text-left">Felipe Yurjevic</td>
+                                <td class="text-left">Diplomados</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-center">nov-21</td>
+                                <td class="text-left">Transbank</td>
+                                <td class="text-right">18.000.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">Pronto a levantar</td>
+                                <td class="text-left">Nomar Roberto Medina Villegas</td>
+                                <td class="text-left">Campus + Curso Exp Clientes Y Agilidad</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-left">Turbus</td>
+                                <td class="text-right">20.750.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Bolsa De Fondos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">ene-21</td>
+                                <td class="text-center">feb-21</td>
+                                <td class="text-left">Turbus</td>
+                                <td class="text-right">88.080.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Bolsa De Fondos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">mar-21</td>
+                                <td class="text-center">abr-21</td>
+                                <td class="text-center">may-21</td>
+                                <td class="text-left">Ultraport</td>
+                                <td class="text-right">35.000.000</td>
+                                <td class="text-center">OK - CON CURSO 480</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Maria José Sepúlveda Bari</td>
+                                <td class="text-left">Mantencion Campus + Cursos Especificos + 2 Bcnlive</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Nuevo</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-center">dic-21</td>
+                                <td class="text-left">Universidad De La Frontera</td>
+                                <td class="text-right">14.400.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">En Ejecución</td>
+                                <td class="text-left">Felipe Yurjevic</td>
+                                <td class="text-left">Diplomados</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-center">jul-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-left">Vivocorp</td>
+                                <td class="text-right">7.032.000</td>
+                                <td class="text-center">SI CON CURSOS DE 480</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Cursos Especificos</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Antiguo</td>
+                                <td class="text-center">jun-21</td>
+                                <td class="text-center">sep-21</td>
+                                <td class="text-center">ago-21</td>
+                                <td class="text-left">Vivocorp</td>
+                                <td class="text-right">7.368.000</td>
+                                <td class="text-center">SI</td>
+                                <td class="text-left">Facturado</td>
+                                <td class="text-left">Victoria Soledad Cortes Rodriguez</td>
+                                <td class="text-left">Cursos Especificos Y Otros</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

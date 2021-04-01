@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\ClienteComunicacion;
 use App\Models\TipoCliente;
+use App\Models\TipoComunicacion;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -28,58 +30,24 @@ class HomeController extends Controller
     public function indexProspector()
     {
         $user = auth()->user();
-
-        // if ($user->rol_id == 2) {
-
-        // CLIENTES
-        $grupoTipo =  Cliente::orderBy('tipo_cliente_id')->get()->groupBy('tipo_cliente_id');
-        $arrTipoCliente = array();
-        foreach ($grupoTipo as $key => $cliente) {
-            $tipoCliente = TipoCliente::find($key);
-            $arrTipoCliente[$tipoCliente->nombre] = count($cliente);
+        $hoy = Carbon::today();
+        $active = 'dashboard';
+        if ($user->rol_id == 4) {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion', 'clienteContactos'])->get();
+        } else {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->whereHas('user', function ($sql) use ($user) {
+                return $sql->where(['id_prospector' => $user->id]);
+            })->with(['clienteComunicacion', 'clienteContactos'])->get();
         }
+        // $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion'])->get();
+        $tipoComunicaciones = TipoComunicacion::where(['activo' => 1])->get();
 
-        $arrEstado = array(0 => 'Inactivo', 1 => 'Activo');
+        $comunicaciones = ClienteComunicacion::with(['cliente'])->orderBy('fecha_contacto', 'DESC')->take(8)->get();
 
-        $grupoEstado = Cliente::where(['tipo_cliente_id' => 2])->orderBy('tipo_cliente_id')->get()->groupBy('activo');
-        $arrEstadoCliente = array();
-        foreach ($grupoEstado as $key => $cliente) {
-            $arrEstadoCliente[$arrEstado[$key]] = count($cliente);
-        }
+        $user->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Calendario Reuniones', 'ruta' => null]]);
 
-        // COMERCIALES
-        $comerciales = User::where(['activo' => 1])->count();
-        $arrData['comerciales'] = array('activo' => $comerciales);
 
-        // TOP COMERCIALES
-        $comerciales = User::where(['activo' => 1])->take(8)->get();
-        foreach ($comerciales as $comercial) {
-            $arrTop['nombres'][] = $comercial->name;
-
-            $topComerciales = Cliente::where(['user_id' => $comercial->id])->get()->groupBy('tipo_cliente_id');
-            $arrClienteCom = array();
-            if (count($topComerciales) > 0) {
-                foreach ($topComerciales as $key => $topCom) {
-                    $tipoCliente = TipoCliente::find($key);
-                    $arrTop[$tipoCliente->nombre][] = count($topCom);
-                }
-            } else {
-                $arrTop['Cliente'][] = 0;
-                $arrTop['Prospecto'][] = 0;
-            }
-        }
-
-        $arrData['grafico'] = $arrTop;
-        $arrData['tipo'] = $arrTipoCliente;
-        $arrData['estado'] = $arrEstadoCliente;
-
-        return view('pages.dashboard-prospector', compact('arrData'));
-
-        // } else {
-
-        //     return redirect()->route('cliente.index')->with(['status' => 'No tiene acceso a esa vista', 'title' => 'Error', 'estilo' => 'error']);
-
-        // }
+        return view('pages.cliente_calendario.index', compact('clientes', 'hoy', 'tipoComunicaciones', 'comunicaciones', 'active'));
     }
 
     public function indexComercial()

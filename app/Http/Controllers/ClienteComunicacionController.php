@@ -425,6 +425,7 @@ class ClienteComunicacionController extends Controller
     {
         $user = auth()->user();
         $hoy = Carbon::today();
+        $active = 'calendario';
         if ($user->rol_id == 4) {
             $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion', 'clienteContactos'])->get();
         } else {
@@ -440,7 +441,7 @@ class ClienteComunicacionController extends Controller
         $user->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Calendario Reuniones', 'ruta' => null]]);
 
 
-        return view('pages.cliente_calendario.index', compact('clientes', 'hoy', 'tipoComunicaciones', 'comunicaciones'));
+        return view('pages.cliente_calendario.index', compact('clientes', 'hoy', 'tipoComunicaciones', 'comunicaciones', 'active'));
     }
 
     public function reuniones(Request $request)

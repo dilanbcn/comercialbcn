@@ -1,6 +1,6 @@
 @extends('layouts.app', [
 'class' => '',
-'elementActive' => 'calendario'
+'elementActive' => $active
 ])
 @section('content')
 @include('layouts.page_templates.messages')

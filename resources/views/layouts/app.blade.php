@@ -55,6 +55,7 @@ The above copyright notice and this permission notice shall be included in all c
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet' />
     <!-- Data Table -->
     <link href="{{ asset('paper/css/rowGroup.dataTables.css') }}" rel="stylesheet" />
+    <link href="{{ asset('paper/css/responsive.dataTables.css') }}" rel="stylesheet" />
     
 
 </head>
@@ -93,6 +94,8 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- Data Tables -->
     <script type="text/javascript" src="{{ asset('paper/js/datatables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('paper/js/dataTables.rowGroup.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('paper/js/dataTables.responsive.min.js') }}"></script>
+    
     <!-- Toast -->
     <!-- <script type="text/javascript" src="{{ asset('paper/js/jquery.toast.min.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('paper/js/toastr.min.js') }}"></script>

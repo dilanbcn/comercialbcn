@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CerradosExport;
 use App\Http\Requests\ClienteRequest;
 use App\Models\Cliente;
+use Excel;
 use App\Models\Proyecto;
 use App\Models\ProyectoFactura;
 use App\Models\TipoCliente;
@@ -11,6 +13,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Freshwork\ChileanBundle\Rut;
 use Illuminate\Http\Request;
+use PDF;
 
 class ClienteController extends Controller
 {
@@ -31,7 +34,7 @@ class ClienteController extends Controller
         //     $clientes = Cliente::whereNotNull('user_id')->with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
         //     // $clientes = Cliente::where(['user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
         // } else {
-            $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+        $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
         // }
 
         $clientes->map(function ($clientes) {
@@ -130,45 +133,45 @@ class ClienteController extends Controller
         $user = auth()->user();
 
         // if ($user->rol_id == 2) {
-            $facturas = ProyectoFactura::with(['proyecto' => function ($sql) {
-                return $sql->with(['cliente' => function ($sql) {
-                    return $sql->with(['user']);
-                }]);
-            }, 'estadoFactura'])->get();
-    
-            $facturas->map(function ($factura) {
-                $fC = Carbon::parse($factura->proyecto->fecha_cierre);
-                $fF = Carbon::parse($factura->fecha_factura);
-                $fP = Carbon::parse($factura->fecha_pago);
-    
-                $factura->proyecto->cliente->antiguedad = $this->antiguedad($factura->proyecto->cliente->inicio_relacion);
-                $factura->mes_cierre = $fC->locale('es')->shortMonthName . '-' . $fC->format('y');
-                $factura->mes_facturacion = $fF->locale('es')->shortMonthName . '-' . $fF->format('y');
-                $factura->mes_pago = $fP->locale('es')->shortMonthName . '-' . $fP->format('y');
-            });
+        $facturas = ProyectoFactura::with(['proyecto' => function ($sql) {
+            return $sql->with(['cliente' => function ($sql) {
+                return $sql->with(['user']);
+            }]);
+        }, 'estadoFactura'])->get();
 
-            $cerrados = Cliente::whereHas('proyecto')->with('proyecto', function ($sql) {
-                return $sql->with('proyectoFacturas', function($sql){
-                    return $sql->whereMonth('fecha_factura', '=', date('m'))->whereYear('fecha_factura', '=', date('Y'));
-                });
-            })->get();
-    
-            $cerrados->map(function ($cerrados) {
-                $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
-    
-                    $cerrados->sum_facturas = $proyectos->proyectoFacturas->sum('monto_venta');
-                });
+        $facturas->map(function ($factura) {
+            $fC = Carbon::parse($factura->proyecto->fecha_cierre);
+            $fF = Carbon::parse($factura->fecha_factura);
+            $fP = Carbon::parse($factura->fecha_pago);
+
+            $factura->proyecto->cliente->antiguedad = $this->antiguedad($factura->proyecto->cliente->inicio_relacion);
+            $factura->mes_cierre = $fC->locale('es')->shortMonthName . '-' . $fC->format('y');
+            $factura->mes_facturacion = $fF->locale('es')->shortMonthName . '-' . $fF->format('y');
+            $factura->mes_pago = $fP->locale('es')->shortMonthName . '-' . $fP->format('y');
+        });
+
+        $cerrados = Cliente::whereHas('proyecto')->with('proyecto', function ($sql) {
+            return $sql->with('proyectoFacturas', function ($sql) {
+                return $sql->whereMonth('fecha_factura', '=', date('m'))->whereYear('fecha_factura', '=', date('Y'));
             });
-    
-            $totFact = $cerrados->sum('sum_facturas');
-    
-            $user->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Cerrados', 'ruta' => null]]);
-    
-            return view('pages.cliente.cerrados', compact('facturas', 'totFact'));
+        })->get();
+
+        $cerrados->map(function ($cerrados) {
+            $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
+
+                $cerrados->sum_facturas = $proyectos->proyectoFacturas->sum('monto_venta');
+            });
+        });
+
+        $totFact = $cerrados->sum('sum_facturas');
+
+        $user->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Cerrados', 'ruta' => null]]);
+
+        return view('pages.cliente.cerrados', compact('facturas', 'totFact'));
         // } else {
         //     return redirect()->route('cliente.index')->with(['status' => 'No tiene acceso a esa vista', 'title' => 'Error', 'estilo' => 'error']);
         // }
-        
+
     }
 
     /**
@@ -379,5 +382,60 @@ class ClienteController extends Controller
         $cliente->save();
 
         return redirect()->route('cliente.index')->with(['title' => 'Éxito', 'status' => 'Cliente desechado satisfactoriamente']);
+    }
+
+    public function reportes(Request $request, $tipo)
+    {
+
+        $hoy = Carbon::today();
+
+        $facturas = ProyectoFactura::with(['proyecto' => function ($sql) {
+            return $sql->with(['cliente' => function ($sql) {
+                return $sql->with(['user']);
+            }]);
+        }, 'estadoFactura'])->get();
+
+        $facturas->map(function ($factura) {
+            $fC = Carbon::parse($factura->proyecto->fecha_cierre);
+            $fF = Carbon::parse($factura->fecha_factura);
+            $fP = Carbon::parse($factura->fecha_pago);
+
+            $factura->proyecto->cliente->antiguedad = $this->antiguedad($factura->proyecto->cliente->inicio_relacion);
+            $factura->mes_cierre = $fC->locale('es')->shortMonthName . '-' . $fC->format('y');
+            $factura->mes_facturacion = $fF->locale('es')->shortMonthName . '-' . $fF->format('y');
+            $factura->mes_pago = $fP->locale('es')->shortMonthName . '-' . $fP->format('y');
+        });
+
+        $cerrados = Cliente::whereHas('proyecto')->with('proyecto', function ($sql) {
+            return $sql->with('proyectoFacturas', function ($sql) {
+                return $sql->whereMonth('fecha_factura', '=', date('m'))->whereYear('fecha_factura', '=', date('Y'));
+            });
+        })->get();
+
+        $cerrados->map(function ($cerrados) {
+            $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
+
+                $cerrados->sum_facturas = $proyectos->proyectoFacturas->sum('monto_venta');
+            });
+        });
+
+        $totFact = $cerrados->sum('sum_facturas');
+
+        switch ($tipo) {
+            case 1:
+
+                $pdf = PDF::loadView('pages.cliente.cerrados-pdf', compact('facturas', 'totFact', 'tipo'))->setPaper('legal', 'landscape');
+                $nombreArchivo = 'clientes-cerrados-' . $hoy->format('YmdHi') . '.pdf';
+
+                return $pdf->download($nombreArchivo);
+
+                break;
+            case 2:
+                $nombreArchivo = 'clientes-cerrados-' . $hoy->format('YmdHi') . '.xlsx';
+                $data = compact('facturas', 'totFact', 'tipo');
+                return Excel::download(new CerradosExport($data), $nombreArchivo);
+
+                break;
+        }
     }
 }

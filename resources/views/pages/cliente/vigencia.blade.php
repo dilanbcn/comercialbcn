@@ -26,7 +26,7 @@
                             <thead class="text-primary text-center">
                                 <th>Cliente</th>
                                 <th>Meses Vigencia</th>
-                                <th>Estatus</th>
+                                <th>Status</th>
                                 <th>Actividad</th>
                                 <th>Comercial</th>
                                 <th>Inicio Relación</th>
