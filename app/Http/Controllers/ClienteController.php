@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\CerradosExport;
+use App\Exports\ClientesGeneralExport;
 use App\Http\Requests\ClienteRequest;
 use App\Models\Cliente;
 use Excel;
@@ -30,12 +31,7 @@ class ClienteController extends Controller
         $user = auth()->user();
         $comercial = ($comercial) ? User::find($comercial) : null;
 
-        // if ($user->rol_id == 1) {
-        //     $clientes = Cliente::whereNotNull('user_id')->with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
-        //     // $clientes = Cliente::where(['user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
-        // } else {
         $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
-        // }
 
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->meses($clientes);
@@ -221,12 +217,6 @@ class ClienteController extends Controller
             $this->validate($request, $rules, $customMessages);
         }
 
-        if ($request->get('tipo_cliente') == 2) {
-            $rules = ['inicio_relacion' => 'required|date|before_or_equal:today'];
-            $customMessages = ['required' => 'El campo :attribute es requerido.', 'date' => 'El campo :attribute es una fecha inválida.', 'before_or_equal' => 'El campo :attribute debe ser menor a la fecha de hoy.'];
-            $this->validate($request, $rules, $customMessages);
-        }
-
         $user = auth()->user();
 
         if ($user->rol_id == 2) {
@@ -248,7 +238,7 @@ class ClienteController extends Controller
             'rubro' => $request->get('rubro'),
             'direccion' => $request->get('direccion'),
             'inicio_ciclo' => $hoy,
-            'inicio_relacion' => ($request->get('inicio_relacion')) ? $request->get('inicio_relacion') : null,
+            'inicio_relacion' => ($request->get('tipo_cliente') == 2) ? $hoy : null,
         ]);
 
         return redirect()->route('cliente.index')->with(['status' => 'Cliente creado satisfactoriamente', 'title' => 'Éxito']);
@@ -286,7 +276,6 @@ class ClienteController extends Controller
 
         auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Clientes General', 'ruta' => route('cliente.index')], ['nombre' => 'Editar Cliente', 'ruta' => null]]);
 
-
         return view('pages.cliente.edit', compact('usuarios', 'holdings', 'cliente', 'tipoClientes', 'hoy'));
     }
 
@@ -300,6 +289,7 @@ class ClienteController extends Controller
     public function update(ClienteRequest $request, Cliente $cliente)
     {
         $user = auth()->user();
+        $hoy = Carbon::now();
 
         if ($request->get('rut') != '') {
             $rules = ['rut' => 'cl_rut'];
@@ -319,26 +309,32 @@ class ClienteController extends Controller
             $this->validate($request, $rules, $customMessages);
         }
 
-        if ($request->get('tipo_cliente') == '2') {
-            $rules = ['inicio_relacion' => 'required|date|before_or_equal:today'];
-            $customMessages = ['required' => 'El campo :attribute es requerido.', 'date' => 'El campo :attribute es una fecha inválida.', 'before_or_equal' => 'El campo :attribute debe ser menor a la fecha de hoy.'];
-            $this->validate($request, $rules, $customMessages);
-        }
-
         if ($user->id != $cliente->user_id && $user->rol_id == 1) {
             return redirect()->route('cliente.edit', $cliente)->withInput()->withErrors([
                 'razon_social' => 'Imposible modificar un cliente de otro comercial',
             ]);
         }
 
-        if ($user->rol_id == 2) {
-            $rules = ['comercial' => 'required|exists:users,id', 'tipo_cliente' => 'required|exists:tipo_clientes,id'];
-            $customMessages = ['required' => 'El campo :attribute es requerido.', 'exists' => 'El campo :attribute es inválido.'];
+        // if ($user->rol_id == 2) {
+        //     $rules = ['comercial' => 'required|exists:users,id', 'tipo_cliente' => 'required|exists:tipo_clientes,id'];
+        //     $customMessages = ['required' => 'El campo :attribute es requerido.', 'exists' => 'El campo :attribute es inválido.'];
+        //     $this->validate($request, $rules, $customMessages);
+        // }
+
+        if ($request->get('tipo_cliente') == '2') {
+            $rules = ['inicio_relacion' => 'required|date|before_or_equal:today'];
+            $customMessages = ['required' => 'El campo :attribute es requerido.', 'date' => 'El campo :attribute es una fecha inválida.', 'before_or_equal' => 'El campo :attribute debe ser menor a la fecha de hoy.'];
             $this->validate($request, $rules, $customMessages);
         }
 
+        if ($request->get('comercialDestino') != $cliente->destino_user_id) {
+            $comercialOrigen = $cliente->destino_user_id;
+        } else {
+            $comercialOrigen = $cliente->user_id;
+        }
+
         $cliente->fill([
-            'user_id' => $request->get('comercial'),
+            'user_id' => $comercialOrigen,
             'destino_user_id' => ($request->get('comercialDestino')) ? $request->get('comercialDestino') : null,
             'padre_id' => $request->get('padre'),
             'rut' => ($request->get('rut')) ? Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH) : null,
@@ -349,7 +345,7 @@ class ClienteController extends Controller
             'rubro' => $request->get('rubro'),
             'direccion' => $request->get('direccion'),
             'activo' => ($request->activo) ? 1 : 0,
-            'inicio_relacion' => ($request->get('inicio_relacion')) ? $request->get('inicio_relacion') : null,
+            'inicio_relacion' => $request->get('inicio_relacion'),
         ]);
 
         if ($user->rol_id == 2) {
@@ -377,8 +373,9 @@ class ClienteController extends Controller
     {
 
         $cliente->tipo_cliente_id = 1;
+        $cliente->user_id = $cliente->destino_user_id;
         $cliente->destino_user_id = null;
-        // $cliente->inicio_ciclo = Carbon::now();
+        $cliente->inicio_ciclo = Carbon::now();
         $cliente->save();
 
         return redirect()->route('cliente.index')->with(['title' => 'Éxito', 'status' => 'Cliente desechado satisfactoriamente']);
@@ -389,37 +386,56 @@ class ClienteController extends Controller
 
         $hoy = Carbon::today();
 
-        $facturas = ProyectoFactura::with(['proyecto' => function ($sql) {
-            return $sql->with(['cliente' => function ($sql) {
-                return $sql->with(['user']);
-            }]);
-        }, 'estadoFactura'])->get();
+        if ($tipo == 1 || $tipo == 2) {
+            $facturas = ProyectoFactura::with(['proyecto' => function ($sql) {
+                return $sql->with(['cliente' => function ($sql) {
+                    return $sql->with(['user']);
+                }]);
+            }, 'estadoFactura'])->get();
 
-        $facturas->map(function ($factura) {
-            $fC = Carbon::parse($factura->proyecto->fecha_cierre);
-            $fF = Carbon::parse($factura->fecha_factura);
-            $fP = Carbon::parse($factura->fecha_pago);
+            $facturas->map(function ($factura) {
+                $fC = Carbon::parse($factura->proyecto->fecha_cierre);
+                $fF = Carbon::parse($factura->fecha_factura);
+                $fP = Carbon::parse($factura->fecha_pago);
 
-            $factura->proyecto->cliente->antiguedad = $this->antiguedad($factura->proyecto->cliente->inicio_relacion);
-            $factura->mes_cierre = $fC->locale('es')->shortMonthName . '-' . $fC->format('y');
-            $factura->mes_facturacion = $fF->locale('es')->shortMonthName . '-' . $fF->format('y');
-            $factura->mes_pago = $fP->locale('es')->shortMonthName . '-' . $fP->format('y');
-        });
-
-        $cerrados = Cliente::whereHas('proyecto')->with('proyecto', function ($sql) {
-            return $sql->with('proyectoFacturas', function ($sql) {
-                return $sql->whereMonth('fecha_factura', '=', date('m'))->whereYear('fecha_factura', '=', date('Y'));
+                $factura->proyecto->cliente->antiguedad = $this->antiguedad($factura->proyecto->cliente->inicio_relacion);
+                $factura->mes_cierre = $fC->locale('es')->shortMonthName . '-' . $fC->format('y');
+                $factura->mes_facturacion = $fF->locale('es')->shortMonthName . '-' . $fF->format('y');
+                $factura->mes_pago = $fP->locale('es')->shortMonthName . '-' . $fP->format('y');
             });
-        })->get();
 
-        $cerrados->map(function ($cerrados) {
-            $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
+            $cerrados = Cliente::whereHas('proyecto')->with('proyecto', function ($sql) {
+                return $sql->with('proyectoFacturas', function ($sql) {
+                    return $sql->whereMonth('fecha_factura', '=', date('m'))->whereYear('fecha_factura', '=', date('Y'));
+                });
+            })->get();
 
-                $cerrados->sum_facturas = $proyectos->proyectoFacturas->sum('monto_venta');
+            $cerrados->map(function ($cerrados) {
+                $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
+
+                    $cerrados->sum_facturas = $proyectos->proyectoFacturas->sum('monto_venta');
+                });
             });
-        });
 
-        $totFact = $cerrados->sum('sum_facturas');
+            $totFact = $cerrados->sum('sum_facturas');
+        }
+
+        if ($tipo == 3 || $tipo == 4) {
+
+            $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+
+            $clientes->map(function ($clientes) {
+                $clientes->ciclo = $this->meses($clientes);
+            });
+
+            $groupCliente = $clientes->groupBy('activo');
+            $arrEstados = array(0 => 'Inactivos', 1 => 'Activos');
+            $arrGrupo = array('Activos' => 0, 'Inactivos' => 0);
+
+            foreach ($groupCliente as $key => $cliente) {
+                $arrGrupo[$arrEstados[$key]] = count($cliente);
+            }
+        }
 
         switch ($tipo) {
             case 1:
@@ -436,6 +452,27 @@ class ClienteController extends Controller
                 return Excel::download(new CerradosExport($data), $nombreArchivo);
 
                 break;
+            case 3:
+
+                $pdf = PDF::loadView('pages.cliente.clientes-general-pdf', compact('clientes', 'arrGrupo', 'tipo'))->setPaper('legal', 'landscape');
+                $nombreArchivo = 'clientes-general-' . $hoy->format('YmdHi') . '.pdf';
+
+                return $pdf->download($nombreArchivo);
+                break;
+            case 4:
+                $nombreArchivo = 'clientes-cerrados-' . $hoy->format('YmdHi') . '.xlsx';
+                $data = compact('clientes', 'arrGrupo', 'tipo');
+                return Excel::download(new ClientesGeneralExport($data), $nombreArchivo);
+                break;
         }
+    }
+
+    public function updateInicioRelacion(Request $request, Cliente $cliente) {
+
+        $cliente->inicio_relacion = $request->inicio_relacion;
+        $cliente->save();
+
+        return redirect()->route('cliente.vigencia')->with(['status' => 'Fecha de Inicio de Relación modificada satisfactoriamente', 'title' => 'Éxito']);
+
     }
 }

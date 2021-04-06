@@ -103,7 +103,7 @@
         </div>
         @endif
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <div class="col-8 text-right text-white">
+            <div class="col-9 text-right text-white">
                 &nbsp;
                 Hola, {{ auth()->user()->name }}
             </div>

@@ -22,7 +22,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Holding') }}</label>
                                     <select class="form-control @error('padre') is-invalid @enderror" id="padre" name="padre">
@@ -49,89 +49,8 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>{{ __('Rut (Sin puntos ni guión)') }}</label>
-                                    <input autocomplete="off" type="text" name="rut" id="usr_create_rut" maxlength="9" class="form-control @error('rut') is-invalid @enderror" value="{{ @old('rut') }}">
-                                    @if ($errors->has('rut'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('rut') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>{{ __('Cantidad Empleados') }}</label>
-                                    <input autocomplete="off" type="number" name="cantidad_empleados" class="form-control @error('cantidad_empleados') is-invalid @enderror bloquear" value="{{ @old('cantidad_empleados') }}">
-                                    @if ($errors->has('cantidad_empleados'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('cantidad_empleados') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>{{ __('Teléfono') }}</label>
-                                    <input autocomplete="off" type="number" name="telefono" class="form-control @error('telefono') is-invalid @enderror" value="{{ @old('telefono') }}">
-                                    @if ($errors->has('telefono'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('telefono') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>{{ __('Correo') }}</label>
-                                    <input autocomplete="off" type="email" name="email" class="form-control @error('email') is-invalid @enderror bloquear" value="{{ @old('email') }}">
-                                    @if ($errors->has('email'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>{{ __('Confirmación Correo') }}</label>
-                                    <input autocomplete="off" type="email" name="email_confirmation" class="form-control @error('email') is-invalid @enderror bloquear" value="{{ @old('email_confirmation') }}">
-                                    @if ($errors->has('email'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <label>{{ __('Dirección') }}</label>
-                                    <input autocomplete="off" type="text" name="direccion" class="form-control @error('direccion') is-invalid @enderror" value="{{ @old('direccion') }}">
-                                    @if ($errors->has('direccion'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('direccion') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>{{ __('Rubro') }}</label>
-                                    <input autocomplete="off" type="text" name="rubro" class="form-control @error('rubro') is-invalid @enderror" value="{{ @old('rubro') }}">
-                                    @if ($errors->has('rubro'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('rubro') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
                             @if (Auth::user()->rol_id == 2)
-                            
+
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>{{ __('Tipo Cliente') }} <span class="text-required">*</span></label>
@@ -147,19 +66,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>{{ __('Inicio Relación') }} <span class="text-required">*</span></label>
-                                    <input autocomplete="off" type="date" name="inicio_relacion" class="form-control @error('inicio_relacion') is-invalid @enderror inicio_relacion" value="{{ @old('inicio_relacion') }}" max="{{ date('Y-m-d', strtotime($hoy)) }}">
-                                    
-                                    @if ($errors->has('inicio_relacion'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('inicio_relacion') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Comercial') }} <span class="text-required">*</span></label>
                                     <select class="form-control @error('comercial') is-invalid @enderror" id="comercial" name="comercial" required>
@@ -175,6 +82,88 @@
                                 </div>
                             </div>
                             @endif
+
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Rut (Sin puntos ni guión)') }}</label>
+                                    <input autocomplete="off" type="text" name="rut" id="usr_create_rut" maxlength="9" class="form-control @error('rut') is-invalid @enderror" value="{{ @old('rut') }}">
+                                    @if ($errors->has('rut'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('rut') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Cantidad Empleados') }}</label>
+                                    <input autocomplete="off" type="number" name="cantidad_empleados" class="form-control @error('cantidad_empleados') is-invalid @enderror bloquear" value="{{ @old('cantidad_empleados') }}">
+                                    @if ($errors->has('cantidad_empleados'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('cantidad_empleados') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Rubro') }}</label>
+                                    <input autocomplete="off" type="text" name="rubro" class="form-control @error('rubro') is-invalid @enderror" value="{{ @old('rubro') }}">
+                                    @if ($errors->has('rubro'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('rubro') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Teléfono') }}</label>
+                                    <input autocomplete="off" type="number" name="telefono" class="form-control @error('telefono') is-invalid @enderror" value="{{ @old('telefono') }}">
+                                    @if ($errors->has('telefono'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('telefono') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Correo') }}</label>
+                                    <input autocomplete="off" type="email" name="email" class="form-control @error('email') is-invalid @enderror bloquear" value="{{ @old('email') }}">
+                                    @if ($errors->has('email'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Confirmación Correo') }}</label>
+                                    <input autocomplete="off" type="email" name="email_confirmation" class="form-control @error('email') is-invalid @enderror bloquear" value="{{ @old('email_confirmation') }}">
+                                    @if ($errors->has('email'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{ __('Dirección') }}</label>
+                                    <input autocomplete="off" type="text" name="direccion" class="form-control @error('direccion') is-invalid @enderror" value="{{ @old('direccion') }}">
+                                    @if ($errors->has('direccion'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('direccion') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                     <div class="card-footer">

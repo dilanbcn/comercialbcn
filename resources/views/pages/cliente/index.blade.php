@@ -9,15 +9,25 @@
             @include('layouts.page_templates.messages')
             <div class="card">
                 <div class="card-header">
-                    <div class="row align-items-center">
+                    <div class="row">
                         <div class="col-8">
                             <h5 class="card-title mb-1">Clientes General</h5>
                         </div>
-                        @if(auth()->user()->rol_id == 2)
                         <div class="col-4 text-right">
-                            <a href="{{ route('cliente.create') }}" class="btn btn-sm btn-secondary btn-round"><i class="fas fa-plus"></i> Agregar</a>
+                            <div class="btn-group mt-2">
+                                @if(auth()->user()->rol_id == 2)
+                                <a href="{{ route('cliente.create') }}" class="btn btn-sm btn-secondary btn-round mr-1"><i class="fas fa-plus"></i> Agregar</a>
+                                @endif
+
+                                <button type="button" class="btn btn-sm btn-secondary btn-round dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Exportar
+                                </button>
+                                <div class="dropdown-menu dropdown-navbar dropdown-menu-right">
+                                    <a class="dropdown-item" href="{{ route('cliente.reportes', [3]) }}"><i class="fas fa-file-pdf"></i> Pdf</a>
+                                    <a class="dropdown-item" href="{{ route('cliente.reportes', [4]) }}"><i class="fas fa-file-excel"></i> Excel</a>
+                                </div>
+                            </div>
                         </div>
-                        @endif
                     </div>
                 </div>
                 <div class="card-body">

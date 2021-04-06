@@ -31,8 +31,8 @@
                                 @foreach($clientes as $key => $cliente)
                                 <tr class="text-center">
                                     <td class="text-left">{{ $cliente->razon_social }}</td>
-                                    <td class="text-left">{{ $cliente->user->name }}</td>
-                                    <td class="text-left">{{ ($cliente->destino) ? $cliente->destino->name : '' }}</td>
+                                    <td class="text-left">{{ $cliente->user->name . ' ' . $cliente->user->last_name }}</td>
+                                    <td class="text-left">{{ ($cliente->destino) ? $cliente->destino->name . ' ' . $cliente->user->last_name : '' }}</td>
                                     @if(auth()->user()->rol_id == 2)
 
                                     <td>
