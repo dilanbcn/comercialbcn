@@ -26,7 +26,7 @@ class PasswordRequest extends FormRequest
     {
         return [
             'old_password' => ['required', new CurrentPasswordCheckRule],
-            'password' => ['required', 'min:8', 'confirmed', 'different:old_password'],
+            'password' => ['required', 'min:8', 'confirmed', 'different:old_password', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)([A-Za-z\d$@$!%*?&]|[^ ])$/'],
             'password_confirmation' => ['required', 'min:8'],
         ];
     }
@@ -38,6 +38,7 @@ class PasswordRequest extends FormRequest
             'min' => 'El campo :attribute debe tener al menos 8 caracteres.',
             'confirmed' => 'La contraseña nueva no coincide con su confirmación.',
             'different' => 'La nueva contraseña debe ser diferente a la contraseña anterior.',
+            'regex' => 'La nueva contraseña debe contener mayúsculas, minúsculas, al menos un dígito numérico y sin espacios en blanco.',
         ];
     }
 
