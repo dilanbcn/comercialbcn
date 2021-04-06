@@ -117,6 +117,7 @@
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-navbar dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#" id="cambioPass">{{ __('Cambiar Contraseña') }}</a>
                         <a class="dropdown-item" href="{{ route('logout') }}">{{ __('Cerrar Sesión') }}</a>
                     </div>
                 </li>

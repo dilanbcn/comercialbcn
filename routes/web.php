@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/home-prospector', 'App\Http\Controllers\HomeController@indexProspector')->name('home.prospector');
 	Route::get('/home-comercial', 'App\Http\Controllers\HomeController@indexComercial')->name('home.comercial');
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
+	Route::post('user-password', 'App\Http\Controllers\UserController@renew')->name('usuario.contrasena');
 	Route::get('grafico', 'App\Http\Controllers\UserController@grafico')->name('user.grafico');
 	
 	Route::get('comercial-indicadores', 'App\Http\Controllers\ComercialController@index')->name('comercial.indicadores');

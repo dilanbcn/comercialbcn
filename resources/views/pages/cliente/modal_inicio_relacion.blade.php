@@ -1,7 +1,7 @@
 <div class="modal fade" id="modal_inicio_relacion" tabindex="-1" role="dialog" aria-labelledby="inicioRelacionModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form class="form-prevent-multiple-submits" action="{{ route('cliente.inicio-relacion', [$cliente->id]) }}" id="frm_inicio_relacion" method="POST" enctype="multipart/form-data">
+            <form class="form-prevent-multiple-submits" action="" id="frm_inicio_relacion" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" class="inpt-ruta" name="inpt-ruta" value="{{ @old('inpt-ruta') }}">
                 <div class="modal-header">

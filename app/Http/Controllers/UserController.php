@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordRequest;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use App\Mail\NuevaClave;
 use App\Models\Rol;
 use Freshwork\ChileanBundle\Rut;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -249,20 +252,19 @@ class UserController extends Controller
      * @param  \App\Http\Requests\PasswordRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function renew(Request $request)
+    public function renew(PasswordRequest $request)
     {
-        // $pass = $request->get('password');
 
-        // $user = User::find(auth()->user()->id);
+        $user = User::find(auth()->user()->id);
 
-        // $user->password = Hash::make($pass);
-        // $user->save();
+        $user->password = Hash::make($request->get('password'));
+        $user->save();
 
-        // retry(5, function () use ($user, $pass) {
-        //     Mail::to($user->email)->send(new NuevaClave($user, $pass));
-        // }, 100);
+        retry(5, function () use ($user, $request) {
+            Mail::to($user->email)->send(new NuevaClave($user, $request->get('password')));
+        }, 100);
 
-        // return redirect()->route('user.change')->with(['title' => 'Exito', 'status' => 'Clave actualizada satisfactoriamente']);
+        return redirect()->route($request->get('inpt-ruta'))->with(['title' => 'Exito', 'status' => 'Clave actualizada satisfactoriamente']);
     }
 
     public function cambiar()

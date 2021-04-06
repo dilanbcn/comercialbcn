@@ -233,6 +233,7 @@ $(function() {
             }
         });
     });
+    showModalPassWithErrors();
 
     showModalWithErrors();
 
@@ -700,6 +701,12 @@ $(function() {
         $("#add_producto").modal('show');
     });
 
+    // USER
+    $("#cambioPass").on('click', function() {
+        $("#modal_cambio_pass").modal('show');
+    });
+
+
 
 });
 
@@ -728,6 +735,15 @@ function showMessage() {
         toastr[estilo](msg, titulo);
         $("#msg-data").val('');
     }
+}
+
+function showModalPassWithErrors() {
+    let error = $("#modal_cambio_pass").data('valorpass');
+    if (error == 1) {
+        $("#msg-modal").data('valor', 0);
+        $("#modal_cambio_pass").modal('show');
+    }
+
 }
 
 function showModalWithErrors() {

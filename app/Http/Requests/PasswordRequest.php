@@ -14,7 +14,7 @@ class PasswordRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check();
+        return true;
     }
 
     /**
@@ -25,9 +25,19 @@ class PasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'old_password' => ['required', 'min:6', new CurrentPasswordCheckRule],
-            'password' => ['required', 'min:6', 'confirmed', 'different:old_password'],
-            'password_confirmation' => ['required', 'min:6'],
+            'old_password' => ['required', new CurrentPasswordCheckRule],
+            'password' => ['required', 'min:8', 'confirmed', 'different:old_password'],
+            'password_confirmation' => ['required', 'min:8'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'El campo :attribute es requerido.',
+            'min' => 'El campo :attribute debe tener al menos 8 caracteres.',
+            'confirmed' => 'La contraseña nueva no coincide con su confirmación.',
+            'different' => 'La nueva contraseña debe ser diferente a la contraseña anterior.',
         ];
     }
 
@@ -39,7 +49,9 @@ class PasswordRequest extends FormRequest
     public function attributes()
     {
         return [
-            'old_password' => __('current password'),
+            'old_password' => 'Contraseña actual',
+            'password' => 'Contraseña',
+            'password_confirmation' => 'Confirmar Contraseña',
         ];
     }
 }

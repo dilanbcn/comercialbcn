@@ -30,7 +30,9 @@
                                 <th>Actividad</th>
                                 <th>Comercial</th>
                                 <th>Inicio Relación</th>
+                                @if (Auth::user()->rol_id == 2)
                                 <th>Acciones</th>
+                                @endif
                             </thead>
                             <tbody>
                                 @foreach($clientes as $key => $cliente)
@@ -41,11 +43,13 @@
                                     <td><span class="badge p-2 badge-{{ ($cliente->activo) ? 'info' : 'danger' }}">{{ ($cliente->activo) ? 'Activo' : 'Inactivo' }}</span></td>
                                     <td class="text-left">{{ $cliente->user->name . '' . $cliente->user->last_name }}</td>
                                     <td>{{ ($cliente->inicio_relacion) ? date('d/m/Y', strtotime($cliente->inicio_relacion)) : '' }}</td>
+                                    @if (Auth::user()->rol_id == 2)
                                     <td>
                                     <div class="btn-group" role="group" aria-label="Grupo Acciones">
                                             <a href="#" title="Editar Inicio Relacion" class="btn btn-xs btn-outline-secondary btnInicio" data-ruta="{{ route('cliente.inicio-relacion', $cliente->id) }}" data-fecha="{{ ($cliente->inicio_relacion) ? date('Y-m-d', strtotime($cliente->inicio_relacion)) : '' }}"><i class="far fa-calendar-alt"></i></a>
                                         </div>
                                     </td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>
