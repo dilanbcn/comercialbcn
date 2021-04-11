@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             TipoClienteTableSeeder::class,
             EstadoFacturasTableSeeder::class,
-            ClienteTableSeeder::class,
-            ProyectosTableSeeder::class,
-            ProyectoFacturasTableSeeder::class,
+            // ClienteTableSeeder::class,
+            // ProyectosTableSeeder::class,
+            // ProyectoFacturasTableSeeder::class,
             TipoComunicacionTableSeeder::class
         ]);
     }

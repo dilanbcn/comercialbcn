@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
     {
         User::flushEventListeners();
 
-        $archivo = File::get(storage_path('seeders/usuarios.json'));
+        $archivo = File::get(storage_path('seeders/comerciales.json'));
         $usuarios = json_decode($archivo, true); 
 
         foreach ($usuarios  as $usuario) {
