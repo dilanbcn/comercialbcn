@@ -15,8 +15,7 @@
                             <h5 class="card-title mb-1">Cerrados</h5>
                         </div>
                         <div class="col-md-4 text-center">
-                        <h4 class="card-title mb-1">{{ 'Total '. number_format($totFact, 0, ',', '.') }}
-                            </h4>
+                        <h4 class="card-title mb-1" id="total"></h4>
                         </div>
                         <div class="col-4 text-right">
                         <div class="dropdown">
@@ -34,12 +33,11 @@
                 </div>
                 <div class="card-body">
                     <div class="table">
-                        <table class="table table-striped tablaComercialesIndex">
+                        <table class="table table-striped" id="tablaCerrados" data-ruta="{{ route('cliente.cerrados.json') }}">
                             <thead class="text-primary text-center">
                                 <th>Status</th>
                                 <th>Mes Cierre</th>
                                 <th>Mes Facturación</th>
-                                <th>Mes Pago</th>
                                 <th>Cliente</th>
                                 <th>Venta</th>
                                 <th>Inscripción SENCE</th>
@@ -48,20 +46,7 @@
                                 <th>Proyecto</th>
                             </thead>
                             <tbody>
-                                @foreach($facturas as $key => $factura)
-                                <tr class="text-center">
-                                    <td>{{ $factura->proyecto->cliente->antiguedad }}</td>
-                                    <td>{{ $factura->mes_cierre }}</td>
-                                    <td>{{ $factura->mes_facturacion }}</td>
-                                    <td>{{ $factura->mes_pago }}</td>
-                                    <td class="text-left">{{ $factura->proyecto->cliente->razon_social }}</td>
-                                    <td class="text-right">{{ number_format($factura->monto_venta, 0, ',', '.') }}</td>
-                                    <td class="text-left">{{ $factura->inscripcion_sence }}</td>
-                                    <td class="text-left">{{ $factura->estadoFactura->nombre }}</td>
-                                    <td class="text-left">{{ $factura->proyecto->cliente->user->name . ' ' . $factura->proyecto->cliente->user->last_name }}</td>
-                                    <td class="text-left">{{ $factura->proyecto->nombre }}</td>
-                                </tr>
-                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
@@ -72,3 +57,6 @@
 </div>
 @include('layouts.page_templates.form_delete')
 @endsection
+@push('scripts')
+<script src="{{ asset('paper/js/cerrados.js') }}"></script>
+@endpush

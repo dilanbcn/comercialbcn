@@ -14,7 +14,7 @@
                             <h5 class="card-title mb-1">Vigencia Clientes</h5>
                         </div>
                         @foreach($arrGrupo as $key => $estado)
-                        <div class="col-2 text-center font-weight-bold text-white p-2 {{ $key == 'Activos' ? 'bg-info' : 'bg-danger' }}">
+                        <div class="col-2 text-center font-weight-bold text-white p-2 {{ $key == 'Activos' ? 'bg-activos' : 'bg-inactivos' }}">
                             <span>{{ $key . ': ' . $estado}}</span>
                         </div>
                         @endforeach
@@ -40,7 +40,7 @@
                                     <td class="text-left">{{ $cliente->razon_social }}</td>
                                     <td>{{ $cliente->vigenciaMeses }}</td>
                                     <td>{{ $cliente->antiguedad }}</td>
-                                    <td><span class="badge p-2 badge-{{ ($cliente->activo) ? 'info' : 'danger' }}">{{ ($cliente->activo) ? 'Activo' : 'Inactivo' }}</span></td>
+                                    <td><span class="badge p-2 badge-{{ ($cliente->activo) ? 'activos' : 'inactivos' }}">{{ ($cliente->activo) ? 'Activos' : 'Inactivo' }}</span></td>
                                     <td class="text-left">{{ $cliente->user->name . '' . $cliente->user->last_name }}</td>
                                     <td>{{ ($cliente->inicio_relacion) ? date('d/m/Y', strtotime($cliente->inicio_relacion)) : '' }}</td>
                                     @if (Auth::user()->rol_id == 2)

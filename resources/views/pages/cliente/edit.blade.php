@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-md-4 text-right">
                                 <button type="submit" class="btn btn-sm btn-secondary btn-round button-prevent-submit"><i class="spinner fa fa-spinner fa-spin"></i>{{ __('Modificar') }}</button>
-                                <a role="button" href="{{ route('cliente.index') }}" class="btn btn-sm btn-danger btn-round">{{ __('Regresar') }}</a>
+                                <a role="button" href="{{ url()->previous() }}" class="btn btn-sm btn-danger btn-round">{{ __('Regresar') }}</a>
                             </div>
                         </div>
                     </div>

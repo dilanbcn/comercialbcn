@@ -126,7 +126,6 @@
                             <th>Status</th>
                             <th>Mes Cierre</th>
                             <th>Mes Facturación</th>
-                            <th>Mes Pago</th>
                             <th>Cliente</th>
                             <th>Venta</th>
                             <th>Inscripción SENCE</th>
@@ -140,7 +139,6 @@
                                 <td class="text-center">{{ $factura->proyecto->cliente->antiguedad }}</td>
                                 <td class="text-center">{{ $factura->mes_cierre }}</td>
                                 <td class="text-center">{{ $factura->mes_facturacion }}</td>
-                                <td class="text-center">{{ $factura->mes_pago }}</td>
                                 <td class="text-left">{{ $factura->proyecto->cliente->razon_social }}</td>
                                 <td class="text-right">{{ number_format($factura->monto_venta, 0, ',', '.') }}</td>
                                 <td class="text-center">{{ $factura->inscripcion_sence }}</td>
@@ -165,7 +163,6 @@
                         <th class="border-right" style="font-weight: bold; text-align:center;" bgcolor="#dee2e6" width="15" height="20">Tipo</th>
                         <th class="border-right" style="font-weight: bold; text-align:center;" bgcolor="#dee2e6" width="15" height="20">Mes Cierre</th>
                         <th class="border-right" style="font-weight: bold; text-align:center;" bgcolor="#dee2e6" width="15" height="20">Mes Facturación</th>
-                        <th class="border-right" style="font-weight: bold; text-align:center;" bgcolor="#dee2e6" width="15" height="20">Mes Pago</th>
                         <th class="border-right" style="font-weight: bold; text-align:center;" bgcolor="#dee2e6" width="30" height="20">Cliente</th>
                         <th class="border-right" style="font-weight: bold; text-align:center;" bgcolor="#dee2e6" width="20" height="20">Venta</th>
                         <th class="border-right" style="font-weight: bold; text-align:center;" bgcolor="#dee2e6" width="26" height="20">Inscripción SENCE</th>
@@ -178,7 +175,6 @@
                         <td class="border-right" style="text-align:center; vertical-align:middle;">{{ $factura->proyecto->cliente->antiguedad }}</td>
                         <td class="border-right" style="text-align:center; vertical-align:middle;">{{ $factura->mes_cierre }}</td>
                         <td class="border-right" style="text-align:center; vertical-align:middle;">{{ $factura->mes_facturacion }}</td>
-                        <td class="border-right" style="text-align:center; vertical-align:middle;">{{ $factura->mes_pago }}</td>
                         <td class="border-right" style="text-align:left; vertical-align:middle;">{{ $factura->proyecto->cliente->razon_social }}</td>
                         <td class="border-right" style="text-align:right; vertical-align:middle;">{{ number_format($factura->monto_venta, 0, ',', '.') }}</td>
                         <td class="border-right" style="text-align:center; vertical-align:middle;">{{ $factura->inscripcion_sence }}</td>

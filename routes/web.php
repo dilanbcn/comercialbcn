@@ -42,8 +42,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('cliente', 'App\Http\Controllers\ClienteController');
 	Route::get('cliente-comercial/{comercial_id?}', 'App\Http\Controllers\ClienteController@index')->name('cliente.comercial');
 	Route::get('clientes-disponibles', 'App\Http\Controllers\ClienteController@prospectos')->name('cliente.prospectos');
+	Route::get('clientes-disponibles-json', 'App\Http\Controllers\ClienteController@prospectosJSON')->name('cliente.prospectos.json');
 	Route::get('clientes-vigencia', 'App\Http\Controllers\ClienteController@vigencia')->name('cliente.vigencia');
 	Route::get('clientes-cerrados', 'App\Http\Controllers\ClienteController@cerrados')->name('cliente.cerrados');
+	Route::get('clientes-cerrados-json', 'App\Http\Controllers\ClienteController@cerradosJSON')->name('cliente.cerrados.json');
 	Route::get('clientes-all', 'App\Http\Controllers\ClienteController@allClientes')->name('cliente.all');
 	Route::post('clientes-discard/{cliente}', 'App\Http\Controllers\ClienteController@discard')->name('cliente.discard');
 	Route::post('clientes-inicio-relacion/{cliente}', 'App\Http\Controllers\ClienteController@updateInicioRelacion')->name('cliente.inicio-relacion');

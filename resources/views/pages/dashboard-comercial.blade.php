@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-2 col-md-2">
                             <div class="icon-big text-center icon-warning">
-                                <i class="fas fa-user-clock" style="color:gray"></i>
+                                <img src="{{ asset('paper/img/prosp_disp.svg') }}">
                             </div>
                         </div>
                         <div class="col-10 col-md-10">
@@ -29,14 +29,14 @@
             <div class="card card-stats" style="height:100px; background-color: #D2E9FF;">
                 <div class="card-body ">
                     <div class="row">
-                        <div class="col-5 col-md-4">
+                        <div class="col-3 col-md-3">
                             <div class="icon-big text-center icon-warning">
-                                <i class="far fa-handshake" style="color:blue"></i>
+                                <img src="{{ asset('paper/img/cerrados.png') }}">
                             </div>
                         </div>
-                        <div class="col-7 col-md-8">
+                        <div class="col-9 col-md-9">
                             <div class="numbers">
-                                <p class="card-category">{{ 'Cerrados '.date('m') . '-' . date('y')  }}</p>
+                                <p class="card-category">{{ 'Cerrados en '. date('Y')  }}</p>
                                 <p class="card-title">{{ number_format($totFact, 0, ',', '.') }}
                                 <p>
                             </div>

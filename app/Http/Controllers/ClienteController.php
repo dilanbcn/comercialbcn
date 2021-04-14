@@ -31,7 +31,7 @@ class ClienteController extends Controller
         $user = auth()->user();
         $comercial = ($comercial) ? User::find($comercial) : null;
 
-        $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+        $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->orderBy('razon_social')->get();
 
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->meses($clientes);
@@ -83,18 +83,33 @@ class ClienteController extends Controller
     public function prospectos()
     {
         $hoy = Carbon::now();
-        $limite = $hoy->subMonths(8);
         $user = auth()->user();
-
-        // if ($user->rol_id == 1) {
-        //     $clientes = Cliente::where(['tipo_cliente_id' => 1, 'user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->get();
-        // } else {
-        $clientes = Cliente::where(['tipo_cliente_id' => 1])->with(['tipoCliente', 'padre', 'user', 'destino'])->get();
-        // }
 
         $user->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Prospectos Disponibles', 'ruta' => null]]);
 
-        return view('pages.cliente.prospecto', compact('clientes'));
+        return view('pages.cliente.prospecto');
+    }
+
+    public function prospectosJSON()
+    {
+
+        $prospectos = Cliente::where(['tipo_cliente_id' => 1])->whereNull('destino_user_id')->with(['tipoCliente', 'padre', 'user', 'destino'])->get();
+
+        $arrProspectos = array();
+        foreach ($prospectos as $prospecto) {
+            $arrProspectos[] = array(
+                $prospecto->razon_social,
+                $prospecto->user->name . ' ' . $prospecto->user->last_name,
+                ($prospecto->destino) ? $prospecto->destino->name . ' ' . $prospecto->destino->last_name : '',
+                $prospecto->id,
+            );
+        }
+
+
+        $response = array('draw' => 1, 'recordsTotal' => count($arrProspectos), 'recordsFiltered' => count($arrProspectos), 'data' => $arrProspectos);
+
+
+        return response()->json($response, 200);
     }
 
     public function vigencia()
@@ -133,7 +148,7 @@ class ClienteController extends Controller
             return $sql->with(['cliente' => function ($sql) {
                 return $sql->with(['user']);
             }]);
-        }, 'estadoFactura'])->get();
+        }, 'estadoFactura'])->orderByDesc('fecha_factura')->get();
 
         $facturas->map(function ($factura) {
             $fC = Carbon::parse($factura->proyecto->fecha_cierre);
@@ -148,14 +163,13 @@ class ClienteController extends Controller
 
         $cerrados = Cliente::whereHas('proyecto')->with('proyecto', function ($sql) {
             return $sql->with('proyectoFacturas', function ($sql) {
-                return $sql->whereMonth('fecha_factura', '=', date('m'))->whereYear('fecha_factura', '=', date('Y'));
+                return $sql->whereYear('fecha_factura', '=', date('Y'));
             });
         })->get();
 
         $cerrados->map(function ($cerrados) {
             $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
-
-                $cerrados->sum_facturas = $proyectos->proyectoFacturas->sum('monto_venta');
+                $cerrados->sum_facturas += $proyectos->proyectoFacturas->sum('monto_venta');
             });
         });
 
@@ -164,10 +178,46 @@ class ClienteController extends Controller
         $user->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Cerrados', 'ruta' => null]]);
 
         return view('pages.cliente.cerrados', compact('facturas', 'totFact'));
-        // } else {
-        //     return redirect()->route('cliente.index')->with(['status' => 'No tiene acceso a esa vista', 'title' => 'Error', 'estilo' => 'error']);
-        // }
+    }
 
+    public function cerradosJSON()
+    {
+
+        $facturas = ProyectoFactura::with(['proyecto' => function ($sql) {
+            return $sql->with(['cliente' => function ($sql) {
+                return $sql->with(['user']);
+            }]);
+        }, 'estadoFactura'])->orderByDesc('fecha_factura')->get();
+
+        $facturas->map(function ($factura) {
+            $fC = Carbon::parse($factura->proyecto->fecha_cierre);
+            $fF = Carbon::parse($factura->fecha_factura);
+            $fP = Carbon::parse($factura->fecha_pago);
+
+            $factura->proyecto->cliente->antiguedad = $this->antiguedad($factura->proyecto->cliente->inicio_relacion);
+            $factura->mes_cierre = $fC->locale('es')->shortMonthName . '-' . $fC->format('y');
+            $factura->mes_facturacion = $fF->locale('es')->shortMonthName . '-' . $fF->format('y');
+            $factura->mes_pago = $fP->locale('es')->shortMonthName . '-' . $fP->format('y');
+        });
+
+        $arrCerrados = array();
+        foreach ($facturas as $cerrado) {
+            $arrCerrados[] = array(
+                $cerrado->proyecto->cliente->antiguedad,
+                $cerrado->mes_cierre,
+                $cerrado->mes_facturacion,
+                $cerrado->proyecto->cliente->razon_social,
+                $cerrado->monto_venta,
+                $cerrado->inscripcion_sence,
+                $cerrado->estadoFactura->nombre,
+                $cerrado->proyecto->cliente->user->name . ' ' . $cerrado->proyecto->cliente->user->last_name,
+                $cerrado->proyecto->nombre,
+            );
+        }
+
+        $response = array('draw' => 1, 'recordsTotal' => count($arrCerrados), 'recordsFiltered' => count($arrCerrados), 'data' => $arrCerrados);
+
+        return response()->json($response, 200);
     }
 
     /**
@@ -362,11 +412,20 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy(Cliente $cliente, Request $request)
     {
+
         $cliente->delete();
 
-        return redirect()->route('cliente.index')->with(['title' => 'Éxito', 'status' => 'Cliente eliminado satisfactoriamente']);
+        if ($request->rutaDestino) {
+            $datos = array('success' => 'ok', 'msg' => 'Cliente eliminado satisfactoriamente', 'title' => 'Éxito');
+
+            return response()->json($datos, 200);
+
+        } else {
+            return redirect()->route('cliente.index')->with(['title' => 'Éxito', 'status' => 'Cliente eliminado satisfactoriamente']);
+        }
+
     }
 
     public function discard(Cliente $cliente)
@@ -391,7 +450,7 @@ class ClienteController extends Controller
                 return $sql->with(['cliente' => function ($sql) {
                     return $sql->with(['user']);
                 }]);
-            }, 'estadoFactura'])->get();
+            }, 'estadoFactura'])->orderBy('fecha_factura')->get();
 
             $facturas->map(function ($factura) {
                 $fC = Carbon::parse($factura->proyecto->fecha_cierre);
@@ -406,14 +465,14 @@ class ClienteController extends Controller
 
             $cerrados = Cliente::whereHas('proyecto')->with('proyecto', function ($sql) {
                 return $sql->with('proyectoFacturas', function ($sql) {
-                    return $sql->whereMonth('fecha_factura', '=', date('m'))->whereYear('fecha_factura', '=', date('Y'));
+                    return $sql->whereYear('fecha_factura', '=', date('Y'));
                 });
             })->get();
 
             $cerrados->map(function ($cerrados) {
                 $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
 
-                    $cerrados->sum_facturas = $proyectos->proyectoFacturas->sum('monto_venta');
+                    $cerrados->sum_facturas += $proyectos->proyectoFacturas->sum('monto_venta');
                 });
             });
 
@@ -467,12 +526,12 @@ class ClienteController extends Controller
         }
     }
 
-    public function updateInicioRelacion(Request $request, Cliente $cliente) {
+    public function updateInicioRelacion(Request $request, Cliente $cliente)
+    {
 
         $cliente->inicio_relacion = $request->inicio_relacion;
         $cliente->save();
 
         return redirect()->route('cliente.vigencia')->with(['status' => 'Fecha de Inicio de Relación modificada satisfactoriamente', 'title' => 'Éxito']);
-
     }
 }

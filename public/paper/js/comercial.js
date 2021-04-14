@@ -76,10 +76,8 @@ $(function() {
         ]
     });
 
-    // $('#tableCliente').on('load', function() {
-    //     // table.columns(2).search( this.value ).draw();
-    //     alert("acaa");
-    // });
+
+
 
     $('.tablaIndicadores').DataTable({
         language: {
@@ -302,7 +300,7 @@ $(function() {
                 labels: ["Activos", "Inactivos"],
                 datasets: [{
                     data: [element.dataset.act, element.dataset.inact],
-                    backgroundColor: ["#00FF7F", "#0000FF"],
+                    backgroundColor: ["#38D430", "#001B65"],
                     hoverBackgroundColor: ["#FF5A5E", "#FF5A5E"]
                 }]
             },

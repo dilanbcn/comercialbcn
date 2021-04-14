@@ -64,12 +64,13 @@ The above copyright notice and this permission notice shall be included in all c
 
     @auth()
     @include('layouts.page_templates.auth')
+    @include('layouts.page_templates.modal_cambio_pass')
     @endauth
 
     @guest
     @include('layouts.page_templates.guest')
     @endguest
-    @include('layouts.page_templates.modal_cambio_pass')
+    
 
     <!--   Core JS Files   -->
     <script src="{{ asset('paper/js/core/jquery.min.js') }}"></script>

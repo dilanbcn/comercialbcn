@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar navbar-dark bg-success">
+<nav class="navbar navbar-expand-lg navbar navbar-dark" style="background-color: #001B65;">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar bar1"></span>
@@ -8,7 +8,7 @@
         @if(auth()->user()->rol_id == 1 || auth()->user()->rol_id == 2)
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <a href="{{ route('home.comercial') }}">
-                <img src="{{ asset('paper/img/logo_bcn_horizon.png') }}" height="50" class="d-inline-block align-top" alt="">
+                <img src="{{ asset('paper/img/logo_bcn_horizon_blue.png') }}" height="50" class="d-inline-block align-top" alt="">
             </a>
             <ul class="navbar-nav mr-auto ml-5">
             <li class="nav-item {{ $elementActive == 'dashboard' ? 'active' : '' }}">
@@ -60,7 +60,7 @@
         @if(auth()->user()->rol_id == 4 || auth()->user()->rol_id == 5 )
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <a href="{{ route('home.prospector') }}">
-                <img src="{{ asset('paper/img/logo_bcn_horizon.png') }}" height="50" class="d-inline-block align-top" alt="">
+                <img src="{{ asset('paper/img/logo_bcn_horizon_blue.png') }}" height="50" class="d-inline-block align-top" alt="">
             </a>
             <ul class="navbar-nav mr-auto ml-5">
 
@@ -111,7 +111,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item btn-rotate dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="far fa-user"></i>
+                    <img src="{{ asset('paper/img/user.png') }}" width="30">
                         <p>
                             <span class="d-lg-none d-md-block">{{ __('Perfil') }}</span>
                         </p>

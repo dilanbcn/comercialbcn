@@ -156,8 +156,8 @@ thead input {
 }
 
 .menu-activo {
-    background-color: #66615B;
-    color: white !important;
+    background-color: #38D430;
+    color: #001B65 !important;
 }
 
 .dropdown-navbar .dropdown-item:first-child {
@@ -176,7 +176,7 @@ thead input {
 
 .dropdown-navbar .dropdown-item:hover,
 .dropdown-navbar .dropdown-item:focus {
-    background-color: #66615B;
+    background-color: #001B65;
 }
 
 .dropdown-navbar .dropdown-item {
@@ -196,4 +196,36 @@ thead input {
 .card-scroll {
     max-height: 900px;
     overflow-y: auto;
+}
+
+.badge-cliente {
+    color: #fff;
+    background-color: #38D430;
+    width: 80px;
+}
+
+.badge-prospecto {
+    color: #fff;
+    background-color: #001B65;
+    width: 80px;
+}
+
+.bg-activos {
+    background-color: #23B9D0!important
+}
+
+.bg-inactivos {
+    background-color: #A7A8A9!important
+}
+
+.badge-activos {
+    color: #fff;
+    background-color: #23B9D0;
+    width: 80px;
+}
+
+.badge-inactivos {
+    color: #fff;
+    background-color: #A7A8A9;
+    width: 80px;
 }

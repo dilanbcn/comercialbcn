@@ -108,14 +108,14 @@ class HomeController extends Controller
 
         $cerrados = Cliente::whereHas('proyecto')->with('proyecto', function ($sql) {
             return $sql->with('proyectoFacturas', function($sql){
-                return $sql->whereMonth('fecha_factura', '=', date('m'))->whereYear('fecha_factura', '=', date('Y'));
+                return $sql->whereYear('fecha_factura', '=', date('Y'));
             });
         })->get();
 
         $cerrados->map(function ($cerrados) {
             $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
 
-                $cerrados->sum_facturas = $proyectos->proyectoFacturas->sum('monto_venta');
+                $cerrados->sum_facturas += $proyectos->proyectoFacturas->sum('monto_venta');
             });
         });
 
