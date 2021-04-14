@@ -330,13 +330,13 @@ $(function() {
         $("#add_contacto_cliente").modal('show');
     });
 
-    $(".btnInicio").on('click', function() {
-        let rutaUpdate = $(this).data('ruta');
-        let fechaInicio = $(this).data('fecha');
-        $('#frm_inicio_relacion').attr('action', rutaUpdate);
-        $('#inp_inicio_relacion').val(fechaInicio);
-        $("#modal_inicio_relacion").modal('show');
-    });
+    // $(".btnInicio").on('click', function() {
+    //     let rutaUpdate = $(this).data('ruta');
+    //     let fechaInicio = $(this).data('fecha');
+    //     $('#frm_inicio_relacion').attr('action', rutaUpdate);
+    //     $('#inp_inicio_relacion').val(fechaInicio);
+    //     $("#modal_inicio_relacion").modal('show');
+    // });
 
 
     $(".btnContactoEdit").on('click', function() {

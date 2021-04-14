@@ -5,7 +5,7 @@
                 @csrf
                 <input type="hidden" class="inpt-ruta" name="inpt-ruta" value="{{ @old('inpt-ruta') }}">
                 <div class="modal-header">
-                    <h5 class="card-title mb-1" style="color: #35D32F;">Editar Inicio Relación</h5>
+                    <h5 class="card-title mb-1" style="color: #35D32F;" id="titleModalInicio">Editar Inicio Relación</h5>
                 </div>
                 <div class="modal-body">
                     <div class="card">

@@ -139,11 +139,44 @@ class ClienteController extends Controller
         return view('pages.cliente.vigencia', compact('clientes', 'arrGrupo'));
     }
 
+    public function vigenciaJSON()
+    {
+        $user = auth()->user();
+
+        if ($user->rol_id == 1) {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->get();
+        } else {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'padre', 'user'])->get();
+        }
+       
+        $clientes->map(function ($clientes) {
+            $clientes->antiguedad = $this->antiguedad($clientes->inicio_relacion);
+            $clientes->vigenciaMeses = $this->antiguedad($clientes->inicio_relacion, 'meses');
+        });
+
+        $arrVigencia = array();
+        foreach ($clientes as $cliente) {
+            $arrVigencia[] = array(
+                $cliente->razon_social,
+                $cliente->vigenciaMeses,
+                $cliente->antiguedad,
+                ($cliente->activo) ? 'Activos' : 'Inactivo',
+                $cliente->user->name . '' . $cliente->user->last_name,
+                ($cliente->inicio_relacion) ? date('d/m/Y', strtotime($cliente->inicio_relacion)) : '',
+                $cliente->id,
+            );
+        }
+
+        $response = array('draw' => 1, 'recordsTotal' => count($arrVigencia), 'recordsFiltered' => count($arrVigencia), 'data' => $arrVigencia);
+
+        return response()->json($response, 200);
+    }
+
+
     public function cerrados()
     {
         $user = auth()->user();
 
-        // if ($user->rol_id == 2) {
         $facturas = ProyectoFactura::with(['proyecto' => function ($sql) {
             return $sql->with(['cliente' => function ($sql) {
                 return $sql->with(['user']);
@@ -364,12 +397,6 @@ class ClienteController extends Controller
                 'razon_social' => 'Imposible modificar un cliente de otro comercial',
             ]);
         }
-
-        // if ($user->rol_id == 2) {
-        //     $rules = ['comercial' => 'required|exists:users,id', 'tipo_cliente' => 'required|exists:tipo_clientes,id'];
-        //     $customMessages = ['required' => 'El campo :attribute es requerido.', 'exists' => 'El campo :attribute es inválido.'];
-        //     $this->validate($request, $rules, $customMessages);
-        // }
 
         if ($request->get('tipo_cliente') == '2') {
             $rules = ['inicio_relacion' => 'required|date|before_or_equal:today'];
