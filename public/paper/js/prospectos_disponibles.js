@@ -40,7 +40,7 @@ $(function() {
                 let rutaDel = $("#tableProspectos").data('rutadel');
                 let rutaEdit = $("#tableProspectos").data('rutaedit');
                 let celda = '<div class="btn-group" role="group" aria-label="Grupo Acciones"><a href="' + rutaEdit.replace("@@", row[3]) + '" title="Editar" class="btn btn-xs btn-outline-secondary"><i class="fa fa-edit"></i></a>'
-                celda += '<button id="' + row[3] + '" title="Eliminar Cliente" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="0" data-ruta="' + rutaDel.replace("@@", row[3]) + '"><i class="fa fa-times"></i></button></div>';
+                celda += '<button title="Eliminar Cliente" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="0" data-ruta="' + rutaDel.replace("@@", row[3]) + '"><i class="fa fa-times"></i></button></div>';
 
                 return celda;
 

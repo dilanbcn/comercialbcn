@@ -53,7 +53,12 @@ class ClienteController extends Controller
 
     public function allClientes()
     {
-        $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+        $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->orderBy('razon_social')->get();
+
+        $clientes->map(function ($clientes) {
+            $clientes->ciclo = $this->meses($clientes);
+        });
+
         $arrClientes = array();
         foreach ($clientes as $cliente) {
             $arrClientes[] = array(
@@ -65,9 +70,17 @@ class ClienteController extends Controller
                 ($cliente->tipo_cliente_id == 1) ? $cliente->ciclo : '',
                 ($cliente->activo) ? 'Activo' : 'Inactivo',
                 $cliente->proyecto_count,
-                ''
+                $cliente->destino_user_id,
+                $cliente->id,
             );
         }
+
+        // <td>{{ ($cliente->padre != null) ? $cliente->padre->razon_social : '' }}</td>
+        //                             <td class="text-left">{{ $cliente->razon_social }}</td>
+        //                             <td class="text-left">{{ $cliente->user->name . ' ' . $cliente->user->last_name }}</td>
+        //                             <td><span class="badge p-2 {{ $cliente->tipoCliente->badge }}">{{ $cliente->tipoCliente->nombre }}</span></td>
+        //                             <td>{{ ($cliente->tipo_cliente_id == 1) ? date('d/m/Y', strtotime($cliente->inicio_ciclo)) : '' }}</td>
+        //                             <td>{{ ($cliente->tipo_cliente_id == 1) ? $cliente->ciclo : '' }}</td>
 
         $response = array('draw' => 1, 'recordsTotal' => count($arrClientes), 'recordsFiltered' => count($arrClientes), 'data' => $arrClientes);
 
@@ -148,7 +161,7 @@ class ClienteController extends Controller
         } else {
             $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'padre', 'user'])->get();
         }
-       
+
         $clientes->map(function ($clientes) {
             $clientes->antiguedad = $this->antiguedad($clientes->inicio_relacion);
             $clientes->vigenciaMeses = $this->antiguedad($clientes->inicio_relacion, 'meses');
@@ -448,23 +461,29 @@ class ClienteController extends Controller
             $datos = array('success' => 'ok', 'msg' => 'Cliente eliminado satisfactoriamente', 'title' => 'Éxito');
 
             return response()->json($datos, 200);
-
         } else {
             return redirect()->route('cliente.index')->with(['title' => 'Éxito', 'status' => 'Cliente eliminado satisfactoriamente']);
         }
-
     }
 
-    public function discard(Cliente $cliente)
+    public function discard(Cliente $cliente, Request $request)
     {
 
         $cliente->tipo_cliente_id = 1;
         $cliente->user_id = $cliente->destino_user_id;
         $cliente->destino_user_id = null;
         $cliente->inicio_ciclo = Carbon::now();
-        $cliente->save();
+        // $cliente->save();
 
-        return redirect()->route('cliente.index')->with(['title' => 'Éxito', 'status' => 'Cliente desechado satisfactoriamente']);
+        if ($request->rutaDestino) {
+
+            $datos = array('success' => 'ok', 'msg' => 'Cliente desechado satisfactoriamente', 'title' => 'Éxito');
+
+            return response()->json($datos, 200);
+        } else {
+
+            return redirect()->route('cliente.index')->with(['title' => 'Éxito', 'status' => 'Cliente desechado satisfactoriamente']);
+        }
     }
 
     public function reportes(Request $request, $tipo)

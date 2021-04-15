@@ -15,10 +15,10 @@
                             <h5 class="card-title mb-1">Cerrados</h5>
                         </div>
                         <div class="col-md-4 text-center">
-                        <h4 class="card-title mb-1" id="total"></h4>
+                        <h4 class="card-title mb-1" id="customTotal"></h4>
                         </div>
                         <div class="col-4 text-right">
-                        <div class="dropdown">
+                        <!-- <div class="dropdown">
                                 <button class="btn btn-sm btn-secondary btn-round dropdown-toggle" type="button" id="dropdownMenuExport" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Exportar
                                 </button>
@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                 
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="card-body">

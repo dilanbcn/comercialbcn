@@ -15,24 +15,24 @@
                         </div>
                         <div class="col-4 text-right">
                             <div class="btn-group mt-2">
-                                @if(auth()->user()->rol_id == 2)
+                                <!-- @if(auth()->user()->rol_id == 2)
                                 <a href="{{ route('cliente.create') }}" class="btn btn-sm btn-secondary btn-round mr-1"><i class="fas fa-plus"></i> Agregar</a>
-                                @endif
+                                @endif -->
 
-                                <button type="button" class="btn btn-sm btn-secondary btn-round dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <!-- <button type="button" class="btn btn-sm btn-secondary btn-round dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Exportar
                                 </button>
                                 <div class="dropdown-menu dropdown-navbar dropdown-menu-right">
                                     <a class="dropdown-item" href="{{ route('cliente.reportes', [3]) }}"><i class="fas fa-file-pdf"></i> Pdf</a>
                                     <a class="dropdown-item" href="{{ route('cliente.reportes', [4]) }}"><i class="fas fa-file-excel"></i> Excel</a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table">
-                        <table class="table table-striped tablaComercialesIndex" id="tableCliente" data-comercial="{{ ($comercial) ? $comercial->name . ' ' . $comercial->last_name  : '' }}">
+                        <table class="table table-striped" id="tablaClientes" data-rutaeliminar="{{ route('cliente.destroy', '@@') }}" data-rutadesechar="{{ route('cliente.discard', '@@') }}" data-rutaeditar="{{ route('cliente.edit', '@@') }}" data-rutacontacto="{{ route('cliente-contacto.index', '@@') }}" data-rutaproyecto="{{ route('proyecto.cliente-proyecto', '@@') }}" data-rol="{{ (auth()->user()->rol_id == 2) ? true : false }}" data-user="{{ auth()->user()->id }}">
                             <thead class="text-primary text-center">
                                 <th>Holding</th>
                                 <th>Cliente</th>
@@ -43,31 +43,7 @@
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
-                                @foreach($clientes as $key => $cliente)
-                                <tr class="text-center">
-                                    <td>{{ ($cliente->padre != null) ? $cliente->padre->razon_social : '' }}</td>
-                                    <td class="text-left">{{ $cliente->razon_social }}</td>
-                                    <td class="text-left">{{ $cliente->user->name . ' ' . $cliente->user->last_name }}</td>
-                                    <td><span class="badge p-2 {{ $cliente->tipoCliente->badge }}">{{ $cliente->tipoCliente->nombre }}</span></td>
-                                    <td>{{ ($cliente->tipo_cliente_id == 1) ? date('d/m/Y', strtotime($cliente->inicio_ciclo)) : '' }}</td>
-                                    <td>{{ ($cliente->tipo_cliente_id == 1) ? $cliente->ciclo : '' }}</td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Grupo Acciones">
-                                            @if(auth()->user()->id == $cliente->destino_user_id && auth()->user()->rol_id != 2)
-                                            <a href="{{ route('proyecto.cliente-proyecto', $cliente->id) }}" title="Proyectos" class="btn btn-xs btn-outline-secondary"><i class="far fa-handshake"></i></a>
-                                            <a href="#" title="Desechar Cliente" class="btn btn-xs btn-outline-warning disRegistro" data-ruta="{{ route('cliente.discard', $cliente->id) }}"><i class="fa fa-recycle"></i></a>
-                                            @endif
-                                            @if(auth()->user()->rol_id == 2)
-                                            <a href="{{ route('proyecto.cliente-proyecto', $cliente->id) }}" title="Proyectos" class="btn btn-xs btn-outline-secondary"><i class="far fa-handshake"></i></a>
-                                            <a href="{{ route('cliente-contacto.index', $cliente->id) }}" title="Contactos" class="btn btn-xs btn-outline-secondary"><i class="fas fa-user-friends"></i></a>
-                                            <a href="{{ route('cliente.edit', $cliente->id) }}" title="Editar" class="btn btn-xs btn-outline-secondary"><i class="fa fa-edit"></i></a>
-                                            <a href="#" title="Desechar Cliente" class="btn btn-xs btn-outline-warning disRegistro" data-ruta="{{ route('cliente.discard', $cliente->id) }}"><i class="fa fa-recycle"></i></a>
-                                            <a href="#" id="{{ $cliente->id }}" title="Eliminar Cliente" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="0" data-ruta="{{ route('cliente.destroy', $cliente->id) }}"><i class="fa fa-times"></i></a>
-                                            @endif
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
@@ -79,3 +55,6 @@
 @include('layouts.page_templates.form_delete')
 @include('layouts.page_templates.form_validar')
 @endsection
+@push('scripts')
+<script src="{{ asset('paper/js/clientes.js') }}"></script>
+@endpush

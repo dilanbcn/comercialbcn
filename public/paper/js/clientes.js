@@ -1,0 +1,229 @@
+$(function() {
+
+    $('#tablaClientes thead tr').clone(true).appendTo('#tablaClientes thead');
+    $('#tablaClientes thead tr:eq(1) th').each(function(i) {
+        var title = $(this).text();
+        if (title != 'Acciones' && title != 'Seleccionar') {
+            $(this).html('<input type="text" placeholder="Filtrar ' + title + '" />');
+
+            $('input', this).on('keyup change', function() {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        } else {
+            $(this).html('');
+        }
+    });
+
+    var table = $('#tablaClientes').DataTable({
+        language: {
+            url: "/paper/js/spanish.json"
+        },
+        // dom: '<lifB<t>p>',
+        dom: "<'row mb-3' <'col-sm-6'l><'col-sm-6 text-right'B>>" +
+            "<'row mb-3'<'col-sm-9'i><'col-sm-3'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 mt-3'p>}>",
+        pageLength: -1,
+        lengthMenu: [
+            [100, 200, -1],
+            [100, 200, "Todos"]
+        ],
+
+        buttons: [{
+            extend: 'collection',
+            text: 'Exportar',
+            className: 'btn-sm btn-round dropdown-toggle',
+            buttons: [{
+                    extend: 'excelHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'letter',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    },
+                    autoFilter: true,
+                    sheetName: 'Clientes General',
+                    title: 'Clientes General',
+                    className: 'dropdown-item',
+                    text: '<i class="fas fa-file-excel"></i> Excel</a>'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'letter',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    },
+                    title: 'Clientes General',
+                    className: 'dropdown-item',
+                    text: '<i class="fas fa-file-pdf"></i> Pdf</a>'
+                },
+            ]
+        }],
+        orderCellsTop: true,
+        fixedHeader: true,
+        processing: true,
+        ajax: "/clientes-all",
+        columnDefs: [{
+                targets: -1,
+                data: null,
+                className: "text-center",
+                render: function(data, type, row) {
+
+                    let admin = $("#tablaClientes").data('rol');
+                    let user = $("#tablaClientes").data('user');
+                    let celda = '<div class="btn-group" role="group" aria-label="Grupo Acciones">';
+                    let rutaProyecto = $("#tablaClientes").data('rutaproyecto');
+                    let rutaContacto = $("#tablaClientes").data('rutacontacto');
+                    let rutaEditar = $("#tablaClientes").data('rutaeditar');
+                    let rutaDesechar = $("#tablaClientes").data('rutadesechar');
+                    let rutaEliminar = $("#tablaClientes").data('rutaeliminar');
+
+                    if (user == row[8] && !admin) {
+                        celda += '<a href="' + rutaProyecto.replace("@@", row[9]) + '" title="Proyectos" class="btn btn-xs btn-outline-secondary" data-accion="btnProy"><i class="far fa-handshake"></i></a>';
+                        celda += '<button class="btn btn-xs btn-outline-warning" data-accion="btnDes" data-ruta="' + rutaDesechar.replace("@@", row[9]) + '"><i class="fa fa-recycle"></i></button>';
+                    }
+
+                    if (admin) {
+                        celda += '<a href="' + rutaProyecto.replace("@@", row[9]) + '" title="Proyectos" class="btn btn-xs btn-outline-secondary" data-accion="btnProy"><i class="far fa-handshake"></i></a>';
+                        celda += '<a href="' + rutaContacto.replace("@@", row[9]) + '" title="Contactos" class="btn btn-xs btn-outline-secondary" data-accion="btnCon"><i class="fas fa-user-friends"></i></a>';
+                        celda += '<a href="' + rutaEditar.replace("@@", row[9]) + '"  title="Editar" class="btn btn-xs btn-outline-secondary" data-accion="btnEdi"><i class="fa fa-edit"></i></a>';
+                        celda += '<button class="btn btn-xs btn-outline-warning" data-accion="btnDes" data-ruta=""><i class="fa fa-recycle"></i></a>';
+                        celda += '<button class="btn btn-xs btn-outline-danger" data-accion="btnEli" data-ruta="' + rutaEliminar.replace("@@", row[9]) + '"><i class="fa fa-times"></i></a>';
+                    }
+                    celda += '</div>';
+
+                    return celda;
+                }
+            },
+            { targets: [3, 4, 5], className: "text-center" },
+            {
+                targets: 3,
+                data: null,
+                className: "text-center",
+                render: function(data, type, row) {
+
+                    let badged = (row[3] == "Cliente") ? "badge-cliente" : "badge-prospecto";
+
+                    return '<span class="badge p-2 ' + badged + '">' + row[3] + '</span>';
+
+                },
+            },
+
+
+        ]
+    });
+
+    table.buttons().container().appendTo('#tablaClientes_wrapper .col-md-6:eq(0)');
+
+    $("#tablaClientes tbody").on("click", 'button', function(e) {
+
+        let accion = $(this).data('accion');
+        let ruta = $(this).data('ruta');
+        let estilo = {
+            titulo: "Titulo",
+            contenido: 'Contenido',
+            color: 'orange',
+            icono: 'fa fa-question-circle',
+            boton: {
+                texto_ok: 'Aceptar',
+                clase_ok: 'btn-warning',
+            },
+            accion: 1
+        };
+
+        switch (accion) {
+            case "btnDes":
+
+                estilo.titulo = "Desechar Cliente";
+                estilo.contenido = '¿Esta seguro que desea desechar este cliente?';
+                estilo.boton.texto_ok = "Desechar";
+                estilo.accion = 1;
+
+                break;
+            case "btnEli":
+                estilo.titulo = "Eliminar Cliente";
+                estilo.contenido = '¿Esta seguro que desea eliminar este cliente?';
+                estilo.color = 'red';
+                estilo.boton.texto_ok = "Eliminar";
+                estilo.boton.clase_ok = "btn-danger";
+                estilo.accion = 2;
+                break;
+        }
+
+        $.confirm({
+            title: estilo.titulo,
+            content: estilo.contenido,
+            type: estilo.color,
+            theme: 'modern',
+            animation: 'scala',
+            icon: estilo.icono,
+            typeAnimated: true,
+            buttons: {
+                confirm: {
+                    text: estilo.boton.texto_ok,
+                    btnClass: estilo.boton.clase_ok,
+                    action: function() {
+
+                        if (estilo.accion == 1) {
+                            desCliente(ruta);
+
+                        } else {
+                            eliCliente(ruta);
+                        }
+
+                    },
+                },
+                cancel: {
+                    text: 'No',
+                },
+            }
+        });
+    });
+});
+
+function desCliente(rutaDes) {
+    $.ajax({
+        url: rutaDes,
+        type: 'POST',
+        data: {
+            "rutaDestino": true
+        },
+        success: function(data) {
+            if (data.success == 'ok') {
+                toastr['success'](data.msg, data.title);
+            }
+            $('#tablaClientes').DataTable().ajax.reload();
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            toastr['danger']('Error al intentar desechar un cliente', 'Error');
+
+        }
+    });
+}
+
+
+function eliCliente(rutaDel) {
+
+    $.ajax({
+        url: rutaDel,
+        type: 'DELETE',
+        data: {
+            "rutaDestino": true
+        },
+        success: function(data) {
+            if (data.success == 'ok') {
+                toastr['success'](data.msg, data.title);
+            }
+            $('#tablaClientes').DataTable().ajax.reload();
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            toastr['danger']('Error al intentar eliminar un cliente', 'Error');
+
+        }
+    });
+}
