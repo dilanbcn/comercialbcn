@@ -22,9 +22,7 @@
                                 <th>Cuenta</th>
                                 <th>Origen</th>
                                 <th>Nuevo Comercial</th>
-                                @if(auth()->user()->rol_id == 2)
                                 <th>Acciones</th>
-                                @endif
                             </thead>
                             <tbody>
                             </tbody>

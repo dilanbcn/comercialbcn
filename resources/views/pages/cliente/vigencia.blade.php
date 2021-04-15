@@ -30,9 +30,7 @@
                                 <th>Actividad</th>
                                 <th>Comercial</th>
                                 <th>Inicio Relación</th>
-                                @if (Auth::user()->rol_id == 2)
                                 <th>Acciones</th>
-                                @endif
                             </thead>
                             <tbody>
                             </tbody>

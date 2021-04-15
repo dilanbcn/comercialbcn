@@ -111,7 +111,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item btn-rotate dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="{{ asset('paper/img/user.png') }}" width="30">
+                    <img src="{{ asset('paper/img/user.png') }}" width="27">
                         <p>
                             <span class="d-lg-none d-md-block">{{ __('Perfil') }}</span>
                         </p>
