@@ -47,7 +47,6 @@ $(function() {
                     text: '<i class="fas fa-file-excel"></i> Excel</a>',
                     action: function(e, dt, button, config) {
                         config.title = 'Cerrados ' + $('#customTotal').text();
-                        // $.fn.dataTable.ext.buttons.excelHtml5.action(e, dt, button, config);
                         $.fn.DataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
                     }
                 },
