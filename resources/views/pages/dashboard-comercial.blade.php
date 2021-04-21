@@ -99,7 +99,7 @@
                                     <td>{{ $usuario->total_general }}</td>
                                     <td class="text-left">{{ $usuario->name . ' ' . $usuario->last_name }}</td>
                                     <td>
-                                        <canvas class="pieChart" data-act="{{ $usuario->activos }}" data-inact="{{ ($usuario->total_general - $usuario->activos) }}" style="max-width: 150px;"></canvas>
+                                        <canvas class="pieChart" data-act="{{ $usuario->activos }}" data-inact="{{ ($usuario->total_general - $usuario->activos) }}" style="max-width: 150px;">5</canvas>
                                     </td>
                                     <td>{{ $usuario->meses }}
                                     </td>
@@ -114,3 +114,7 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="{{ asset('paper/js/dash-comercial.js') }}"></script>
+@endpush

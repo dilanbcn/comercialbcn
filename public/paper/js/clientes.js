@@ -4,7 +4,13 @@ $(function() {
     $('#tablaClientes thead tr:eq(1) th').each(function(i) {
         var title = $(this).text();
         if (title != 'Acciones' && title != 'Seleccionar') {
-            $(this).html('<input type="text" placeholder="Filtrar ' + title + '" />');
+
+            if (title == 'Comercial') {
+                let valor = ($("#tablaClientes").data('comercial')) ? $("#tablaClientes").data('comercial') : '';
+                $(this).html('<input type="text" placeholder="Filtrar ' + title + '" value="' + valor + '" />');
+            } else {
+                $(this).html('<input type="text" placeholder="Filtrar ' + title + '" />');
+            }
 
             $('input', this).on('keyup change', function() {
                 if (table.column(i).search() !== this.value) {
@@ -115,7 +121,15 @@ $(function() {
             },
 
 
-        ]
+        ],
+        initComplete: function(settings, json) {
+            if ($("#tablaClientes").data('comercial') != undefined) {
+                table.column(2)
+                    .search($("#tablaClientes").data('comercial'))
+                    .draw()
+            }
+
+        }
     });
 
     table.buttons().container().appendTo('#tablaClientes_wrapper .col-md-6:eq(0)');

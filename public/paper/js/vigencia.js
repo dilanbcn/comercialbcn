@@ -51,15 +51,19 @@ $(function() {
             },
             { targets: [1, 2, 4, 5], className: "text-center" },
             {
-                targets: -2,
+                targets: 6,
                 data: null,
                 className: "text-center",
                 render: function(data, type, row) {
 
                     let checked = (row[6] == "Activos") ? "checked" : "";
                     let rutaAct = $("#tablaVigencia").data('rutaactividad');
-
-                    return '<div ><input class="chkActivo" ' + checked + ' type="checkbox" name="activo"  data-ruta="' + rutaAct.replace("@@", row[7]) + '" data data-toggle="toggle" data-on="Activo" data-off="Inactivo" data-onstyle="outline-success" data-offstyle="outline-danger" data-size="sm"></div>';
+                    let admin = $("#tablaVigencia").data('rol');
+                    let celda = "";
+                    if (admin) {
+                        celda += '<div ><input class="chkActivo" ' + checked + ' type="checkbox" name="activo"  data-ruta="' + rutaAct.replace("@@", row[7]) + '" data data-toggle="toggle" data-on="Activo" data-off="Inactivo" data-onstyle="outline-success" data-offstyle="outline-danger" data-size="sm"></div>';
+                    }
+                    return celda;
 
                 },
             },

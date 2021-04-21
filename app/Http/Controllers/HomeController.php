@@ -54,6 +54,7 @@ class HomeController extends Controller
     {
         $usuarios = User::where(['activo' => 1])->whereIn('rol_id', [1, 2])->get();
         $user = auth()->user();
+        
         $users = $usuarios->map(function ($item) {
             $arrdata = $this->getEstadoClientes($item);
             $item->activos = $arrdata['activo'];
@@ -62,6 +63,7 @@ class HomeController extends Controller
             $item->total_general = $arrdata['totalGral'];
             $item->clientes = $arrdata['clientes'];
             $pctActivos = ($arrdata['clientes'] > 0 && $arrdata['totalGral'] > 0) ? round((($arrdata['clientes'] / $arrdata['totalGral']) * 100), 1) : 0;
+
             // $pctActivos = ($arrdata['clientes'] > 0) ? round((($arrdata['activo'] / $arrdata['clientes']) * 100), 1) : 0;
             $item->pct_activos = $pctActivos;
             $item->pct_inactivos = ($arrdata['clientes'] > 0 && $arrdata['totalGral'] > 0) ? 100 - $pctActivos : 0;
@@ -100,13 +102,13 @@ class HomeController extends Controller
         foreach ($grupoTipo as $key => $cliente) {
             $tipoCliente = TipoCliente::find($key);
             $arrTipoCliente[$tipoCliente->nombre] = count($cliente);
-            // $totClientes += count($cliente);
+            $totClientes += count($cliente);
         }
 
         $arrData['tipo'] = $arrTipoCliente;
         
         
-        $totClientes =  (property_exists((object)$arrData, 'Cliente')) ? $arrData['tipo']['Cliente'] : 0;
+        // $totClientes =  (property_exists((object)$arrData, 'Cliente')) ? $arrData['tipo']['Cliente'] : 0;
 
 
         $cerrados = Cliente::whereHas('proyecto')->with('proyecto', function ($sql) {
@@ -128,10 +130,11 @@ class HomeController extends Controller
         $prospDisp = Cliente::where(['tipo_cliente_id' => 1])->whereNull('destino_user_id')->with(['tipoCliente', 'padre', 'user', 'destino'])->count();
 
         
-        // $eficiencia = ($arrEfect->sum() > 0) ? ($totClientes/$arrEfect->sum())*100 : 0;
-        $sumaTotal = (property_exists((object)$arrData, 'Cliente') && property_exists((object)$arrData, 'Prospecto')) ? $arrData['tipo']['Prospecto'] + $arrData['tipo']['Cliente'] : 0;
-        $totalClientes = (property_exists((object)$arrData, 'Cliente') ) ? $arrData['tipo']['Cliente'] : 0;
-        $eficiencia =  ($totalClientes > 0) ? ( $totalClientes * 100 ) / ( $sumaTotal ) : 0;
+        $eficiencia = ($arrEfect->sum() > 0) ? ($totClientes/$arrEfect->sum())*100 : 0;
+        // dd($totClientes, $arrEfect);
+        // $sumaTotal = (property_exists((object)$arrData, 'Cliente') && property_exists((object)$arrData, 'Prospecto')) ? $arrData['tipo']['Prospecto'] + $arrData['tipo']['Cliente'] : 0;
+        // $totalClientes = (property_exists((object)$arrData, 'Cliente') ) ? $arrData['tipo']['Cliente'] : 0;
+        // $eficiencia =  ($totalClientes > 0) ? ( $totalClientes * 100 ) / ( $sumaTotal ) : 0;
 
         return view('pages.dashboard-comercial', compact('users', 'arrData', 'totFact', 'totalAct', 'totClientes', 'eficiencia', 'prospDisp'));
     }

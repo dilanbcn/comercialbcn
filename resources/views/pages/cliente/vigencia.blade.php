@@ -32,7 +32,9 @@
                                 <th>Inicio Relación</th>
                                 <th>Actividad</th>
                                 <th></th>
+                                @if(auth()->user()->rol_id == 2)
                                 <th>Acciones</th>
+                                @endif
                             </thead>
                             <tbody>
                             </tbody>

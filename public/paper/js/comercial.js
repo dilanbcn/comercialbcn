@@ -191,37 +191,7 @@ $(function() {
 
     // FACTURAS
 
-    let nuevo = document.querySelectorAll('.pieChart');
-    nuevo.forEach(element => {
-        let ctxP = element.getContext('2d');
-        var myPieChart = new Chart(ctxP, {
-            type: 'doughnut',
-            data: {
-                labels: ["Activos", "Inactivos"],
-                datasets: [{
-                    data: [element.dataset.act, element.dataset.inact],
-                    backgroundColor: ["#38D430", "#001B65"],
-                    hoverBackgroundColor: ["#FF5A5E", "#FF5A5E"]
-                }]
-            },
-            options: {
-                responsive: true,
-                legend: {
-                    display: false,
-                }
-            }
-        });
-    });
 
-    $('.chart').easyPieChart({
-        easing: 'easeOutBounce',
-        onStep: function(from, to, percent) {
-            $(this.el).find('.percent').text(Math.round(percent));
-        },
-        size: 60,
-        barColor: '#20c997',
-        lineWidth: 5
-    });
 
     // CLIENTE
     $("#btnModalContacto").on('click', function() {

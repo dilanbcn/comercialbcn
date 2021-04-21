@@ -32,7 +32,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table">
-                        <table class="table table-striped" id="tablaClientes" data-rutaeliminar="{{ route('cliente.destroy', '@@') }}" data-rutadesechar="{{ route('cliente.discard', '@@') }}" data-rutaeditar="{{ route('cliente.edit', '@@') }}" data-rutacontacto="{{ route('cliente-contacto.index', '@@') }}" data-rutaproyecto="{{ route('proyecto.cliente-proyecto', '@@') }}" data-rol="{{ (auth()->user()->rol_id == 2) ? true : false }}" data-user="{{ auth()->user()->id }}">
+                        <table class="table table-striped" id="tablaClientes" data-comercial="{{ ($comercial) ? $comercial->name . ' '  . $comercial->last_name : '' }}" data-rutaeliminar="{{ route('cliente.destroy', '@@') }}" data-rutadesechar="{{ route('cliente.discard', '@@') }}" data-rutaeditar="{{ route('cliente.edit', '@@') }}" data-rutacontacto="{{ route('cliente-contacto.index', '@@') }}" data-rutaproyecto="{{ route('proyecto.cliente-proyecto', '@@') }}" data-rol="{{ (auth()->user()->rol_id == 2) ? true : false }}" data-user="{{ auth()->user()->id }}">
                             <thead class="text-primary text-center">
                                 <th>Holding</th>
                                 <th>Cliente</th>
