@@ -66,7 +66,7 @@ class HomeController extends Controller
             $item->pct_activos = $pctActivos;
             $item->pct_inactivos = ($arrdata['clientes'] > 0 && $arrdata['totalGral'] > 0) ? 100 - $pctActivos : 0;
             
-            $total = $arrdata['prospectos'] + $arrdata['clientes'];
+            $total = $arrdata['totalGral'];
             $item->efectividad = ($total > 0) ? round((($arrdata['clientes'] / $total) * 100), 1) : 0;
             $item->width_efectividad = 'width: ' . $item->efectividad . '%';
             $item->efect_color = ($item->efectividad < 33) ? 'bg-danger' : (($item->efectividad > 33 && $item->efectividad < 66) ? 'bg-warning' : 'bg-success');
@@ -95,27 +95,28 @@ class HomeController extends Controller
         });
 
         $grupoTipo =  Cliente::orderBy('tipo_cliente_id')->get()->groupBy('tipo_cliente_id');
-        $arrTipoCliente = array();
+        $arrTipoCliente = array('Prospecto' => 0);
         $totClientes = 0;
         foreach ($grupoTipo as $key => $cliente) {
             $tipoCliente = TipoCliente::find($key);
             $arrTipoCliente[$tipoCliente->nombre] = count($cliente);
-            $totClientes += count($cliente);
+            // $totClientes += count($cliente);
         }
 
         $arrData['tipo'] = $arrTipoCliente;
+        
+        
+        $totClientes =  (property_exists((object)$arrData, 'Cliente')) ? $arrData['tipo']['Cliente'] : 0;
 
 
         $cerrados = Cliente::whereHas('proyecto')->with('proyecto', function ($sql) {
-            return $sql->with('proyectoFacturas', function($sql){
-                return $sql->whereYear('fecha_factura', '=', date('Y'));
-            });
+            return $sql->whereYear('fecha_cierre', '=', date('Y'));
         })->get();
 
         $cerrados->map(function ($cerrados) {
             $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
 
-                $cerrados->sum_facturas += $proyectos->proyectoFacturas->sum('monto_venta');
+                $cerrados->sum_facturas += $proyectos->proyectoFacturas->monto_venta;
             });
         });
 
@@ -123,7 +124,12 @@ class HomeController extends Controller
 
         $activos = Cliente::where(['activo' => 1])->get();
         $totalAct = $activos->count();
-        $eficiencia = ($totClientes/$arrEfect->sum())*100;
+
+        
+        // $eficiencia = ($arrEfect->sum() > 0) ? ($totClientes/$arrEfect->sum())*100 : 0;
+        $sumaTotal = (property_exists((object)$arrData, 'Cliente') && property_exists((object)$arrData, 'Prospecto')) ? $arrData['tipo']['Prospecto'] + $arrData['tipo']['Cliente'] : 0;
+        $totalClientes = (property_exists((object)$arrData, 'Cliente') ) ? $arrData['tipo']['Cliente'] : 0;
+        $eficiencia =  ($totalClientes > 0) ? ( $totalClientes * 100 ) / ( $sumaTotal ) : 0;
 
         return view('pages.dashboard-comercial', compact('users', 'arrData', 'totFact', 'totalAct', 'totClientes', 'eficiencia'));
     }

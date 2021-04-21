@@ -28,6 +28,8 @@ class CreateClientesTable extends Migration
             $table->string('telefono')->nullable();
             $table->string('email')->nullable();
             $table->boolean('activo')->default(true);
+            $table->boolean('fue_cliente')->default(false);
+            $table->boolean('actividad')->default(false);
             $table->integer('cantidad_empleados')->nullable();
             $table->string('rubro')->nullable();
             $table->date('inicio_relacion')->nullable();

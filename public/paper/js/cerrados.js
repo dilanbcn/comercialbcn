@@ -19,7 +19,9 @@ $(function() {
         }
     });
 
-    var table = $('#tablaCerrados').DataTable({
+    // var table = $('#tablaCerrados').DataTable({
+    var $tableSel = $('#tablaCerrados');
+    var table = $tableSel.DataTable({
         language: {
             url: "/paper/js/spanish.json"
         },
@@ -73,13 +75,12 @@ $(function() {
             let celda = api.rows({ page: 'current' }).data();
             let totalAnnio = 0;
             let hoy = new Date();
-            let annio = hoy.getFullYear().toString().substr(-2);
+            let annio = hoy.getFullYear().toString();
 
             celda.each(function(value) {
+                let annioCelda = value[1].substr(0, 4);
 
-                let n = value[2].search("-" + annio);
-
-                if (n > 0) {
+                if (annioCelda == annio) {
                     totalAnnio += parseInt(value[4])
                 }
 
@@ -91,24 +92,94 @@ $(function() {
 
         },
         rowCallback: function(row, data, index) {
-            let mesFacturacion = data[2];
+            let mesFacturacion = data[1].substr(0, 4);
 
             let hoy = new Date();
-            let annio = hoy.getFullYear().toString().substr(-2);
+            let annio = hoy.getFullYear().toString();
 
             let n = mesFacturacion.search("-" + annio);
-            if (n >= 0) {
+            if (mesFacturacion == annio) {
                 $(row).css('background-color', '#C6FFC7')
             }
-
         },
 
         columnDefs: [
             { targets: 4, render: $.fn.dataTable.render.number('.', ',', 0), className: "text-right", },
-            { targets: [1, 2], className: "text-center" },
+            { targets: [1, 2, 5], className: "text-center" },
         ]
     });
 
     table.buttons().container().appendTo('#tablaCerrados_wrapper .col-md-6:eq(0)');
 
+    $("#btn-filtrar").on('click', function(e) {
+        e.preventDefault();
+
+        let fecha = $("#filterFecha").val();
+        let desde = $("#filterDesde").val();
+        let hasta = $("#filterHasta").val();
+
+        if (!fecha) {
+            $("#filterFecha").addClass('is-invalid');
+            return false;
+        }
+
+        if (!desde) {
+            $("#filterDesde").addClass('is-invalid');
+            return false;
+        }
+
+        if (!hasta) {
+            $("#filterHasta").addClass('is-invalid');
+            return false;
+        }
+
+        filterByDate(fecha, desde, hasta, $tableSel);
+
+        $tableSel.dataTable().fnDraw();
+
+    });
+
+    $(".inpt-filter").on('change', function() {
+        $(this).removeClass('is-invalid');
+    });
+
+
+    $('#btn-limpiar').on('click', function(e) {
+        e.preventDefault();
+        limpiarFiltro($tableSel);
+    });
+
 });
+
+function limpiarFiltro($tableSel) {
+    $.fn.dataTableExt.afnFiltering.length = 0;
+    $tableSel.dataTable().fnDraw();
+}
+
+var filterByDate = function(column, startDate, endDate, $tableSel) {
+    limpiarFiltro($tableSel);
+    // Custom filter syntax requires pushing the new filter to the global filter array
+    $.fn.dataTableExt.afnFiltering.push(
+        function(oSettings, aData, iDataIndex) {
+            var rowDate = normalizeDate(aData[column]),
+                start = normalizeDate(startDate),
+                end = normalizeDate(endDate);
+            // If our date from the row is between the start and end
+            if (start <= rowDate && rowDate <= end) {
+                return true;
+            } else if (rowDate >= start && end === '' && start !== '') {
+                return true;
+            } else if (rowDate <= end && start === '' && end !== '') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    );
+};
+
+var normalizeDate = function(dateString) {
+    var date = new Date(dateString);
+    var normalized = date.getFullYear() + '' + (("0" + (date.getMonth() + 1)).slice(-2)) + '' + ("0" + date.getDate()).slice(-2);
+    return normalized;
+}

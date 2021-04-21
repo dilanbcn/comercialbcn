@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('clientes-disponibles-json', 'App\Http\Controllers\ClienteController@prospectosJSON')->name('cliente.prospectos.json');
 	Route::get('clientes-vigencia', 'App\Http\Controllers\ClienteController@vigencia')->name('cliente.vigencia');
 	Route::get('clientes-vigencia-json', 'App\Http\Controllers\ClienteController@vigenciaJSON')->name('cliente.vigencia.json');
+	Route::get('clientes-vigencia-actividad/{cliente}', 'App\Http\Controllers\ClienteController@vigenciaActividad')->name('cliente.vigencia.actividad');
 	Route::get('clientes-cerrados', 'App\Http\Controllers\ClienteController@cerrados')->name('cliente.cerrados');
 	Route::get('clientes-cerrados-json', 'App\Http\Controllers\ClienteController@cerradosJSON')->name('cliente.cerrados.json');
 	Route::get('clientes-all', 'App\Http\Controllers\ClienteController@allClientes')->name('cliente.all');
@@ -58,6 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('cliente-contacto/{cliente}', 'App\Http\Controllers\ClienteContactoController@store')->name('cliente-contacto.store');
 
 	Route::get('cliente-proyecto/{cliente}', 'App\Http\Controllers\ProyectoController@clienteProyecto')->name('proyecto.cliente-proyecto');
+	Route::post('proyectos-json', 'App\Http\Controllers\ProyectoController@proyectosJson')->name('proyectos.json');
 	Route::resource('proyecto', 'App\Http\Controllers\ProyectoController', ['except' => ['show', 'store', 'create']]);
 	Route::post('proyecto/{cliente}', 'App\Http\Controllers\ProyectoController@store')->name('proyecto.store');
 
@@ -73,6 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('prospeccion-asignacion', 'App\Http\Controllers\ProspeccionController@store')->name('prospeccion.asignacion.store');
 
 	Route::resource('cliente-comunicacion', 'App\Http\Controllers\ClienteComunicacionController', ['except' => ['show']]);
+	Route::get('cliente-comunicacion-json', 'App\Http\Controllers\ClienteComunicacionController@indexJson')->name('cliente-comunicacion.json');
 	Route::get('cliente-comunicacion/reuniones', 'App\Http\Controllers\ClienteComunicacionController@reuniones')->name('cliente-comunicacion.reuniones');
 	Route::get('cliente-comunicacion/resumen', 'App\Http\Controllers\ClienteComunicacionController@resumen')->name('cliente-comunicacion.resumen');
 	Route::get('conversación/{cliente}', 'App\Http\Controllers\ClienteComunicacionController@conversacion')->name('cliente-comunicacion.conversacion');
@@ -81,7 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('calendario', 'App\Http\Controllers\ClienteComunicacionController@calendarioStore')->name('cliente-calendario.store');
 	Route::put('calendario-update/{cliente-comunicacion}', 'App\Http\Controllers\ClienteComunicacionController@calendarioUpdate')->name('cliente-calendario.update');
 
-	Route::get('proyecto-factura/{proyecto}', 'App\Http\Controllers\ProyectoFacturaController@proyectoFactura')->name('factura.proyecto-factura');
+	// Route::get('proyecto-factura/{proyecto}', 'App\Http\Controllers\ProyectoFacturaController@proyectoFactura')->name('factura.proyecto-factura');
 	Route::post('factura/{proyecto}', 'App\Http\Controllers\ProyectoFacturaController@store')->name('factura.store');
 	Route::get('factura/{proyecto_factura}/edit', 'App\Http\Controllers\ProyectoFacturaController@edit')->name('factura.edit');
 	Route::put('factura/{proyecto_factura}', 'App\Http\Controllers\ProyectoFacturaController@update')->name('factura.update');

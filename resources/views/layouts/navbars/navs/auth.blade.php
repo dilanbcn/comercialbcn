@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar navbar-dark" style="background-color: #001B65;">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,6 +113,7 @@
                 <li class="nav-item btn-rotate dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="{{ asset('paper/img/user.png') }}" width="27">
+                    <div class="txt" id="notBadge" hidden></div>
                         <p>
                             <span class="d-lg-none d-md-block">{{ __('Perfil') }}</span>
                         </p>

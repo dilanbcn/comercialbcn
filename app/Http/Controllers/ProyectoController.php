@@ -18,18 +18,12 @@ class ProyectoController extends Controller
      */
     public function clienteProyecto(Cliente $cliente)
     {
-        $proyectos = Proyecto::where(['cliente_id' => $cliente->id])->withCount(['proyectoFacturas'])->get();
+        $proyectos = Proyecto::where(['cliente_id' => $cliente->id])->with(['proyectoFacturas'])->withCount(['proyectoFacturas'])->get();
+        $estados = EstadoFactura::where(['activo' => 1])->get();
 
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Clientes General', 'ruta' => route('cliente.index')], ['nombre' => 'Tickets', 'ruta' => null]]);
 
-        $proyectos->map(function ($proyecto) {
-            $proyecto->sum_facturas = $proyecto->proyectoFacturas->sum('monto_venta');
-            
-        });
-
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Clientes General', 'ruta' => route('cliente.index')], ['nombre' => 'Proyectos', 'ruta' => null]]);
-
-
-        return view('pages.proyecto.cliente-proyecto', compact('proyectos', 'cliente'));
+        return view('pages.proyecto.cliente-proyecto', compact('proyectos', 'cliente', 'estados'));
     }
 
     
@@ -49,9 +43,14 @@ class ProyectoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function proyectosJson(Request $request)
     {
-        //
+
+        $termino = $request->search . '%';
+        $proyectos = Proyecto::where('nombre', 'LIKE', $termino)->distinct('nombre')->pluck('nombre');
+
+
+        return  $proyectos->toJson();
     }
 
     /**
@@ -62,15 +61,33 @@ class ProyectoController extends Controller
      */
     public function store(Cliente $cliente, ProyectoRequest $request)
     {
-        Proyecto::create([
+
+        $rules = ['fechaFacturacion' => 'after_or_equal:' . $request->get('fechaCierre')];
+        $customMessages = ['after_or_equal' => 'Debe ser mayor o igual que la fecha de cierre (' .  date('d/m/Y', strtotime($request->get('fechaCierre'))) . ')'];
+        
+        $this->validate($request, $rules, $customMessages);
+
+
+        $proyecto = Proyecto::create([
             'cliente_id' => $cliente->id,
             'nombre' => $request->get('nombre'),
             'fecha_cierre' => $request->get('fechaCierre')
         ]);
 
         $this->makeClient($cliente);
+        
 
-        return redirect()->route('proyecto.cliente-proyecto', [$cliente])->with(['status' => 'Proyecto creado satisfactoriamente', 'title' => 'Éxito']);
+        ProyectoFactura::create([
+            'proyecto_id' => $proyecto->id,
+            'estado_factura_id' => $request->get('estado'),
+            'inscripcion_sence' => $request->get('inscripcionSence'),
+            'fecha_factura' => $request->get('fechaFacturacion'),
+            // 'fecha_pago' => $request->get('fechaPago'),
+            'monto_venta' => $this->decimalFormatBD($request->get('montoVenta')),
+        ]);
+
+
+        return redirect()->route('proyecto.cliente-proyecto', [$cliente])->with(['status' => 'Ticket creado satisfactoriamente', 'title' => 'Éxito']);
     }
 
     /**
@@ -92,9 +109,12 @@ class ProyectoController extends Controller
      */
     public function edit(Proyecto $proyecto)
     {
-        $proyecto->success = 'ok';
 
-        return response()->json($proyecto, 200);
+        $proyectos = $proyecto->with('proyectoFacturas')->find($proyecto->id);
+        $proyectos->proyectoFacturas->monto_venta = $this->decimalFormat($proyectos->proyectoFacturas->monto_venta);
+        $proyectos->success = 'ok';
+
+        return response()->json($proyectos, 200);
     }
 
     /**
@@ -106,6 +126,12 @@ class ProyectoController extends Controller
      */
     public function update(ProyectoRequest $request, Proyecto $proyecto)
     {
+
+        $rules = ['fechaFacturacion' => 'after_or_equal:' . $proyecto->fecha_cierre];
+        $customMessages = ['after_or_equal' => 'Debe ser mayor o igual que la fecha de cierre (' .  date('d/m/Y', strtotime($proyecto->fecha_cierre)) . ')'];
+        $this->validate($request, $rules, $customMessages);
+
+
         $cliente = $proyecto->cliente;
         $user = auth()->user();
 
@@ -124,7 +150,21 @@ class ProyectoController extends Controller
             $proyecto->save();
         }
 
-        return redirect()->route('proyecto.cliente-proyecto', [$cliente])->with(['status' => 'Proyecto modificado satisfactoriamente', 'title' => 'Éxito']);
+        $proyectoFactura = ProyectoFactura::where(['proyecto_id' => $proyecto->id])->first();
+       
+        $proyectoFactura->fill([
+            'estado_factura_id' => $request->get('estado'),
+            'inscripcion_sence' => $request->get('inscripcionSence'),
+            'fecha_factura' => $request->get('fechaFacturacion'),
+            // 'fecha_pago' => $request->get('fechaPago'),
+            'monto_venta' => $this->decimalFormatBD($request->get('montoVenta')),
+        ]);
+
+        if ($proyectoFactura->isDirty()) {
+            $proyectoFactura->save();
+        }
+
+        return redirect()->route('proyecto.cliente-proyecto', [$cliente])->with(['status' => 'Ticket modificado satisfactoriamente', 'title' => 'Éxito']);
     }
 
     /**
@@ -141,6 +181,6 @@ class ProyectoController extends Controller
 
         $this->makeProspect($cliente);
 
-        return redirect()->route('proyecto.cliente-proyecto', [$cliente])->with(['status' => 'Proyecto eliminado satisfactoriamente', 'title' => 'Éxito']);
+        return redirect()->route('proyecto.cliente-proyecto', [$cliente])->with(['status' => 'Ticket eliminado satisfactoriamente', 'title' => 'Éxito']);
     }
 }

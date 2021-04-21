@@ -39,10 +39,16 @@ class Controller extends BaseController
 
     public function makeClient($cliente)
     {
+        $hoy = Carbon::now();
         $esCliente = Proyecto::where(['cliente_id' => $cliente->id])->first();
 
         if ($esCliente && $cliente->tipo_cliente_id == 1) {
             $cliente->tipo_cliente_id = 2;
+            if ($cliente->fue_cliente == 0) {
+                $cliente->fue_cliente = 1;
+            }
+            $cliente->inicio_relacion = $hoy;
+            $cliente->actividad = 1;
             $cliente->save();
         }
     }
@@ -54,6 +60,8 @@ class Controller extends BaseController
         if (!$esCliente && $cliente->tipo_cliente_id == 2) {
             $cliente->tipo_cliente_id = 1;
             $cliente->inicio_ciclo = Carbon::now();
+            $cliente->actividad = 0;
+            $cliente->inicio_relacion = null;
             $cliente->save();
         }
     }
@@ -68,7 +76,7 @@ class Controller extends BaseController
 
     public function decimalFormat($numberDb)
     {
-        return number_format($numberDb, 2, ',', '.');
+        return number_format($numberDb, 0, ',', '.');
     }
 
     public function getEstadoClientes($user)

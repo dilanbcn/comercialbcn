@@ -31,7 +31,7 @@ $(function() {
         orderCellsTop: true,
         fixedHeader: true,
         processing: true,
-        ajax: "http://comercialbcn.local:8080/clientes-disponibles-json",
+        ajax: "/clientes-disponibles-json",
         columnDefs: [{
             targets: -1,
             data: null,

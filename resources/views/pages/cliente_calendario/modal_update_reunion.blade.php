@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>{{ __('Tipo') }} </label>
+                                        <label>{{ __('Tipo Contacto') }} </label>
                                         <select class="form-control @error('tipoComunicacion') is-invalid @enderror" id="updt_tipoComunicacion" name="tipoComunicacion" required>
                                             @foreach ($tipoComunicaciones as $tipo)
                                             <option {{ ( $tipo->id == @old('tipoComunicacion')) ? 'selected' : '' }} value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
@@ -162,45 +162,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>{{ __('Acepta LinkedIn') }}</label>
-                                        <div class="form-check">
-                                            <input type="checkbox" {{ (@old('linkedin')) ? 'checked' : '' }} id="updt_linkedin" name="linkedin" value="1" data-toggle="toggle" data-on="Si" data-off="No" data-onstyle="outline-success" data-size="sm">
-                                            @if ($errors->has('linkedin'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('linkedin') }}</strong>
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>{{ __('Envío de Correo') }} </label>
-                                        <div class="form-check">
-                                            <input type="checkbox" {{ (@old('envioCorreo')) ? 'checked' : '' }} id="updt_envioCorreo" name="envioCorreo" value="1" data-toggle="toggle" data-on="Si" data-off="No" data-onstyle="outline-success" data-size="sm">
-                                            @if ($errors->has('envioCorreo'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('envioCorreo') }}</strong>
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>{{ __('Respuesta') }} </label>
-                                        <div class="form-check">
-                                            <input type="checkbox" {{ (@old('respuesta')) ? 'checked' : '' }} id="updt_respuesta" name="respuesta" value="1" data-toggle="toggle" data-on="Si" data-off="No" data-onstyle="outline-success" data-size="sm">
-                                            @if ($errors->has('respuesta'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('respuesta') }}</strong>
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>{{ __('Observaciones') }} <span class="text-required">*</span></label>

@@ -6,6 +6,7 @@ use App\Http\Requests\ClienteContactoRequest;
 use App\Models\Cliente;
 use App\Models\ClienteComunicacion;
 use App\Models\ClienteContacto;
+use App\Models\Proyecto;
 use App\Models\ProyectoFactura;
 use App\Models\User;
 use Carbon\Carbon;
@@ -30,7 +31,7 @@ class ProspeccionController extends Controller
         if ($user->rol_id == 4) {
             $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->get();
         } else {
-            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->whereHas('user', function($sql) use($user){
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->whereHas('user', function ($sql) use ($user) {
                 return $sql->where('id_prospector', $user->id);
             })->get();
         }
@@ -348,9 +349,15 @@ class ProspeccionController extends Controller
                         $consCerrados = Cliente::whereMonth('inicio_relacion', '=', $fechaInicio->month)->whereYear('inicio_relacion', '=', $fechaInicio->year)
                             ->get()->count();
                         // INGRESOS
-                        $consFacturas = ProyectoFactura::whereMonth('fecha_pago', '=', $fechaInicio->month)
-                            ->whereYear('fecha_pago', '=', $fechaInicio->year)->get();
-                        $consIngresos = $consFacturas->sum('monto_venta');
+                        // $consFacturas = ProyectoFactura::whereMonth('fecha_pago', '=', $fechaInicio->month)
+                        //     ->whereYear('fecha_pago', '=', $fechaInicio->year)->get();
+                        // $consIngresos = $consFacturas->sum('monto_venta');
+                        $consFacturas = Proyecto::whereHas('proyectoFacturas', function ($sql) use ($fechaInicio) {
+                            return $sql->whereMonth('fecha_pago', '=', $fechaInicio->month)
+                                ->whereYear('fecha_pago', '=', $fechaInicio->year);
+                        })->get();
+
+                        $consIngresos = $consFacturas->proyectoFacturas->sum('monto_venta');
                         // **********FIN CONSOLIDADO
 
 

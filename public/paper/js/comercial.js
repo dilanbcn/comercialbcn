@@ -184,112 +184,12 @@ $(function() {
     });
 
 
-    // PROYECTO
-    $("#btnModalProy").on('click', function() {
-        $(".inpt-metodo").val('post');
-        limpiarModalProyecto();
-        $("#add_proyecto_cliente").modal('show');
-    });
 
-    $(".btnProyEdit").on('click', function() {
-
-        $(".inpt-metodo").val('put');
-        let rutaEdit = $(this).data('editar');
-        let rutaUpdate = $(this).data('actualizar');
-        $(".inpt-ruta").val(rutaUpdate);
-        limpiarModalProyecto(true);
-
-        $.ajax({
-            url: rutaEdit,
-            success: function(data) {
-                console.log('file: comercial.js -> line 118 -> $ -> data', data);
-                if (data.success == 'ok') {
-                    $('#frm_update_proyectos').attr('action', rutaUpdate);
-                    $("#nombre").val(data.nombre);
-                    $("#fechaCierre").val(data.fecha_cierre);
-                    $("#update_proyecto_cliente").modal('show');
-                } else {
-                    limpiarModalProyecto();
-                }
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                $("#update_proyecto_cliente").modal('hide');
-                $.confirm({
-                    title: 'Error',
-                    content: 'Error al intentar obtener los datos del proyecto, intente de nuevo mas tarde',
-                    type: 'red',
-                    theme: 'modern',
-                    animation: 'scala',
-                    icon: 'fa fa-exclamation-triangle',
-                    typeAnimated: true,
-                    buttons: {
-                        cancel: {
-                            text: 'Aceptar',
-                        },
-                    }
-                });
-            }
-        });
-    });
     showModalPassWithErrors();
 
     showModalWithErrors();
 
     // FACTURAS
-    $("#btnFactura").on('click', function() {
-        $(".inpt-metodo").val('post');
-        limpiarModalFactura();
-        $("#modal_factura_proyecto").modal('show');
-    });
-
-    $(".inputNumber").on('keypress', function(e) {
-        var key = window.Event ? e.which : e.keyCode;
-        return (key >= 48 && key <= 57 || key == 44)
-    }).on('keyup', function(e) {
-        $(this).val(format_moneda($(this).val()));
-    });
-
-    $(".btnFactEdit").on('click', function() {
-        $(".inpt-metodo").val('put');
-        let rutaEdit = $(this).data('editar');
-        let rutaUpdate = $(this).data('actualizar');
-        $(".inpt-ruta").val(rutaUpdate);
-        limpiarModalFactura(true);
-
-        $.ajax({
-            url: rutaEdit,
-            success: function(data) {
-                if (data.success == 'ok') {
-                    $('#frm_update_facturas').attr('action', rutaUpdate);
-                    $("#fechaFacturacion").val(data.fecha_factura);
-                    $("#fechaPago").val(data.fecha_pago);
-                    $("#inscripcionSence").val(data.inscripcion_sence);
-                    $("#montoVenta").val(data.monto_venta);
-                    $("#estado").val(data.estado_factura_id);
-                    $("#modal_update_factura_proyecto").modal('show');
-                } else {
-                    limpiarModalFactura();
-                }
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                $("#modal_update_factura_proyecto").modal('hide');
-                $.confirm({
-                    title: 'Error',
-                    content: 'Error al intentar obtener los datos de la factura, intente de nuevo mas tarde',
-                    type: 'red',
-                    theme: 'modern',
-                    animation: 'scala',
-                    icon: 'fa fa-exclamation-triangle',
-                    typeAnimated: true,
-                    buttons: {
-                        cancel: {
-                            text: 'Aceptar',
-                        },
-                    }
-                });
-            }
-        });
-    });
 
     let nuevo = document.querySelectorAll('.pieChart');
     nuevo.forEach(element => {
@@ -421,53 +321,7 @@ $(function() {
         $("#add_prospeccion_contacto").modal('show');
     });
 
-    $(".cliente_modal").on('click', function() {
-        let ruta = './cliente/' + $(this).attr("id");
-        $.ajax({
-            url: ruta,
-            success: function(data) {
-                if (data.success == 'ok') {
-                    let strFechaInicio = '';
-                    if (data.inicio_relacion) {
-                        let fechaIni = new Date(data.inicio_relacion.split('-'));
-                        strFechaInicio = fechaIni.getDay() + '/' + fechaIni.getMonth() + '/' + fechaIni.getFullYear();
-                    }
 
-                    $("#holding").html((data.padre) ? data.padre.razon_social : '&nbsp;');
-                    $("#comercial").html((data.user) ? data.user.name : '&nbsp;');
-                    $("#tipo_cliente").html((data.tipo_cliente) ? data.tipo_cliente.nombre : '&nbsp;');
-                    $("#inicio_relacion").html(strFechaInicio);
-                    $("#estado").html((data.activo == 1) ? 'Activo' : 'Inactivo');
-                    $('#nombre_cliente').html(data.razon_social);
-                    $('#rut').html((data.rut_cliente) ? data.rut_cliente : '&nbsp;');
-                    $('#rubro').html(data.rubro);
-                    $("#telefono").html(data.telefono);
-                    $('#correo').html(data.email);
-                    $('#cantidad_empleados').html(data.cantidad_empleados);
-                    $('#direccion').html(data.direccion);
-                    $("#modal_cliente").modal('show');
-
-                }
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                $("#modal_cliente").modal('hide');
-                $.confirm({
-                    title: 'Error',
-                    content: 'Error al intentar obtener los datos del cliente, intente de nuevo mas tarde',
-                    type: 'red',
-                    theme: 'modern',
-                    animation: 'scala',
-                    icon: 'fa fa-exclamation-triangle',
-                    typeAnimated: true,
-                    buttons: {
-                        cancel: {
-                            text: 'Aceptar',
-                        },
-                    }
-                });
-            }
-        });
-    });
 
     $(".btnProspContacto").on('click', function() {
         $(".inpt-metodo").val('put');
@@ -565,11 +419,7 @@ $(function() {
 
         limpiarModalMeeting();
         $("#add_cliente_comunicacion").modal('show');
-        if (idCliente) {
-            $("#cliente option[value='" + idCliente + "']").prop("selected", true);
-        } else {
-            $("#cliente option:eq(0)").prop("selected", true);
-        }
+        $('.selectpicker').selectpicker('refresh');
     });
 
     $("#btnAddComunicacion").on('click', function() {
@@ -802,38 +652,6 @@ var format_moneda = function(num, type = null) {
 
     return (valorFormateado);
 };
-
-function limpiarModalFactura(upd = false) {
-
-    if (upd) {
-        $(".fechaFacturacion").removeClass('is-invalid');
-        $(".fechaPago").removeClass('is-invalid');
-        $(".inscripcionSence").removeClass('is-invalid');
-        $(".montoVenta").removeClass('is-invalid');
-        $(".estado").removeClass('is-invalid');
-    } else {
-        $(".fechaFacturacion").val('').removeClass('is-invalid');
-        $(".fechaPago").val('').removeClass('is-invalid');
-        $(".inscripcionSence").val('').removeClass('is-invalid');
-        $(".montoVenta").val('').removeClass('is-invalid');
-        $(".estado").val('').removeClass('is-invalid');
-    }
-
-    $(".invalid-feedback").hide();
-}
-
-function limpiarModalProyecto(upd = false) {
-
-    if (upd) {
-        $(".nombre").removeClass('is-invalid');
-        $(".fechaCierre").removeClass('is-invalid');
-    } else {
-        $(".nombre").val('').removeClass('is-invalid');
-        $(".fechaCierre").val('').removeClass('is-invalid');
-    }
-
-    $(".invalid-feedback").hide();
-}
 
 function limpiarModalCliente(upd = false) {
 

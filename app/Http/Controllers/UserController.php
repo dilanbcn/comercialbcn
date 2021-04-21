@@ -261,7 +261,7 @@ class UserController extends Controller
         $user->save();
 
         retry(5, function () use ($user, $request) {
-            Mail::to($user->email)->send(new NuevaClave($user, $request->get('password')));
+            // Mail::to($user->email)->send(new NuevaClave($user, $request->get('password')));
         }, 100);
 
         return redirect()->route($request->get('inpt-ruta'))->with(['title' => 'Exito', 'status' => 'Clave actualizada satisfactoriamente']);

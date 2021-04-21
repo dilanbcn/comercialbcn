@@ -1,9 +1,11 @@
 $(function() {
 
+
+
     $('#tablaVigencia thead tr').clone(true).appendTo('#tablaVigencia thead');
     $('#tablaVigencia thead tr:eq(1) th').each(function(i) {
         var title = $(this).text();
-        if (title != 'Acciones' && title != 'Seleccionar') {
+        if (title != 'Acciones' && title != '') {
             $(this).html('<input type="text" placeholder="Filtrar ' + title + '" />');
 
             $('input', this).on('keyup change', function() {
@@ -12,6 +14,9 @@ $(function() {
                         .column(i)
                         .search(this.value)
                         .draw();
+
+                    $('#tablaVigencia').DataTable().ajax.reload(foo);
+
                 }
             });
         } else {
@@ -41,23 +46,35 @@ $(function() {
 
                     let rutaInicio = $("#tablaVigencia").data('rutainicio');
 
-                    return '<button title="Editar Inicio Relacion" class="btn btn-xs btn-outline-secondary" data-cliente="' + row[0] + '" data-ruta="' + rutaInicio.replace("@@", row[6]) + '" data-fecha="' + row[5] + '"><i class="far fa-calendar-alt"></i></button>';
+                    return '<button title="Editar Inicio Relacion" class="btn btn-xs btn-outline-secondary" data-cliente="' + row[0] + '" data-ruta="' + rutaInicio.replace("@@", row[7]) + '" data-fecha="' + row[4] + '"><i class="far fa-calendar-alt"></i></button>';
                 }
             },
-            { targets: [1, 2, 5], className: "text-center" },
+            { targets: [1, 2, 4, 5], className: "text-center" },
             {
-                targets: 3,
+                targets: -2,
                 data: null,
                 className: "text-center",
                 render: function(data, type, row) {
 
-                    let badged = (row[3] == "Activos") ? "badge-activos" : "badge-inactivos";
+                    let checked = (row[6] == "Activos") ? "checked" : "";
+                    let rutaAct = $("#tablaVigencia").data('rutaactividad');
 
-                    return '<span class="badge p-2 ' + badged + '">' + row[3] + '</span>';
+                    return '<div ><input class="chkActivo" ' + checked + ' type="checkbox" name="activo"  data-ruta="' + rutaAct.replace("@@", row[7]) + '" data data-toggle="toggle" data-on="Activo" data-off="Inactivo" data-onstyle="outline-success" data-offstyle="outline-danger" data-size="sm"></div>';
 
                 },
             },
+            {
+                targets: 5,
+                data: null,
+                className: "text-center",
+                render: function(data, type, row) {
 
+                    let badged = (row[5] == "Activos") ? "badge-activos" : "badge-inactivos";
+
+                    return '<span class="badge p-2 ' + badged + '">' + row[5] + '</span>';
+
+                },
+            },
 
         ],
         drawCallback: function(data) {
@@ -70,7 +87,7 @@ $(function() {
 
             celda.each(function(value) {
 
-                if (value[3] == 'Activos') {
+                if (value[5] == 'Activos') {
                     totAct++;
                 } else {
                     totIna++;
@@ -81,7 +98,9 @@ $(function() {
             $("#span-Activos").html('Activos ' + totAct);
             $("#span-Inactivos").html('Inactivos ' + totIna);
 
-        }
+        },
+        initComplete: foo,
+
     });
 
     table.columns([-1]).visible($("#tablaVigencia").data('rol'));
@@ -102,4 +121,61 @@ $(function() {
 
 
 
+
+
 });
+
+
+function foo() {
+
+    $(".chkActivo").each(function() {
+        $(this).bootstrapToggle();
+    });
+    $(".chkActivo").on('change', function() {
+        let rutaAct = $(this).data('ruta');
+        let estado = $(this).prop('checked');
+        $.ajax({
+            url: rutaAct,
+            success: function(resp) {
+                if (resp.success == 'ok') {
+                    toastr['success'](resp.msg, resp.title);
+                }
+
+                let totAct = 0;
+                let totIna = 0;
+
+                $(".chkActivo").each(function() {
+                    let checked = $(this).prop('checked');
+
+                    if (checked) {
+                        totAct++;
+                    } else {
+                        totIna++;
+                    }
+                });
+
+                $("#span-Activos").html('Activos ' + totAct);
+                $("#span-Inactivos").html('Inactivos ' + totIna);
+
+                $('#tablaVigencia').DataTable().ajax.reload(foo);
+
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                $.confirm({
+                    title: 'Error',
+                    content: 'Error al intentar editar el status del cliente, intente de nuevo mas tarde',
+                    type: 'red',
+                    theme: 'modern',
+                    animation: 'scala',
+                    icon: 'fa fa-exclamation-triangle',
+                    typeAnimated: true,
+                    buttons: {
+                        cancel: {
+                            text: 'Aceptar',
+                        },
+                    }
+                });
+            }
+        });
+    });
+}

@@ -75,13 +75,6 @@ class ClienteController extends Controller
             );
         }
 
-        // <td>{{ ($cliente->padre != null) ? $cliente->padre->razon_social : '' }}</td>
-        //                             <td class="text-left">{{ $cliente->razon_social }}</td>
-        //                             <td class="text-left">{{ $cliente->user->name . ' ' . $cliente->user->last_name }}</td>
-        //                             <td><span class="badge p-2 {{ $cliente->tipoCliente->badge }}">{{ $cliente->tipoCliente->nombre }}</span></td>
-        //                             <td>{{ ($cliente->tipo_cliente_id == 1) ? date('d/m/Y', strtotime($cliente->inicio_ciclo)) : '' }}</td>
-        //                             <td>{{ ($cliente->tipo_cliente_id == 1) ? $cliente->ciclo : '' }}</td>
-
         $response = array('draw' => 1, 'recordsTotal' => count($arrClientes), 'recordsFiltered' => count($arrClientes), 'data' => $arrClientes);
 
 
@@ -130,17 +123,19 @@ class ClienteController extends Controller
         $user = auth()->user();
 
         if ($user->rol_id == 1) {
-            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->get();
+            $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'padre', 'user'])->get();
         } else {
             $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'padre', 'user'])->get();
         }
-        $groupCliente = $clientes->groupBy('activo');
+
+        $groupCliente = $clientes->groupBy('actividad');
         $arrEstados = array(0 => 'Inactivos', 1 => 'Activos');
         $arrGrupo = array('Activos' => 0, 'Inactivos' => 0);
 
         foreach ($groupCliente as $key => $cliente) {
             $arrGrupo[$arrEstados[$key]] = count($cliente);
         }
+
 
         $clientes->map(function ($clientes) {
             $clientes->antiguedad = $this->antiguedad($clientes->inicio_relacion);
@@ -156,11 +151,7 @@ class ClienteController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->rol_id == 1) {
-            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'user_id' => $user->id])->with(['tipoCliente', 'padre', 'user'])->get();
-        } else {
-            $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'padre', 'user'])->get();
-        }
+        $clientes = Cliente::where(['fue_cliente' => 1])->with(['tipoCliente', 'padre', 'user'])->get();
 
         $clientes->map(function ($clientes) {
             $clientes->antiguedad = $this->antiguedad($clientes->inicio_relacion);
@@ -173,9 +164,10 @@ class ClienteController extends Controller
                 $cliente->razon_social,
                 $cliente->vigenciaMeses,
                 $cliente->antiguedad,
-                ($cliente->activo) ? 'Activos' : 'Inactivo',
                 $cliente->user->name . '' . $cliente->user->last_name,
                 ($cliente->inicio_relacion) ? date('d/m/Y', strtotime($cliente->inicio_relacion)) : '',
+                ($cliente->actividad) ? 'Activos' : 'Inactivo',
+                ($cliente->actividad) ? 'Activos' : 'Inactivo',
                 $cliente->id,
             );
         }
@@ -183,6 +175,16 @@ class ClienteController extends Controller
         $response = array('draw' => 1, 'recordsTotal' => count($arrVigencia), 'recordsFiltered' => count($arrVigencia), 'data' => $arrVigencia);
 
         return response()->json($response, 200);
+    }
+
+    public function vigenciaActividad(Cliente $cliente)
+    {
+        $cliente->actividad = ($cliente->actividad == 1) ? 0 : 1;
+        $cliente->save();
+
+        $datos = array('success' => 'ok', 'msg' => 'Satatus actualizado satisfactoriamente', 'title' => 'Éxito');
+
+        return response()->json($datos, 200);
     }
 
 
@@ -215,7 +217,7 @@ class ClienteController extends Controller
 
         $cerrados->map(function ($cerrados) {
             $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
-                $cerrados->sum_facturas += $proyectos->proyectoFacturas->sum('monto_venta');
+                $cerrados->sum_facturas += $proyectos->proyectoFacturas->monto_venta;
             });
         });
 
@@ -232,8 +234,8 @@ class ClienteController extends Controller
         $facturas = ProyectoFactura::with(['proyecto' => function ($sql) {
             return $sql->with(['cliente' => function ($sql) {
                 return $sql->with(['user']);
-            }]);
-        }, 'estadoFactura'])->orderByDesc('fecha_factura')->get();
+            }])->orderByDesc('fecha_cierre');
+        }, 'estadoFactura'])->get();
 
         $facturas->map(function ($factura) {
             $fC = Carbon::parse($factura->proyecto->fecha_cierre);
@@ -250,8 +252,8 @@ class ClienteController extends Controller
         foreach ($facturas as $cerrado) {
             $arrCerrados[] = array(
                 $cerrado->proyecto->cliente->antiguedad,
-                $cerrado->mes_cierre,
-                $cerrado->mes_facturacion,
+                $cerrado->proyecto->fecha_cierre,
+                $cerrado->fecha_factura,
                 $cerrado->proyecto->cliente->razon_social,
                 $cerrado->monto_venta,
                 $cerrado->inscripcion_sence,
@@ -335,6 +337,8 @@ class ClienteController extends Controller
             'direccion' => $request->get('direccion'),
             'inicio_ciclo' => $hoy,
             'inicio_relacion' => ($request->get('tipo_cliente') == 2) ? $hoy : null,
+            'fue_cliente' => ($request->get('tipo_cliente') == 2) ? 1 : 0,
+            'actividad' => ($request->get('tipo_cliente') == 2) ? 1 : 0,
         ]);
 
         return redirect()->route('cliente.index')->with(['status' => 'Cliente creado satisfactoriamente', 'title' => 'Éxito']);
@@ -417,11 +421,12 @@ class ClienteController extends Controller
             $this->validate($request, $rules, $customMessages);
         }
 
-        if ($request->get('comercialDestino') != $cliente->destino_user_id) {
+        if (($request->get('comercialDestino') != $cliente->destino_user_id) && $cliente->destino_user_id != null) {
             $comercialOrigen = $cliente->destino_user_id;
         } else {
             $comercialOrigen = $cliente->user_id;
         }
+
 
         $cliente->fill([
             'user_id' => $comercialOrigen,
@@ -440,10 +445,19 @@ class ClienteController extends Controller
 
         if ($user->rol_id == 2) {
             $cliente->tipo_cliente_id = $request->get('tipo_cliente');
+
+            if ($cliente->fue_cliente == 0) {
+
+                $cliente->fue_cliente = ($request->get('tipo_cliente') == 2) ? 1 : 0;
+            }
+            $cliente->actividad = ($request->get('tipo_cliente') == 2) ? 1 : 0;
         }
+
         $cliente->save();
 
-        return redirect()->route('cliente.index')->with(['status' => 'Cliente modificado satisfactoriamente', 'title' => 'Éxito']);
+        $rutaDestino = ($request->rutaDestino) ? $request->rutaDestino : 'cliente.index';
+
+        return redirect()->route($rutaDestino)->with(['status' => 'Cliente modificado satisfactoriamente', 'title' => 'Éxito']);
     }
 
     /**
@@ -473,7 +487,7 @@ class ClienteController extends Controller
         $cliente->user_id = $cliente->destino_user_id;
         $cliente->destino_user_id = null;
         $cliente->inicio_ciclo = Carbon::now();
-        // $cliente->save();
+        $cliente->save();
 
         if ($request->rutaDestino) {
 
@@ -518,7 +532,7 @@ class ClienteController extends Controller
             $cerrados->map(function ($cerrados) {
                 $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
 
-                    $cerrados->sum_facturas += $proyectos->proyectoFacturas->sum('monto_venta');
+                    $cerrados->sum_facturas += $proyectos->proyectoFacturas->monto_venta;
                 });
             });
 

@@ -41,6 +41,38 @@ class ClienteComunicacionController extends Controller
         return view('pages.cliente_comunicacion.index', compact('clientes', 'hoy', 'tipoComunicaciones'));
     }
 
+    public function indexJSON()
+    {
+        $user = auth()->user();
+
+        if ($user->rol_id == 4) {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion', 'clienteContactos'])->get();
+        } else {
+            $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->whereHas('user', function ($sql) use ($user) {
+                return $sql->where(['id_prospector' => $user->id]);
+            })->with(['clienteComunicacion', 'clienteContactos'])->get();
+        }
+
+        $arrComunicacion = array();
+        foreach ($clientes as $cliente) {
+            $arrComunicacion[] = array(
+                $cliente->razon_social,
+                $cliente->telefono,
+                $cliente->email,
+                ($cliente->activo == 1 ) ? 'Activos' : 'Inactivo',
+                $cliente->id,
+                $cliente->clienteComunicacion->count(),
+            );
+        }
+
+        $response = array('draw' => 1, 'recordsTotal' => count($arrComunicacion), 'recordsFiltered' => count($arrComunicacion), 'data' => $arrComunicacion);
+
+
+        return response()->json($response, 200);
+
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -308,14 +340,13 @@ class ClienteComunicacionController extends Controller
         $fechaRegistrada = new Carbon($clienteComunicacion->fecha_reunion);
         $fechaFormulario = new Carbon($request->get('fechaReunion'));
 
+        // if ($clienteComunicacion->reunion_valida == 1 && (!$request->get('fechaReunion') || $fechaRegistrada->ne($fechaFormulario))) {
+        //     $rutaError = ($request->calendario == 'calendario') ? 'cliente-comunicacion.calendario' : 'cliente-comunicacion.conversacion';
 
-        if ($clienteComunicacion->reunion_valida == 1 && (!$request->get('fechaReunion') || $fechaRegistrada->ne($fechaFormulario))) {
-            $rutaError = ($request->calendario == 'calendario') ? 'cliente-comunicacion.calendario' : 'cliente-comunicacion.conversacion';
-
-            return redirect()->route($rutaError)->withInput()->withErrors(
-                ['fechaReunion' => 'No puede cambiar la fecha de la reunión porque ha sido validada']
-            );
-        }
+        //     return redirect()->route($rutaError)->withInput()->withErrors(
+        //         ['fechaReunion' => 'No puede cambiar la fecha de la reunión porque ha sido validada']
+        //     );
+        // }
 
         $clienteCom = ClienteComunicacion::with(['cliente' => function ($sql) {
             return $sql->with(['user']);
@@ -329,6 +360,7 @@ class ClienteComunicacionController extends Controller
             'comercial_id' => $clienteCom->cliente->user->id,
             'comercial_nombre' => $user->name . ' ' . $user->last_name,
             'fecha_contacto' => $request->get('fechaContacto'),
+            'fecha_reunion' => $fechaReunion,
             'linkedin' => ($request->get('linkedin')) ? $request->get('linkedin') : 0,
             'envia_correo' => ($request->get('envioCorreo')) ? $request->get('envioCorreo') : 0,
             'respuesta' => ($request->get('respuesta')) ? $request->get('respuesta') : 0,
@@ -362,7 +394,8 @@ class ClienteComunicacionController extends Controller
 
             if (count($mails) > 0) {
                 retry(5, function () use ($clienteComunicacion, $mails) {
-                    Mail::to($mails)->send(new ReunionModificadaMail($clienteComunicacion));
+                    // Mail::to($mails)->send(new ReunionModificadaMail($clienteComunicacion));
+                    Mail::to('dgonzalez@bcnschool.cl')->send(new ReunionModificadaMail($clienteComunicacion));
                 }, 100);
             }
         }

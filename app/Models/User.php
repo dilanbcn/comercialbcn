@@ -81,6 +81,11 @@ class User extends Authenticatable
         return $this->hasMany(Producto::class);
     }
 
+    public function notificacion()
+    {
+    	return $this->hasMany(Notificacion::class);
+    }
+
     public static function createPass($long = 8)
     {
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";

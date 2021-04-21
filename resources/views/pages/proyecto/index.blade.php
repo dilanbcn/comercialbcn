@@ -11,7 +11,7 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h5 class="card-title mb-1">Proyectos</h5>
+                            <h5 class="card-title mb-1">Tickets</h5>
                             <p class="card-category">Cliente: {{ $cliente->nombre }}</p>
                         </div>
                         <div class="col-4 text-right">
@@ -56,3 +56,7 @@
 </div>
 @include('layouts.page_templates.form_delete')
 @endsection
+
+@push('scripts')
+<script src="{{ asset('paper/js/clientes.js') }}"></script>
+@endpush

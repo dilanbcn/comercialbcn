@@ -39,7 +39,8 @@ class AppServiceProvider extends ServiceProvider
 
                 if (count($mails) > 0){
                     retry(5, function () use ($comunicacion, $mails) {
-                        Mail::to($mails)->send(new NuevaReunionMail($comunicacion));
+                        // Mail::to($mails)->send(new NuevaReunionMail($comunicacion));
+                        Mail::to('dgonzalez@bcnschool.cl')->send(new NuevaReunionMail($comunicacion));
                     }, 100);
                 }
                 

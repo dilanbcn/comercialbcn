@@ -27,7 +27,7 @@ class ProyectoFacturasTableSeeder extends Seeder
                 'proyecto_id' => $factura['proyecto_id'],
                 'estado_factura_id' => $factura['estado_factura_id'],
                 'fecha_factura' => date('Y-m-d', strtotime($factura['fecha_factura'])),
-                'fecha_pago' => date('Y-m-d', strtotime($factura['fecha_pago'])),
+                // 'fecha_pago' => date('Y-m-d', strtotime($factura['fecha_pago'])),
                 'monto_venta' => $factura['monto_venta'],
                 'inscripcion_sence' => $factura['inscripcion_sence'],
                 'created_at' => Carbon::now(),

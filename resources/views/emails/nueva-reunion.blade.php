@@ -43,7 +43,7 @@
                                     </tr>
                                     <tr>
                                         <td style="font-weight: bold; text-align: left;">CONTACTO</td>
-                                        <td style="text-align: left;">{{ $comunicacion->nombre_contacto }}</td>
+                                        <td style="text-align: left;">{{ $comunicacion->nombre_contacto . ' ' . $comunicacion->apellido_contacto }}</td>
                                     </tr>
                                     <tr>
                                         <td style="font-weight: bold; text-align: left;">TELÉFONO</td>

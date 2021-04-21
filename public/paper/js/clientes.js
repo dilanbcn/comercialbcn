@@ -21,7 +21,7 @@ $(function() {
 
     var table = $('#tablaClientes').DataTable({
         language: {
-            url: "/paper/js/spanish.json"
+            url: "/paper/js/spanish.json",
         },
         // dom: '<lifB<t>p>',
         dom: "<'row mb-3' <'col-sm-6'l><'col-sm-6 text-right'B>>" +
@@ -84,15 +84,15 @@ $(function() {
                     let rutaEliminar = $("#tablaClientes").data('rutaeliminar');
 
                     if (user == row[8] && !admin) {
-                        celda += '<a href="' + rutaProyecto.replace("@@", row[9]) + '" title="Proyectos" class="btn btn-xs btn-outline-secondary" data-accion="btnProy"><i class="far fa-handshake"></i></a>';
+                        celda += '<a href="' + rutaProyecto.replace("@@", row[9]) + '" title="Tickets" class="btn btn-xs btn-outline-secondary" data-accion="btnProy"><i class="far fa-handshake"></i></a>';
                         celda += '<button class="btn btn-xs btn-outline-warning" data-accion="btnDes" data-ruta="' + rutaDesechar.replace("@@", row[9]) + '"><i class="fa fa-recycle"></i></button>';
                     }
 
                     if (admin) {
-                        celda += '<a href="' + rutaProyecto.replace("@@", row[9]) + '" title="Proyectos" class="btn btn-xs btn-outline-secondary" data-accion="btnProy"><i class="far fa-handshake"></i></a>';
+                        celda += '<a href="' + rutaProyecto.replace("@@", row[9]) + '" title="Tickets" class="btn btn-xs btn-outline-secondary" data-accion="btnProy"><i class="far fa-handshake"></i></a>';
                         celda += '<a href="' + rutaContacto.replace("@@", row[9]) + '" title="Contactos" class="btn btn-xs btn-outline-secondary" data-accion="btnCon"><i class="fas fa-user-friends"></i></a>';
                         celda += '<a href="' + rutaEditar.replace("@@", row[9]) + '"  title="Editar" class="btn btn-xs btn-outline-secondary" data-accion="btnEdi"><i class="fa fa-edit"></i></a>';
-                        celda += '<button class="btn btn-xs btn-outline-warning" data-accion="btnDes" data-ruta=""><i class="fa fa-recycle"></i></a>';
+                        celda += '<button class="btn btn-xs btn-outline-warning" data-accion="btnDes" data-ruta="' + rutaDesechar.replace("@@", row[9]) + '"><i class="fa fa-recycle"></i></a>';
                         celda += '<button class="btn btn-xs btn-outline-danger" data-accion="btnEli" data-ruta="' + rutaEliminar.replace("@@", row[9]) + '"><i class="fa fa-times"></i></a>';
                     }
                     celda += '</div>';
@@ -121,6 +121,7 @@ $(function() {
     table.buttons().container().appendTo('#tablaClientes_wrapper .col-md-6:eq(0)');
 
     $("#tablaClientes tbody").on("click", 'button', function(e) {
+        e.preventDefault();
 
         let accion = $(this).data('accion');
         let ruta = $(this).data('ruta');

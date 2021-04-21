@@ -26,6 +26,8 @@ class Cliente extends Model
         'telefono',
         'email',
         'activo',
+        'fue_cliente',
+        'actividad',
         'cantidad_empleados',
         'rubro',
         'inicio_ciclo',
@@ -65,6 +67,11 @@ class Cliente extends Model
     public function clienteComunicacion()
     {
         return $this->hasMany(ClienteComunicacion::class);
+    }
+
+    public function notificacion()
+    {
+    	return $this->hasMany(Notificacion::class);
     }
 
 }

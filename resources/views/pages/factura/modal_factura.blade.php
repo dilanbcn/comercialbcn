@@ -14,7 +14,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>{{ __('Fecha Facturación') }} <span class="text-required">*</span></label>
-                                        <input autocomplete="off" type="date" name="fechaFacturacion" class="form-control @error('fechaFacturacion') is-invalid @enderror fechaFacturacion" value="{{ @old('fechaFacturacion') }}" max="{{ date('Y-m-d') }}" required>
+                                        <input autocomplete="off" type="date" name="fechaFacturacion" class="form-control @error('fechaFacturacion') is-invalid @enderror fechaFacturacion" value="{{ @old('fechaFacturacion') }}" required>
                                         @if ($errors->has('fechaFacturacion'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('fechaFacturacion') }}</strong>
@@ -22,7 +22,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <!--<div class="col-md-6">
                                     <div class="form-group">
                                         <label>{{ __('Fecha Pago') }} <span class="text-required">*</span></label>
                                         <input autocomplete="off" type="date" name="fechaPago" class="form-control @error('fechaPago') is-invalid @enderror fechaPago" value="{{ @old('fechaPago') }}" max="{{ date('Y-m-d') }}" required>
@@ -32,10 +32,10 @@
                                         </span>
                                         @endif
                                     </div>
-                                </div>
-                                <div class="col-md-5">
+                                </div>-->
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>{{ __('Inscripción SENCEl') }} <span class="text-required">*</span></label>
+                                        <label>{{ __('Inscripción SENCE') }} <span class="text-required">*</span></label>
                                         <input autocomplete="off" type="text" name="inscripcionSence" class="form-control @error('inscripcionSence') is-invalid @enderror inscripcionSence" value="{{ @old('inscripcionSence') }}" required>
                                         @if ($errors->has('inscripcionSence'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">

@@ -28,7 +28,7 @@ class Proyecto extends Model
 
     public function proyectoFacturas()
     {
-    	return $this->hasMany(ProyectoFactura::class);
+    	return $this->hasOne(ProyectoFactura::class);
     }
 
 }

@@ -50,7 +50,7 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h5 class="card-title mb-1">Proyectos</h5>
+                            <h5 class="card-title mb-1">Tickets</h5>
                         </div>
                         <div class="col-4 text-right">
                             <a href="#" class="btn btn-sm btn-secondary btn-round" id="btnModalProy"><i class="fas fa-plus"></i> Agregar</a>
@@ -64,8 +64,10 @@
                             <thead class="text-primary text-center">
                                 <th>Nombre</th>
                                 <th>Fecha Cierre</th>
-                                <th>Cant. Facturas</th>
-                                <th>Total Facturas</th>
+                                <th>Fecha Facturación</th>
+                                <th>Inscripción SENCE</th>
+                                <th>Estado</th>
+                                <th>Venta</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
@@ -73,13 +75,16 @@
                                 <tr class="text-center">
                                     <td class="text-left">{{ $proyecto->nombre }}</td>
                                     <td>{{ date('d/m/Y', strtotime($proyecto->fecha_cierre)) }}</td>
-                                    <td>{{ count($proyecto->proyectoFacturas) }}</td>
-                                    <td>{{ number_format($proyecto->sum_facturas, 2, '.', '.') }}</td>
+                                    <td>{{  date('d/m/Y', strtotime($proyecto->proyectoFacturas->fecha_factura)) }}</td>
+                                    <td>{{ $proyecto->proyectoFacturas->inscripcion_sence }}</td>
+                                    <td>{{ $proyecto->proyectoFacturas->estadoFactura->nombre }}</td>
+                                    <td class="text-right">{{ number_format($proyecto->proyectoFacturas->monto_venta, 0, '.', '.') }}</td>
                                     <td>
-                                        <a href="{{ route('factura.proyecto-factura', $proyecto->id) }}" title="Facturación" class="btn btn-xs btn-outline-secondary"><i class="fas fa-file-invoice-dollar"></i></a>
                                         <div class="btn-group" role="group" aria-label="Grupo Acciones">
+                                        
+
                                             <a href="#" title="Editar" class="btn btn-xs btn-outline-secondary btnProyEdit" data-editar="{{ route('proyecto.edit', $proyecto->id) }}" data-actualizar="{{ route('proyecto.update', $proyecto->id) }}"><i class="fa fa-edit"></i></a>
-                                            <a href="#" id="{{ $proyecto->id }}" title="Eliminar Proyecto" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="1" data-textherencia="se eliminaran todas las facturas asociadas" data-ruta="{{ route('proyecto.destroy', $proyecto->id) }}"><i class="fa fa-times"></i></a>
+                                            <a href="#" id="{{ $proyecto->id }}" title="Eliminar Proyecto" class="btn btn-xs btn-outline-danger delRegistro" data-recurs="0" data-textherencia="se eliminaran todas las facturas asociadas" data-ruta="{{ route('proyecto.destroy', $proyecto->id) }}"><i class="fa fa-times"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -96,3 +101,8 @@
 @include('pages.proyecto.modal_proyecto')
 @include('pages.proyecto.modal_proyecto_update')
 @endsection
+
+
+@push('scripts')
+<script src="{{ asset('paper/js/proyectos.js') }}"></script>
+@endpush

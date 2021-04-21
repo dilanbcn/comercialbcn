@@ -54,7 +54,7 @@ class ProyectoFacturaController extends Controller
     public function store(ProyectoFacturaRequest $request, Proyecto $proyecto)
     {
         $rules = ['fechaFacturacion' => 'after_or_equal:' . $proyecto->fecha_cierre];
-        $customMessages = ['after_or_equal' => 'Debe ser mayor o igual que la fecha del proyecto (' .  date('d/m/Y', strtotime($proyecto->fecha_cierre)) . ')'];
+        $customMessages = ['after_or_equal' => 'Debe ser mayor o igual que la fecha de cierre (' .  date('d/m/Y', strtotime($proyecto->fecha_cierre)) . ')'];
         $this->validate($request, $rules, $customMessages);
 
         ProyectoFactura::create([
@@ -62,7 +62,7 @@ class ProyectoFacturaController extends Controller
             'estado_factura_id' => $request->get('estado'),
             'inscripcion_sence' => $request->get('inscripcionSence'),
             'fecha_factura' => $request->get('fechaFacturacion'),
-            'fecha_pago' => $request->get('fechaPago'),
+            // 'fecha_pago' => $request->get('fechaPago'),
             'monto_venta' => $this->decimalFormatBD($request->get('montoVenta')),
         ]);
 
@@ -107,14 +107,14 @@ class ProyectoFacturaController extends Controller
         $proyecto = $proyectoFactura->proyecto;
 
         $rules = ['fechaFacturacion' => 'after_or_equal:' . $proyecto->fecha_cierre];
-        $customMessages = ['after_or_equal' => 'Debe ser mayor o igual que la fecha del proyecto (' .  date('d/m/Y', strtotime($proyecto->fecha_cierre)) . ')'];
+        $customMessages = ['after_or_equal' => 'Debe ser mayor o igual que la fecha de cierre (' .  date('d/m/Y', strtotime($proyecto->fecha_cierre)) . ')'];
         $this->validate($request, $rules, $customMessages);
 
         $proyectoFactura->fill([
             'estado_factura_id' => $request->get('estado'),
             'inscripcion_sence' => $request->get('inscripcionSence'),
             'fecha_factura' => $request->get('fechaFacturacion'),
-            'fecha_pago' => $request->get('fechaPago'),
+            // 'fecha_pago' => $request->get('fechaPago'),
             'monto_venta' => $this->decimalFormatBD($request->get('montoVenta')),
         ]);
 

@@ -70,7 +70,6 @@
                         <table class="table table-striped tablaComercialesIndex">
                             <thead class="text-primary text-center">
                                 <th>Fecha Facturación</th>
-                                <th>Fecha Pago</th>
                                 <th>Monto Venta</th>
                                 <th>Inscripción SENCE</th>
                                 <th>Estado</th>
@@ -80,8 +79,7 @@
                                 @foreach($facturas as $factura)
                                 <tr class="text-center">
                                     <td>{{  date('d/m/Y', strtotime($factura->fecha_factura)) }}</td>
-                                    <td>{{ date('d/m/Y', strtotime($factura->fecha_pago)) }}</td>
-                                    <td class="text-right pr-5">{{ number_format($factura->monto_venta, 2, ',', '.') }}</td>
+                                    <td class="text-right pr-5">{{ number_format($factura->monto_venta, 0, ',', '.') }}</td>
                                     <td>{{ $factura->inscripcion_sence }}</td>
                                     <td>{{ $factura->estadoFactura->nombre }}</td>
                                     <td>

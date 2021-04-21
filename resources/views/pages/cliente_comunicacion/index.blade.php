@@ -21,7 +21,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table">
-                        <table class="table table-striped tablaComercialesIndex">
+                        <table class="table table-striped" id="tablaComunicacion" data-rutaedit="{{ route('cliente.update', '@@') }}" data-rutacomunicacion="{{ route('cliente-comunicacion.conversacion', '@@') }}">
                             <thead class="text-primary text-center">
                                 <th>Cliente</th>
                                 <th>Teléfono</th>
@@ -30,22 +30,7 @@
                                 <th>Acciones</th>
                             </thead>
                             <tbody>
-                                @foreach($clientes as $key => $cliente)
-                                <tr class="text-center">
-                                    <td class="text-left"><a href="#" id="{{ $cliente->id }}" class="cliente_modal">{{ $cliente->razon_social }}</a></td>
-                                    <td>{{ $cliente->telefono }}</td>
-                                    <td>{{ $cliente->email }}</td>
-                                    <td>{{ ($cliente->activo == 1 ) ? 'Activo' : 'Inactivo' }}</td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Grupo Acciones">
-                                            <a href="#" title="Agregar" data-cliente="{{ $cliente->id }}" class="btn btn-xs btn-outline-secondary btnAddMeeting"><i class="fas fa-comment-medical"></i></a>
-                                            @if ($cliente->clienteComunicacion->count() > 0)
-                                            <a href="{{ route('cliente-comunicacion.conversacion', [$cliente->id]) }}" title="Ver Conversación" class="btn btn-xs btn-outline-secondary"><i class="far fa-comments"></i></a>
-                                            @endif
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
@@ -57,3 +42,6 @@
 @include('pages.cliente_comunicacion.modal_comunicacion')
 @include('pages.cliente_comunicacion.modal_cliente')
 @endsection
+@push('scripts')
+<script src="{{ asset('paper/js/comunicacion.js') }}"></script>
+@endpush

@@ -24,8 +24,9 @@ class ProyectoFacturaRequest extends FormRequest
     public function rules()
     {
         return [
-            'fechaFacturacion' => 'required|date|date_format:Y-m-d|before:tomorrow',
-            'fechaPago' => 'required|date|date_format:Y-m-d|before:tomorrow|after_or_equal:fechaFacturacion',
+            'fechaFacturacion' => 'required|date|date_format:Y-m-d',
+            // 'fechaFacturacion' => 'required|date|date_format:Y-m-d|before:tomorrow',
+            // 'fechaPago' => 'required|date|date_format:Y-m-d|before:tomorrow|after_or_equal:fechaFacturacion',
             'inscripcionSence' => 'required',
             'estado' => 'required|exists:estado_facturas,id',
             'montoVenta' => 'required|regex:/^\d{1,3}(?:\.\d\d\d)*(?:,\d{1,2})?$/',
