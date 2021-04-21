@@ -17,7 +17,7 @@
                         <div class="col-10 col-md-10">
                             <div class="numbers">
                                 <p class="card-category">Prospectos Disponibles</p>
-                                <p class="card-title">{{ $arrData['tipo']['Prospecto'] }}
+                                <p class="card-title">{{ $prospDisp }}
                                 <p>
                             </div>
                         </div>

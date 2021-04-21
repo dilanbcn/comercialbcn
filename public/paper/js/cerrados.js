@@ -50,6 +50,13 @@ $(function() {
                     action: function(e, dt, button, config) {
                         config.title = 'Cerrados ' + $('#customTotal').text();
                         $.fn.DataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
+                    },
+                    exportOptions: {
+                        format: {
+                            body: function(data, row, column, node) {
+                                return (column == 4) ? data.split('.').join('') : data;
+                            }
+                        }
                     }
                 },
                 {
@@ -60,7 +67,7 @@ $(function() {
                     text: '<i class="fas fa-file-pdf"></i> Pdf</a>',
                     action: function(e, dt, button, config) {
                         config.title = 'Cerrados ' + $('#customTotal').text();
-                        $.fn.DataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
+                        $.fn.DataTable.ext.buttons.pdfHtml5.action.call(this, e, dt, button, config);
                     }
                 },
             ]

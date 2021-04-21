@@ -125,12 +125,14 @@ class HomeController extends Controller
         $activos = Cliente::where(['activo' => 1])->get();
         $totalAct = $activos->count();
 
+        $prospDisp = Cliente::where(['tipo_cliente_id' => 1])->whereNull('destino_user_id')->with(['tipoCliente', 'padre', 'user', 'destino'])->count();
+
         
         // $eficiencia = ($arrEfect->sum() > 0) ? ($totClientes/$arrEfect->sum())*100 : 0;
         $sumaTotal = (property_exists((object)$arrData, 'Cliente') && property_exists((object)$arrData, 'Prospecto')) ? $arrData['tipo']['Prospecto'] + $arrData['tipo']['Cliente'] : 0;
         $totalClientes = (property_exists((object)$arrData, 'Cliente') ) ? $arrData['tipo']['Cliente'] : 0;
         $eficiencia =  ($totalClientes > 0) ? ( $totalClientes * 100 ) / ( $sumaTotal ) : 0;
 
-        return view('pages.dashboard-comercial', compact('users', 'arrData', 'totFact', 'totalAct', 'totClientes', 'eficiencia'));
+        return view('pages.dashboard-comercial', compact('users', 'arrData', 'totFact', 'totalAct', 'totClientes', 'eficiencia', 'prospDisp'));
     }
 }

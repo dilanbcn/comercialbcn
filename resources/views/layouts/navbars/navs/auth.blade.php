@@ -38,7 +38,7 @@
                     <div class="dropdown-menu dropdown-navbar dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item {{ ($elementActive == 'comerciales_new') ? 'menu-activo' : '' }}" href="{{ route('user.create') }}">{{ __('Nuevo Comercial') }}</a>
                         <a class="dropdown-item {{ ($elementActive == 'comerciales') ? 'menu-activo' : '' }}" href="{{ route('user.index') }}">{{ __('Lista de Comerciales') }}</a>
-                        <a class="dropdown-item {{ ($elementActive == 'detalle') ? 'menu-activo' : '' }}" href="{{ route('user.grafico') }}">{{ __('Detalle Comerciales') }}</a>
+                        <!-- <a class="dropdown-item {{ ($elementActive == 'detalle') ? 'menu-activo' : '' }}" href="{{ route('user.grafico') }}">{{ __('Detalle Comerciales') }}</a>-->
                     </div>
                 </li>
                 @else
@@ -104,7 +104,7 @@
         </div>
         @endif
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <div class="col-9 text-right text-white">
+            <div class="col-7 text-right text-white">
                 &nbsp;
                 Hola, {{ auth()->user()->name }}
             </div>
