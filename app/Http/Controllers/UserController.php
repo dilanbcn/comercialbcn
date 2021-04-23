@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Http\Requests\UserRequest;
 use App\Mail\NuevaClave;
 use App\Models\Rol;
+use Carbon\Carbon;
 use Freshwork\ChileanBundle\Rut;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -81,7 +82,9 @@ class UserController extends Controller
         $customMessages = ['unique' => 'El :attribute ya se encuentra registrado.'];
         $this->validate($request, $rules, $customMessages);
 
-        User::create([
+        $now = Carbon::now();
+
+        $user = User::create([
             'rol_id' => $request->get('rol'),
             'username' => Rut::parse($request->get('rut'))->number(),
             'id_number' => Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH),
@@ -90,6 +93,10 @@ class UserController extends Controller
             'email' => $request->get('email'),
             'fecha_ingreso' => $request->get('fechaIngreso'),
         ]);
+
+        $user->email_verified_at = $now;
+        $user->password = Hash::make(Rut::parse($request->get('rut'))->number());
+        $user->save();
 
         return redirect()->route('user.index')->with(['status' => 'Comercial creado satisfactoriamente', 'title' => 'Éxito']);
     }
