@@ -21,8 +21,10 @@ class CreateClientesTable extends Migration
             $table->foreignId('user_id')->constrained(User::tabla);
             $table->integer('destino_user_id')->unsigned()->nullable();
             $table->foreignId('tipo_cliente_id')->default(1)->constrained(TipoCliente::tabla);
-            $table->integer('padre_id')->unsigned()->nullable();
+            $table->integer('compartido_user_id')->unsigned()->nullable();
+            $table->string('externo')->nullable();
             $table->string('rut')->nullable();
+            $table->string('holding')->nullable();
             $table->string('razon_social');
             $table->string('direccion')->nullable();
             $table->string('telefono')->nullable();

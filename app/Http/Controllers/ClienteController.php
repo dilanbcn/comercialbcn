@@ -31,7 +31,7 @@ class ClienteController extends Controller
         $user = auth()->user();
         $comercial = ($comercial) ? User::find($comercial) : null;
 
-        $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->orderBy('razon_social')->get();
+        $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->withCount(['proyecto'])->orderBy('razon_social')->take(5)->get();
 
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->meses($clientes);
@@ -53,7 +53,7 @@ class ClienteController extends Controller
 
     public function allClientes()
     {
-        $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->orderBy('razon_social')->get();
+        $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->withCount(['proyecto'])->orderBy('razon_social')->get();
 
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->meses($clientes);
@@ -61,10 +61,15 @@ class ClienteController extends Controller
 
         $arrClientes = array();
         foreach ($clientes as $cliente) {
+
+            $nombreComercial = ($cliente->externo) ? $cliente->user->name . ' ' . $cliente->user->last_name . " " . $cliente->externo : $cliente->user->name . ' ' . $cliente->user->last_name;
+            
+            $nombreComercial = ($cliente->compartido) ? $nombreComercial . ' / ' . $cliente->compartido->name . ' ' . $cliente->compartido->last_name : $nombreComercial;
+
             $arrClientes[] = array(
-                ($cliente->padre != null) ? $cliente->padre->razon_social : '',
+                ($cliente->holding) ? $cliente->holding : '',
                 $cliente->razon_social,
-                $cliente->user->name . ' ' . $cliente->user->last_name,
+                $nombreComercial,
                 $cliente->tipoCliente->nombre,
                 ($cliente->tipo_cliente_id == 1) ? date('d/m/Y', strtotime($cliente->inicio_ciclo)) : '',
                 ($cliente->tipo_cliente_id == 1) ? $cliente->ciclo : '',
@@ -72,6 +77,8 @@ class ClienteController extends Controller
                 $cliente->proyecto_count,
                 $cliente->destino_user_id,
                 $cliente->id,
+                $cliente->compartido_user_id,
+
             );
         }
 
@@ -79,6 +86,21 @@ class ClienteController extends Controller
 
 
         return response()->json($response, 200);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function clientesJSON(Request $request)
+    {
+
+        $termino = $request->search . '%';
+        $clientes = Cliente::where('razon_social', 'LIKE', $termino)->distinct('razon_social')->pluck('razon_social');
+
+        return  $clientes->toJson();
+
     }
 
     /**
@@ -99,7 +121,7 @@ class ClienteController extends Controller
     public function prospectosJSON()
     {
 
-        $prospectos = Cliente::where(['tipo_cliente_id' => 1])->whereNull('destino_user_id')->with(['tipoCliente', 'padre', 'user', 'destino'])->get();
+        $prospectos = Cliente::where(['tipo_cliente_id' => 1])->whereNull('destino_user_id')->with(['tipoCliente', 'user', 'destino'])->get();
 
         $arrProspectos = array();
         foreach ($prospectos as $prospecto) {
@@ -123,9 +145,9 @@ class ClienteController extends Controller
         $user = auth()->user();
 
         if ($user->rol_id == 1) {
-            $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'padre', 'user'])->get();
+            $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'user'])->get();
         } else {
-            $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'padre', 'user'])->get();
+            $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'user'])->get();
         }
 
         $groupCliente = $clientes->groupBy('actividad');
@@ -151,7 +173,7 @@ class ClienteController extends Controller
     {
         $user = auth()->user();
 
-        $clientes = Cliente::where(['fue_cliente' => 1])->with(['tipoCliente', 'padre', 'user'])->get();
+        $clientes = Cliente::where(['fue_cliente' => 1])->with(['tipoCliente', 'user'])->get();
 
         $clientes->map(function ($clientes) {
             $clientes->antiguedad = $this->antiguedad($clientes->inicio_relacion);
@@ -327,7 +349,7 @@ class ClienteController extends Controller
             'user_id' => $request->get('comercial'),
             'destino_user_id' => $request->get('comercial'),
             'tipo_cliente_id' => $request->get('tipo_cliente'),
-            'padre_id' => $request->get('padre'),
+            'holding' => $request->get('holding'),
             'rut' => ($request->get('rut')) ? Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH) : null,
             'razon_social' => $request->get('razon_social'),
             'telefono' => $request->get('telefono'),
@@ -339,6 +361,8 @@ class ClienteController extends Controller
             'inicio_relacion' => ($request->get('tipo_cliente') == 2) ? $hoy : null,
             'fue_cliente' => ($request->get('tipo_cliente') == 2) ? 1 : 0,
             'actividad' => ($request->get('tipo_cliente') == 2) ? 1 : 0,
+            'externo' => $request->get('externo'),
+            'compartido_user_id' => ($request->get('compartido_user')) ? $request->get('compartido_user') : null,
         ]);
 
         return redirect()->route('cliente.index')->with(['status' => 'Cliente creado satisfactoriamente', 'title' => 'Éxito']);
@@ -352,7 +376,7 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        $datos = Cliente::with(['tipoCliente', 'padre', 'user'])->find($cliente->id);
+        $datos = Cliente::with(['tipoCliente', 'user'])->find($cliente->id);
         $datos->rut_cliente = ($datos->rut) ? Rut::parse($datos->rut)->format(Rut::FORMAT_WITH_DASH) : '';
         $datos['success'] = 'ok';
 
@@ -431,7 +455,7 @@ class ClienteController extends Controller
         $cliente->fill([
             'user_id' => $comercialOrigen,
             'destino_user_id' => ($request->get('comercialDestino')) ? $request->get('comercialDestino') : null,
-            'padre_id' => $request->get('padre'),
+            'holding' => $request->get('holding'),
             'rut' => ($request->get('rut')) ? Rut::parse($request->get('rut'))->format(Rut::FORMAT_WITH_DASH) : null,
             'razon_social' => $request->get('razon_social'),
             'telefono' => $request->get('telefono'),
@@ -441,6 +465,9 @@ class ClienteController extends Controller
             'direccion' => $request->get('direccion'),
             'activo' => ($request->activo) ? 1 : 0,
             'inicio_relacion' => $request->get('inicio_relacion'),
+            'externo' => $request->get('externo'),
+            'compartido_user_id' => ($request->get('compartido_user')) ? $request->get('compartido_user') : null,
+
         ]);
 
         if ($user->rol_id == 2) {
@@ -541,7 +568,7 @@ class ClienteController extends Controller
 
         if ($tipo == 3 || $tipo == 4) {
 
-            $clientes = Cliente::with(['tipoCliente', 'padre', 'user'])->withCount(['proyecto'])->get();
+            $clientes = Cliente::with(['tipoCliente', 'user'])->withCount(['proyecto'])->get();
 
             $clientes->map(function ($clientes) {
                 $clientes->ciclo = $this->meses($clientes);

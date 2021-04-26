@@ -23,7 +23,7 @@ class ProspeccionController extends Controller
     {
         $user = auth()->user();
         $contactos = ClienteContacto::with(['cliente' => function ($sql) {
-            return $sql->with(['tipoCliente', 'padre', 'user']);
+            return $sql->with(['tipoCliente', 'user']);
         }])->whereHas('cliente', function ($sql) {
             $sql->where(['activo' => true]);
         })->get();

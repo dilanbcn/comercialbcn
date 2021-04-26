@@ -19,6 +19,7 @@ class Proyecto extends Model
         'cliente_id',
         'fecha_cierre',
         'nombre',
+        'updated_by'
     ];
 
     public function cliente()

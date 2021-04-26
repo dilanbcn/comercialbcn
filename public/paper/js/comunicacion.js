@@ -94,7 +94,7 @@ $(function() {
                                 strFechaInicio = fechaIni.getDay() + '/' + fechaIni.getMonth() + '/' + fechaIni.getFullYear();
                             }
 
-                            $("#holding").html((data.padre) ? data.padre.razon_social : '&nbsp;');
+                            $("#holding").html((data.holding) ? data.holding : '&nbsp;');
                             $("#comercial").html((data.user) ? data.user.name : '&nbsp;');
                             $("#tipo_cliente").html((data.tipo_cliente) ? data.tipo_cliente.nombre : '&nbsp;');
                             $("#inicio_relacion").html(strFechaInicio);

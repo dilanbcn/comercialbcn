@@ -163,7 +163,7 @@
                             <tbody>
                                 @foreach($clientes as $key => $cliente)
                                 <tr class="text-center">
-                                    <td>{{ ($cliente->padre != null) ? $cliente->padre->razon_social : '' }}</td>
+                                    <td>{{ ($cliente->holding != null) ? $cliente->holding : '' }}</td>
                                     <td class="text-left">{{ $cliente->razon_social }}</td>
                                     <td class="text-left">{{ $cliente->user->name . ' ' . $cliente->user->last_name }}</td>
                                     <td><span class="badge p-2 {{ $cliente->tipoCliente->badge }}">{{ $cliente->tipoCliente->nombre }}</span></td>

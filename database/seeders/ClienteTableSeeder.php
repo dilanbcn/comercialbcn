@@ -28,7 +28,7 @@ class ClienteTableSeeder extends Seeder
                 'destino_user_id' => $cliente['user_id'],
                 'razon_social' => $cliente['razon_social'],
                 'tipo_cliente_id' => $cliente['tipo_cliente_id'],
-                'padre_id' => $cliente['padre_id'],
+                'holding' => $cliente['holding'],
                 'inicio_ciclo' => ($cliente['inicio_ciclo'] != '') ? $cliente['inicio_ciclo'] : null,
                 'inicio_relacion' => ($cliente['inicio_relacion'] != '') ? $cliente['inicio_relacion'] : null,
                 'activo' => $cliente['activo'],

@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             // ClienteTableSeeder::class,
             // ProyectosTableSeeder::class,
             // ProyectoFacturasTableSeeder::class,
-            TipoComunicacionTableSeeder::class
+            TipoComunicacionTableSeeder::class,
+            TipoNotificacionesTableSeeder::class
         ]);
     }
 }

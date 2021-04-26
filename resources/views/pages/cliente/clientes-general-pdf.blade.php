@@ -130,7 +130,7 @@
                         <tbody>
                             @foreach($clientes as $key => $cliente)
                             <tr>
-                                <td class="text-left">{{ ($cliente->padre != null) ? $cliente->padre->razon_social : '' }}</td>
+                                <td class="text-left">{{ ($cliente->holding != null) ? $cliente->holding : '' }}</td>
                                 <td class="text-left">{{ $cliente->razon_social }}</td>
                                 <td class="text-left">{{ $cliente->user->name . ' ' . $cliente->user->last_name }}</td>
                                 <td class="text-center">{{ $cliente->tipoCliente->nombre }}</td>
@@ -159,7 +159,7 @@
                     </tr>
                     @foreach($clientes as $key => $cliente)
                     <tr class="d-flex border">
-                        <td class="border-right" style="text-align:left; vertical-align:middle;">{{ ($cliente->padre != null) ? $cliente->padre->razon_social : '' }}</td>
+                        <td class="border-right" style="text-align:left; vertical-align:middle;">{{ ($cliente->holding != null) ? $cliente->holding : '' }}</td>
                         <td class="border-right" style="text-align:left; vertical-align:middle;">{{ $cliente->razon_social }}</td>
                         <td class="border-right" style="text-align:left; vertical-align:middle;">{{ $cliente->user->name . ' ' . $cliente->user->last_name }}</td>
                         <td class="border-right" style="text-align:center; vertical-align:middle;">{{ $cliente->tipoCliente->nombre }}</td>

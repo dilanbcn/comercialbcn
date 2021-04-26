@@ -1,5 +1,13 @@
 [{
-    "nombre": "Reuniones",
-    "descripcion": "Reuniones agendadas",
-    "activo": true
-}]
+        "nombre": "General",
+        "descripcion": "Notificaciones generales",
+        "activo": true,
+        "badge": "fa fa-genderless notif-brand"
+    },
+    {
+        "nombre": "Reuniones",
+        "descripcion": "Reuniones agendadas",
+        "activo": true,
+        "badge": "fa fa-genderless notif-success"
+    }
+]

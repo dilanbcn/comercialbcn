@@ -25,20 +25,15 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Holding') }}</label>
-                                    <select class="form-control @error('padre') is-invalid @enderror" id="padre" name="padre">
-                                        <option value="" selected>[Seleccione]</option>
-                                        @foreach ($holdings as $padre)
-                                        <option {{ ( $padre->id == @old('padre')) ? 'selected' : ''}} value="{{ $padre->id }}">{{ $padre->razon_social }}</option>
-                                        @endforeach
-                                    </select>
-                                    @if ($errors->has('padre'))
+                                    <input autocomplete="off" type="text" id="holding" name="holding" data-rutaholding="{{ route('clientes.json') }}" class="form-control @error('holding') is-invalid @enderror" value="{{ @old('holding') }}" required>
+                                    @if ($errors->has('holding'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('padre') }}</strong>
+                                        <strong>{{ $errors->first('holding') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Cliente') }} <span class="text-required">*</span></label>
                                     <input autocomplete="off" type="text" name="razon_social" class="form-control @error('razon_social') is-invalid @enderror" value="{{ @old('razon_social') }}" required>
@@ -51,7 +46,7 @@
                             </div>
                             @if (Auth::user()->rol_id == 2)
 
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Tipo Cliente') }} <span class="text-required">*</span></label>
                                     <select class="form-control @error('tipo_cliente') is-invalid @enderror" id="tipo_cliente" name="tipo_cliente" required>
@@ -82,8 +77,36 @@
                                 </div>
                             </div>
                             @endif
-
-
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Externo') }}</label>
+                                    <select class="form-control @error('externo') is-invalid @enderror" id="externo" name="externo">
+                                        <option value="">[Seleccione]</option>
+                                        <option {{ (@old('externo') == 'Externo') ? 'selected' : '' }} value="Externo">Si</option>
+                                    </select>
+                                    @if ($errors->has('externo'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('externo') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Compartido') }}</label>
+                                    <select class="form-control @error('compartido_user') is-invalid @enderror" id="compartido_user" name="compartido_user" required>
+                                        <option value="" selected>[Seleccione Uno]</option>
+                                        @foreach ($usuarios as $usuario)
+                                        <option {{ ( $usuario->id == @old('compartido_user') ) ? 'selected' : '' }} value="{{ $usuario->id }}">{{ $usuario->name . ' ' . $usuario->last_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('compartido_user'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('compartido_user') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Rut (Sin puntos ni guión)') }}</label>
@@ -179,3 +202,6 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script src="{{ asset('paper/js/clientes.js') }}"></script>
+@endpush

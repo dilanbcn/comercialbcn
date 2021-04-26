@@ -49,8 +49,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('clientes-cerrados', 'App\Http\Controllers\ClienteController@cerrados')->name('cliente.cerrados');
 	Route::get('clientes-cerrados-json', 'App\Http\Controllers\ClienteController@cerradosJSON')->name('cliente.cerrados.json');
 	Route::get('clientes-all', 'App\Http\Controllers\ClienteController@allClientes')->name('cliente.all');
+	Route::post('clientes-json', 'App\Http\Controllers\ClienteController@clientesJSON')->name('clientes.json');
 	Route::post('clientes-discard/{cliente}', 'App\Http\Controllers\ClienteController@discard')->name('cliente.discard');
 	Route::post('clientes-inicio-relacion/{cliente}', 'App\Http\Controllers\ClienteController@updateInicioRelacion')->name('cliente.inicio-relacion');
+
+	
 
 	Route::resource('cliente-contacto', 'App\Http\Controllers\ClienteContactoController', ['except' => ['index', 'show', 'store', 'create']]);
 	Route::get('cliente-contacto/{cliente}', 'App\Http\Controllers\ClienteContactoController@index')->name('cliente-contacto.index');
@@ -91,7 +94,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::delete('factura/{proyecto_factura}', 'App\Http\Controllers\ProyectoFacturaController@destroy')->name('factura.destroy');
 
 	Route::resource('producto', 'App\Http\Controllers\ProductoController', ['except' => ['show', 'edit', 'create', 'update']]);
-
+	
+	
+	Route::resource('notificacion', 'App\Http\Controllers\NotificacionController', ['except' => ['show', 'edit', 'create', 'update']]);
+	Route::get('notificaciones-json', 'App\Http\Controllers\NotificacionController@indexJSON')->name('notificaciones.json');
+	Route::get('notificaciones-push', 'App\Http\Controllers\NotificacionController@pushJSON')->name('notificaciones.push');
+	Route::get('notificaciones-recientes', 'App\Http\Controllers\NotificacionController@recientesJSON')->name('notificaciones.recientes');
+	Route::post('notificaciones-marcar', 'App\Http\Controllers\NotificacionController@marcar')->name('notificaciones.marcar');
 
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);

@@ -18,8 +18,10 @@ class Cliente extends Model
     protected $fillable = [
         'user_id',
         'destino_user_id',
-        'padre_id',
+        'holding',
         'tipo_cliente_id',
+        'compartido_user_id',
+        'externo',
         'rut',
         'razon_social',
         'direccion',
@@ -32,6 +34,7 @@ class Cliente extends Model
         'rubro',
         'inicio_ciclo',
         'inicio_relacion',
+        'updated_by'
     ];
 
     public function user()
@@ -44,14 +47,14 @@ class Cliente extends Model
     	return $this->belongsTo(User::class, 'destino_user_id', 'id');
     }
 
+    public function compartido()
+    {
+    	return $this->belongsTo(User::class, 'compartido_user_id', 'id');
+    }
+
     public function tipoCliente()
     {
     	return $this->belongsTo(TipoCliente::class);
-    }
-
-    public function padre()
-    {
-        return $this->belongsTo(Cliente::class, 'padre_id', 'id');
     }
 
     public function proyecto()

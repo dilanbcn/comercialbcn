@@ -16,12 +16,12 @@ class Notificacion extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'user_id',
         'origen_user_id',
-        'cliente_id',
         'tipo_notificacion_id',
+        'cliente_id',
+        'user_id',
+        'lectura',
         'contenido',
-        'lectura'
     ];
 
     public function user()

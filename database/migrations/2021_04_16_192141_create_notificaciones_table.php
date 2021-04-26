@@ -20,12 +20,12 @@ class CreateNotificacionesTable extends Migration
     {
         Schema::create(Notificacion::tabla, function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained(User::tabla);
             $table->integer('origen_user_id')->unsigned()->nullable();
-            $table->integer('cliente_id')->unsigned()->nullable();
             $table->foreignId('tipo_notificacion_id')->constrained(TipoNotificacion::tabla);
+            $table->integer('cliente_id')->unsigned()->nullable();
+            $table->foreignId('user_id')->constrained(User::tabla);
+            $table->boolean('lectura')->nullable();
             $table->longText('contenido');
-            $table->boolean('lectura');
 
             $table->timestamps();
             $table->softDeletes();

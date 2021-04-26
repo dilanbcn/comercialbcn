@@ -127,7 +127,7 @@ class HomeController extends Controller
         $activos = Cliente::where(['activo' => 1])->get();
         $totalAct = $activos->count();
 
-        $prospDisp = Cliente::where(['tipo_cliente_id' => 1])->whereNull('destino_user_id')->with(['tipoCliente', 'padre', 'user', 'destino'])->count();
+        $prospDisp = Cliente::where(['tipo_cliente_id' => 1])->whereNull('destino_user_id')->with(['tipoCliente', 'user', 'destino'])->count();
 
         
         $eficiencia = ($arrEfect->sum() > 0) ? ($totClientes/$arrEfect->sum())*100 : 0;

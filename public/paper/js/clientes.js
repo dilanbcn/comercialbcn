@@ -1,5 +1,24 @@
 $(function() {
 
+    $("#holding").autocomplete({
+        source: function(request, response) {
+            let ruta = $('#holding').data('rutaholding');
+            $.ajax({
+                url: ruta,
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    search: request.term,
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },
+        minLength: 2
+    });
+
     $('#tablaClientes thead tr').clone(true).appendTo('#tablaClientes thead');
     $('#tablaClientes thead tr:eq(1) th').each(function(i) {
         var title = $(this).text();
@@ -89,7 +108,7 @@ $(function() {
                     let rutaDesechar = $("#tablaClientes").data('rutadesechar');
                     let rutaEliminar = $("#tablaClientes").data('rutaeliminar');
 
-                    if (user == row[8] && !admin) {
+                    if ((user == row[8] && !admin) || (user == row[10] && !admin)) {
                         celda += '<a href="' + rutaProyecto.replace("@@", row[9]) + '" title="Tickets" class="btn btn-xs btn-outline-secondary" data-accion="btnProy"><i class="far fa-handshake"></i></a>';
                         celda += '<button class="btn btn-xs btn-outline-warning" data-accion="btnDes" data-ruta="' + rutaDesechar.replace("@@", row[9]) + '"><i class="fa fa-recycle"></i></button>';
                     }
@@ -119,7 +138,6 @@ $(function() {
 
                 },
             },
-
 
         ],
         initComplete: function(settings, json) {
@@ -199,6 +217,8 @@ $(function() {
             }
         });
     });
+
+
 });
 
 function desCliente(rutaDes) {

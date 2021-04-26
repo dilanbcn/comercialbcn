@@ -113,13 +113,14 @@
                 <li class="nav-item btn-rotate dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="{{ asset('paper/img/user.png') }}" width="27">
-                    <div class="txt" id="notBadge" hidden></div>
+                    <div class="txt notif-ocultar" id="notBadge"></div>
                         <p>
                             <span class="d-lg-none d-md-block">{{ __('Perfil') }}</span>
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-navbar dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#" id="cambioPass">{{ __('Cambiar Contraseña') }}</a>
+                        <!-- <a class="dropdown-item" href="{{ route('notificacion.index') }}" id="mnuNotif" data-rutapush="{{ route('notificaciones.push') }}">{{ __('Notificaciones') }}</a>-->
                         <a class="dropdown-item" href="{{ route('logout') }}">{{ __('Cerrar Sesión') }}</a>
                     </div>
                 </li>

@@ -67,11 +67,14 @@ class ProyectoController extends Controller
         
         $this->validate($request, $rules, $customMessages);
 
+        $user = auth()->user();
+
 
         $proyecto = Proyecto::create([
             'cliente_id' => $cliente->id,
             'nombre' => $request->get('nombre'),
-            'fecha_cierre' => $request->get('fechaCierre')
+            'fecha_cierre' => $request->get('fechaCierre'),
+            'updated_by' => $user->id
         ]);
 
         $this->makeClient($cliente);
@@ -144,6 +147,7 @@ class ProyectoController extends Controller
         $proyecto->fill([
             'nombre' => $request->get('nombre'),
             'fecha_cierre' => $request->get('fechaCierre'),
+            'updated_by' => $user->id
         ]);
 
         if ($proyecto->isDirty()) {
@@ -175,8 +179,12 @@ class ProyectoController extends Controller
      */
     public function destroy(Proyecto $proyecto)
     {
+        $user = auth()->user();
+
         $cliente = $proyecto->cliente;
         ProyectoFactura::where(['proyecto_id' => $proyecto->id])->delete();
+        
+        $proyecto->updated_by = $user->id;
         $proyecto->delete();
 
         $this->makeProspect($cliente);

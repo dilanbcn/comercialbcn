@@ -40,6 +40,7 @@
                                 <th>Tipo</th>
                                 <th>Inicio Ciclo</th>
                                 <th>Ciclo 8 Meses</th>
+                                <th>Externo</th>
                                 <th>Acciones</th>
                             </thead>
                             <tbody>

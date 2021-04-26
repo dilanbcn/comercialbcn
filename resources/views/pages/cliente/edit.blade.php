@@ -23,7 +23,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                        <div class="form-group col-md-1">
+                            <div class="form-group col-md-1">
                                 <label>{{ __('Estado') }}</label>
                                 <div class="form-check">
                                     <input type="checkbox" {{ ($cliente->activo) ? 'checked' : '' }} name="activo" value="1" data-toggle="toggle" data-on="Activo" data-off="Inactivo" data-onstyle="outline-success" data-size="sm">
@@ -39,15 +39,11 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Holding') }}</label>
-                                    <select class="form-control @error('padre') is-invalid @enderror" id="padre" name="padre">
-                                        <option value="" selected>[Seleccione]</option>
-                                        @foreach ($holdings as $holding)
-                                        <option {{ (@old('padre')) ? (@old('padre') == $holding->id ? 'selected' : '' ) : ($holding->id == $cliente->padre_id ? 'selected' : '') }} value="{{ $holding->id }}">{{ $holding->razon_social }}</option>
-                                        @endforeach
-                                    </select>
-                                    @if ($errors->has('padre'))
+                                    <input autocomplete="off" type="text" id="holding" name="holding" data-rutaholding="{{ route('clientes.json') }}" class="form-control @error('holding') is-invalid @enderror" value="{{ (old('holding')) ? old('holding') : $cliente->holding }}">
+                                    
+                                    @if ($errors->has('holding'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('padre') }}</strong>
+                                        <strong>{{ $errors->first('holding') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -122,13 +118,41 @@
                                     @endif
                                 </div>
                             </div>
-                            
-                            
-                            @endif
-                           
 
-                        
-                        <div class="col-md-3">
+
+                            @endif
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>{{ __('Externo') }}</label>
+                                    <select class="form-control @error('externo') is-invalid @enderror" id="externo" name="externo">
+                                        <option value="" selected>[Seleccione]</option>
+                                        <option {{ (@old('externo')) ? (@old('externo') == 'Externo' ? 'selected' : '' ) : ($cliente->externo == 'Externo' ? 'selected' : '') }} value="Externo">Si</option>
+                                    </select>
+                                    @if ($errors->has('externo'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('externo') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ __('Compartido') }} </label>
+                                    <select class="form-control @error('compartido_user') is-invalid @enderror" id="compartido_user" name="compartido_user">
+                                    <option value="" selected>[Seleccione Uno]</option>
+                                        @foreach ($usuarios as $usuario)
+                                        <option {{  (@old('compartido_user')) ? (@old('compartido_user') == $usuario->id ? 'selected' : '' ) : ($usuario->id == $cliente->compartido_user_id ? 'selected' : '') }} value="{{ $usuario->id }}">{{ $usuario->name . ' ' . $usuario->last_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('compartido_user'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('compartido_user') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label>{{ __('Rut (Sin puntos ni guión)') }}</label>
                                     <input autocomplete="off" type="text" name="rut" id="usr_create_rut" maxlength="9" class="form-control @error('rut') is-invalid @enderror" value="{{ (old('rut')) ? old('rut') : $cliente->rut_format }}">
@@ -150,7 +174,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Teléfono') }}</label>
                                     <input autocomplete="off" type="number" name="telefono" class="form-control @error('telefono') is-invalid @enderror" value="{{ (old('telefono')) ? old('telefono') : $cliente->telefono }}">
@@ -161,7 +185,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label>{{ __('Correo') }}</label>
                                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ (old('email')) ? old('email') : $cliente->email }}">
@@ -172,25 +196,13 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label>{{ __('Confirmación Correo') }}</label>
                                     <input type="email" name="email_confirmation" class="form-control @error('email') is-invalid @enderror" value="{{ (old('email_confirmation')) ? old('email_confirmation') : $cliente->email }}">
                                     @if ($errors->has('email'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Dirección') }}</label>
-                                    <input type="text" name="direccion" class="form-control @error('direccion') is-invalid @enderror" value="{{ (old('direccion')) ? old('direccion') : $cliente->direccion }}">
-                                    @if ($errors->has('direccion'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('direccion') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -206,6 +218,18 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{ __('Dirección') }}</label>
+                                    <input type="text" name="direccion" class="form-control @error('direccion') is-invalid @enderror" value="{{ (old('direccion')) ? old('direccion') : $cliente->direccion }}">
+                                    @if ($errors->has('direccion'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('direccion') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            
 
                         </div>
                     </div>
@@ -215,3 +239,6 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script src="{{ asset('paper/js/clientes.js') }}"></script>
+@endpush

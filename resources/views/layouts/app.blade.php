@@ -51,20 +51,20 @@ The above copyright notice and this permission notice shall be included in all c
     <link rel="stylesheet" type="text/css" href="{{ asset('paper/css/toastr.min.css') }}" />
     <!-- CharJs -->
     <link href="{{ asset('paper/css/chartjs/Chart.min.css') }}" rel="stylesheet" />
-    
+
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet' />
     <!-- Data Table -->
     <link href='https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css' rel='stylesheet' />
     <link href='https://cdn.datatables.net/buttons/1.7.0/css/buttons.bootstrap4.min.css' rel='stylesheet' />
     <link href="{{ asset('paper/css/rowGroup.dataTables.css') }}" rel="stylesheet" />
     <link href="{{ asset('paper/css/responsive.dataTables.css') }}" rel="stylesheet" />
-    
+
     <!-- jQuery UI 
     <link href="{{ asset('paper/css/jquery-ui.1.12.1.css') }}" rel="stylesheet" />-->
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  
-    
+
+
 
 </head>
 
@@ -78,7 +78,7 @@ The above copyright notice and this permission notice shall be included in all c
     @guest
     @include('layouts.page_templates.guest')
     @endguest
-    
+
 
     <!--   Core JS Files   -->
     <script src="{{ asset('paper/js/core/jquery.min.js') }}"></script>
@@ -114,7 +114,7 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js" crossorigin="anonymous"></script>
 
-    
+
 
     <!-- Toast -->
     <!-- <script type="text/javascript" src="{{ asset('paper/js/jquery.toast.min.js') }}"></script> -->
@@ -123,9 +123,9 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- jQuery UI 
     <script type="text/javascript" src="{{ asset('paper/js/core/jquery-ui.1.12.1.min.js') }}"></script>-->
 
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    
+
 
     <!-- Chart Js -->
     <script src="{{ asset('paper/js/plugins/chartjs/Chart.js') }}"></script>
@@ -136,9 +136,16 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- InputFile -->
     <script src="{{ asset('paper/js/plugins/bootstrap-filestyle.min.js') }}" defer></script>
 
+
+    <script src="{{ asset('paper/js/moment-with-locales.js') }}"></script>
+    <script src="{{ asset('paper/js/moment-timezone.js') }}"></script>
+
+
+    
+
     @auth()
-    <!-- Notificaiones -->
-    <script src="{{ asset('paper/js/notificaciones.js') }}"></script>
+    <!-- Notificaiones --> 
+    <script src="{{ asset('paper/js/pushNotificaciones.js') }}"></script>
     @endauth
 
     @stack('scripts')
