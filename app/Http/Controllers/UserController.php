@@ -95,7 +95,7 @@ class UserController extends Controller
         ]);
 
         $user->email_verified_at = $now;
-        $user->password = Hash::make(Rut::parse($request->get('rut'))->number());
+        $user->password = Hash::make('secret');
         $user->save();
 
         return redirect()->route('user.index')->with(['status' => 'Comercial creado satisfactoriamente', 'title' => 'Éxito']);
