@@ -21,12 +21,17 @@ class ProyectoController extends Controller
         $proyectos = Proyecto::where(['cliente_id' => $cliente->id])->with(['proyectoFacturas'])->withCount(['proyectoFacturas'])->get();
         $estados = EstadoFactura::where(['activo' => 1])->get();
 
+        $nombreComercial = ($cliente->externo) ? $cliente->user->name . ' ' . $cliente->user->last_name . " " . $cliente->externo : $cliente->user->name . ' ' . $cliente->user->last_name;
+        $nombreComercial = ($cliente->compartido) ? $nombreComercial . ' / ' . $cliente->compartido->name . ' ' . $cliente->compartido->last_name : $nombreComercial;
+
+        $cliente->nombre_comercial = $nombreComercial;
+
         auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Clientes General', 'ruta' => route('cliente.index')], ['nombre' => 'Tickets', 'ruta' => null]]);
 
         return view('pages.proyecto.cliente-proyecto', compact('proyectos', 'cliente', 'estados'));
     }
 
-    
+
 
     /**
      * Display a listing of the resource.
@@ -64,7 +69,7 @@ class ProyectoController extends Controller
 
         $rules = ['fechaFacturacion' => 'after_or_equal:' . $request->get('fechaCierre')];
         $customMessages = ['after_or_equal' => 'Debe ser mayor o igual que la fecha de cierre (' .  date('d/m/Y', strtotime($request->get('fechaCierre'))) . ')'];
-        
+
         $this->validate($request, $rules, $customMessages);
 
         $user = auth()->user();
@@ -78,7 +83,7 @@ class ProyectoController extends Controller
         ]);
 
         $this->makeClient($cliente);
-        
+
 
         ProyectoFactura::create([
             'proyecto_id' => $proyecto->id,
@@ -155,7 +160,7 @@ class ProyectoController extends Controller
         }
 
         $proyectoFactura = ProyectoFactura::where(['proyecto_id' => $proyecto->id])->first();
-       
+
         $proyectoFactura->fill([
             'estado_factura_id' => $request->get('estado'),
             'inscripcion_sence' => $request->get('inscripcionSence'),
@@ -183,7 +188,7 @@ class ProyectoController extends Controller
 
         $cliente = $proyecto->cliente;
         ProyectoFactura::where(['proyecto_id' => $proyecto->id])->delete();
-        
+
         $proyecto->updated_by = $user->id;
         $proyecto->delete();
 

@@ -30,7 +30,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>{{ __('Comercial') }}</label>
-                                <h5>{{ $cliente->user->name . ' ' . $cliente->user->last_name  }}</h5>
+                                <h5>{{ $cliente->nombre_comercial  }}</h5>
                             </div>
                         </div>
                         <div class="col-md-4">
