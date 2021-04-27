@@ -272,25 +272,18 @@ class ClienteController extends Controller
             }])->orderByDesc('fecha_cierre');
         }, 'estadoFactura'])->get();
 
-        $facturas->map(function ($factura) {
-            $fC = Carbon::parse($factura->proyecto->fecha_cierre);
-            $fF = Carbon::parse($factura->fecha_factura);
-            $fP = Carbon::parse($factura->fecha_pago);
-
-            $factura->proyecto->cliente->antiguedad = $this->antiguedad($factura->proyecto->cliente->inicio_relacion);
-            $factura->mes_cierre = $fC->locale('es')->shortMonthName . '-' . $fC->format('y');
-            $factura->mes_facturacion = $fF->locale('es')->shortMonthName . '-' . $fF->format('y');
-            $factura->mes_pago = $fP->locale('es')->shortMonthName . '-' . $fP->format('y');
-        });
-
         $arrCerrados = array();
         foreach ($facturas as $cerrado) {
+
+            $fechaCierre = Carbon::parse($cerrado->proyecto->fecha_cierre);
+            $fechaFactura = Carbon::parse($cerrado->fecha_factura);
+
             
             $nombreComercial = ($cerrado->proyecto->cliente->externo) ? $cerrado->proyecto->cliente->user->name . ' ' . $cerrado->proyecto->cliente->user->last_name . " " . $cerrado->proyecto->cliente->externo : $cerrado->proyecto->cliente->user->name . ' ' . $cerrado->proyecto->cliente->user->last_name;
             $nombreComercial = ($cerrado->proyecto->cliente->compartido) ? $nombreComercial . ' / ' . $cerrado->proyecto->cliente->compartido->name . ' ' . $cerrado->proyecto->cliente->compartido->last_name : $nombreComercial;
 
             $arrCerrados[] = array(
-                $cerrado->proyecto->cliente->antiguedad,
+                $this->antiguedad($cerrado->proyecto->cliente->inicio_relacion),
                 $cerrado->proyecto->fecha_cierre,
                 $cerrado->fecha_factura,
                 $cerrado->proyecto->cliente->razon_social,
@@ -299,6 +292,7 @@ class ClienteController extends Controller
                 $cerrado->estadoFactura->nombre,
                 $nombreComercial,
                 $cerrado->proyecto->nombre,
+                
             );
         }
 

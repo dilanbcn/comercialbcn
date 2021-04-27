@@ -1,5 +1,6 @@
 $(function() {
 
+
     $('#tablaCerrados thead tr').clone(true).appendTo('#tablaCerrados thead');
     $('#tablaCerrados thead tr:eq(1) th').each(function(i) {
         var title = $(this).text();
@@ -19,7 +20,7 @@ $(function() {
         }
     });
 
-    // var table = $('#tablaCerrados').DataTable({
+
     var $tableSel = $('#tablaCerrados');
     var table = $tableSel.DataTable({
         language: {
@@ -112,15 +113,18 @@ $(function() {
                 $(row).css('background-color', '#C6FFC7')
             }
 
-            console.log(data[1]);
-
         },
-
         columnDefs: [
             { targets: 4, render: $.fn.dataTable.render.number('.', ',', 0), className: "text-right", },
-            { targets: [1, 2, 5], className: "text-center" },
+            { targets: [5], className: "text-center" },
+            {
+                targets: [1, 2],
+                render: $.fn.dataTable.render.moment('DD/MM/YYYY'),
+                className: "text-center"
+            }
         ]
     });
+
 
     table.buttons().container().appendTo('#tablaCerrados_wrapper .col-md-6:eq(0)');
 

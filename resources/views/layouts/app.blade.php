@@ -101,8 +101,16 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="{{ asset('paper/js/plugins/bootstrap-select.min.js') }}"></script>
     <script src="https://kit.fontawesome.com/00c104946b.js" crossorigin="anonymous"></script>
 
+
+    <script src="{{ asset('paper/js/moment.min.js') }}"></script>
+    
+
+
     <!-- Data Tables -->
     <script type="text/javascript" src="{{ asset('paper/js/datatables.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.24/dataRender/datetime.js"></script>
+    <script src="{{ asset('paper/js/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('paper/js/moment-timezone.js') }}"></script>
     <script type="text/javascript" src="{{ asset('paper/js/dataTables.rowGroup.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('paper/js/dataTables.responsive.min.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
@@ -137,9 +145,7 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="{{ asset('paper/js/plugins/bootstrap-filestyle.min.js') }}" defer></script>
 
 
-    <script src="{{ asset('paper/js/moment.2.29.1.js') }}"></script>
-    <script src="{{ asset('paper/js/moment-with-locales.js') }}"></script>
-    <script src="{{ asset('paper/js/moment-timezone.js') }}"></script>
+    
 
 
     
