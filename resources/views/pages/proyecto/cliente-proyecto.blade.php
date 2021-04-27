@@ -104,5 +104,5 @@
 
 
 @push('scripts')
-<script src="{{ asset('paper/js/proyectos.js') }}"></script>
+<script src="{{ asset('paper/js/proyectos.js?v='.time()) }}"></script>
 @endpush

@@ -63,5 +63,5 @@
 @push('scripts')
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/locales-all.js'></script>
-<script src="{{ asset('paper/js/calendario.js') }}"></script>
+<script src="{{ asset('paper/js/calendario.js?v='.time()) }}"></script>
 @endpush

@@ -66,5 +66,5 @@
 @include('pages.notificacion.modal_notificacion')
 @endsection
 @push('scripts')
-<script src="{{ asset('paper/js/notificaciones.js') }}"></script>
+<script src="{{ asset('paper/js/notificaciones.js?v='.time()) }}"></script>
 @endpush

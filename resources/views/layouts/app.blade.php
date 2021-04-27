@@ -94,10 +94,10 @@ The above copyright notice and this permission notice shall be included in all c
 
     <script src="{{ asset('paper/js/plugins/bootstrap4-toggle.min.js') }}"></script>
     <script src="{{ asset('paper/js/plugins/jquery-confirm.min.js') }}"></script>
-    <script src="{{ asset('paper/js/comercial.js') }}"></script>
-    <script src="{{ asset('paper/js/combos.js') }}"></script>
-    <script src="{{ asset('paper/js/graficos.js') }}"></script>
-    <script src="{{ asset('paper/js/submit.js') }}"></script>
+    <script src="{{ asset('paper/js/comercial.js?v='.time()) }}"></script>
+    <script src="{{ asset('paper/js/combos.js?v='.time()) }}"></script>
+    <script src="{{ asset('paper/js/graficos.js?v='.time()) }}"></script>
+    <script src="{{ asset('paper/js/submit.js?v='.time()) }}"></script>
     <script src="{{ asset('paper/js/plugins/bootstrap-select.min.js') }}"></script>
     <script src="https://kit.fontawesome.com/00c104946b.js" crossorigin="anonymous"></script>
 
@@ -152,7 +152,7 @@ The above copyright notice and this permission notice shall be included in all c
 
     @auth()
     <!-- Notificaiones --> 
-    <script src="{{ asset('paper/js/pushNotificaciones.js') }}"></script>
+    <script src="{{ asset('paper/js/pushNotificaciones.js?v='.time()) }}"></script>
     @endauth
 
     @stack('scripts')

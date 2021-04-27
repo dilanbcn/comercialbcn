@@ -90,5 +90,5 @@
     @include('layouts.page_templates.form_delete')
     @endsection
     @push('scripts')
-    <script src="{{ asset('paper/js/cerrado.js') }}"></script>
+    <script src="{{ asset('paper/js/cerrado.js?v='.time()) }}"></script>
     @endpush

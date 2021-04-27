@@ -116,5 +116,5 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset('paper/js/dash-comercial.js') }}"></script>
+<script src="{{ asset('paper/js/dash-comercial.js?v='.time()) }}"></script>
 @endpush

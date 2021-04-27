@@ -43,5 +43,5 @@
 @include('layouts.page_templates.form_validar')
 @endsection
 @push('scripts')
-<script src="{{ asset('paper/js/cliente.js') }}"></script>
+<script src="{{ asset('paper/js/cliente.js?v='.time()) }}"></script>
 @endpush

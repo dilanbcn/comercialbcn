@@ -36,5 +36,5 @@
 @include('layouts.page_templates.form_delete')
 @endsection
 @push('scripts')
-<script src="{{ asset('paper/js/prospectos_disponibles.js') }}"></script>
+<script src="{{ asset('paper/js/prospectos_disponibles.js?v='.time()) }}"></script>
 @endpush

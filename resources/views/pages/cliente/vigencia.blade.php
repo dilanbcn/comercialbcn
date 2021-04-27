@@ -49,5 +49,5 @@
 @include('pages.cliente.modal_inicio_relacion')
 @endsection
 @push('scripts')
-<script src="{{ asset('paper/js/vigencia.js') }}"></script>
+<script src="{{ asset('paper/js/vigencia.js?v='.time()) }}"></script>
 @endpush
