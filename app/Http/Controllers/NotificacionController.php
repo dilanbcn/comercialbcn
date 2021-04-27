@@ -40,24 +40,68 @@ class NotificacionController extends Controller
         $hoy = Carbon::today();
         $user = auth()->user();
 
-        $notificaciones = Notificacion::where('user_id', $user->id)
-            ->whereDate('created_at', '<', $hoy)
-            ->with(['tipoNotificacion', 'origen', 'user', 'cliente'])
-            ->orderByDesc('created_at')->get();
+        $notificaciones = Notificacion::with(['tipoNotificacion', 'origen', 'user', 'cliente'])
+            ->orderBy('created_at', 'asc')->get();
+
+        $agrupadas = $notificaciones->groupBy(['contenido', 'tipo_notificacion_id', 'cliente_id']);
 
         $arrayNotificaciones = array();
-        foreach ($notificaciones as $notificacion) {
-            $fN = Carbon::parse($notificacion->created_at);
+        foreach ($agrupadas as $contenido => $notificacion) {
+            $arrDestino = array();
+            foreach ($notificacion as $tipo => $grupo2) {
+                foreach ($grupo2 as $cliente => $grupo3) {
+                    foreach ($grupo3 as $key => $grupo4) {
+                        $fN = Carbon::parse($grupo4->created_at);
+                        $fechaNotif = ($fN->isCurrentYear()) ? $fN->format('d') . ' ' . $fN->locale('es')->shortMonthName : $fN->format('d/m/Y');
+                        $contenido = $grupo4->contenido;
+                        $origen = $grupo4->origen->name . ' ' . $grupo4->origen->last_name;
+                        $cliente = $grupo4->cliente->razon_social;
+                        $arrDestino[] = $grupo4->user->name . ' ' . $grupo4->user->last_name;
+                        $tipo = $grupo4->tipoNotificacion->nombre;
+                        $bandeja = ($user->id == $grupo4->origen_user_id) ? 'Enviadas' : 'Recibidas';
+                    }
+                }
+            }
 
             $arrayNotificaciones[] = array(
-                ($fN->isCurrentYear()) ? $fN->format('d') . ' ' . $fN->locale('es')->shortMonthName : $fN->format('d/m/Y'),
-                $notificacion->tipoNotificacion->nombre,
-                $notificacion->origen->name . ' ' . $notificacion->origen->last_name,
-                $notificacion->cliente->razon_social,
-                $notificacion->contenido,
-                $notificacion->id,
+                $contenido,
+                $fechaNotif,
+                $tipo,
+                $origen,
+                $cliente,
+                $bandeja,
+                implode(", ", $arrDestino),
+                $contenido,
             );
+
         }
+
+
+        // $notificaciones = Notificacion::where('user_id', $user->id)
+        // ->whereDate('created_at', '<', $hoy)
+        // ->with(['tipoNotificacion', 'origen', 'user', 'cliente'])
+        // ->orderByDesc('created_at')->get();
+
+
+
+        // $arrayNotificaciones = array();
+        // foreach ($notificaciones as $notificacion) {
+        //     $fN = Carbon::parse($notificacion->created_at);
+
+        //     $bandeja = ($user->id == $notificacion->origen_user_id) ? 'Enviadas' : 'Recibidas';
+
+        //     $arrayNotificaciones[] = array(
+        //         $notificacion->contenido,
+        //         ($fN->isCurrentYear()) ? $fN->format('d') . ' ' . $fN->locale('es')->shortMonthName : $fN->format('d/m/Y'),
+        //         $notificacion->tipoNotificacion->nombre,
+        //         $notificacion->origen->name . ' ' . $notificacion->origen->last_name,
+        //         $notificacion->origen->name . ' ' . $notificacion->origen->last_name,
+        //         $notificacion->cliente->razon_social,
+        //         $bandeja,
+        //         $notificacion->id,
+
+        //     );
+        // }
 
         $response = array('draw' => 1, 'recordsTotal' => count($arrayNotificaciones), 'recordsFiltered' => count($arrayNotificaciones), 'data' => $arrayNotificaciones);
 
@@ -88,8 +132,9 @@ class NotificacionController extends Controller
                 $notificacion->tipoNotificacion->badge,
                 $notificacion->contenido,
                 $notificacion->id,
-                '<p class="mb-0 text-muted text-notif-footer">'.$notificacion->origen->name . ' ' . $notificacion->origen->last_name.'</p><p class="text-muted text-notif-footer pr-5">'.$notificacion->cliente->razon_social.'</p>',
-                '<span class="text-muted text-notif-footer pr-4">'.$fN->locale('es')->diffForHumans().'</span>',
+                $notificacion->origen->name . ' ' . $notificacion->origen->last_name,
+                $notificacion->cliente->razon_social,
+                $fN->locale('es')->diffForHumans(),
             );
         }
 
@@ -150,7 +195,7 @@ class NotificacionController extends Controller
 
         $destinos = $request->get('usuario');
 
-        foreach($destinos as $key => $usuario) {
+        foreach ($destinos as $key => $usuario) {
             Notificacion::create([
                 'origen_user_id' => $user->id,
                 'cliente_id' => $request->get('cliente'),

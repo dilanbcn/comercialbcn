@@ -22,11 +22,7 @@ class ComercialController extends Controller
         $limite = $hoy->subMonths(8);
         $user = auth()->user();
 
-        if ($user->rol_id == 1) {
-            $clientes = Cliente::with(['tipoCliente', 'user'])->withCount(['proyecto'])->get();
-        } else {
-            $clientes = Cliente::with(['tipoCliente', 'user'])->withCount(['proyecto'])->get();
-        }
+        $clientes = Cliente::with(['tipoCliente', 'user'])->withCount(['proyecto'])->get();
 
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->meses($clientes);
@@ -57,11 +53,11 @@ class ComercialController extends Controller
         }
 
         // COMERCIALES
-        $comerciales = User::where(['activo' => 1])->whereIn('rol_id', [1,2])->count();
+        $comerciales = User::where(['activo' => 1])->whereIn('rol_id', [1, 2])->count();
         $arrData['comerciales'] = array('activo' => $comerciales);
 
         // TOP COMERCIALES
-        $comerciales = User::where(['activo' => 1])->whereIn('rol_id', [1,2])->take(8)->get();
+        $comerciales = User::where(['activo' => 1])->whereIn('rol_id', [1, 2])->take(8)->get();
         foreach ($comerciales as $comercial) {
             $arrTop['nombres'][] = $comercial->name;
 

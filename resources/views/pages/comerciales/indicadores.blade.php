@@ -130,7 +130,7 @@
             </div>
         </div>
     </div>
-    @elseif(auth()->user()->rol_id == 1)
+    @elseif(auth()->user()->rol_id == 1 || auth()->user()->rol_id == 2)
     <div class="row">
         <div class="col-md-12">
             @include('layouts.page_templates.messages')

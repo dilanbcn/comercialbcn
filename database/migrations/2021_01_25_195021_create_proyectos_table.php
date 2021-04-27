@@ -20,6 +20,7 @@ class CreateProyectosTable extends Migration
             $table->foreignId('cliente_id')->constrained(Cliente::tabla);
             $table->string('nombre');
             $table->date('fecha_cierre');
+            $table->integer('updated_by')->nullable();
             
             $table->timestamps();
             $table->softDeletes();

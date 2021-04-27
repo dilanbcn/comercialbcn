@@ -3,6 +3,15 @@
 'elementActive' => 'notificacion'
 ])
 @section('content')
+<div class="col-12" id="table-filter" style="display:none">
+    <select class="form-control">
+        <option>Recibidas</option>
+        <option>Enviadas</option>
+    </select>
+</div>
+
+
+
 <div class="content">
     <div class="row">
         <div class="col-md-8">
@@ -21,11 +30,14 @@
                     <div class="table">
                         <table class="table table-striped" id="tablaNotificaciones" data-rutarecientes="{{ route('notificaciones.recientes') }}" data-rutamarcar="{{ route('notificaciones.marcar') }}">
                             <thead class="text-primary text-center">
+                                <th>Contenido</th>
                                 <th>Fecha</th>
                                 <th>Tipo</th>
-                                <th>Remitente</th>
+                                <th>Origen</th>
                                 <th>Cliente</th>
-                                <th>Acciones</th>
+                                <th>Bandeja</th>
+                                <th>Destino</th>
+                                <th>Notificación</th>
                             </thead>
                             <tbody>
 
@@ -45,7 +57,7 @@
                     </div>
                 </div>
                 <div class="card-body" id="notifRecientes">
-                   
+
                 </div>
             </div>
         </div>

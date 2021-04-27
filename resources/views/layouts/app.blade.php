@@ -137,6 +137,7 @@ The above copyright notice and this permission notice shall be included in all c
     <script src="{{ asset('paper/js/plugins/bootstrap-filestyle.min.js') }}" defer></script>
 
 
+    <script src="{{ asset('paper/js/moment.2.29.1.js') }}"></script>
     <script src="{{ asset('paper/js/moment-with-locales.js') }}"></script>
     <script src="{{ asset('paper/js/moment-timezone.js') }}"></script>
 

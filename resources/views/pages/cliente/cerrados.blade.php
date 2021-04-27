@@ -63,7 +63,7 @@
                         </div>
                         <div class="row">
                             <div class="table">
-                                <table class="table table-striped" id="tablaCerrados" data-ruta="{{ route('cliente.cerrados.json') }}">
+                                <table class="table table-striped" id="tablaCerrados" data-rolexportar="{{ (auth()->user()->rol_id == 2 || auth()->user()->rol_id == 3) ? 'B' : ''}}" data-ruta="{{ route('cliente.cerrados.json') }}">
                                     <thead class="text-primary text-center">
                                         <th>Status</th>
                                         <th>Mes Cierre</th>

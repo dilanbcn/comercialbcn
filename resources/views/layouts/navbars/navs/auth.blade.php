@@ -6,7 +6,7 @@
             <span class="navbar-toggler-bar bar2"></span>
             <span class="navbar-toggler-bar bar3"></span>
         </button>
-        @if(auth()->user()->rol_id == 1 || auth()->user()->rol_id == 2)
+        @if(auth()->user()->rol_id == 1 || auth()->user()->rol_id == 2 || auth()->user()->rol_id == 3)
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <a href="{{ route('home.comercial') }}">
                 <img src="{{ asset('paper/img/logo_bcn_horizon_blue.png') }}" height="50" class="d-inline-block align-top" alt="">
@@ -120,7 +120,6 @@
                     </a>
                     <div class="dropdown-menu dropdown-navbar dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#" id="cambioPass">{{ __('Cambiar Contraseña') }}</a>
-                        <!--<a class="dropdown-item" href="{{ route('notificacion.index') }}" id="mnuNotif" data-rutapush="{{ route('notificaciones.push') }}">{{ __('Notificaciones') }}</a>-->
                         <a class="dropdown-item" href="{{ route('logout') }}">{{ __('Cerrar Sesión') }}</a>
                     </div>
                 </li>

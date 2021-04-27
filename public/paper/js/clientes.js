@@ -49,7 +49,7 @@ $(function() {
             url: "/paper/js/spanish.json",
         },
         // dom: '<lifB<t>p>',
-        dom: "<'row mb-3' <'col-sm-6'l><'col-sm-6 text-right'B>>" +
+        dom: "<'row mb-3' <'col-sm-6'l><'col-sm-6 text-right'" + $("#tablaClientes").data("rolexportar") + ">>" +
             "<'row mb-3'<'col-sm-9'i><'col-sm-3'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 mt-3'p>}>",
@@ -63,6 +63,7 @@ $(function() {
             extend: 'collection',
             text: 'Exportar',
             className: 'btn-sm btn-round dropdown-toggle',
+            disable: true,
             buttons: [{
                     extend: 'excelHtml5',
                     orientation: 'landscape',
@@ -151,6 +152,7 @@ $(function() {
     });
 
     table.buttons().container().appendTo('#tablaClientes_wrapper .col-md-6:eq(0)');
+
 
     $("#tablaClientes tbody").on("click", 'button', function(e) {
         e.preventDefault();

@@ -66,12 +66,14 @@ class ClienteController extends Controller
             
             $nombreComercial = ($cliente->compartido) ? $nombreComercial . ' / ' . $cliente->compartido->name . ' ' . $cliente->compartido->last_name : $nombreComercial;
 
+            $inicioCiclo = ($cliente->inicio_ciclo) ? date('d/m/Y', strtotime($cliente->inicio_ciclo)) : '';
+            
             $arrClientes[] = array(
                 ($cliente->holding) ? $cliente->holding : '',
                 $cliente->razon_social,
                 $nombreComercial,
                 $cliente->tipoCliente->nombre,
-                ($cliente->tipo_cliente_id == 1) ? date('d/m/Y', strtotime($cliente->inicio_ciclo)) : '',
+                ($cliente->tipo_cliente_id == 1) ? $inicioCiclo : '',
                 ($cliente->tipo_cliente_id == 1) ? $cliente->ciclo : '',
                 ($cliente->activo) ? 'Activo' : 'Inactivo',
                 $cliente->proyecto_count,
@@ -144,11 +146,7 @@ class ClienteController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->rol_id == 1) {
             $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'user'])->get();
-        } else {
-            $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'user'])->get();
-        }
 
         $groupCliente = $clientes->groupBy('actividad');
         $arrEstados = array(0 => 'Inactivos', 1 => 'Activos');
@@ -186,7 +184,7 @@ class ClienteController extends Controller
                 $cliente->razon_social,
                 $cliente->vigenciaMeses,
                 $cliente->antiguedad,
-                $cliente->user->name . '' . $cliente->user->last_name,
+                $cliente->user->name . ' ' . $cliente->user->last_name,
                 ($cliente->inicio_relacion) ? date('d/m/Y', strtotime($cliente->inicio_relacion)) : '',
                 ($cliente->actividad) ? 'Activos' : 'Inactivo',
                 ($cliente->actividad) ? 'Activos' : 'Inactivo',
@@ -433,7 +431,7 @@ class ClienteController extends Controller
             $this->validate($request, $rules, $customMessages);
         }
 
-        if ($user->id != $cliente->user_id && $user->rol_id == 1) {
+        if ($user->id != $cliente->user_id && ($user->rol_id == 1 || $user->rol_id == 3)) {
             return redirect()->route('cliente.edit', $cliente)->withInput()->withErrors([
                 'razon_social' => 'Imposible modificar un cliente de otro comercial',
             ]);

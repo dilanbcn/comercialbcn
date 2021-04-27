@@ -1,9 +1,14 @@
 $(function() {
 
+    function format(row) {
+        // `d` is the original data object for the row
+        return '<p><span>Para: ' + row[6] + '</span></p><p>' + row[7] + '</p>';
+    }
+
     $('#tablaNotificaciones thead tr').clone(true).appendTo('#tablaNotificaciones thead');
     $('#tablaNotificaciones thead tr:eq(1) th').each(function(i) {
         var title = $(this).text();
-        if (title != 'Acciones' && title != '') {
+        if (title != 'Acciones' && title != '' && title != 'Contenido') {
             $(this).html('<input type="text" placeholder="Filtrar ' + title + '" />');
 
             $('input', this).on('keyup change', function() {
@@ -26,6 +31,7 @@ $(function() {
         },
         dom: "<'row mb-3' <'col-sm-6'l><'col-sm-6 text-right'B>>" +
             "<'row mb-3'<'col-sm-9'i>>" +
+            "<'row mb-3' <'col-sm-5 pl-0 ml-0'<'table-filter-container'>>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 mt-3'p>}>",
         pageLength: -1,
@@ -50,7 +56,7 @@ $(function() {
                     orientation: 'landscape',
                     pageSize: 'letter',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [1, 2, 3, 4, 6, 7]
                     },
                     autoFilter: true,
                     sheetName: 'Notificaciones',
@@ -63,7 +69,7 @@ $(function() {
                     orientation: 'landscape',
                     pageSize: 'letter',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [1, 2, 3, 4, 6, 7]
                     },
                     title: 'Notificaciones',
                     className: 'dropdown-item',
@@ -108,7 +114,7 @@ $(function() {
             //             return celda;
             //         }
             //     },
-            { targets: [0, 1], className: "text-center" },
+            { targets: [1, 2], className: "text-center" },
             //     {
             //         targets: 3,
             //         data: null,
@@ -121,17 +127,41 @@ $(function() {
 
             //         },
             // },
+            {
+                targets: 0,
+                className: 'details-control',
+                orderable: false,
+                data: null,
+                defaultContent: ''
+            },
+            {
+                targets: [6, 7],
+                visible: false
+            },
 
 
         ],
-        // initComplete: function(settings, json) {
-        // if ($("#tablaNotificaciones").data('comercial') != undefined) {
-        //     table.column(2)
-        //         .search($("#tablaNotificaciones").data('comercial'))
-        //         .draw()
-        // }
+        initComplete: function(settings, json) {
+            var api = new $.fn.dataTable.Api(settings);
+            $('.table-filter-container', api.table().container()).append(
+                $('#table-filter').detach().show()
+            );
 
-        // }
+            $('#table-filter select').on('change', function() {
+
+                table.column(5).search(this.value).draw();
+
+                var column = table.column(3);
+
+                // Toggle the visibility
+                column.visible(!column.visible());
+
+            });
+
+            let valor = $('#table-filter select').val();
+            table.column(5).search(valor).draw();
+
+        }
     });
 
     table.buttons().container().appendTo('#tablaNotificaciones_wrapper .col-md-6:eq(0)');
@@ -202,12 +232,21 @@ $(function() {
         // });
     });
 
+    $('#tablaNotificaciones tbody').on('click', 'td.details-control', function() {
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
 
+        if (row.child.isShown()) {
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            row.child(format(row.data())).show();
+            tr.addClass('shown');
+        }
+    });
 
     setTimeout(marcar, 4000);
     recientes();
-
-
 
 });
 
@@ -223,15 +262,17 @@ function recientes() {
 
                 $.each(resp.data, function(key, notificacion) {
 
-                    let texto = (notificacion[2].length > 160) ? notificacion[2].substr(0, 160) + '...' : notificacion[2];
-
                     celda += '<div class="notif-timeline-v2" ><div class="notif-timeline-v2__item">';
                     celda += '<span class="notif-timeline-v2__item-time">' + notificacion[0] + '</span>';
                     celda += '<div class="notif-timeline-v2__item-cricle"><i class="' + notificacion[1] + '"></i></div>';
                     celda += '<div class="notif-timeline-v2__item-text text-justify pr-2"><p class="block-with-text p-with-text">' + notificacion[2] + '</p> <a href="#" class="showNotif mb-3" id="' + notificacion[3] + '">[más]</a></div>';
                     celda += '</div></div>';
                     celda += '<div class="notif-timeline-v2__footer pt-2 animated fadeIn bg-light" id="footer_' + notificacion[3] + '">';
-                    celda += '<div class="row"><div class="col-8">' + notificacion[4] + '</div><div class="col-4 text-right">' + notificacion[5] + '</div></div>';
+                    celda += '<div class="row">';
+                    celda += '<div class="col-12 text-left pr-0"><span class="text-muted text-notif-footer pr-4">' + notificacion[5] + '</span></div>';
+                    celda += '<div class="col-12 text-right pr-0"><span class="text-muted text-notif-footer pr-4">' + notificacion[4] + '</span></div>';
+                    celda += '<div class="col-12 text-right pr-0"><span class="text-muted text-notif-footer pr-4">' + notificacion[6] + '</span></div>';
+                    celda += '</div>';
                     celda += '</div>';
                 });
 
@@ -251,7 +292,6 @@ function recientes() {
 
                 $(selector).toggle("slow", function() {
                     let disp = $(this).css('display');
-                    console.log('file: notificaciones.js -> line 255 -> $ -> disp', disp);
                     let label = '';
 
                     if (disp == 'none') {

@@ -64,6 +64,18 @@
         "fecha_ingreso": "2021-03-01",
         "remember_token": null
     },
+
+    {
+        "rol_id": "3",
+        "id_prospector": null,
+        "username": "7790418",
+        "id_number": "7790418-2",
+        "name": "Gloria Giovanna",
+        "last_name": "Lazzerini Bravo",
+        "email": "consultoria@bcnschool.cl",
+        "fecha_ingreso": "2021-03-01",
+        "remember_token": null
+    },
     {
         "rol_id": "5",
         "id_prospector": null,
@@ -97,15 +109,4 @@
         "fecha_ingreso": "2021-03-01",
         "remember_token": null
     },
-    {
-        "rol_id": "4",
-        "id_prospector": null,
-        "username": "7790418",
-        "id_number": "7790418-2",
-        "name": "Gloria Giovanna",
-        "last_name": "Lazzerini Bravo",
-        "email": "consultoria@bcnschool.cl",
-        "fecha_ingreso": "2021-03-01",
-        "remember_token": null
-    }
 ]

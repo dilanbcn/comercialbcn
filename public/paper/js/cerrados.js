@@ -26,7 +26,7 @@ $(function() {
             url: "/paper/js/spanish.json"
         },
         // dom: '<lif<t>p>',
-        dom: "<'row mb-3' <'col-sm-6'l><'col-sm-6 text-right'B>>" +
+        dom: "<'row mb-3' <'col-sm-6'l><'col-sm-6 text-right''" + $("#tablaCerrados").data("rolexportar") + ">>" +
             "<'row mb-3'<'col-sm-9'i><'col-sm-3'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 mt-3'p>}>",
@@ -34,6 +34,9 @@ $(function() {
         lengthMenu: [
             [100, 200, -1],
             [100, 200, "Todos"]
+        ],
+        order: [
+            [1, "desc"]
         ],
         buttons: [{
             extend: 'collection',
@@ -108,6 +111,9 @@ $(function() {
             if (mesFacturacion == annio) {
                 $(row).css('background-color', '#C6FFC7')
             }
+
+            console.log(data[1]);
+
         },
 
         columnDefs: [
