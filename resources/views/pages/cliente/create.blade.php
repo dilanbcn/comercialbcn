@@ -203,5 +203,5 @@
 </div>
 @endsection
 @push('scripts')
-<script src="{{ asset('paper/js/clientes.js') }}"></script>
+<script src="{{ asset('paper/js/cliente.js') }}"></script>
 @endpush
