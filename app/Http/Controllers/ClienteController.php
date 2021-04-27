@@ -63,7 +63,6 @@ class ClienteController extends Controller
         foreach ($clientes as $cliente) {
 
             $nombreComercial = ($cliente->externo) ? $cliente->user->name . ' ' . $cliente->user->last_name . " " . $cliente->externo : $cliente->user->name . ' ' . $cliente->user->last_name;
-            
             $nombreComercial = ($cliente->compartido) ? $nombreComercial . ' / ' . $cliente->compartido->name . ' ' . $cliente->compartido->last_name : $nombreComercial;
 
             $inicioCiclo = ($cliente->inicio_ciclo) ? date('d/m/Y', strtotime($cliente->inicio_ciclo)) : '';
@@ -127,9 +126,21 @@ class ClienteController extends Controller
 
         $arrProspectos = array();
         foreach ($prospectos as $prospecto) {
+            
+            $nomOrigen = ($prospecto->externo) ? $prospecto->user->name . ' ' . $prospecto->user->last_name . " " . $prospecto->externo : $prospecto->user->name . ' ' . $prospecto->user->last_name;
+            $nomOrigen = ($prospecto->compartido) ? $nomOrigen . ' / ' . $prospecto->compartido->name . ' ' . $prospecto->compartido->last_name : $nomOrigen;
+
+            $nomDestino = '';
+            if ($prospecto->destino) {
+
+                $nomDestino = ($prospecto->externo) ? $prospecto->destino->name . ' ' . $prospecto->destino->last_name . " " . $prospecto->externo : $prospecto->destino->name . ' ' . $prospecto->destino->last_name;
+                $nomDestino = ($prospecto->compartido) ? $nomDestino . ' / ' . $prospecto->compartido->name . ' ' . $prospecto->compartido->last_name : $nomDestino;
+    
+            }
+
             $arrProspectos[] = array(
                 $prospecto->razon_social,
-                $prospecto->user->name . ' ' . $prospecto->user->last_name,
+                $nomOrigen,
                 ($prospecto->destino) ? $prospecto->destino->name . ' ' . $prospecto->destino->last_name : '',
                 $prospecto->id,
             );
@@ -180,11 +191,15 @@ class ClienteController extends Controller
 
         $arrVigencia = array();
         foreach ($clientes as $cliente) {
+
+            $nombreComercial = ($cliente->externo) ? $cliente->user->name . ' ' . $cliente->user->last_name . " " . $cliente->externo : $cliente->user->name . ' ' . $cliente->user->last_name;
+            $nombreComercial = ($cliente->compartido) ? $nombreComercial . ' / ' . $cliente->compartido->name . ' ' . $cliente->compartido->last_name : $nombreComercial;
+
             $arrVigencia[] = array(
                 $cliente->razon_social,
                 $cliente->vigenciaMeses,
                 $cliente->antiguedad,
-                $cliente->user->name . ' ' . $cliente->user->last_name,
+                $nombreComercial,
                 ($cliente->inicio_relacion) ? date('d/m/Y', strtotime($cliente->inicio_relacion)) : '',
                 ($cliente->actividad) ? 'Activos' : 'Inactivo',
                 ($cliente->actividad) ? 'Activos' : 'Inactivo',
@@ -270,6 +285,10 @@ class ClienteController extends Controller
 
         $arrCerrados = array();
         foreach ($facturas as $cerrado) {
+            
+            $nombreComercial = ($cerrado->proyecto->cliente->externo) ? $cerrado->proyecto->cliente->user->name . ' ' . $cerrado->proyecto->cliente->user->last_name . " " . $cerrado->proyecto->cliente->externo : $cerrado->proyecto->cliente->user->name . ' ' . $cerrado->proyecto->cliente->user->last_name;
+            $nombreComercial = ($cerrado->proyecto->cliente->compartido) ? $nombreComercial . ' / ' . $cerrado->proyecto->cliente->compartido->name . ' ' . $cerrado->proyecto->cliente->compartido->last_name : $nombreComercial;
+
             $arrCerrados[] = array(
                 $cerrado->proyecto->cliente->antiguedad,
                 $cerrado->proyecto->fecha_cierre,
@@ -278,7 +297,7 @@ class ClienteController extends Controller
                 $cerrado->monto_venta,
                 $cerrado->inscripcion_sence,
                 $cerrado->estadoFactura->nombre,
-                $cerrado->proyecto->cliente->user->name . ' ' . $cerrado->proyecto->cliente->user->last_name,
+                $nombreComercial,
                 $cerrado->proyecto->nombre,
             );
         }
