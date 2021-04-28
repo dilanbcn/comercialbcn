@@ -1,7 +1,6 @@
 $(function() {
 
     function format(row) {
-        // `d` is the original data object for the row
         return '<p><span>Para: ' + row[6] + '</span></p><p>' + row[7] + '</p>';
     }
 
@@ -44,7 +43,7 @@ $(function() {
                 className: 'btn-sm btn-round btn-secondary',
                 action: function(e, dt, node, config) {
                     $(".inpt-metodo").val('post');
-                    // limpiarModalCliente();
+                    limpiarModalNotificacion();
                     $("#modal_notificacion").modal('show');
                 }
             },
@@ -84,51 +83,7 @@ $(function() {
         processing: true,
         ajax: "/notificaciones-json",
         columnDefs: [
-            // {
-            //         targets: -1,
-            //         data: null,
-            //         className: "text-center",
-            //         render: function(data, type, row) {
-
-            //             let admin = $("#tablaNotificaciones").data('rol');
-            //             let user = $("#tablaNotificaciones").data('user');
-            //             let celda = '<div class="btn-group" role="group" aria-label="Grupo Acciones">';
-            //             let rutaProyecto = $("#tablaNotificaciones").data('rutaproyecto');
-            //             let rutaContacto = $("#tablaNotificaciones").data('rutacontacto');
-            //             let rutaEditar = $("#tablaNotificaciones").data('rutaeditar');
-            //             let rutaDesechar = $("#tablaNotificaciones").data('rutadesechar');
-            //             let rutaEliminar = $("#tablaNotificaciones").data('rutaeliminar');
-
-            //             if (user == row[8] && !admin) {
-            //                 celda += '<a href="' + rutaProyecto.replace("@@", row[9]) + '" title="Tickets" class="btn btn-xs btn-outline-secondary" data-accion="btnProy"><i class="far fa-handshake"></i></a>';
-            //                 celda += '<button class="btn btn-xs btn-outline-warning" data-accion="btnDes" data-ruta="' + rutaDesechar.replace("@@", row[9]) + '"><i class="fa fa-recycle"></i></button>';
-            //             }
-
-            //             if (admin) {
-            //                 celda += '<a href="' + rutaProyecto.replace("@@", row[9]) + '" title="Tickets" class="btn btn-xs btn-outline-secondary" data-accion="btnProy"><i class="far fa-handshake"></i></a>';
-            //                 celda += '<a href="' + rutaContacto.replace("@@", row[9]) + '" title="Contactos" class="btn btn-xs btn-outline-secondary" data-accion="btnCon"><i class="fas fa-user-friends"></i></a>';
-            //                 celda += '<a href="' + rutaEditar.replace("@@", row[9]) + '"  title="Editar" class="btn btn-xs btn-outline-secondary" data-accion="btnEdi"><i class="fa fa-edit"></i></a>';
-            //                 celda += '<button class="btn btn-xs btn-outline-warning" data-accion="btnDes" data-ruta="' + rutaDesechar.replace("@@", row[9]) + '"><i class="fa fa-recycle"></i></a>';
-            //                 celda += '<button class="btn btn-xs btn-outline-danger" data-accion="btnEli" data-ruta="' + rutaEliminar.replace("@@", row[9]) + '"><i class="fa fa-times"></i></a>';
-            //             }
-            //             celda += '</div>';
-
-            //             return celda;
-            //         }
-            //     },
             { targets: [1, 2], className: "text-center" },
-            //     {
-            //         targets: 3,
-            //         data: null,
-            //         className: "text-center",
-            //         render: function(data, type, row) {
-
-            //             let badged = (row[3] == "Cliente") ? "badge-cliente" : "badge-prospecto";
-
-            //             return '<span class="badge p-2 ' + badged + '">' + row[3] + '</span>';
-
-            //         },
-            // },
             {
                 targets: 0,
                 className: 'details-control',
@@ -140,8 +95,6 @@ $(function() {
                 targets: [6, 7],
                 visible: false
             },
-
-
         ],
         initComplete: function(settings, json) {
             var api = new $.fn.dataTable.Api(settings);
@@ -155,7 +108,6 @@ $(function() {
 
                 var column = table.column(3);
 
-                // Toggle the visibility
                 column.visible(!column.visible());
 
             });
@@ -170,68 +122,6 @@ $(function() {
 
     $("#tablaNotificaciones tbody").on("click", 'button', function(e) {
         e.preventDefault();
-
-        // let accion = $(this).data('accion');
-        // let ruta = $(this).data('ruta');
-        // let estilo = {
-        //     titulo: "Titulo",
-        //     contenido: 'Contenido',
-        //     color: 'orange',
-        //     icono: 'fa fa-question-circle',
-        //     boton: {
-        //         texto_ok: 'Aceptar',
-        //         clase_ok: 'btn-warning',
-        //     },
-        //     accion: 1
-        // };
-
-        // switch (accion) {
-        //     case "btnDes":
-
-        //         estilo.titulo = "Desechar Cliente";
-        //         estilo.contenido = '¿Esta seguro que desea desechar este cliente?';
-        //         estilo.boton.texto_ok = "Desechar";
-        //         estilo.accion = 1;
-
-        //         break;
-        //     case "btnEli":
-        //         estilo.titulo = "Eliminar Cliente";
-        //         estilo.contenido = '¿Esta seguro que desea eliminar este cliente?';
-        //         estilo.color = 'red';
-        //         estilo.boton.texto_ok = "Eliminar";
-        //         estilo.boton.clase_ok = "btn-danger";
-        //         estilo.accion = 2;
-        //         break;
-        // }
-
-        // $.confirm({
-        //     title: estilo.titulo,
-        //     content: estilo.contenido,
-        //     type: estilo.color,
-        //     theme: 'modern',
-        //     animation: 'scala',
-        //     icon: estilo.icono,
-        //     typeAnimated: true,
-        //     buttons: {
-        //         confirm: {
-        //             text: estilo.boton.texto_ok,
-        //             btnClass: estilo.boton.clase_ok,
-        //             action: function() {
-
-        //                 if (estilo.accion == 1) {
-        //                     desCliente(ruta);
-
-        //                 } else {
-        //                     eliCliente(ruta);
-        //                 }
-
-        //             },
-        //         },
-        //         cancel: {
-        //             text: 'No',
-        //         },
-        //     }
-        // });
     });
 
     $('#tablaNotificaciones tbody').on('click', 'td.details-control', function() {
@@ -252,6 +142,12 @@ $(function() {
     showMessage();
 
 });
+
+function limpiarModalNotificacion() {
+    $(".mensaje, .cliente, .destino").val('').removeClass('is-invalid');
+    $("#destino").prop("selected", false);
+    $('.selectpicker').selectpicker('refresh');
+}
 
 function showMessage() {
     let msg = $("#msg-data").val();

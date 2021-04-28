@@ -43,5 +43,5 @@
 @include('pages.cliente_comunicacion.modal_cliente')
 @endsection
 @push('scripts')
-<script src="{{ asset('paper/js/comunicacion.js') }}"></script>
+<script src="{{ asset('paper/js/comunicacion.js?v='.time()) }}"></script>
 @endpush

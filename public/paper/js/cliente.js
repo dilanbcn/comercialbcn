@@ -57,7 +57,6 @@ $(function() {
             [100, 200, -1],
             [100, 200, "Todos"]
         ],
-
         buttons: [{
             extend: 'collection',
             text: 'Exportar',
@@ -140,7 +139,6 @@ $(function() {
 
                 },
             },
-
         ],
         initComplete: function(settings, json) {
             if ($("#tablaClientes").data('comercial') != undefined) {
@@ -153,7 +151,6 @@ $(function() {
     });
 
     table.buttons().container().appendTo('#tablaClientes_wrapper .col-md-6:eq(0)');
-
 
     $("#tablaClientes tbody").on("click", 'button', function(e) {
         e.preventDefault();
@@ -175,7 +172,6 @@ $(function() {
 
         switch (accion) {
             case "btnDes":
-
                 estilo.titulo = "Desechar Cliente";
                 estilo.contenido = '¿Esta seguro que desea desechar este cliente?';
                 estilo.boton.texto_ok = "Desechar";
@@ -242,11 +238,7 @@ $(function() {
                 }
             });
         }
-
-
     });
-
-
 });
 
 function desCliente(rutaDes) {
@@ -268,7 +260,6 @@ function desCliente(rutaDes) {
         }
     });
 }
-
 
 function eliCliente(rutaDel) {
 

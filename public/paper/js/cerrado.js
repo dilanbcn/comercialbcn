@@ -1,6 +1,5 @@
 $(function() {
 
-
     $('#tablaCerrados thead tr').clone(true).appendTo('#tablaCerrados thead');
     $('#tablaCerrados thead tr:eq(1) th').each(function(i) {
         var title = $(this).text();
@@ -20,13 +19,11 @@ $(function() {
         }
     });
 
-
     var $tableSel = $('#tablaCerrados');
     var table = $tableSel.DataTable({
         language: {
             url: "/paper/js/spanish.json"
         },
-        // dom: '<lif<t>p>',
         dom: "<'row mb-3' <'col-sm-6'l><'col-sm-6 text-right''" + $("#tablaCerrados").data("rolexportar") + ">>" +
             "<'row mb-3'<'col-sm-9'i><'col-sm-3'f>>" +
             "<'row'<'col-sm-12'tr>>" +
@@ -125,7 +122,6 @@ $(function() {
         ]
     });
 
-
     table.buttons().container().appendTo('#tablaCerrados_wrapper .col-md-6:eq(0)');
 
     $("#btn-filtrar").on('click', function(e) {
@@ -175,13 +171,11 @@ function limpiarFiltro($tableSel) {
 
 var filterByDate = function(column, startDate, endDate, $tableSel) {
     limpiarFiltro($tableSel);
-    // Custom filter syntax requires pushing the new filter to the global filter array
     $.fn.dataTableExt.afnFiltering.push(
         function(oSettings, aData, iDataIndex) {
             var rowDate = normalizeDate(aData[column]),
                 start = normalizeDate(startDate),
                 end = normalizeDate(endDate);
-            // If our date from the row is between the start and end
             if (start <= rowDate && rowDate <= end) {
                 return true;
             } else if (rowDate >= start && end === '' && start !== '') {

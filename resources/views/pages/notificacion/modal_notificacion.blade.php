@@ -45,7 +45,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>{{ __('Contenido') }} <span class="text-required">*</span></label>
-                                        <textarea name="mensaje" class="form-control @error('mensaje') is-invalid @enderror" id="mensaje" rows="5">{{ @old('mensaje') }}</textarea>
+                                        <textarea name="mensaje" class="form-control @error('mensaje') is-invalid @enderror mensaje" id="mensaje" rows="5">{{ @old('mensaje') }}</textarea>
                                         @if ($errors->has('mensaje'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('mensaje') }}</strong>
@@ -53,8 +53,6 @@
                                         @endif
                                     </div>
                                 </div>
-                                
-
                             </div>
                         </div>
                         <div class="card-footer">
