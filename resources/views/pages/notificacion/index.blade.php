@@ -9,10 +9,7 @@
         <option>Enviadas</option>
     </select>
 </div>
-
-
-
-<div class="content">
+<div class="content" id="msg-modal" data-valor="{{ ($errors->any()) ? 1 : 0 }}" data-nombre="modal_notificacion">
     <div class="row">
         <div class="col-md-8">
             @include('layouts.page_templates.messages')
@@ -52,7 +49,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-12">
-                            <h5 class="card-title mb-1">Notificaciones Recientes</h5>
+                            <h5 class="card-title mb-1">Notificaciones de Hoy</h5>
                         </div>
                     </div>
                 </div>

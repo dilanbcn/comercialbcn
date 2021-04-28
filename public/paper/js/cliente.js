@@ -48,7 +48,6 @@ $(function() {
         language: {
             url: "/paper/js/spanish.json",
         },
-        // dom: '<lifB<t>p>',
         dom: "<'row mb-3' <'col-sm-6'l><'col-sm-6 text-right'" + $("#tablaClientes").data("rolexportar") + ">>" +
             "<'row mb-3'<'col-sm-9'i><'col-sm-3'f>>" +
             "<'row'<'col-sm-12'tr>>" +
@@ -111,6 +110,7 @@ $(function() {
 
                     if ((user == row[8] && !admin) || (user == row[10] && !admin)) {
                         celda += '<a href="' + rutaProyecto.replace("@@", row[9]) + '" title="Tickets" class="btn btn-xs btn-outline-secondary" data-accion="btnProy"><i class="far fa-handshake"></i></a>';
+                        celda += '<button class="btn btn-xs btn-outline-info" data-accion="btnNotif"><i class="far fa-bell"></i></a>';
                         celda += '<button class="btn btn-xs btn-outline-warning" data-accion="btnDes" data-ruta="' + rutaDesechar.replace("@@", row[9]) + '"><i class="fa fa-recycle"></i></button>';
                     }
 
@@ -119,6 +119,7 @@ $(function() {
                         celda += '<a href="' + rutaContacto.replace("@@", row[9]) + '" title="Contactos" class="btn btn-xs btn-outline-secondary" data-accion="btnCon"><i class="fas fa-user-friends"></i></a>';
                         celda += '<a href="' + rutaEditar.replace("@@", row[9]) + '"  title="Editar" class="btn btn-xs btn-outline-secondary" data-accion="btnEdi"><i class="fa fa-edit"></i></a>';
                         celda += '<button class="btn btn-xs btn-outline-warning" data-accion="btnDes" data-ruta="' + rutaDesechar.replace("@@", row[9]) + '"><i class="fa fa-recycle"></i></a>';
+                        celda += '<button class="btn btn-xs btn-outline-info" data-accion="btnNotif"><i class="far fa-bell"></i></a>';
                         celda += '<button class="btn btn-xs btn-outline-danger" data-accion="btnEli" data-ruta="' + rutaEliminar.replace("@@", row[9]) + '"><i class="fa fa-times"></i></a>';
                     }
                     celda += '</div>';
@@ -157,6 +158,7 @@ $(function() {
     $("#tablaClientes tbody").on("click", 'button', function(e) {
         e.preventDefault();
 
+        let showMsg = true;
         let accion = $(this).data('accion');
         let ruta = $(this).data('ruta');
         let estilo = {
@@ -188,36 +190,60 @@ $(function() {
                 estilo.boton.clase_ok = "btn-danger";
                 estilo.accion = 2;
                 break;
+            case "btnNotif":
+                let data = table.row($(this).parents('tr')).data();
+                let admin = $("#tablaClientes").data('rol');
+
+                let destino = (data[11]) ? (admin ? data[8] : data[11]) : data[8];
+                let nomDestino = (data[11]) ? (admin ? data[2] : data[12]) : data[2];
+
+                let strRuta = $("#frm_modal_notificacion_comercial").attr('action');
+                let ruta = strRuta.replace("des@", destino).replace("cli@", data[9]);
+
+                showMsg = false;
+
+                $(".inpt-metodo").val('post');
+                $("#not_contenido").val('');
+                $("#frm_modal_notificacion_comercial").attr('action', ruta);
+                $("#inptNomComercial").html(nomDestino);
+                $("#inptNomCliente").html(data[1]);
+                $("#modal_notificacion_comercial").modal('show');
+
+                break;
         }
 
-        $.confirm({
-            title: estilo.titulo,
-            content: estilo.contenido,
-            type: estilo.color,
-            theme: 'modern',
-            animation: 'scala',
-            icon: estilo.icono,
-            typeAnimated: true,
-            buttons: {
-                confirm: {
-                    text: estilo.boton.texto_ok,
-                    btnClass: estilo.boton.clase_ok,
-                    action: function() {
+        if (showMsg) {
+            $.confirm({
+                title: estilo.titulo,
+                content: estilo.contenido,
+                type: estilo.color,
+                theme: 'modern',
+                animation: 'scala',
+                icon: estilo.icono,
+                typeAnimated: true,
+                buttons: {
+                    confirm: {
+                        text: estilo.boton.texto_ok,
+                        btnClass: estilo.boton.clase_ok,
+                        action: function() {
 
-                        if (estilo.accion == 1) {
-                            desCliente(ruta);
+                            if (estilo.accion == 1) {
+                                desCliente(ruta);
 
-                        } else {
-                            eliCliente(ruta);
-                        }
+                            } else {
+                                eliCliente(ruta);
+                            }
 
+                        },
                     },
-                },
-                cancel: {
-                    text: 'No',
-                },
-            }
-        });
+                    cancel: {
+                        text: 'No',
+                    },
+                }
+            });
+        }
+
+
     });
 
 

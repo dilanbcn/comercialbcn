@@ -40,43 +40,45 @@ $(function() {
             [100, 200, "Todos"]
         ],
         buttons: [{
-            text: 'Nueva',
-            className: 'btn-sm btn-round btn-secondary',
-            action: function(e, dt, node, config) {
-                $(".inpt-metodo").val('post');
-                // limpiarModalCliente();
-                $("#modal_notificacion").modal('show');
+                text: 'Nueva',
+                className: 'btn-sm btn-round btn-secondary',
+                action: function(e, dt, node, config) {
+                    $(".inpt-metodo").val('post');
+                    // limpiarModalCliente();
+                    $("#modal_notificacion").modal('show');
+                }
+            },
+            {
+                extend: 'collection',
+                text: 'Exportar',
+                className: 'btn-sm btn-round dropdown-toggle',
+                buttons: [{
+                        extend: 'excelHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'letter',
+                        exportOptions: {
+                            columns: [1, 2, 3, 4, 6, 7]
+                        },
+                        autoFilter: true,
+                        sheetName: 'Notificaciones',
+                        title: 'Notificaciones',
+                        className: 'dropdown-item',
+                        text: '<i class="fas fa-file-excel"></i> Excel</a>'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'letter',
+                        exportOptions: {
+                            columns: [1, 2, 3, 4, 6, 7]
+                        },
+                        title: 'Notificaciones',
+                        className: 'dropdown-item',
+                        text: '<i class="fas fa-file-pdf"></i> Pdf</a>'
+                    },
+                ]
             }
-        }, {
-            extend: 'collection',
-            text: 'Exportar',
-            className: 'btn-sm btn-round dropdown-toggle',
-            buttons: [{
-                    extend: 'excelHtml5',
-                    orientation: 'landscape',
-                    pageSize: 'letter',
-                    exportOptions: {
-                        columns: [1, 2, 3, 4, 6, 7]
-                    },
-                    autoFilter: true,
-                    sheetName: 'Notificaciones',
-                    title: 'Notificaciones',
-                    className: 'dropdown-item',
-                    text: '<i class="fas fa-file-excel"></i> Excel</a>'
-                },
-                {
-                    extend: 'pdfHtml5',
-                    orientation: 'landscape',
-                    pageSize: 'letter',
-                    exportOptions: {
-                        columns: [1, 2, 3, 4, 6, 7]
-                    },
-                    title: 'Notificaciones',
-                    className: 'dropdown-item',
-                    text: '<i class="fas fa-file-pdf"></i> Pdf</a>'
-                },
-            ]
-        }],
+        ],
         orderCellsTop: true,
         fixedHeader: true,
         processing: true,
@@ -247,8 +249,19 @@ $(function() {
 
     setTimeout(marcar, 4000);
     recientes();
+    showMessage();
 
 });
+
+function showMessage() {
+    let msg = $("#msg-data").val();
+    let titulo = $("#msg-data").data('titulo');
+    let estilo = $("#msg-data").data('estilo');
+    if (msg) {
+        toastr[estilo](msg, titulo);
+        $("#msg-data").val('');
+    }
+}
 
 function recientes() {
     let ruta = $("#tablaNotificaciones").data('rutarecientes');
@@ -261,6 +274,7 @@ function recientes() {
                 let celda = '<div class="notif-timeline-v2"><div class="notif-timeline-v2__items">';
 
                 $.each(resp.data, function(key, notificacion) {
+                    console.log('file: notificaciones.js -> line 264 -> $.each -> notificacion', notificacion);
 
                     celda += '<div class="notif-timeline-v2" ><div class="notif-timeline-v2__item">';
                     celda += '<span class="notif-timeline-v2__item-time">' + notificacion[0] + '</span>';

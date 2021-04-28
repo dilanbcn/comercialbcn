@@ -41,6 +41,7 @@
 </div>
 @include('layouts.page_templates.form_delete')
 @include('layouts.page_templates.form_validar')
+@include('pages.cliente.modal_notificacion')
 @endsection
 @push('scripts')
 <script src="{{ asset('paper/js/cliente.js?v='.time()) }}"></script>

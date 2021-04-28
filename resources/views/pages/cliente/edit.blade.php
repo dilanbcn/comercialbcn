@@ -15,7 +15,7 @@
                             <div class="col-md-8">
                                 <h5 class="card-title mb-1">Editar cliente</h5>
                             </div>
-                            <div class="col-md-4 text-right">
+                            <div class="col-md-4 text-right mt-2">
                                 <button type="submit" class="btn btn-sm btn-secondary btn-round button-prevent-submit"><i class="spinner fa fa-spinner fa-spin"></i>{{ __('Modificar') }}</button>
                                 <a role="button" href="{{ url()->previous() }}" class="btn btn-sm btn-danger btn-round">{{ __('Regresar') }}</a>
                             </div>

@@ -14,21 +14,21 @@
                             <div class="col-md-12">
                                     <div class="form-group">
                                         <label>{{ __('Para') }} <span class="text-required">*</span></label>
-                                        <select class="form-control @error('usuario') is-invalid @enderror usuario selectpicker show-tick" title="[Seleccione]" multiple data-style="btn-light"  data-live-search="false" id="usuario" name="usuario[]" required>
+                                        <select class="form-control @error('destino') is-invalid @enderror destino selectpicker show-tick" title="[Seleccione]" multiple data-style="btn-light"  data-live-search="false" id="destino" name="destino[]" required>
                                             @foreach ($usuarios as $usuario)
-                                            <option {{ ( $usuario->id == @old('usuario')) ? 'selected' : '' }} value="{{ $usuario->id }}">{{ $usuario->name . ' ' . $usuario->last_name }}</option>
+                                            <option {{  (@old('destino')) ? (in_array($usuario->id, @old('destino'))) ? 'selected' : '' : '' }} value="{{ $usuario->id }}">{{ $usuario->name . ' ' . $usuario->last_name }}</option>
                                             @endforeach
                                         </select>
-                                        @if ($errors->has('usuario'))
+                                        @if ($errors->has('desstino'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('usuario') }}</strong>
+                                            <strong>{{ $errors->first('desstino') }}</strong>
                                         </span>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label>{{ __('Cliente') }} </label>
+                                        <label>{{ __('Cliente') }} <span class="text-required">*</span></label>
                                         <select class="form-control @error('cliente') is-invalid @enderror cliente" data-style="btn-light"  data-live-search="true" id="cliente" name="cliente" required>
                                             <option value="">[Seleccione]</option>
                                             @foreach ($clientes as $cliente)
@@ -45,10 +45,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>{{ __('Contenido') }} <span class="text-required">*</span></label>
-                                        <textarea name="contenido" class="form-control @error('contenido') is-invalid @enderror" rows="5">{{ @old('contenido') }}</textarea>
-                                        @if ($errors->has('contenido'))
+                                        <textarea name="mensaje" class="form-control @error('mensaje') is-invalid @enderror" id="mensaje" rows="5">{{ @old('mensaje') }}</textarea>
+                                        @if ($errors->has('mensaje'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('contenido') }}</strong>
+                                            <strong>{{ $errors->first('mensaje') }}</strong>
                                         </span>
                                         @endif
                                     </div>

@@ -53,8 +53,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('clientes-discard/{cliente}', 'App\Http\Controllers\ClienteController@discard')->name('cliente.discard');
 	Route::post('clientes-inicio-relacion/{cliente}', 'App\Http\Controllers\ClienteController@updateInicioRelacion')->name('cliente.inicio-relacion');
 
-	
-
 	Route::resource('cliente-contacto', 'App\Http\Controllers\ClienteContactoController', ['except' => ['index', 'show', 'store', 'create']]);
 	Route::get('cliente-contacto/{cliente}', 'App\Http\Controllers\ClienteContactoController@index')->name('cliente-contacto.index');
 	Route::get('cliente-contacto-json/{cliente}', 'App\Http\Controllers\ClienteContactoController@json')->name('cliente-contacto.json');
@@ -95,12 +93,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::resource('producto', 'App\Http\Controllers\ProductoController', ['except' => ['show', 'edit', 'create', 'update']]);
 	
-	
 	Route::resource('notificacion', 'App\Http\Controllers\NotificacionController', ['except' => ['show', 'edit', 'create', 'update']]);
 	Route::get('notificaciones-json', 'App\Http\Controllers\NotificacionController@indexJSON')->name('notificaciones.json');
 	Route::get('notificaciones-push', 'App\Http\Controllers\NotificacionController@pushJSON')->name('notificaciones.push');
 	Route::get('notificaciones-recientes', 'App\Http\Controllers\NotificacionController@recientesJSON')->name('notificaciones.recientes');
 	Route::post('notificaciones-marcar', 'App\Http\Controllers\NotificacionController@marcar')->name('notificaciones.marcar');
+	Route::post('notificaciones-comerciales/{cliente}/{user}', 'App\Http\Controllers\NotificacionController@notificacionComercial')->name('notificaciones.comerciales');
 
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);

@@ -53,8 +53,12 @@ class ClienteController extends Controller
 
     public function allClientes()
     {
-        $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->withCount(['proyecto'])->orderBy('razon_social')->get();
+        $user = auth()->user();
 
+        $usuario = User::where(['id' => $user->id])->with('prospector')->first();
+
+        $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->withCount(['proyecto'])->orderBy('razon_social')->get();
+        
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->meses($clientes);
         });
@@ -79,6 +83,8 @@ class ClienteController extends Controller
                 $cliente->destino_user_id,
                 $cliente->id,
                 $cliente->compartido_user_id,
+                ($usuario->prospector) ? $usuario->id_prospector : '',
+                ($usuario->prospector) ? $usuario->prospector->name . ' ' . $usuario->prospector->last_name : '',
 
             );
         }

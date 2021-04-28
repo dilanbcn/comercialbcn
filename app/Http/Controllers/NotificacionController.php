@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NotificacionRequest;
 use App\Models\Cliente;
 use App\Models\Notificacion;
 use App\Models\TipoNotificacion;
@@ -40,8 +41,13 @@ class NotificacionController extends Controller
         $hoy = Carbon::today();
         $user = auth()->user();
 
-        $notificaciones = Notificacion::with(['tipoNotificacion', 'origen', 'user', 'cliente'])
-            ->orderBy('created_at', 'asc')->get();
+         // $notificaciones = Notificacion::where('user_id', $user->id)
+            // ->whereDate('created_at', '<', $hoy)
+            // ->with(['tipoNotificacion', 'origen', 'user', 'cliente'])
+            // ->orderByDesc('created_at')->get();
+
+        $notificaciones = Notificacion::where('user_id', $user->id)->with(['tipoNotificacion', 'origen', 'user', 'cliente'])->whereDate('created_at', '<', $hoy)
+            ->orderBy('created_at', 'desc')->get();
 
         $agrupadas = $notificaciones->groupBy(['contenido', 'tipo_notificacion_id', 'cliente_id']);
 
@@ -73,35 +79,7 @@ class NotificacionController extends Controller
                 implode(", ", $arrDestino),
                 $contenido,
             );
-
         }
-
-
-        // $notificaciones = Notificacion::where('user_id', $user->id)
-        // ->whereDate('created_at', '<', $hoy)
-        // ->with(['tipoNotificacion', 'origen', 'user', 'cliente'])
-        // ->orderByDesc('created_at')->get();
-
-
-
-        // $arrayNotificaciones = array();
-        // foreach ($notificaciones as $notificacion) {
-        //     $fN = Carbon::parse($notificacion->created_at);
-
-        //     $bandeja = ($user->id == $notificacion->origen_user_id) ? 'Enviadas' : 'Recibidas';
-
-        //     $arrayNotificaciones[] = array(
-        //         $notificacion->contenido,
-        //         ($fN->isCurrentYear()) ? $fN->format('d') . ' ' . $fN->locale('es')->shortMonthName : $fN->format('d/m/Y'),
-        //         $notificacion->tipoNotificacion->nombre,
-        //         $notificacion->origen->name . ' ' . $notificacion->origen->last_name,
-        //         $notificacion->origen->name . ' ' . $notificacion->origen->last_name,
-        //         $notificacion->cliente->razon_social,
-        //         $bandeja,
-        //         $notificacion->id,
-
-        //     );
-        // }
 
         $response = array('draw' => 1, 'recordsTotal' => count($arrayNotificaciones), 'recordsFiltered' => count($arrayNotificaciones), 'data' => $arrayNotificaciones);
 
@@ -151,8 +129,9 @@ class NotificacionController extends Controller
     public function pushJSON()
     {
         $user = auth()->user();
+        $hoy = Carbon::today();
 
-        $notificaciones = Notificacion::where(['user_id' => $user->id, 'lectura' => null])->count();
+        $notificaciones = Notificacion::where(['user_id' => $user->id, 'lectura' => null])->whereDate('created_at', $hoy)->count();
 
         $response = array('total' => $notificaciones);
 
@@ -189,11 +168,11 @@ class NotificacionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NotificacionRequest $request)
     {
         $user = auth()->user();
 
-        $destinos = $request->get('usuario');
+        $destinos = $request->get('destino');
 
         foreach ($destinos as $key => $usuario) {
             Notificacion::create([
@@ -206,6 +185,27 @@ class NotificacionController extends Controller
         }
 
         return redirect()->route('notificacion.index')->with(['status' => 'Notificación creada satisfactoriamente', 'title' => 'Éxito']);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function notificacionComercial(Request $request, Cliente $cliente, User $user)
+    {
+        $authUser = auth()->user();
+
+        Notificacion::create([
+            'origen_user_id' => $authUser->id,
+            'cliente_id' => $cliente->id,
+            'user_id' => $user->id,
+            'contenido' => $request->get('contenido'),
+            'tipo_notificacion_id' => 2,
+        ]);
+
+        return redirect()->route('cliente.index')->with(['status' => 'Notificación enviada satisfactoriamente', 'title' => 'Éxito']);
     }
 
     /**
