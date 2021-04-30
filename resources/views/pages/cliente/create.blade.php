@@ -25,7 +25,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Holding') }}</label>
-                                    <input autocomplete="off" type="text" id="holding" name="holding" data-rutaholding="{{ route('clientes.json') }}" class="form-control @error('holding') is-invalid @enderror" value="{{ @old('holding') }}" required>
+                                    <input autocomplete="off" type="text" id="holding" name="holding" data-rutaholding="{{ route('clientes.json') }}" class="form-control @error('holding') is-invalid @enderror" value="{{ @old('holding') }}">
                                     @if ($errors->has('holding'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
                                         <strong>{{ $errors->first('holding') }}</strong>
@@ -94,7 +94,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ __('Compartido') }}</label>
-                                    <select class="form-control @error('compartido_user') is-invalid @enderror" id="compartido_user" name="compartido_user" required>
+                                    <select class="form-control @error('compartido_user') is-invalid @enderror" id="compartido_user" name="compartido_user">
                                         <option value="" selected>[Seleccione Uno]</option>
                                         @foreach ($usuarios as $usuario)
                                         <option {{ ( $usuario->id == @old('compartido_user') ) ? 'selected' : '' }} value="{{ $usuario->id }}">{{ $usuario->name . ' ' . $usuario->last_name }}</option>
