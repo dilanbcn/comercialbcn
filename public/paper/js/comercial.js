@@ -49,47 +49,12 @@ $(function() {
 
     });
 
-    $('.tablaLlamados').DataTable({
-        scrollX: true,
-        responsive: true,
-        pageLength: -1,
-        lengthMenu: [
-            [100, 200, -1],
-            [100, 200, "Todos"]
-        ],
-        dom: '<lif<t>p>',
-        columns: [
-            { "width": "60px" },
-            { "width": "60px" },
-            { "width": "60px" },
-            { "width": "60px" },
-            { "width": "60px" },
-            { "width": "60px" },
-            { "width": "60px" },
-            { "width": "60px" },
-            { "width": "60px" },
-            { "width": "60px" },
-            { "width": "60px" },
-            { "width": "60px" },
-            { "width": "60px" },
-            { "width": "60px" },
-        ]
-    });
 
 
 
 
-    $('.tablaIndicadores').DataTable({
-        language: {
-            url: "//cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json"
-        },
-        order: [
-            [0, 'asc']
-        ],
-        rowGroup: {
-            dataSrc: 0
-        }
-    });
+
+
 
     $.ajaxSetup({
         headers: {

@@ -40,7 +40,7 @@
                                     <td>{{ $contacto->cliente->cantidad_empleados }}</td>
                                     <td class="text-left">{{ $contacto->cliente->rubro }}</td>
                                     <td class="text-left">{{ $contacto->nombre . ' ' . $contacto->apellido }}</td>
-                                    <td>{{ $contacto->email }}</td>
+                                    <td>{{ $contacto->correo }}</td>
                                     <td>{{ $contacto->telefono }}</td>
                                     <td>{{ $contacto->celular }}</td>
                                     <td>

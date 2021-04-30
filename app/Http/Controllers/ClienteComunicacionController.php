@@ -59,7 +59,7 @@ class ClienteComunicacionController extends Controller
                 $cliente->razon_social,
                 $cliente->telefono,
                 $cliente->email,
-                ($cliente->activo == 1 ) ? 'Activos' : 'Inactivo',
+                ($cliente->activo == 1) ? 'Activos' : 'Inactivo',
                 $cliente->id,
                 $cliente->clienteComunicacion->count(),
             );
@@ -69,8 +69,6 @@ class ClienteComunicacionController extends Controller
 
 
         return response()->json($response, 200);
-
-
     }
 
     /**
@@ -80,11 +78,89 @@ class ClienteComunicacionController extends Controller
      */
     public function resumen()
     {
-        $comunicaciones = ClienteComunicacion::with(['cliente'])->get();
 
         auth()->user()->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Llamados y Reuniones', 'ruta' => route('cliente-comunicacion.index')], ['nombre' => 'Vista Resumen', 'ruta' => null]]);
 
-        return view('pages.cliente_comunicacion.index_resumen', compact('comunicaciones'));
+        return view('pages.cliente_comunicacion.index_resumen');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function resumenJSON()
+    {
+
+        $clientes = Cliente::whereHas('clienteComunicacion')->with(['clienteComunicacion', 'destino', 'clienteContactos'])->with('user', function ($sql) {
+            return $sql->with('prospector');
+        })->get();
+
+
+        $arrComunicacion = array();
+        foreach ($clientes as $cliente) {
+
+        
+            $arrContactos = array();
+            if ($cliente->clienteContactos) {
+                foreach ($cliente->clienteContactos as $key => $contacto) {
+                    $arrNumContacto = array();
+
+                    if ($contacto->correo) {
+                        $arrNumContacto[] = '<li style="list-style-type: none;">Correo: '.$contacto->correo.'</li>';
+                    }
+                    if ($contacto->telefono) {
+                        $arrNumContacto[] = '<li style="list-style-type: none;">Telefono: '.$contacto->telefono.'</li>';
+                    }
+                    if ($contacto->celular) {
+                        $arrNumContacto[] = '<li style="list-style-type: none;">Fono: '.$contacto->celular.'</li>';
+                    }
+
+                    $strNumeros = '';
+                    if (count($arrNumContacto) > 0) {
+                        $strNumeros = '<ul>'.implode('',$arrNumContacto).'</ul>';
+                    }
+                    
+                    $arrContactos[] = '<li style="list-style-type: none;">'. $contacto->nombre . ' ' . $contacto->apellido . $strNumeros . '</li>';
+                }
+            }
+
+            $arrComunicaciones = array();
+            if ($cliente->clienteComunicacion) {
+                foreach ($cliente->clienteComunicacion as $key => $comunicacion) {
+
+                    $fecha = Carbon::parse($comunicacion->created_at);
+
+                    $strReunion = '';
+                    if ($comunicacion->fecha_reunion) {
+                        $fReunion = Carbon::parse($comunicacion->fecha_reunion);
+                        $strReunion .= '<li style="list-style-type: none;" class="text-sm"><span class="font-weight-bold">'.$fecha->format('d-m-Y').'</span>  <ul><li style="list-style-type: none;">'.$comunicacion->observaciones.'</li><li style="list-style-type: none;"><i class="far fa-calendar-check" title="Reunión Agendada"></i> '.$fReunion->format('d-m-Y \\a \\l\\a\\s H:i').'</li></ul> </li>';
+                    } else {
+                        $strReunion .= '<li style="list-style-type: none;" class="text-sm"><span class="font-weight-bold">'.$fecha->format('d-m-Y').':</span><span> '.$comunicacion->observaciones.'</span>'.$strReunion.'</li>';
+                    }
+
+                    $arrComunicaciones[] = $strReunion;
+                }
+            }
+
+            $arrComunicacion[] = array(
+                '',
+                ($cliente->user->prospector) ? $cliente->user->prospector->name . ' ' . $cliente->user->prospector->last_name : '',
+                ($cliente->user) ? $cliente->user->name . ' ' . $cliente->user->last_name : '',
+                $cliente->razon_social,
+                '',
+                '<ul>' . implode('', $arrContactos) . '</ul>',
+                '<ul>' . implode('', $arrComunicaciones) . '</ul>',
+                $cliente->rubro,
+                $cliente->direccion,
+                $cliente->email,
+                ($cliente->cantidad_empleados) ? $cliente->cantidad_empleados : 0,
+            );
+        }
+
+        $response = array('draw' => 1, 'recordsTotal' => count($arrComunicacion), 'recordsFiltered' => count($arrComunicacion), 'data' => $arrComunicacion);
+
+        return response()->json($response, 200);
     }
 
     /**
@@ -340,14 +416,6 @@ class ClienteComunicacionController extends Controller
         $fechaRegistrada = new Carbon($clienteComunicacion->fecha_reunion);
         $fechaFormulario = new Carbon($request->get('fechaReunion'));
 
-        // if ($clienteComunicacion->reunion_valida == 1 && (!$request->get('fechaReunion') || $fechaRegistrada->ne($fechaFormulario))) {
-        //     $rutaError = ($request->calendario == 'calendario') ? 'cliente-comunicacion.calendario' : 'cliente-comunicacion.conversacion';
-
-        //     return redirect()->route($rutaError)->withInput()->withErrors(
-        //         ['fechaReunion' => 'No puede cambiar la fecha de la reunión porque ha sido validada']
-        //     );
-        // }
-
         $clienteCom = ClienteComunicacion::with(['cliente' => function ($sql) {
             return $sql->with(['user']);
         }])->find($clienteComunicacion->id);
@@ -469,7 +537,7 @@ class ClienteComunicacionController extends Controller
         // $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion'])->get();
         $tipoComunicaciones = TipoComunicacion::where(['activo' => 1])->get();
 
-        $comunicaciones = ClienteComunicacion::with(['cliente'])->orderBy('fecha_contacto', 'DESC')->take(8)->get();
+        $comunicaciones = ClienteComunicacion::with(['cliente'])->whereNotNull('fecha_reunion')->orderBy('fecha_contacto', 'DESC')->take(8)->get();
 
         $user->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Calendario Reuniones', 'ruta' => null]]);
 

@@ -39,10 +39,9 @@ class HomeController extends Controller
                 return $sql->where(['id_prospector' => $user->id]);
             })->with(['clienteComunicacion', 'clienteContactos'])->get();
         }
-        // $clientes = Cliente::where(['tipo_cliente_id' => 2, 'activo' => 1])->with(['clienteComunicacion'])->get();
         $tipoComunicaciones = TipoComunicacion::where(['activo' => 1])->get();
 
-        $comunicaciones = ClienteComunicacion::with(['cliente'])->orderBy('fecha_contacto', 'DESC')->take(8)->get();
+        $comunicaciones = ClienteComunicacion::with(['cliente'])->whereNotNull('fecha_reunion')->orderBy('fecha_contacto', 'DESC')->take(8)->get();
 
         $user->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Calendario Reuniones', 'ruta' => null]]);
 

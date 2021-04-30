@@ -79,6 +79,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('cliente-comunicacion-json', 'App\Http\Controllers\ClienteComunicacionController@indexJson')->name('cliente-comunicacion.json');
 	Route::get('cliente-comunicacion/reuniones', 'App\Http\Controllers\ClienteComunicacionController@reuniones')->name('cliente-comunicacion.reuniones');
 	Route::get('cliente-comunicacion/resumen', 'App\Http\Controllers\ClienteComunicacionController@resumen')->name('cliente-comunicacion.resumen');
+	Route::get('cliente-comunicacionresumen-json', 'App\Http\Controllers\ClienteComunicacionController@resumenJSON')->name('cliente-comunicacion.resumen.json');
 	Route::get('conversación/{cliente}', 'App\Http\Controllers\ClienteComunicacionController@conversacion')->name('cliente-comunicacion.conversacion');
 	Route::post('valida-reunion/{cliente_comunicacion}', 'App\Http\Controllers\ClienteComunicacionController@validar')->name('cliente-comunicacion.validar');
 	Route::get('calendario', 'App\Http\Controllers\ClienteComunicacionController@calendario')->name('cliente-comunicacion.calendario');

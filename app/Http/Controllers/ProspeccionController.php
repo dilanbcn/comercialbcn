@@ -104,7 +104,7 @@ class ProspeccionController extends Controller
             'nombre' => $request->get('nombre'),
             'apellido' => $request->get('apellido'),
             'cargo' => $request->get('cargo'),
-            'correo' => $request->get('correo'),
+            'correo' => $request->get('email'),
             'telefono' => $request->get('telefono'),
             'celular' => $request->get('celular'),
         ]);
@@ -186,7 +186,7 @@ class ProspeccionController extends Controller
             'cargo' => $request->get('cargo'),
             'telefono' => $request->get('telefono'),
             'celular' => $request->get('celular'),
-            'email' => $request->get('email'),
+            'correo' => $request->get('email'),
             'activo' => ($request->activo) ? 1 : 0,
         ]);
 
@@ -260,7 +260,7 @@ class ProspeccionController extends Controller
 
         if ($user->rol_id == 4) {
 
-            $comerciales = User::where(['rol_id' => 1])->get();
+            $comerciales = User::whereIn('rol_id', [1, 2])->orderBy('name')->get();
             $show = false;
             $arrHead = null;
             $arrData = null;
@@ -349,15 +349,26 @@ class ProspeccionController extends Controller
                         $consCerrados = Cliente::whereMonth('inicio_relacion', '=', $fechaInicio->month)->whereYear('inicio_relacion', '=', $fechaInicio->year)
                             ->get()->count();
                         // INGRESOS
-                        // $consFacturas = ProyectoFactura::whereMonth('fecha_pago', '=', $fechaInicio->month)
-                        //     ->whereYear('fecha_pago', '=', $fechaInicio->year)->get();
+                        // $consFacturas = ProyectoFactura::whereMonth('fecha_factura', '=', $fechaInicio->month)
+                        //     ->whereYear('fecha_factura', '=', $fechaInicio->year)->get();
                         // $consIngresos = $consFacturas->sum('monto_venta');
-                        $consFacturas = Proyecto::whereHas('proyectoFacturas', function ($sql) use ($fechaInicio) {
-                            return $sql->whereMonth('fecha_pago', '=', $fechaInicio->month)
-                                ->whereYear('fecha_pago', '=', $fechaInicio->year);
+                        // $consFacturas = Proyecto::whereHas('proyectoFacturas', function ($sql) use ($fechaInicio) {
+                        //     return $sql->whereMonth('fecha_factura', '=', $fechaInicio->month)
+                        //         ->whereYear('fecha_factura', '=', $fechaInicio->year);
+                        // })->with('proyectoFacturas')->get();
+
+
+                        $consIngresos = ProyectoFactura::whereHas('proyecto', function ($sql) use ($fechaInicio) {
+                            return $sql->whereMonth('fecha_cierre', '=', $fechaInicio->month)->whereYear('fecha_cierre', '=', $fechaInicio->year);
                         })->get();
 
-                        $consIngresos = $consFacturas->proyectoFacturas->sum('monto_venta');
+
+                        $sumaTotal =  0;
+                        if ((count($consIngresos) > 0)) {
+                            $sumaTotal = $consIngresos->sum('monto_venta');
+                        } 
+
+                        // $consIngresos = (count($consFacturas) > 0) ? $consFacturas->proyectoFacturas->sum('monto_venta') : 0 ;
                         // **********FIN CONSOLIDADO
 
 
@@ -375,11 +386,11 @@ class ProspeccionController extends Controller
                             ->whereYear('inicio_relacion', '=', $fechaInicio->year)->get()->count();
 
                         // INGRESOS
-                        $facturas = ProyectoFactura::whereHas('proyecto', function ($sql) use ($comercial) {
+                        $facturas = ProyectoFactura::whereHas('proyecto', function ($sql) use ($comercial, $fechaInicio) {
                             return $sql->whereHas('cliente', function ($sql) use ($comercial) {
                                 return $sql->where(['user_id' => $comercial->id]);
-                            });
-                        })->whereMonth('fecha_pago', '=', $fechaInicio->month)->whereYear('fecha_pago', '=', $fechaInicio->year)->get();
+                            })->whereMonth('fecha_cierre', '=', $fechaInicio->month)->whereYear('fecha_cierre', '=', $fechaInicio->year);
+                        })->get();
 
                         $totalIngresos = $facturas->sum('monto_venta');
 
@@ -395,7 +406,7 @@ class ProspeccionController extends Controller
                             $arrData[0]['reuniones'][] = '100%';
                             $arrData[0]['cerrados'][] = $consCerrados;
                             $arrData[0]['cerrados'][] = '100%';
-                            $arrData[0]['ingresos'][] = number_format($consIngresos, 0, ',', '.');
+                            $arrData[0]['ingresos'][] = number_format($sumaTotal, 0, ',', '.');
                             $arrData[0]['ingresos'][] = '100%';
                         }
                         // FIN CONSOLIDADO DATOS
@@ -415,7 +426,7 @@ class ProspeccionController extends Controller
 
                         // INGRESOS
                         $arrData[$comercial->id]['ingresos'][] = number_format($totalIngresos, 0, ',', '.');
-                        $arrData[$comercial->id]['ingresos'][] = ($consIngresos > 0) ? round(($totalIngresos * 100) / $consIngresos) . '%' : '0%';
+                        $arrData[$comercial->id]['ingresos'][] = ($sumaTotal > 0) ? round(($totalIngresos * 100) / $sumaTotal) . '%' : '0%';
                         // FIN COMERCIALES DATOS
 
                         // HEAD TABLA 

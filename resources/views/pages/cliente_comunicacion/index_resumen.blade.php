@@ -19,43 +19,19 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="table table-responsive">
-                        <table class="table table-striped tablaLlamados" >
+                    <div class="table">
+                        <table class="table table-striped" id="tablaLlamados" >
                             <thead class="text-primary text-center">
+                                <th>&nbsp;</th>
                                 <th>Prospector</th>
                                 <th>Comercial</th>
                                 <th>Cliente</th>
-                                <th>N° Trabajadores</th>
-                                <th>Rubro</th>
-                                <th>Nombre Contacto</th>
-                                <th>Fono Fijo</th>
-                                <th>Correo</th>
-                                <th>Celular</th>
-                                <th>Fecha Contacto</th>
-                                <th>Acepta LinkedIn</th>
-                                <th>Envía Correo</th>
-                                <th>Fecha Reunión</th>
-                                <th>Observaciones</th>
+                                <th>Mes Seguimiento</th>
+                                <th>Contacto</th>
+                                <th>Comunicaciones</th>
                             </thead>
                             <tbody>
-                                @foreach($comunicaciones as $key => $comunicacion)
-                                <tr class="text-center">
-                                    <td class="text-left">{{ $comunicacion->prospector_nombre }}</td>
-                                    <td class="text-left">{{ $comunicacion->comercial_nombre }}</td>
-                                    <td class="text-left">{{ $comunicacion->cliente->razon_social }}</td>
-                                    <td>{{ $comunicacion->cliente->cantidad_empleados }}</td>
-                                    <td>{{ $comunicacion->cliente->rubro }}</td>
-                                    <td>{{ $comunicacion->nombre_contacto . ' ' . $comunicacion->apellido_contacto }}</td>
-                                    <td>{{ $comunicacion->telefono_contacto }}</td>
-                                    <td>{{ $comunicacion->correo_contacto }}</td>
-                                    <td>{{ $comunicacion->celular_contacto }}</td>
-                                    <td>{{ ($comunicacion->fecha_contacto) ? date('d/m/Y', strtotime($comunicacion->fecha_contacto)) : '' }}</td>
-                                    <td>{{ ($comunicacion->linkedin) ? 'Si' : '' }}</td>
-                                    <td>{{ ($comunicacion->envia_correo) ? 'Si' : '' }}</td>
-                                    <td>{{ ($comunicacion->fecha_reunion) ? date('d/m/Y H:i', strtotime($comunicacion->fecha_reunion)) : '' }}</td>
-                                    <td class="text-left">{{ $comunicacion->observaciones }}</td>
-                                </tr>
-                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
@@ -65,3 +41,6 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script src="{{ asset('paper/js/comunicacion.js?v='.time()) }}"></script>
+@endpush

@@ -107,7 +107,6 @@ $(function() {
                 table.column(5).search(this.value).draw();
 
                 var column = table.column(3);
-
                 column.visible(!column.visible());
 
             });

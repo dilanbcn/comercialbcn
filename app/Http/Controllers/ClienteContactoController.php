@@ -71,7 +71,7 @@ class ClienteContactoController extends Controller
             'nombre' => $request->get('nombre'),
             'apellido' => $request->get('apellido'),
             'cargo' => $request->get('cargo'),
-            'correo' => $request->get('correo'),
+            'correo' => $request->get('email'),
             'telefono' => $request->get('telefono'),
             'celular' => $request->get('celular'),
         ]);
@@ -144,7 +144,7 @@ class ClienteContactoController extends Controller
             'cargo' => $request->get('cargo'),
             'telefono' => $request->get('telefono'),
             'celular' => $request->get('celular'),
-            'email' => $request->get('email'),
+            'correo' => $request->get('email'),
             'activo' => ($request->activo) ? 1 : 0,
         ]);
 

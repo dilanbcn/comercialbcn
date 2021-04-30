@@ -17,7 +17,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-4">
-                            <h5 class="card-title mb-1">Notificaciones</h5>
+                            <h5 class="card-title mb-1">Notificaciones anteriores</h5>
                         </div>
                         <div class="col-8 text-right">
                         </div>

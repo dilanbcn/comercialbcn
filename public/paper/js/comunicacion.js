@@ -32,6 +32,7 @@ $(function() {
         fixedHeader: true,
         processing: true,
         ajax: "/cliente-comunicacion-json",
+
         columnDefs: [{
                 targets: -1,
                 data: null,
@@ -44,6 +45,7 @@ $(function() {
 
                     celda += '<button data-accion="btnVer" id="' + row[4] + '" data-rutaedit="' + rutaEdit.replace("@@", row[4]) + '" title="Ver" class="btn btn-xs btn-outline-secondary"><i class="fas fa-eye"></i></button>';
                     celda += '<button data-accion="btnAdd" id="' + row[4] + '" title="Agregar" class="btn btn-xs btn-outline-secondary"><i class="fas fa-comment-medical"></i></button>';
+                    celda += '<button class="btn btn-xs btn-outline-info" data-accion="btnNotif"><i class="far fa-bell"></i></button>';
 
                     if (row[5] > 0) {
                         celda += '<a href="' + rutaComunicacion.replace("@@", row[4]) + '" title="Ver Conversación" class="btn btn-xs btn-outline-secondary"><i class="far fa-comments"></i></a>';
@@ -154,4 +156,97 @@ $(function() {
                 break;
         }
     });
+
+    var tbLlamados = $('#tablaLlamados').DataTable({
+        language: {
+            url: "/paper/js/spanish.json"
+        },
+        dom: "<'row mb-3' <'col-sm-6'l><'col-sm-6 text-right'B>>" +
+            "<'row mb-3'<'col-sm-9'i><'col-sm-3'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 mt-3'p>}>",
+        pageLength: -1,
+        lengthMenu: [
+            [100, 200, -1],
+            [100, 200, "Todos"]
+        ],
+        orderCellsTop: true,
+        fixedHeader: true,
+        processing: true,
+        ajax: "/cliente-comunicacionresumen-json",
+        columns: [
+            { "width": "10px" },
+            { "width": "50px" },
+            { "width": "50px" },
+            { "width": "90px" },
+            { "width": "20px" },
+            { "width": "190px" },
+            { "width": "190px" },
+        ],
+        columnDefs: [{
+                targets: 0,
+                className: 'details-control',
+                orderable: false,
+                data: null,
+                defaultContent: ''
+            },
+            { targets: [4], className: "text-center" },
+        ],
+
+        buttons: [{
+            extend: 'collection',
+            text: 'Exportar',
+            className: 'btn-sm btn-round dropdown-toggle',
+            disable: true,
+            buttons: [{
+                    extend: 'excelHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'letter',
+                    autoFilter: true,
+                    sheetName: 'Clientes General',
+                    title: 'Clientes General',
+                    className: 'dropdown-item',
+                    text: '<i class="fas fa-file-excel"></i> Excel</a>'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'letter',
+                    title: 'Clientes General',
+                    className: 'dropdown-item',
+                    text: '<i class="fas fa-file-pdf"></i> Pdf</a>'
+                },
+            ]
+        }],
+    });
+
+    $('#tablaLlamados tbody').on('click', 'td.details-control', function() {
+        var tr = $(this).closest('tr');
+        var row = tbLlamados.row(tr);
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            // Open this row
+            row.child(format(row.data())).show();
+            tr.addClass('shown');
+        }
+    });
+
+
 });
+
+
+function format(row) {
+
+    let celdas = '';
+
+    celdas += (row[7]) ? '<p class="p-3 m-0"><span>Rubro: ' + (row[7]) + '</span></p>' : '';
+    celdas += (row[8]) ? '<p class="p-3 m-0" style="background-color: rgba(0,0,0,.05)"><span>Dirección: ' + (row[8]) + '</span></p>' : '';
+    celdas += (row[9]) ? '<p class="p-3 m-0"><span>Correo: ' + (row[9]) + '</span></p>' : '';
+    celdas += (row[10]) ? '<p class="p-3 m-0" style="background-color: rgba(0,0,0,.05)"><span>N° Trabajadores: ' + (row[10]) + '</span></p>' : '';
+
+    return celdas;
+}

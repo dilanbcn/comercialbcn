@@ -129,3 +129,7 @@
     @endif
 </div>
 @endsection
+
+@push('scripts')
+<script src="{{ asset('paper/js/indicadores.js?v='.time()) }}"></script>
+@endpush
