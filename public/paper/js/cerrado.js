@@ -111,6 +111,7 @@ $(function() {
             }
 
         },
+        initComplete: complete,
         columnDefs: [
             { targets: 4, render: $.fn.dataTable.render.number('.', ',', 0), className: "text-right", },
             { targets: [5], className: "text-center" },
@@ -118,6 +119,23 @@ $(function() {
                 targets: [1, 2],
                 render: $.fn.dataTable.render.moment('DD/MM/YYYY'),
                 className: "text-center"
+            },
+            {
+                targets: 6,
+                className: "text-center",
+                width: '150px',
+                render: function(data, type, row) {
+                    let celda = '';
+
+                    celda += '<select class="form-control inptStatus" name="status" data-cliente="' + row[10] + '">';
+                    $.each(row[9], function(key, status) {
+                        let selected = (row[6] == status.id) ? 'selected' : '';
+                        celda += '<option ' + selected + ' value="' + status.id + '" >' + status.nombre + '</option>';
+                    });
+                    celda += '</select>';
+
+                    return celda;
+                }
             }
         ]
     });
@@ -152,6 +170,8 @@ $(function() {
 
     });
 
+
+
     $(".inpt-filter").on('change', function() {
         $(this).removeClass('is-invalid');
     });
@@ -163,6 +183,37 @@ $(function() {
     });
 
 });
+
+function complete() {
+    $(".inptStatus").on('change', function() {
+        let valStatus = $(this).val();
+        console.log('file: cerrado.js -> line 119 -> $ -> valStatus', valStatus);
+        let cliente = $(this).data('cliente');
+        let strRuta = $("#tablaCerrados").data('rutastatus');
+
+        let ruta = strRuta.replace("@@", cliente);
+
+        $.ajax({
+            url: ruta,
+            type: 'POST',
+            data: {
+                "status": valStatus
+            },
+            success: function(data) {
+                if (data.success == 'ok') {
+                    toastr['success'](data.msg, data.title);
+                }
+                $('#tablaCerrados').DataTable().ajax.reload(complete);
+
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                toastr['danger']('Error al intentar desechar un cliente', 'Error');
+            }
+        });
+
+
+    });
+}
 
 function limpiarFiltro($tableSel) {
     $.fn.dataTableExt.afnFiltering.length = 0;

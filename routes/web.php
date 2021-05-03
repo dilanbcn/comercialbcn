@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('clientes-vigencia-actividad/{cliente}', 'App\Http\Controllers\ClienteController@vigenciaActividad')->name('cliente.vigencia.actividad');
 	Route::get('clientes-cerrados', 'App\Http\Controllers\ClienteController@cerrados')->name('cliente.cerrados');
 	Route::get('clientes-cerrados-json', 'App\Http\Controllers\ClienteController@cerradosJSON')->name('cliente.cerrados.json');
+	Route::post('clientes-cerrados-status/{proyecto_factura}', 'App\Http\Controllers\ClienteController@status')->name('cliente.cerrados.status');
 	Route::get('clientes-all', 'App\Http\Controllers\ClienteController@allClientes')->name('cliente.all');
 	Route::post('clientes-json', 'App\Http\Controllers\ClienteController@clientesJSON')->name('clientes.json');
 	Route::post('clientes-discard/{cliente}', 'App\Http\Controllers\ClienteController@discard')->name('cliente.discard');

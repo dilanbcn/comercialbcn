@@ -6,6 +6,7 @@ use App\Exports\CerradosExport;
 use App\Exports\ClientesGeneralExport;
 use App\Http\Requests\ClienteRequest;
 use App\Models\Cliente;
+use App\Models\EstadoFactura;
 use Excel;
 use App\Models\Proyecto;
 use App\Models\ProyectoFactura;
@@ -58,7 +59,7 @@ class ClienteController extends Controller
         $usuario = User::where(['id' => $user->id])->with('prospector')->first();
 
         $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->withCount(['proyecto'])->orderBy('razon_social')->get();
-        
+
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->meses($clientes);
         });
@@ -66,11 +67,19 @@ class ClienteController extends Controller
         $arrClientes = array();
         foreach ($clientes as $cliente) {
 
-            $nombreComercial = ($cliente->externo) ? $cliente->user->name . ' ' . $cliente->user->last_name . " " . $cliente->externo : $cliente->user->name . ' ' . $cliente->user->last_name;
+
+
+            if (!$cliente->destino) {
+                $comercialNombre = $cliente->user->name . ' ' . $cliente->user->last_name;
+            } else {
+                $comercialNombre = $cliente->destino->name . ' ' . $cliente->destino->last_name;
+            }
+
+            $nombreComercial = ($cliente->externo) ? $comercialNombre . " " . $cliente->externo : $comercialNombre;
             $nombreComercial = ($cliente->compartido) ? $nombreComercial . ' / ' . $cliente->compartido->name . ' ' . $cliente->compartido->last_name : $nombreComercial;
 
             $inicioCiclo = ($cliente->inicio_ciclo) ? date('d/m/Y', strtotime($cliente->inicio_ciclo)) : '';
-            
+
             $arrClientes[] = array(
                 ($cliente->holding) ? $cliente->holding : '',
                 $cliente->razon_social,
@@ -107,7 +116,6 @@ class ClienteController extends Controller
         $clientes = Cliente::where('razon_social', 'LIKE', $termino)->distinct('razon_social')->pluck('razon_social');
 
         return  $clientes->toJson();
-
     }
 
     /**
@@ -132,7 +140,7 @@ class ClienteController extends Controller
 
         $arrProspectos = array();
         foreach ($prospectos as $prospecto) {
-            
+
             $nomOrigen = ($prospecto->externo) ? $prospecto->user->name . ' ' . $prospecto->user->last_name . " " . $prospecto->externo : $prospecto->user->name . ' ' . $prospecto->user->last_name;
             $nomOrigen = ($prospecto->compartido) ? $nomOrigen . ' / ' . $prospecto->compartido->name . ' ' . $prospecto->compartido->last_name : $nomOrigen;
 
@@ -141,7 +149,6 @@ class ClienteController extends Controller
 
                 $nomDestino = ($prospecto->externo) ? $prospecto->destino->name . ' ' . $prospecto->destino->last_name . " " . $prospecto->externo : $prospecto->destino->name . ' ' . $prospecto->destino->last_name;
                 $nomDestino = ($prospecto->compartido) ? $nomDestino . ' / ' . $prospecto->compartido->name . ' ' . $prospecto->compartido->last_name : $nomDestino;
-    
             }
 
             $arrProspectos[] = array(
@@ -163,7 +170,7 @@ class ClienteController extends Controller
     {
         $user = auth()->user();
 
-            $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'user'])->get();
+        $clientes = Cliente::where(['tipo_cliente_id' => 2])->with(['tipoCliente', 'user'])->get();
 
         $groupCliente = $clientes->groupBy('actividad');
         $arrEstados = array(0 => 'Inactivos', 1 => 'Activos');
@@ -278,13 +285,15 @@ class ClienteController extends Controller
             }])->orderByDesc('fecha_cierre');
         }, 'estadoFactura'])->get();
 
+        $status = EstadoFactura::where('activo', 1)->get();
+
         $arrCerrados = array();
         foreach ($facturas as $cerrado) {
 
             $fechaCierre = Carbon::parse($cerrado->proyecto->fecha_cierre);
             $fechaFactura = Carbon::parse($cerrado->fecha_factura);
 
-            
+
             $nombreComercial = ($cerrado->proyecto->cliente->externo) ? $cerrado->proyecto->cliente->user->name . ' ' . $cerrado->proyecto->cliente->user->last_name . " " . $cerrado->proyecto->cliente->externo : $cerrado->proyecto->cliente->user->name . ' ' . $cerrado->proyecto->cliente->user->last_name;
             $nombreComercial = ($cerrado->proyecto->cliente->compartido) ? $nombreComercial . ' / ' . $cerrado->proyecto->cliente->compartido->name . ' ' . $cerrado->proyecto->cliente->compartido->last_name : $nombreComercial;
 
@@ -295,16 +304,29 @@ class ClienteController extends Controller
                 $cerrado->proyecto->cliente->razon_social,
                 $cerrado->monto_venta,
                 $cerrado->inscripcion_sence,
-                $cerrado->estadoFactura->nombre,
+                $cerrado->estadoFactura->id,
                 $nombreComercial,
                 $cerrado->proyecto->nombre,
-                
+                $status,
+                $cerrado->id
+
             );
         }
 
         $response = array('draw' => 1, 'recordsTotal' => count($arrCerrados), 'recordsFiltered' => count($arrCerrados), 'data' => $arrCerrados);
 
         return response()->json($response, 200);
+    }
+
+    public function status(ProyectoFactura $proyectoFactura, Request $request)
+    {
+
+        $proyectoFactura->estado_factura_id = $request->status;
+        $proyectoFactura->save();
+        
+        $datos = array('success' => 'ok', 'msg' => 'Status del proyecto actualizado satisfactoriamente', 'title' => 'Éxito');
+
+        return response()->json($datos, 200);
     }
 
     /**
