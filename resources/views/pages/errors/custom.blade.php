@@ -1,35 +1,24 @@
-@extends('layouts.app_nonavbar', [
+@extends('layouts.app_error', [
 'class' => '',
 'elementActive' => 'error'
 ])
 @section('content')
-<style>
-.kt-error-v3 .kt-error_container .kt-error_number > h1 {
-    font-size: 15.7rem;
-    margin-left: 7.85rem;
-    margin-top: 11.4rem;
-    font-weight: 500;
-    -webkit-text-stroke-width: 0.35rem;
-    color: #A3DCF0;
-    -webkit-text-stroke-color: white;
-}
-.kt-error-v3 {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-}
-</style>
-<!--begin::Error-->
-<div class="d-flex flex-row-fluid flex-column bgi-size-cover bgi-position-center bgi-no-repeat p-10 p-sm-30" style="background-image: url('paper/img/bg3.jpg'); height: 100%;">
-    <!--begin::Content-->
-    <h1 class="font-weight-boldest text-dark-75 mt-15" style="font-size: 10rem;">
-        404
-    </h1>
-    <p class="font-size-h3 text-muted font-weight-normal">
-        OOPS! Something went wrong here
-    </p>
-    <!--end::Content-->
-</div>
-<!--end::Error-->
+<div class="kt-grid kt-grid--ver kt-grid--root">
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid  kt-error-v3" style="background-image: url(../../paper/img/bg/bg3.jpg);">
+            <div class="kt-error_container">
+                <span class="kt-error_number mb-0">
+						<h1>{{ $error['numero'] }}</h1>
+					</span>
+                <p class="kt-error_title kt-font-light">
+                    {{ $error['titulo'] }}
+                </p>
+                <p class="kt-error_description">
+                    {!! $error['descripcion'] !!}
+                </p>
+                <p class="kt-error_subtitle mt-0">
+                   <a role="button" href="{{ url('/') }}" class="btn btn-sm btn-primary btn-round">{{ __('Ir al Inicio') }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
 @endsection

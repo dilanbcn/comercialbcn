@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Mail\ErrorMail;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Mail;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -27,14 +29,21 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Register the exception handling callbacks for the application.
+     * Render an exception into an HTTP response.
      *
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
      */
-    public function register()
+    public function render($request, Throwable $exception)
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+
+        $error = array('numero' => 'Oops', 'titulo' => 'Disculpe, se ha presentado un error.', 'descripcion' => 'Si el problema persiste deberá notificarlo al administrador.');
+        
+        return view('pages.errors.custom', compact('error'));
+
     }
+
 }
