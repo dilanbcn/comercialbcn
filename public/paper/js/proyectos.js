@@ -18,7 +18,6 @@ $(function() {
         $.ajax({
             url: rutaEdit,
             success: function(data) {
-                console.log('file: proyectos.js -> line 21 -> $ -> data', data);
                 if (data.success == 'ok') {
                     $('#frm_update_proyectos').attr('action', rutaUpdate);
                     $("#nombre").val(data.nombre);

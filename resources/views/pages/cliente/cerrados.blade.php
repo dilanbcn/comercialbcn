@@ -63,7 +63,7 @@
                         </div>
                         <div class="row">
                             <div class="table">
-                                <table class="table table-striped" id="tablaCerrados" data-rolexportar="{{ (auth()->user()->rol_id == 2 || auth()->user()->rol_id == 3) ? 'B' : ''}}" data-ruta="{{ route('cliente.cerrados.json') }}" data-rutastatus="{{ route('cliente.cerrados.status', '@@') }}">
+                                <table class="table table-striped" id="tablaCerrados" data-proyeditar="{{ route('proyecto.edit', '@@') }}" data-proyactualizar="{{ route('proyecto.update', '@@') }}" data-rol="{{ (auth()->user()->rol_id == 2) ? true : false }}" data-rolexportar="{{ (auth()->user()->rol_id == 2 || auth()->user()->rol_id == 3) ? 'B' : ''}}" data-ruta="{{ route('cliente.cerrados.json') }}" data-rutastatus="{{ route('cliente.cerrados.status', '@@') }}">
                                     <thead class="text-primary text-center">
                                         <th>Status</th>
                                         <th>Mes Cierre</th>
@@ -74,9 +74,9 @@
                                         <th>Status</th>
                                         <th>Comercial</th>
                                         <th>Proyecto</th>
+                                        <th>Acciones</th>
                                     </thead>
                                     <tbody>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -88,6 +88,7 @@
 
     </div>
     @include('layouts.page_templates.form_delete')
+    @include('pages.cliente.modal_proyecto_update')
     @endsection
     @push('scripts')
     <script src="{{ asset('paper/js/cerrado.js?v='.time()) }}"></script>

@@ -118,7 +118,7 @@ class ProyectoController extends Controller
     public function edit(Proyecto $proyecto)
     {
 
-        $proyectos = $proyecto->with('proyectoFacturas')->find($proyecto->id);
+        $proyectos = $proyecto->with('proyectoFacturas', 'cliente')->find($proyecto->id);
         $proyectos->proyectoFacturas->monto_venta = $this->decimalFormat($proyectos->proyectoFacturas->monto_venta);
         $proyectos->success = 'ok';
 
@@ -155,9 +155,7 @@ class ProyectoController extends Controller
             'updated_by' => $user->id
         ]);
 
-        if ($proyecto->isDirty()) {
-            $proyecto->save();
-        }
+        $proyecto->save();
 
         $proyectoFactura = ProyectoFactura::where(['proyecto_id' => $proyecto->id])->first();
 
@@ -165,15 +163,16 @@ class ProyectoController extends Controller
             'estado_factura_id' => $request->get('estado'),
             'inscripcion_sence' => $request->get('inscripcionSence'),
             'fecha_factura' => $request->get('fechaFacturacion'),
-            // 'fecha_pago' => $request->get('fechaPago'),
             'monto_venta' => $this->decimalFormatBD($request->get('montoVenta')),
         ]);
 
-        if ($proyectoFactura->isDirty()) {
-            $proyectoFactura->save();
-        }
+        $proyectoFactura->save();
 
-        return redirect()->route('proyecto.cliente-proyecto', [$cliente])->with(['status' => 'Ticket modificado satisfactoriamente', 'title' => 'Éxito']);
+        if (!$request->get('editJSON')) {
+            return redirect()->route('proyecto.cliente-proyecto', [$cliente])->with(['status' => 'Ticket modificado satisfactoriamente', 'title' => 'Éxito']);
+        } else {
+            return redirect()->route('cliente.cerrados')->with(['status' => 'Ticket modificado satisfactoriamente', 'title' => 'Éxito']);
+        }
     }
 
     /**

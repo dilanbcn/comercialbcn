@@ -273,7 +273,9 @@ class ClienteController extends Controller
 
         $user->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Cerrados', 'ruta' => null]]);
 
-        return view('pages.cliente.cerrados', compact('facturas', 'totFact'));
+        $estados = EstadoFactura::where(['activo' => 1])->get();
+
+        return view('pages.cliente.cerrados', compact('facturas', 'totFact', 'estados'));
     }
 
     public function cerradosJSON()
@@ -308,8 +310,9 @@ class ClienteController extends Controller
                 $nombreComercial,
                 $cerrado->proyecto->nombre,
                 $status,
-                $cerrado->id
-
+                $cerrado->id,
+                $cerrado->estadoFactura->nombre,
+                $cerrado->proyecto->id
             );
         }
 

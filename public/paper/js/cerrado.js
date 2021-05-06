@@ -126,13 +126,34 @@ $(function() {
                 width: '150px',
                 render: function(data, type, row) {
                     let celda = '';
+                    let admin = $("#tablaCerrados").data('rol');
 
-                    celda += '<select class="form-control inptStatus" name="status" data-cliente="' + row[10] + '">';
-                    $.each(row[9], function(key, status) {
-                        let selected = (row[6] == status.id) ? 'selected' : '';
-                        celda += '<option ' + selected + ' value="' + status.id + '" >' + status.nombre + '</option>';
-                    });
-                    celda += '</select>';
+                    if (admin) {
+                        celda += '<select class="form-control inptStatus" name="status" data-cliente="' + row[10] + '">';
+                        $.each(row[9], function(key, status) {
+                            let selected = (row[6] == status.id) ? 'selected' : '';
+                            celda += '<option ' + selected + ' value="' + status.id + '" >' + status.nombre + '</option>';
+                        });
+                        celda += '</select>';
+                    } else {
+                        celda += row[11];
+                    }
+
+                    return celda;
+                }
+            }, {
+                targets: -1,
+                data: null,
+                className: "text-center",
+                render: function(data, type, row) {
+
+                    let admin = $("#tablaCerrados").data('rol');
+                    let celda = '<div class="btn-group" role="group" aria-label="Grupo Acciones">';
+
+                    if (admin) {
+                        celda += '<button title="Editar" class="btn btn-xs btn-outline-secondary" data-cliente="' + row[12] + '" data-accion="btnEdi"><i class="fa fa-edit"></i></button>';
+                    }
+                    celda += '</div>';
 
                     return celda;
                 }
@@ -141,6 +162,8 @@ $(function() {
     });
 
     table.buttons().container().appendTo('#tablaCerrados_wrapper .col-md-6:eq(0)');
+
+    table.columns([-1]).visible($("#tablaCerrados").data('rol'));
 
     $("#btn-filtrar").on('click', function(e) {
         e.preventDefault();
@@ -170,8 +193,6 @@ $(function() {
 
     });
 
-
-
     $(".inpt-filter").on('change', function() {
         $(this).removeClass('is-invalid');
     });
@@ -180,6 +201,70 @@ $(function() {
     $('#btn-limpiar').on('click', function(e) {
         e.preventDefault();
         limpiarFiltro($tableSel);
+    });
+
+    $(".inputNumber").on('keypress', function(e) {
+        var key = window.Event ? e.which : e.keyCode;
+        return (key >= 48 && key <= 57 || key == 44)
+    }).on('keyup', function(e) {
+        $(this).val(format_moneda($(this).val()));
+    });
+
+    $("#tablaCerrados tbody").on("click", 'button', function(e) {
+        e.preventDefault();
+
+        let accion = $(this).data('accion');
+        let cliente = $(this).data('cliente');
+
+        switch (accion) {
+            case "btnEdi":
+
+                $("#proymethod").val('put');
+                let rutaEdit = $("#tablaCerrados").data('proyeditar');
+                let rutaUpdate = $("#tablaCerrados").data('proyactualizar');
+                $("#proyruta").val(rutaUpdate.replace("@@", cliente));
+                limpiarModalProyecto(true);
+
+                $.ajax({
+                    url: rutaEdit.replace("@@", cliente),
+                    success: function(data) {
+                        if (data.success == 'ok') {
+                            $('#frm_update_proyectos').attr('action', rutaUpdate.replace("@@", cliente));
+                            $("#nombre").val(data.nombre);
+                            $("#fechaCierre").val(data.fecha_cierre);
+                            $("#fechaFacturacion").val(data.proyecto_facturas.fecha_factura);
+                            $("#inscripcionSence").val(data.proyecto_facturas.inscripcion_sence);
+                            $("#montoVenta").val(data.proyecto_facturas.monto_venta);
+                            $("#estado").val(data.proyecto_facturas.estado_factura_id);
+                            $("#tituloModal").html('Editar Ticket ' + data.cliente.razon_social);
+                            $("#update_proyecto_cliente").modal('show');
+                        } else {
+                            limpiarModalProyecto();
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        $("#update_proyecto_cliente").modal('hide');
+                        $.confirm({
+                            title: 'Error',
+                            content: 'Error al intentar obtener los datos del proyecto, intente de nuevo mas tarde',
+                            type: 'red',
+                            theme: 'modern',
+                            animation: 'scala',
+                            icon: 'fa fa-exclamation-triangle',
+                            typeAnimated: true,
+                            buttons: {
+                                cancel: {
+                                    text: 'Aceptar',
+                                },
+                            }
+                        });
+                    }
+                });
+
+                break;
+        }
+
+
     });
 
 });
@@ -244,4 +329,25 @@ var normalizeDate = function(dateString) {
     var date = new Date(dateString);
     var normalized = date.getFullYear() + '' + (("0" + (date.getMonth() + 1)).slice(-2)) + '' + ("0" + date.getDate()).slice(-2);
     return normalized;
+}
+
+function limpiarModalProyecto(upd = false) {
+
+    if (upd) {
+        $(".nombre").removeClass('is-invalid');
+        $(".fechaCierre").removeClass('is-invalid');
+        $(".fechaFacturacion").removeClass('is-invalid');
+        $(".inscripcionSence").removeClass('is-invalid');
+        $(".montoVenta").removeClass('is-invalid');
+        $(".estado").removeClass('is-invalid');
+    } else {
+        $(".nombre").val('').removeClass('is-invalid');
+        $(".fechaCierre").val('').removeClass('is-invalid');
+        $(".fechaFacturacion").val('').removeClass('is-invalid');
+        $(".inscripcionSence").val('').removeClass('is-invalid');
+        $(".montoVenta").val('').removeClass('is-invalid');
+        $(".estado").val('').removeClass('is-invalid');
+    }
+
+    $(".invalid-feedback").hide();
 }
