@@ -45,8 +45,9 @@ class HomeController extends Controller
 
         $user->breadcrumbs = collect([['nombre' => 'Prospección', 'ruta' => null], ['nombre' => 'Calendario Reuniones', 'ruta' => null]]);
 
+        return redirect()->route('cliente.index');
 
-        return view('pages.cliente_calendario.index', compact('clientes', 'hoy', 'tipoComunicaciones', 'comunicaciones', 'active'));
+        // return view('pages.cliente_calendario.index', compact('clientes', 'hoy', 'tipoComunicaciones', 'comunicaciones', 'active'));
     }
 
     public function indexComercial()
