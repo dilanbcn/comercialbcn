@@ -64,41 +64,10 @@
                 <img src="{{ asset('paper/img/logo_bcn_horizon_blue.png') }}" height="50" class="d-inline-block align-top" alt="">
             </a>
             <ul class="navbar-nav mr-auto ml-5">
-
-                <li class="nav-item {{ $elementActive == 'dashboard' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('home.prospector') }}">Inicio <span class="sr-only">(current)</span></a>
+            <li class="nav-item {{ $elementActive == 'clientes' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('cliente.index') }}">{{ __('Clientes General') }}</a>
                 </li>
-                <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'comerciales' || $elementActive == 'asignacion' || $elementActive == 'comerciales_new') ? 'active' : '' }}">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Prospectores
-                        <p>
-                            <span class="d-lg-none d-md-block">{{ __('Prospectores') }}</span>
-                        </p>
-                    </a>
-                    <div class="dropdown-menu dropdown-navbar dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item {{ ($elementActive == 'comerciales_new') ? 'menu-activo' : '' }}" href="{{ route('user.create') }}">{{ __('Nuevo Prospector') }}</a>
-                        <a class="dropdown-item {{ ($elementActive == 'comerciales') ? 'menu-activo' : '' }}" href="{{ route('user.index') }}">{{ __('Lista de Prospectores') }}</a>
-                        <a class="dropdown-item {{ ($elementActive == 'asignacion') ? 'menu-activo' : '' }}" href="{{ route('prospeccion.asignacion.index') }}">{{ __('Asignación de Prospectores') }}</a>
-                    </div>
-                </li>
-                <li class="nav-item {{ $elementActive == 'contactos' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('prospeccion.contactos') }}">{{ __('Contactos') }}</a>
-                </li>
-                <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'calendario' || $elementActive == 'reuniones') ? 'active' : '' }}">
-                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Llamados y Reuniones
-                        <p>
-                            <span class="d-lg-none d-md-block">{{ __('Llamados y Reuniones') }}</span>
-                        </p>
-                    </a>
-                    <div class="dropdown-menu dropdown-navbar dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item {{ ($elementActive == 'calendario') ? 'menu-activo' : '' }}" href="{{ route('cliente-comunicacion.calendario') }}">{{ __('Calendario Reuniones') }}</a>
-                        <a class="dropdown-item {{ ($elementActive == 'reuniones') ? 'menu-activo' : '' }}" href="{{ route('cliente-comunicacion.index') }}">{{ __('Listado de Llamados y Reuniones') }}</a>
-                    </div>
-                </li>
-                <li class="nav-item {{ $elementActive == 'indicadores' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('prospeccion.indicadores') }}">{{ __('Indicadores') }}</a>
-                </li>
+                
 
             </ul>
         </div>
