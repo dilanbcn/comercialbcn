@@ -176,7 +176,7 @@ $(function() {
 
     table.buttons().container().appendTo('#tablaCerrados_wrapper .col-md-6:eq(0)');
 
-    // table.columns([-1]).visible($("#tablaCerrados").data('rol'));
+    table.columns([-1]).visible($("#tablaCerrados").data('rol'));
 
     $("#btn-filtrar").on('click', function(e) {
         e.preventDefault();

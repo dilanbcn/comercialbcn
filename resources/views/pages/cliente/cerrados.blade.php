@@ -63,7 +63,7 @@
                         </div>
                         <div class="row">
                             <div class="table">
-                                <table class="table table-striped" id="tablaCerrados" data-proyeditar="{{ route('proyecto.edit', '@@') }}" data-proyactualizar="{{ route('proyecto.update', '@@') }}" data-rol="{{ (auth()->user()->rol_id == 2) ? true : false }}" data-rolexportar="{{ (auth()->user()->rol_id == 2 || auth()->user()->rol_id == 3) ? 'B' : ''}}" data-ruta="{{ route('cliente.cerrados.json') }}" data-rutastatus="{{ route('cliente.cerrados.status', '@@') }}" data-user="{{ auth()->user()->id }}">
+                                <table class="table table-striped" id="tablaCerrados" data-proyeditar="{{ route('proyecto.edit', '@@') }}" data-proyactualizar="{{ route('proyecto.update', '@@') }}" data-rol="{{ (auth()->user()->rol_id == 6) ? false : true }}" data-rolexportar="{{ (auth()->user()->rol_id == 2 || auth()->user()->rol_id == 3) ? 'B' : ''}}" data-ruta="{{ route('cliente.cerrados.json') }}" data-rutastatus="{{ route('cliente.cerrados.status', '@@') }}" data-user="{{ auth()->user()->id }}">
                                     <thead class="text-primary text-center">
                                         <th>Status</th>
                                         <th>Mes Cierre</th>
