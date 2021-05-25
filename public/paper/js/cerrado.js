@@ -139,7 +139,7 @@ $(function() {
                 render: function(data, type, row) {
 
                     let user = $("#tablaCerrados").data('user');
-                    let admin = $("#tablaCerrados").data('rol');
+                    let admin = $("#tablaCerrados").data('admin');
                     let celda = '<div class="btn-group" role="group" aria-label="Grupo Acciones">';
 
                     if (admin) {
@@ -176,7 +176,7 @@ $(function() {
 
     table.buttons().container().appendTo('#tablaCerrados_wrapper .col-md-6:eq(0)');
 
-    table.columns([-1]).visible($("#tablaCerrados").data('rol'));
+    table.columns([-1]).visible($("#tablaCerrados").data('rol') == 6 ? false : true);
 
     $("#btn-filtrar").on('click', function(e) {
         e.preventDefault();
