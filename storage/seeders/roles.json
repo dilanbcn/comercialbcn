@@ -22,5 +22,10 @@
         "nombre": "Prospector",
         "descripcion": "Rol para los usuarios prospectores",
         "activo": true
+    },
+    {
+        "nombre": "Custom Rol",
+        "descripcion": "Rol customizable",
+        "activo": true
     }
 ]
