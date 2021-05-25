@@ -312,7 +312,8 @@ class ClienteController extends Controller
                 $status,
                 $cerrado->id,
                 $cerrado->estadoFactura->nombre,
-                $cerrado->proyecto->id
+                $cerrado->proyecto->id,
+                $cerrado->proyecto->cliente->destino_user_id,
             );
         }
 

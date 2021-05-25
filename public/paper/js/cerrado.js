@@ -57,7 +57,8 @@ $(function() {
                             body: function(data, row, column, node) {
                                 return (column == 4) ? data.split('.').join('') : data;
                             }
-                        }
+                        },
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8]
                     }
                 },
                 {
@@ -69,6 +70,9 @@ $(function() {
                     action: function(e, dt, button, config) {
                         config.title = 'Cerrados ' + $('#customTotal').text();
                         $.fn.DataTable.ext.buttons.pdfHtml5.action.call(this, e, dt, button, config);
+                    },
+                    exportOptions: {
+                        columns: [1, 2, 3, 4, 5, 6, 7, 8]
                     }
                 },
             ]
@@ -122,24 +126,11 @@ $(function() {
             },
             {
                 targets: 6,
-                className: "text-center",
+                className: "text-left",
                 width: '150px',
                 render: function(data, type, row) {
-                    let celda = '';
-                    let admin = $("#tablaCerrados").data('rol');
 
-                    if (admin) {
-                        celda += '<select class="form-control inptStatus" name="status" data-cliente="' + row[10] + '">';
-                        $.each(row[9], function(key, status) {
-                            let selected = (row[6] == status.id) ? 'selected' : '';
-                            celda += '<option ' + selected + ' value="' + status.id + '" >' + status.nombre + '</option>';
-                        });
-                        celda += '</select>';
-                    } else {
-                        celda += row[11];
-                    }
-
-                    return celda;
+                    return row[11];
                 }
             }, {
                 targets: -1,
@@ -147,11 +138,33 @@ $(function() {
                 className: "text-center",
                 render: function(data, type, row) {
 
+                    let user = $("#tablaCerrados").data('user');
                     let admin = $("#tablaCerrados").data('rol');
                     let celda = '<div class="btn-group" role="group" aria-label="Grupo Acciones">';
 
                     if (admin) {
+
                         celda += '<button title="Editar" class="btn btn-xs btn-outline-secondary" data-cliente="' + row[12] + '" data-accion="btnEdi"><i class="fa fa-edit"></i></button>';
+
+                        celda += '<select class="form-control inptStatus" name="status" data-cliente="' + row[10] + '">';
+                        $.each(row[9], function(key, status) {
+                            let selected = (row[6] == status.id) ? 'selected' : '';
+                            celda += '<option ' + selected + ' value="' + status.id + '" >' + status.nombre + '</option>';
+                        });
+                        celda += '</select>';
+
+                    } else {
+
+                        if (user == row[13]) {
+                            celda += '<select class="form-control inptStatus" name="status" data-cliente="' + row[10] + '">';
+                            $.each(row[9], function(key, status) {
+                                let selected = (row[6] == status.id) ? 'selected' : '';
+                                celda += '<option ' + selected + ' value="' + status.id + '" >' + status.nombre + '</option>';
+                            });
+                            celda += '</select>';
+                        }
+
+
                     }
                     celda += '</div>';
 
@@ -163,7 +176,7 @@ $(function() {
 
     table.buttons().container().appendTo('#tablaCerrados_wrapper .col-md-6:eq(0)');
 
-    table.columns([-1]).visible($("#tablaCerrados").data('rol'));
+    // table.columns([-1]).visible($("#tablaCerrados").data('rol'));
 
     $("#btn-filtrar").on('click', function(e) {
         e.preventDefault();
