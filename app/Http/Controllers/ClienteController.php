@@ -265,7 +265,7 @@ class ClienteController extends Controller
 
         $cerrados->map(function ($cerrados) {
             $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
-                $cerrados->sum_facturas += $proyectos->proyectoFacturas->monto_venta;
+                $cerrados->sum_facturas += ($proyectos->proyectoFacturas) ? $proyectos->proyectoFacturas->monto_venta : 0;
             });
         });
 
@@ -490,8 +490,10 @@ class ClienteController extends Controller
 
         if (($request->get('comercialDestino') != $cliente->destino_user_id) && $cliente->destino_user_id != null) {
             $comercialOrigen = $cliente->destino_user_id;
+            $inicioCiclo = Carbon::now();
         } else {
             $comercialOrigen = $cliente->user_id;
+            $inicioCiclo = $cliente->inicio_ciclo;
         }
 
 
@@ -510,6 +512,7 @@ class ClienteController extends Controller
             'inicio_relacion' => $request->get('inicio_relacion'),
             'externo' => $request->get('externo'),
             'compartido_user_id' => ($request->get('compartido_user')) ? $request->get('compartido_user') : null,
+            'inicio_ciclo' => $inicioCiclo,
 
         ]);
 
@@ -602,7 +605,7 @@ class ClienteController extends Controller
             $cerrados->map(function ($cerrados) {
                 $cerrados->proyecto->map(function ($proyectos) use ($cerrados) {
 
-                    $cerrados->sum_facturas += $proyectos->proyectoFacturas->monto_venta;
+                    $cerrados->sum_facturas += ($proyectos->proyectoFacturas) ? $proyectos->proyectoFacturas->monto_venta : 0;
                 });
             });
 

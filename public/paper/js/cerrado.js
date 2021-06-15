@@ -55,7 +55,8 @@ $(function() {
                     exportOptions: {
                         format: {
                             body: function(data, row, column, node) {
-                                return (column == 4) ? data.split('.').join('') : data;
+
+                                return (column == 3) ? data.split('.').join('') : data;
                             }
                         },
                         columns: [1, 2, 3, 4, 5, 6, 7, 8]
