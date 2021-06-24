@@ -87,6 +87,13 @@ $(function() {
                     text: '<i class="fas fa-file-pdf"></i> Pdf</a>'
                 },
             ]
+        }, {
+            hide: true,
+            className: 'btn-sm btn-round ml-1 btn-warning myButtonClass',
+            text: 'Reiniciar Ciclo',
+            action: function(e, dt, node, config) {
+                restoreCiclo();
+            }
         }],
         orderCellsTop: true,
         fixedHeader: true,
@@ -149,9 +156,16 @@ $(function() {
                     .search($("#tablaClientes").data('comercial'))
                     .draw()
             }
+            if ($("#tablaClientes").data('rol')) {
+                $(".myButtonClass").show();
+            }
 
+        },
+        headerCallback: function(settings, json) {
+            $(".myButtonClass").hide();
         }
     });
+
 
     table.buttons().container().appendTo('#tablaClientes_wrapper .col-md-6:eq(0)');
 
