@@ -87,12 +87,6 @@ $(function() {
                     text: '<i class="fas fa-file-pdf"></i> Pdf</a>'
                 },
             ]
-        }, {
-            className: 'btn-sm btn-round ml-1 btn-warning',
-            text: 'Reiniciar Ciclo',
-            action: function(e, dt, node, config) {
-                restoreCiclo();
-            }
         }],
         orderCellsTop: true,
         fixedHeader: true,
