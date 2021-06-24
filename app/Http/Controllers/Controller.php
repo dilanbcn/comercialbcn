@@ -19,6 +19,11 @@ class Controller extends BaseController
         return Carbon::now()->diffInMonths($cliente->inicio_ciclo);
     }
 
+    public function dias($cliente)
+    {
+        return Carbon::now()->diffInDays($cliente->inicio_ciclo);
+    }
+
     public function antiguedad($fecha, $tipo = 'antiguo')
     {
 

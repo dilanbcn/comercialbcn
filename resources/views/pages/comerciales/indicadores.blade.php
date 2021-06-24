@@ -156,7 +156,7 @@
                                 <th>Comercial</th>
                                 <th>Tipo</th>
                                 <th>Inicio Ciclo</th>
-                                <th>Ciclo 8 Meses</th>
+                                <th>Ciclo Días</th>
                                 <th>Estado</th>
                                 <th>Cant Proyectos</th>
                             </thead>

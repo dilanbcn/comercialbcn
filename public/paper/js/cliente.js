@@ -87,6 +87,12 @@ $(function() {
                     text: '<i class="fas fa-file-pdf"></i> Pdf</a>'
                 },
             ]
+        }, {
+            className: 'btn-sm btn-round ml-1 btn-warning',
+            text: 'Reiniciar Ciclo',
+            action: function(e, dt, node, config) {
+                restoreCiclo();
+            }
         }],
         orderCellsTop: true,
         fixedHeader: true,
@@ -108,7 +114,7 @@ $(function() {
                     let rutaEliminar = $("#tablaClientes").data('rutaeliminar');
 
                     let btnDes = (row[8]) ? '<button class="btn btn-xs btn-outline-warning" data-accion="btnDes" data-ruta="' + rutaDesechar.replace("@@", row[9]) + '"><i class="fa fa-recycle"></i></button>' : '';
-                    let btnNotif = '<button class="btn btn-xs btn-outline-info" data-accion="btnNotif"><i class="far fa-bell"></i></button>';
+                    let btnNotif = '';
 
                     if ((user == row[8] && !admin) || (user == row[10] && !admin)) {
                         celda += '<a href="' + rutaProyecto.replace("@@", row[9]) + '" title="Tickets" class="btn btn-xs btn-outline-secondary" data-accion="btnProy"><i class="far fa-handshake"></i></a>';
@@ -179,7 +185,7 @@ $(function() {
                 estilo.contenido = '¿Esta seguro que desea desechar este cliente?';
                 estilo.boton.texto_ok = "Desechar";
                 estilo.accion = 1;
-
+                estilo.icono = 'fas fa-recycle';
                 break;
             case "btnEli":
                 estilo.titulo = "Eliminar Cliente";
@@ -188,6 +194,7 @@ $(function() {
                 estilo.boton.texto_ok = "Eliminar";
                 estilo.boton.clase_ok = "btn-danger";
                 estilo.accion = 2;
+                estilo.icono = 'fas fa-trash-alt';
                 break;
             case "btnNotif":
                 let data = table.row($(this).parents('tr')).data();
@@ -243,6 +250,46 @@ $(function() {
         }
     });
 });
+
+function restoreCiclo() {
+    $.confirm({
+        title: 'Reiniciar Ciclo',
+        content: '¿Esta seguro de reiniciar el ciclo de todos los prpospectos?',
+        type: 'orange',
+        theme: 'modern',
+        animation: 'scala',
+        icon: 'fas fa-undo',
+        typeAnimated: true,
+        buttons: {
+            confirm: {
+                text: 'Reiniciar',
+                btnClass: 'btn-warning',
+                action: function() {
+                    let rutaRestart = $('#tablaClientes').data('rutarestart');
+
+                    $.ajax({
+                        url: rutaRestart,
+                        type: 'POST',
+                        success: function(data) {
+                            if (data.success == 'ok') {
+                                toastr['success'](data.msg, data.title);
+                            }
+                            $('#tablaClientes').DataTable().ajax.reload();
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            toastr['danger']('Error al intentar desechar un cliente', 'Error');
+
+                        }
+                    });
+
+                },
+            },
+            cancel: {
+                text: 'No',
+            },
+        }
+    });
+}
 
 function desCliente(rutaDes) {
     $.ajax({

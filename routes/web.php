@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('clientes-all', 'App\Http\Controllers\ClienteController@allClientes')->name('cliente.all');
 	Route::post('clientes-json', 'App\Http\Controllers\ClienteController@clientesJSON')->name('clientes.json');
 	Route::post('clientes-discard/{cliente}', 'App\Http\Controllers\ClienteController@discard')->name('cliente.discard');
+	Route::post('clientes-restart', 'App\Http\Controllers\ClienteController@restartCiclo')->name('cliente.restart');
 	Route::post('clientes-inicio-relacion/{cliente}', 'App\Http\Controllers\ClienteController@updateInicioRelacion')->name('cliente.inicio-relacion');
 
 	Route::resource('cliente-contacto', 'App\Http\Controllers\ClienteContactoController', ['except' => ['index', 'show', 'store', 'create']]);

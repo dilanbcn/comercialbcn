@@ -25,7 +25,7 @@ class ComercialController extends Controller
         $clientes = Cliente::with(['tipoCliente', 'user'])->withCount(['proyecto'])->get();
 
         $clientes->map(function ($clientes) {
-            $clientes->ciclo = $this->meses($clientes);
+            $clientes->ciclo = $this->dias($clientes);
         });
 
 

@@ -125,7 +125,7 @@
                             <th>Comercial</th>
                             <th>Tipo</th>
                             <th>Inicio Ciclo</th>
-                            <th>Ciclo 8 Meses</th>
+                            <th>Ciclo Días</th>
                         </tr>
                         <tbody>
                             @foreach($clientes as $key => $cliente)
@@ -155,7 +155,7 @@
                         <th class="border-right" style="font-weight: bold; text-align:center;" bgcolor="#dee2e6" width="40" height="20">Comercial</th>
                         <th class="border-right" style="font-weight: bold; text-align:center;" bgcolor="#dee2e6" width="15" height="20">Tipo</th>
                         <th class="border-right" style="font-weight: bold; text-align:center;" bgcolor="#dee2e6" width="20" height="20">Inicio Ciclo</th>
-                        <th class="border-right" style="font-weight: bold; text-align:center;" bgcolor="#dee2e6" width="20" height="20">Ciclo 8 Meses</th>
+                        <th class="border-right" style="font-weight: bold; text-align:center;" bgcolor="#dee2e6" width="20" height="20">Ciclo Días</th>
                     </tr>
                     @foreach($clientes as $key => $cliente)
                     <tr class="d-flex border">

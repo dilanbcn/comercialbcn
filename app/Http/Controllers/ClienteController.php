@@ -35,7 +35,7 @@ class ClienteController extends Controller
         $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->withCount(['proyecto'])->orderBy('razon_social')->take(5)->get();
 
         $clientes->map(function ($clientes) {
-            $clientes->ciclo = $this->meses($clientes);
+            $clientes->ciclo = $this->dias($clientes);
         });
 
         $groupCliente = $clientes->groupBy('activo');
@@ -61,7 +61,7 @@ class ClienteController extends Controller
         $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->withCount(['proyecto'])->orderBy('razon_social')->get();
 
         $clientes->map(function ($clientes) {
-            $clientes->ciclo = $this->meses($clientes);
+            $clientes->ciclo = $this->dias($clientes);
         });
 
         $arrClientes = array();
@@ -327,7 +327,7 @@ class ClienteController extends Controller
 
         $proyectoFactura->estado_factura_id = $request->status;
         $proyectoFactura->save();
-        
+
         $datos = array('success' => 'ok', 'msg' => 'Status del proyecto actualizado satisfactoriamente', 'title' => 'Éxito');
 
         return response()->json($datos, 200);
@@ -573,6 +573,16 @@ class ClienteController extends Controller
         }
     }
 
+    public function restartCiclo()
+    {
+
+        Cliente::where(['tipo_cliente_id' => 1])->update(['inicio_ciclo' => Carbon::now()]);
+
+        $datos = array('success' => 'ok', 'msg' => 'Ciclo reiniciado satisfactoriamente', 'title' => 'Éxito');
+
+        return response()->json($datos, 200);
+    }
+
     public function reportes(Request $request, $tipo)
     {
 
@@ -617,7 +627,7 @@ class ClienteController extends Controller
             $clientes = Cliente::with(['tipoCliente', 'user'])->withCount(['proyecto'])->get();
 
             $clientes->map(function ($clientes) {
-                $clientes->ciclo = $this->meses($clientes);
+                $clientes->ciclo = $this->dias($clientes);
             });
 
             $groupCliente = $clientes->groupBy('activo');
