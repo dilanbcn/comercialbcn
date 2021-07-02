@@ -58,7 +58,7 @@ class ClienteController extends Controller
 
         $usuario = User::where(['id' => $user->id])->with('prospector')->first();
 
-        $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->withCount(['proyecto'])->orderBy('razon_social')->get();
+        $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->whereNotNull('destino_user_id')->withCount(['proyecto'])->orderBy('razon_social')->get();
 
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->dias($clientes);
