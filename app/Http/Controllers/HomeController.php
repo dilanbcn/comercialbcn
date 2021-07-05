@@ -135,6 +135,9 @@ class HomeController extends Controller
         // $totalClientes = (property_exists((object)$arrData, 'Cliente') ) ? $arrData['tipo']['Cliente'] : 0;
         // $eficiencia =  ($totalClientes > 0) ? ( $totalClientes * 100 ) / ( $sumaTotal ) : 0;
 
-        return view('pages.dashboard-comercial', compact('users', 'arrData', 'totFact', 'totalAct', 'totClientes', 'eficiencia', 'prospDisp'));
+        $countClientes = Cliente::where(['tipo_cliente_id' => 2])->count();
+        $countProspectos = Cliente::where(['tipo_cliente_id' => 1])->count();
+
+        return view('pages.dashboard-comercial', compact('users', 'arrData', 'totFact', 'totalAct', 'totClientes', 'eficiencia', 'prospDisp', 'countClientes', 'countProspectos'));
     }
 }

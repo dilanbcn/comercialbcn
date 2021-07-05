@@ -16,7 +16,7 @@
                         </div>
                         <div class="col-10 col-md-10">
                             <div class="numbers">
-                                <p class="card-category">Prospectos Disponibles</p>
+                                <p class="card-category">Prospectos Disponibles sin Asignar</p>
                                 <p class="card-title">{{ $prospDisp }}
                                 <p>
                             </div>
@@ -49,22 +49,27 @@
             <div class="card card-stats" style="height:100px; background-color: #D2E9FF;">
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-12 pr-0 text-center">
+                            Clientes General
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-5 pr-0">
                             <div class="numbers text-center">
-                                <p class="card-category">Total Clientes</p>
-                                <p class="card-title">{{ $totClientes }}
+                                <p class="card-category">Clientes</p>
+                                <p class="card-title">{{ $countClientes }}
                                 <p>
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="numbers text-center">
-                                <p class="card-category"> vs </p>
+                                <p class="card-category">  </p>
                             </div>
                         </div>
                         <div class="col-5  pl-0">
                             <div class="numbers  text-center">
-                                <p class="card-category">Eficiencia Comercial</p>
-                                <p class="card-title">{{ number_format($eficiencia, 2, ',', '.') .' %' }}
+                                <p class="card-category">Prospectos</p>
+                                <p class="card-title">{{ $countProspectos }}
                                 <p>
                             </div>
                         </div>
