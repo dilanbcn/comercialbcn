@@ -98,7 +98,7 @@ $(function() {
         orderCellsTop: true,
         fixedHeader: true,
         processing: true,
-        ajax: "/clientes-all",
+        ajax: "/clientes-all/null",
         columnDefs: [{
                 targets: -1,
                 data: null,

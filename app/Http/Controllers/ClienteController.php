@@ -58,7 +58,7 @@ class ClienteController extends Controller
 
         $usuario = User::where(['id' => $user->id])->with('prospector')->first();
 
-        if ($contenido) {
+        if ($contenido == 'true') {
             $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->withCount(['proyecto'])->orderBy('razon_social')->get();
         } else {
             $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->whereNotNull('destino_user_id')->withCount(['proyecto'])->orderBy('razon_social')->get();
@@ -71,7 +71,7 @@ class ClienteController extends Controller
         $arrClientes = array();
         foreach ($clientes as $cliente) {
 
-            if ($contenido) {
+            if ($contenido == 'true') {
                 $nombreComercial = 'Prospecto Disponible';
                 $comercialNombre = null;
                 if ($cliente->destino_user_id) {
