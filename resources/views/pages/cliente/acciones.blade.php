@@ -19,7 +19,6 @@
                         <div class="col-4 text-right">
                             <a role="button" id="btn_modal_asignar" href="#" class="btn btn-sm btn-primary btn-round">{{ __('Asignar') }}</a>
                                 <a role="button" id="btn_modal_desechar" href="#" class="btn btn-sm btn-warning btn-round">{{ __('Desechar') }}</a>
-                                <a role="button" href="#" class="btn btn-sm btn-danger btn-round">{{ __('Regresar') }}</a>
                         </div>
                     </div>
                     <div class="card-body">
