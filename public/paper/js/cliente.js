@@ -73,7 +73,7 @@ $(function() {
                     sheetName: 'Clientes General',
                     title: 'Clientes General',
                     className: 'dropdown-item',
-                    text: '<i class="fas fa-file-excel"></i> Excel</a>'
+                    text: '<i class="fas fa-file-excel"></i> Excel'
                 },
                 {
                     extend: 'pdfHtml5',
@@ -84,7 +84,7 @@ $(function() {
                     },
                     title: 'Clientes General',
                     className: 'dropdown-item',
-                    text: '<i class="fas fa-file-pdf"></i> Pdf</a>'
+                    text: '<i class="fas fa-file-pdf"></i> Pdf'
                 },
             ]
         }, {
@@ -115,7 +115,7 @@ $(function() {
                     let rutaEliminar = $("#tablaClientes").data('rutaeliminar');
 
                     let btnDes = (row[8]) ? '<button class="btn btn-xs btn-outline-warning" data-accion="btnDes" data-ruta="' + rutaDesechar.replace("@@", row[9]) + '"><i class="fa fa-recycle"></i></button>' : '';
-                    let btnNotif = '';
+                    let btnNotif = '<button class="btn btn-xs btn-outline-info" data-accion="btnNotif"><i class="far fa-bell"></i></button>';
 
                     if ((user == row[8] && !admin) || (user == row[10] && !admin)) {
                         celda += '<a href="' + rutaProyecto.replace("@@", row[9]) + '" title="Tickets" class="btn btn-xs btn-outline-secondary" data-accion="btnProy"><i class="far fa-handshake"></i></a>';
@@ -285,7 +285,7 @@ function restoreCiclo() {
                             $('#tablaClientes').DataTable().ajax.reload();
                         },
                         error: function(xhr, ajaxOptions, thrownError) {
-                            toastr['danger']('Error al intentar desechar un cliente', 'Error');
+                            toastr['danger']('Error al intentar reiniciar el ciclo', 'Error');
 
                         }
                     });

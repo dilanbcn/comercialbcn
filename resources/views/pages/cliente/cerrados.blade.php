@@ -53,8 +53,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3 pt-4 mt-2">
-                                                <button type="button" id="btn-filtrar" class="btn btn-sm btn-secondary btn-round" data-dismiss="modal">Filtrar</button>
-                                                <button type="button" id="btn-limpiar" class="btn btn-sm btn-warning btn-round" data-dismiss="modal">Limpiar</button>
+                                            <button type="button" id="btn-filtrar" class="btn btn-sm btn-secondary btn-round" data-dismiss="modal">Filtrar</button>
+                                            <button type="button" id="btn-limpiar" class="btn btn-sm btn-warning btn-round" data-dismiss="modal">Limpiar</button>
 
                                         </div>
                                     </div>
@@ -85,11 +85,11 @@
                 </div>
             </div>
         </div>
-
     </div>
-    @include('layouts.page_templates.form_delete')
-    @include('pages.cliente.modal_proyecto_update')
-    @endsection
-    @push('scripts')
-    <script src="{{ asset('paper/js/cerrado.js?v='.time()) }}"></script>
-    @endpush
+</div>
+@include('layouts.page_templates.form_delete')
+@include('pages.cliente.modal_proyecto_update')
+@endsection
+@push('scripts')
+<script src="{{ asset('paper/js/cerrado.js?v='.time()) }}"></script>
+@endpush

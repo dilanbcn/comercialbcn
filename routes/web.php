@@ -49,11 +49,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('clientes-cerrados', 'App\Http\Controllers\ClienteController@cerrados')->name('cliente.cerrados');
 	Route::get('clientes-cerrados-json', 'App\Http\Controllers\ClienteController@cerradosJSON')->name('cliente.cerrados.json');
 	Route::post('clientes-cerrados-status/{proyecto_factura}', 'App\Http\Controllers\ClienteController@status')->name('cliente.cerrados.status');
-	Route::get('clientes-all', 'App\Http\Controllers\ClienteController@allClientes')->name('cliente.all');
+	Route::get('clientes-all/{contenido}', 'App\Http\Controllers\ClienteController@allClientes')->name('cliente.all');
 	Route::post('clientes-json', 'App\Http\Controllers\ClienteController@clientesJSON')->name('clientes.json');
 	Route::post('clientes-discard/{cliente}', 'App\Http\Controllers\ClienteController@discard')->name('cliente.discard');
+	Route::post('clientes-discard-all', 'App\Http\Controllers\ClienteController@discardAll')->name('cliente.discard.all');
+	Route::post('clientes-asign-all', 'App\Http\Controllers\ClienteController@asignAll')->name('cliente.asign.all');
 	Route::post('clientes-restart', 'App\Http\Controllers\ClienteController@restartCiclo')->name('cliente.restart');
 	Route::post('clientes-inicio-relacion/{cliente}', 'App\Http\Controllers\ClienteController@updateInicioRelacion')->name('cliente.inicio-relacion');
+	Route::get('clientes-acciones', 'App\Http\Controllers\ClienteController@acciones')->name('cliente.acciones');
 
 	Route::resource('cliente-contacto', 'App\Http\Controllers\ClienteContactoController', ['except' => ['index', 'show', 'store', 'create']]);
 	Route::get('cliente-contacto/{cliente}', 'App\Http\Controllers\ClienteContactoController@index')->name('cliente-contacto.index');

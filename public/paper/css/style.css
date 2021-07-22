@@ -144,7 +144,7 @@ ul.timeline>li:before {
     white-space: nowrap;
 }
 
-thead input {
+thead input[type='text'] {
     width: 100%;
     background-color: #FFFFFF;
     border: 1px solid #DDDDDD;

@@ -52,13 +52,17 @@ class ClienteController extends Controller
         return view('pages.cliente.index', compact('clientes', 'arrGrupo', 'comercial'));
     }
 
-    public function allClientes()
+    public function allClientes($contenido)
     {
         $user = auth()->user();
 
         $usuario = User::where(['id' => $user->id])->with('prospector')->first();
 
-        $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->whereNotNull('destino_user_id')->withCount(['proyecto'])->orderBy('razon_social')->get();
+        if ($contenido) {
+            $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->withCount(['proyecto'])->orderBy('razon_social')->get();
+        } else {
+            $clientes = Cliente::with(['tipoCliente', 'user', 'compartido'])->whereNotNull('destino_user_id')->withCount(['proyecto'])->orderBy('razon_social')->get();
+        }
 
         $clientes->map(function ($clientes) {
             $clientes->ciclo = $this->dias($clientes);
@@ -67,16 +71,27 @@ class ClienteController extends Controller
         $arrClientes = array();
         foreach ($clientes as $cliente) {
 
+            if ($contenido) {
+                $nombreComercial = 'Prospecto Disponible';
+                $comercialNombre = null;
+                if ($cliente->destino_user_id) {
+                    $comercialNombre = $cliente->destino->name . ' ' . $cliente->destino->last_name;
+                }
 
-
-            if (!$cliente->destino) {
-                $comercialNombre = $cliente->user->name . ' ' . $cliente->user->last_name;
+                if ($comercialNombre) {
+                    $nombreComercial = ($cliente->externo) ? $comercialNombre . " " . $cliente->externo : $comercialNombre;
+                    $nombreComercial = ($cliente->compartido) ? $nombreComercial . ' / ' . $cliente->compartido->name . ' ' . $cliente->compartido->last_name : $nombreComercial;
+                }
             } else {
-                $comercialNombre = $cliente->destino->name . ' ' . $cliente->destino->last_name;
-            }
+                if (!$cliente->destino) {
+                    $comercialNombre = $cliente->user->name . ' ' . $cliente->user->last_name;
+                } else {
+                    $comercialNombre = $cliente->destino->name . ' ' . $cliente->destino->last_name;
+                }
 
-            $nombreComercial = ($cliente->externo) ? $comercialNombre . " " . $cliente->externo : $comercialNombre;
-            $nombreComercial = ($cliente->compartido) ? $nombreComercial . ' / ' . $cliente->compartido->name . ' ' . $cliente->compartido->last_name : $nombreComercial;
+                $nombreComercial = ($cliente->externo) ? $comercialNombre . " " . $cliente->externo : $comercialNombre;
+                $nombreComercial = ($cliente->compartido) ? $nombreComercial . ' / ' . $cliente->compartido->name . ' ' . $cliente->compartido->last_name : $nombreComercial;
+            }
 
             $inicioCiclo = ($cliente->inicio_ciclo) ? date('d/m/Y', strtotime($cliente->inicio_ciclo)) : '';
 
@@ -345,7 +360,7 @@ class ClienteController extends Controller
         $tipoClientes = TipoCliente::where(['activo' => 1])->get();
         $hoy = Carbon::now();
 
-        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => route('cliente.index')], ['nombre' => 'Nuevo Cliente', 'ruta' => null]]);
+        auth()->user()->breadcrumbs = collect([['nombre' => 'Clientes', 'ruta' => null], ['nombre' => 'Nuevo Cliente', 'ruta' => null]]);
 
 
         return view('pages.cliente.create', compact('holdings', 'usuarios', 'tipoClientes', 'hoy'));
@@ -676,5 +691,54 @@ class ClienteController extends Controller
         $cliente->save();
 
         return redirect()->route('cliente.vigencia')->with(['status' => 'Fecha de Inicio de Relación modificada satisfactoriamente', 'title' => 'Éxito']);
+    }
+
+    public function acciones(Request $request)
+    {
+        $user = auth()->user();
+
+        $comerciales = User::whereIn('rol_id', [1, 2])->get();
+
+        $user->breadcrumbs = collect([['nombre' => 'Cliente', 'ruta' => null], ['nombre' => 'Acciones Masivas', 'ruta' => null]]);
+
+
+        return view('pages.cliente.acciones', compact('comerciales'));
+    }
+
+    public function discardAll(Request $request)
+    {
+
+        foreach ($request->get('clientes') as $clienteId) {
+
+            $cliente = Cliente::find($clienteId);
+
+            $cliente->tipo_cliente_id = 1;
+            $cliente->user_id = $cliente->destino_user_id;
+            $cliente->destino_user_id = null;
+            $cliente->inicio_ciclo = Carbon::now();
+            $cliente->save();
+        }
+
+        $datos = array('success' => 'ok', 'msg' => 'Clientes desechados satisfactoriamente', 'title' => 'Éxito');
+
+        return response()->json($datos, 200);
+    }
+
+    public function asignAll(Request $request)
+    {
+
+        foreach ($request->get('clientes') as $clienteId) {
+
+            $cliente = Cliente::find($clienteId);
+
+            $cliente->destino_user_id = $request->get('comercialDestino');
+            $cliente->inicio_ciclo = Carbon::now();
+
+            $cliente->save();
+        }
+
+        $datos = array('success' => 'ok', 'msg' => 'Clientes asignados satisfactoriamente', 'title' => 'Éxito');
+
+        return response()->json($datos, 200);
     }
 }
