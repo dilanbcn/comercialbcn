@@ -146,9 +146,7 @@ $(function() {
 
                     if (admin || rolId == 6) {
 
-                        if (admin) {
-                            celda += '<button title="Editar" class="btn btn-xs btn-outline-secondary" data-cliente="' + row[12] + '" data-accion="btnEdi"><i class="fa fa-edit"></i></button>';
-                        }
+                        celda += '<button title="Editar" class="btn btn-xs btn-outline-secondary" data-cliente="' + row[12] + '" data-accion="btnEdi"><i class="fa fa-edit"></i></button>';
 
                         celda += '<select class="form-control inptStatus" name="status" data-cliente="' + row[10] + '">';
                         $.each(row[9], function(key, status) {

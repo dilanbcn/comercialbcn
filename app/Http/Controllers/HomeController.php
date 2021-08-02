@@ -8,7 +8,6 @@ use App\Models\TipoCliente;
 use App\Models\TipoComunicacion;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -51,6 +50,7 @@ class HomeController extends Controller
 
     public function indexComercial()
     {
+
         $usuarios = User::where(['activo' => 1])->whereIn('rol_id', [1, 2])->get();
         $user = auth()->user();
         
@@ -78,7 +78,7 @@ class HomeController extends Controller
                 $now = Carbon::now();
                 $item->meses = $inicio->diffInMonths($now);
             }else {
-                $item->meses = '';
+                $item->meses = '0';
             }
 
             return $item;
