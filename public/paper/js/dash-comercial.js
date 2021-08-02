@@ -1,5 +1,25 @@
 $(function() {
 
+    $('.tablaDashComercial thead tr').clone(true).appendTo('.tablaDashComercial thead');
+    $('.tablaDashComercial thead tr:eq(1) th').each(function(i) {
+        var title = $(this).text();
+
+        if (title != '% Distribución') {
+            $(this).html('<input type="text" placeholder="Filtrar ' + title + '" />');
+
+            $('input', this).on('keyup change', function() {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        } else {
+            $(this).html('');
+        }
+    });
+
     let nuevo = document.querySelectorAll('.pieChart');
     nuevo.forEach(element => {
         let ctxP = element.getContext('2d');

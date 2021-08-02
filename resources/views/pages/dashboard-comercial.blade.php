@@ -2,6 +2,11 @@
 'class' => '',
 'elementActive' => 'dashboard'
 ])
+<style>
+    canvas{
+    margin: 0 auto;
+    }
+</style>
 @section('content')
 <div class="content">
     <div class="row">
@@ -91,12 +96,12 @@
                 </div>
                 <div class="card-body">
                     <div class="table">
-                        <table class="table table-striped tablaComercialesIndex">
+                        <table class="table table-striped tablaDashComercial">
                             <thead class="text-primary text-center">
                                 <th>Prospectos</th>
                                 <th>Clientes</th>
                                 <th>Comercial</th>
-                                <th>% Distribuido</th>
+                                <th>% Distribución</th>
                                 <th>Meses</th>
                             </thead>
                             <tbody>
@@ -105,8 +110,8 @@
                                     <td>{{ $usuario->prospectos }}</td>
                                     <td>{{ $usuario->clientes }}</td>
                                     <td class="text-left">{{ $usuario->name . ' ' . $usuario->last_name }}</td>
-                                    <td>
-                                        <canvas class="pieChart" data-client="{{ $usuario->clientes }}" data-prosp="{{ $usuario->prospectos }}" data-act="{{ $usuario->activos }}" data-inact="{{ ($usuario->total_general - $usuario->activos) }}" style="max-width: 150px;">5</canvas>
+                                    <td  class="text-center">
+                                        <canvas class="pieChart" data-client="{{ $usuario->clientes }}" data-prosp="{{ $usuario->prospectos }}" data-act="{{ $usuario->activos }}" data-inact="{{ ($usuario->total_general - $usuario->activos) }}" style="max-width: 150px;"></canvas>
                                     </td>
                                     <td>{{ $usuario->meses }}
                                     </td>
