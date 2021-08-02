@@ -93,18 +93,20 @@
                     <div class="table">
                         <table class="table table-striped tablaComercialesIndex">
                             <thead class="text-primary text-center">
+                                <th>Prospectos</th>
                                 <th>Clientes</th>
                                 <th>Comercial</th>
-                                <th>% Activos</th>
+                                <th>% Distribuido</th>
                                 <th>Meses</th>
                             </thead>
                             <tbody>
                                 @foreach($users as $key => $usuario)
                                 <tr class="text-center">
-                                    <td>{{ $usuario->total_general }}</td>
+                                    <td>{{ $usuario->prospectos }}</td>
+                                    <td>{{ $usuario->clientes }}</td>
                                     <td class="text-left">{{ $usuario->name . ' ' . $usuario->last_name }}</td>
                                     <td>
-                                        <canvas class="pieChart" data-act="{{ $usuario->activos }}" data-inact="{{ ($usuario->total_general - $usuario->activos) }}" style="max-width: 150px;">5</canvas>
+                                        <canvas class="pieChart" data-client="{{ $usuario->clientes }}" data-prosp="{{ $usuario->prospectos }}" data-act="{{ $usuario->activos }}" data-inact="{{ ($usuario->total_general - $usuario->activos) }}" style="max-width: 150px;">5</canvas>
                                     </td>
                                     <td>{{ $usuario->meses }}
                                     </td>
