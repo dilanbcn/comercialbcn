@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -86,6 +87,11 @@ class User extends Authenticatable
     	return $this->hasMany(Notificacion::class);
     }
 
+    public function perfil()
+    {
+    	return $this->hasOne(Perfil::class);
+    }
+
     public static function createPass($long = 8)
     {
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
@@ -95,5 +101,19 @@ class User extends Authenticatable
         }
 
         return $password;
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('withPerfil', function (Builder $builder) {
+            $builder->with(['perfil']);
+        });
     }
 }
