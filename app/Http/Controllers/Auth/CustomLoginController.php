@@ -34,7 +34,8 @@ class CustomLoginController extends Controller
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             Auth::user();
             $user = auth()->user();
-            $ruta = ($user->rol_id == 4 || $user->rol_id == 5) ? 'home.prospector' : 'home.comercial';
+            // $ruta = ($user->rol_id == 4 || $user->rol_id == 5) ? 'home.prospector' : 'home.comercial';
+            $ruta = 'home.comercial';
             return redirect()->route($ruta);
         }
 
