@@ -48,6 +48,21 @@
                 <li class="nav-item {{ $elementActive == 'cerrados' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('cliente.cerrados') }}">{{ __('Cerrados') }}</a>
                 </li>
+                <li class="nav-item {{ $elementActive == 'cotizador' ? 'active' : '' }}">
+                    
+                </li>
+                <li class="nav-item btn-rotate dropdown {{ ($elementActive == 'cotizador' || $elementActive == 'cotizador_admin') ? 'active' : '' }}">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Cotizador
+                        <p>
+                            <span class="d-lg-none d-md-block">{{ __('Cotizador') }}</span>
+                        </p>
+                    </a>
+                    <div class="dropdown-menu dropdown-navbar dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item {{ ($elementActive == 'cotizador_admin') ? 'menu-activo' : '' }}" href="{{ route('cotizador.admin') }}">{{ __('Administrador') }}</a>
+                        <a class="dropdown-item {{ ($elementActive == 'cotizador') ? 'menu-activo' : '' }}" href="{{ route('cotizador.index') }}">{{ __('Vista Comerciales') }}</a>
+                    </div>
+                </li>
                 @else
                 @if (auth()->user()->perfil)
                 @if (in_array("clientes", json_decode(auth()->user()->perfil->menu_id)))

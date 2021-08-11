@@ -1,0 +1,13 @@
+[{
+        "nombre": "Rango",
+        "descripcion": "Tipo Venta por Rango"
+    },
+    {
+        "nombre": "Precios",
+        "descripcion": "Tipo Venta por Precio"
+    },
+    {
+        "nombre": "Precios Rango",
+        "descripcion": "Tipo Venta por Rango de Precios"
+    }
+]

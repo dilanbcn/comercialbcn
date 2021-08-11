@@ -111,6 +111,17 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 
 	Route::get('reportes/{tipo}', 'App\Http\Controllers\ClienteController@reportes')->name('cliente.reportes');
+
+	Route::get('cotizador-admin', 'App\Http\Controllers\CotizadorController@indexAdmin')->name('cotizador.admin');
+	Route::get('cotizador', 'App\Http\Controllers\CotizadorController@index')->name('cotizador.index');
+	Route::get('cotizador/all', 'App\Http\Controllers\CotizadorController@allAdmin')->name('cotizador.all');
+	Route::get('cotizador/edit/{venta}', 'App\Http\Controllers\CotizadorController@edit')->name('cotizador.edit');
+	Route::get('cotizador/detalle/edit/{detalleVenta}', 'App\Http\Controllers\CotizadorController@detalleEdit')->name('cotizador.detalle.edit');
+	Route::put('cotizador/detalle/{detalleVenta}', 'App\Http\Controllers\CotizadorController@detalleUpdate')->name('cotizador.update.detalle');
+	Route::put('cotizador/{venta}', 'App\Http\Controllers\CotizadorController@update')->name('cotizador.update');
+
+	Route::post('cotizador/generar', 'App\Http\Controllers\CotizadorController@generar')->name('cotizador.generar');
+
 });
 
 Route::post('custom-login', 'App\Http\Controllers\Auth\CustomLoginController@login')->name('custom-login')->middleware('guest');

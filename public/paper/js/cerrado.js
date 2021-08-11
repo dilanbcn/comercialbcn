@@ -287,7 +287,6 @@ $(function() {
 function complete() {
     $(".inptStatus").on('change', function() {
         let valStatus = $(this).val();
-        console.log('file: cerrado.js -> line 119 -> $ -> valStatus', valStatus);
         let cliente = $(this).data('cliente');
         let strRuta = $("#tablaCerrados").data('rutastatus');
 
