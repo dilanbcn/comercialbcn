@@ -85,6 +85,11 @@
                     <a class="nav-link" href="{{ route('cliente.cerrados') }}">{{ __('Cerrados') }}</a>
                 </li>
                 @endif
+                @if (in_array("cotizador", json_decode(auth()->user()->perfil->menu_id)))
+                <li class="nav-item {{ $elementActive == 'cotizador' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('cotizador.index') }}">{{ __('Cotizador') }}</a>
+                </li>
+                @endif
                 @endif
                 @endif
             </ul>
