@@ -28,12 +28,34 @@ $(function() {
         language: {
             url: "/paper/js/spanish.json"
         },
-        dom: '<lif<t>p>',
+        dom: "<'row mb-3' <'col-sm-6'l><'col-sm-6 text-right'B>>" +
+            "<'row mb-3'<'col-sm-9'i><'col-sm-3'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 mt-3'p>}>",
         pageLength: -1,
         lengthMenu: [
             [100, 200, -1],
             [100, 200, "Todos"]
         ],
+        buttons: [{
+            extend: 'collection',
+            text: 'Exportar',
+            className: 'btn-sm btn-round dropdown-toggle',
+            disable: true,
+            buttons: [{
+                extend: 'excelHtml5',
+                orientation: 'landscape',
+                pageSize: 'letter',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                },
+                autoFilter: true,
+                sheetName: 'Clientes Vigencia',
+                title: 'Clientes Vigencia',
+                className: 'dropdown-item',
+                text: '<i class="fas fa-file-excel"></i> Excel'
+            }]
+        }],
         orderCellsTop: true,
         fixedHeader: true,
         processing: true,
