@@ -56,7 +56,17 @@ $(function() {
                         format: {
                             body: function(data, row, column, node) {
 
-                                return (column == 3) ? data.split('.').join('') : data;
+                                if (column == 0 || column == 1) {
+                                    let arrData = data.split('/');
+                                    let strFecha = arrData[2] + '-' + arrData[1] + '-' + arrData[0];
+                                    return strFecha
+                                }
+
+                                if (column == 3) {
+                                    return data.split('.').join('');
+                                }
+
+                                return data;
                             }
                         },
                         columns: [1, 2, 3, 4, 5, 6, 7, 8]
