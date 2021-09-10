@@ -156,7 +156,12 @@ class ClienteController extends Controller
         $arrProspectos = array();
         foreach ($prospectos as $prospecto) {
 
-            $nomOrigen = ($prospecto->externo) ? $prospecto->user->name . ' ' . $prospecto->user->last_name . " " . $prospecto->externo : $prospecto->user->name . ' ' . $prospecto->user->last_name;
+            if ($prospecto->user) {
+                $nomOrigen = ($prospecto->externo) ? $prospecto->user->name . ' ' . $prospecto->user->last_name . " " . $prospecto->externo : $prospecto->user->name . ' ' . $prospecto->user->last_name;
+            } else {
+                $nomOrigen = '';
+            }
+            
             $nomOrigen = ($prospecto->compartido) ? $nomOrigen . ' / ' . $prospecto->compartido->name . ' ' . $prospecto->compartido->last_name : $nomOrigen;
 
             $nomDestino = '';
